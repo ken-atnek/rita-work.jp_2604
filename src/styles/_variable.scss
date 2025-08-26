@@ -1,0 +1,110 @@
+/* =================================
+ * 	ウィンドウ・フォントサイズ設定
+ * ------------------------------ */
+// MAX-WIDTH宣言
+$M-width: 1024;
+$PcMaxWidth: calc($M-width * 1px);
+
+// フォントサイズ(mx1000)
+$max-font: 16;
+$min-font: 12;
+$sp-width: 375;
+
+// 可変フォントサイズ計算
+$tilt: calc(($max-font - $min-font) / ($M-width - $sp-width));
+$slice: calc($min-font - ($tilt * $sp-width));
+$base-vw: calc($tilt * 100);
+
+// 指定フォント関数
+@function FZ($size) {
+    @if $size <= $min-font {
+        @return $min-font * 1px;
+    } @else {
+        @return max(12px, ($size / $max-font) * 1em);
+    }
+}
+
+$articleMaxWidth: 117rem;
+
+/* =================================
+ * フォント設定
+ * ------------------------------ */
+
+/* フォント設定 */
+@mixin SunSerif {
+    font-family:
+        "Noto Sans JP", "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+@mixin Serif {
+    font-family:
+        "Zen Old Mincho", "游明朝体", "Yu Mincho", YuMincho, "ヒラギノ明朝Pro",
+        "Hiragino Mincho Pro", "MS P明朝", "MS PMincho", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* =================================
+ * カラー変数
+ * ------------------------------ */
+
+$base-white: #fff;
+$base-black: #615757;
+$font-black: #352c2c;
+$base-pink: #f0bacc;
+
+/* =================================
+ * レスポンシブ設定
+ * ------------------------------ */
+$tbw: 1194px;
+$tb: 834px;
+$spw: 928px;
+$sp: 480px;
+
+// PCサイズのみ
+@mixin pc {
+    @media (min-width: ($sp)) {
+        @content;
+    }
+}
+
+// タブレットサイズ横1b1b51
+@mixin tbw {
+    @media (max-width: ($tbw)) and (orientation: landscape) {
+        @content;
+    }
+}
+
+// タブレットサイズ縦
+@mixin tb {
+    @media (max-width: ($tb)) and (orientation: portrait) {
+        @content;
+    }
+}
+
+// スマホサイズ横
+@mixin spw {
+    @media (max-width: ($spw)) and (orientation: landscape) {
+        @content;
+    }
+}
+
+// スマホサイズ縦
+@mixin sp {
+    @media (max-width: ($sp)) and (orientation: portrait) {
+        @content;
+    }
+}
+
+/* =================================
+ * ホバー処理
+ * ------------------------------ */
+@mixin hover {
+    @media (hover: hover) {
+        &:where(:any-link, :enabled, summary):hover {
+            @content;
+        }
+    }
+}
