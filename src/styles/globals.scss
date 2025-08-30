@@ -1,8 +1,8 @@
-@use "./reset_v2.5" as *;
-@use "./variable" as *;
+@use "reset_v2.5" as *;
+@use "variable" as *;
 
 body {
-    @include Serif;
+    @include SunSerif;
     font-feature-settings: "palt";
     font-size: clamp(1.2rem, calc($base-vw * 1vw) + calc($slice * 1px), 1.6rem);
     margin: 0;
@@ -13,7 +13,9 @@ body {
     min-height: 100vh;
     justify-content: space-between;
     width: 100%;
-    color: $font-black;
+    color: $main-black;
+    background-color: $base-white;
+
     @include tbw {
         overflow-x: clip;
     }

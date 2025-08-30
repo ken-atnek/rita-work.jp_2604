@@ -7,17 +7,22 @@
 
 import type { Metadata } from 'next';
 import '@/styles/globals.scss';
-import { Zen_Old_Mincho } from 'next/font/google';
+import { Noto_Sans_JP, Roboto } from 'next/font/google';
 import SvgDefs from '@/components/SvgDefs';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
-const zenOldMincho = Zen_Old_Mincho({
+import { isRealProduction } from '@/lib/env';
+
+const notoSans = Noto_Sans_JP({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['100', '300', '400', '500', '700', '900'],
   display: 'swap',
 });
-// 実際の本番環境かどうかを判定
-const isRealProduction = process.env.NEXT_PUBLIC_IS_REAL_PROD === 'true';
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '500', '700', '900'],
+  display: 'swap',
+});
 
 // 本番のみ metadataBase を設定
 const metadataBase = isRealProduction
@@ -40,8 +45,6 @@ export const metadata: Metadata = {
       ],
     },
   }),
-  title: 'リタワーク',
-  description: isRealProduction ? 'リタワークディスクリプション' : undefined,
   robots: isRealProduction ? 'index, follow' : 'noindex, nofollow',
   icons: {
     icon: [
@@ -67,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${zenOldMincho.className} `}>
+    <html lang="ja" className={`${notoSans.className} ${roboto.className}`}>
       <head>
         <meta
           name="format-detection"

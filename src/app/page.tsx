@@ -6,11 +6,14 @@
  * ======================================= */
 
 import type { Metadata } from 'next';
+import { isRealProduction } from '@/lib/env';
 
 export const generateMetadata = (): Metadata => {
   return {
     title: 'リタワーク',
-    description: 'TOP',
+    description: isRealProduction
+      ? 'リタワークのディスクリプション'
+      : undefined,
   };
 };
 export default function Home() {
