@@ -5,7 +5,6 @@
  * Last updated: 2025-07-11
  * ======================================= */
 'use client';
-import { navMenu } from '@/data/navMenuData';
 import styles from '@/styles/components/common/Header.module.scss';
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
@@ -78,6 +77,7 @@ const Header = () => {
     <header
       className={`${styles.containerHeader} ${isFixed ? styles['is-fixed'] : ''}`}
       ref={headerRef}
+      id="Header"
     >
       <button
         type="button"
@@ -92,6 +92,20 @@ const Header = () => {
         <span></span>
         <span></span>
       </button>
+      <article>
+        <Link href="/" className={styles.itemLogo}>
+          <svg aria-label="リタワークkロゴ">
+            <use href="#svg_logoMark" />
+          </svg>
+        </Link>
+        <nav>
+          <Link href="#">求人検索</Link>
+          <Link href="#">お気に入り・閲覧検索</Link>
+        </nav>
+        <Link href="" className={styles.linkMyPage}>
+          <span> マイページ</span>
+        </Link>
+      </article>
     </header>
   );
 };

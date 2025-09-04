@@ -33,7 +33,7 @@ $articleMaxWidth: 1158px;
 /* フォント設定 */
 @mixin SunSerif {
     font-family:
-        "Roboto", "Noto Sans JP", "Helvetica Neue", Arial,
+        Roboto, "Noto Sans JP", "Helvetica Neue", Arial,
         "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo,
         sans-serif;
     font-weight: 400;
@@ -52,8 +52,21 @@ $articleMaxWidth: 1158px;
  * ------------------------------ */
 
 $base-white: #fffbf4;
+$bg-white: #fef4e5;
 $main-black: #574232;
+$font-black: #726b62;
 $main-orange: #f29400;
+$sub-orange: #ffcd39;
+$color-orange: "f29400";
+
+/* =================================
+ *  サイズ変数
+ * ------------------------------ */
+$radius8: 0.5em;
+$radius10: 0.625em;
+$radius14: 0.875em;
+$radius24: 1.5em;
+$radius80: 5em;
 
 /* =================================
  * レスポンシブ設定

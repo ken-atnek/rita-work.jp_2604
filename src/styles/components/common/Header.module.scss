@@ -1,21 +1,66 @@
-@use "variable" as *;
-@use "svg" as *;
+/* =================================
+ * 	リタワーク HEADER
+ * ------------------------------ */
+@use "../../variable" as *;
+@use "../../svg" as *;
+@use "../../mixin" as *;
 /* stylelint-disable no-descending-specificity */
 /* stylelint-disable keyframes-name-pattern */
 /* stylelint-disable custom-property-pattern */
 // このファイル全体のルールを無効にする
 .containerHeader {
-    position: relative;
-    display: flex;
-    padding-inline: 2em;
-    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include flex-center;
+    padding: 1em 4vw 0;
     z-index: 5;
     transition: 0.5s ease-out;
-    background-color: #fff;
-    padding-bottom: 2em;
-    padding-top: 2em;
     @include sp {
         padding: 6vw 0 0 4vw;
+    }
+    article {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 0 2em;
+        .itemLogo {
+            position: relative;
+            font-size: inherit;
+            width: 3.625em;
+            svg {
+                fill: #fff;
+                aspect-ratio: 59/56;
+            }
+        }
+        nav {
+            position: relative;
+            font-size: inherit;
+            height: 2em;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            gap: 0 2em;
+            a {
+                font-size: FZ(14);
+                color: #fff;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+            }
+        }
+        .linkMyPage {
+            border: 1px solid #fff;
+            font-size: inherit;
+            padding: 0 1.8em;
+            border-radius: $radius10;
+            height: 2em;
+            @include flex-center;
+            span {
+                font-size: FZ(12);
+                color: #fff;
+                font-weight: 600;
+            }
+        }
     }
 
     // &.is-fixed {
