@@ -9,6 +9,7 @@
 /* stylelint-disable custom-property-pattern */
 // このファイル全体のルールを無効にする
 .btnLink {
+    position: relative;
     background-color: $main-orange;
     color: $base-white;
     align-self: center;
@@ -17,7 +18,16 @@
     font-size: inherit;
     @include flex-center;
     border-radius: $radius14;
+    border-top-left-radius: unset;
     @include box-shadow;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 100%;
+        width: 5px;
+        @include svg-object-radius("f29400");
+    }
     span {
         font-size: FZ(16);
         font-weight: 700;
@@ -68,8 +78,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            border-bottom-left-radius: $radius80;
-            border-bottom-right-radius: $radius80;
+            @include bottom-radius($radius80);
             background: url("../assets/images/bg.webp") repeat center
                 center/contain;
             mix-blend-mode: color-dodge;
@@ -85,16 +94,14 @@
 
             // border-bottom-left-radius: calc($radius80 - 1rem);
             // border-bottom-right-radius: calc($radius80 - 1rem);
-            border-bottom-left-radius: $radius80;
-            border-bottom-right-radius: $radius80;
+            @include bottom-radius($radius80);
         }
         img {
             font-size: inherit;
             position: relative;
             width: 100%;
             height: 100%;
-            border-bottom-left-radius: $radius80;
-            border-bottom-right-radius: $radius80;
+            @include bottom-radius($radius80);
             max-height: 798px;
             object-fit: cover;
         }
@@ -146,10 +153,9 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
-            gap: 0 0.5em;
+            gap: 0 0.8em;
             padding: 0.8em var(--padding-inline);
-            border-top-right-radius: $radius24;
-            border-top-left-radius: $radius24;
+            @include top-radius($radius24);
             .wrapTitle {
                 position: relative;
                 font-size: inherit;
@@ -259,6 +265,7 @@
                 }
             }
             .btnSearch {
+                position: relative;
                 font-size: inherit;
                 @include flex-center;
                 background-color: $main-orange;
@@ -266,7 +273,16 @@
                 width: 5.875em;
                 aspect-ratio: 1;
                 border-radius: $radius14;
+                border-top-left-radius: unset;
                 @include box-shadow;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: 100%;
+                    width: 5px;
+                    @include svg-object-radius("f29400");
+                }
                 span {
                     font-size: FZ(14);
                     font-weight: 700;
@@ -276,6 +292,7 @@
                 font-size: inherit;
                 @include flex-center;
                 width: 4em;
+                min-width: 6rem;
                 background-color: #fff;
                 height: 3.5em;
                 @include box-shadow;
@@ -285,6 +302,8 @@
                     font-size: FZ(12);
                     font-weight: 500;
                     color: $font-black;
+                    display: inline-block;
+                    width: max-content;
                 }
             }
         }
@@ -298,8 +317,7 @@
             align-items: center;
             gap: 0 1.4em;
             padding: 0.8em var(--padding-inline);
-            border-bottom-right-radius: $radius24;
-            border-bottom-left-radius: $radius24;
+            @include bottom-radius($radius24);
             .itemInput {
                 position: relative;
                 flex: 1;
@@ -366,8 +384,7 @@
         left: 0;
         width: 100%;
         height: 5em;
-        border-bottom-left-radius: $radius80;
-        border-bottom-right-radius: $radius80;
+        @include bottom-radius($radius80);
         background-color: $bg-white;
         font-size: inherit;
     }
@@ -382,6 +399,75 @@
                 @include svg-object-fire($color-orange);
             }
         }
+        .listPickUp {
+            position: relative;
+            font-size: inherit;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            margin-top: 2em;
+            gap: 1em;
+            .boxShop {
+                position: relative;
+                font-size: inherit;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                @include box-shadow();
+                border-radius: $radius14;
+                .iconNew {
+                    position: absolute;
+                    top: -0.5em;
+                    left: -0.5em;
+                    font-size: inherit;
+                    width: 45px;
+                    height: 40px;
+                    @include flex-center;
+                    background-color: #d0442e;
+                    color: #fff;
+                    font-size: FZ(12);
+                    border-radius: 54px;
+                }
+                a {
+                    display: block;
+                    font-size: inherit;
+                    width: 100%;
+                    img {
+                        width: 100%;
+                        aspect-ratio: 218/130;
+                        object-fit: cover;
+                        font-size: inherit;
+                        @include top-radius();
+                    }
+                }
+                .typeList {
+                    background-color: $sub-orange;
+                    font-size: inherit;
+                    display: flex;
+                    justify-content: center;
+                    @include bottom-radius();
+                    li {
+                        padding-block: 0.9em;
+                        font-size: FZ(12);
+                        color: $font-black;
+                        position: relative;
+                        padding-inline: 0.6em;
+                        &:not(:first-of-type) {
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                left: 0;
+                                top: 50%;
+                                translate: 0 -50%;
+                                width: 1px;
+                                height: 1em;
+                                background-color: #d6d6d6;
+                                mix-blend-mode: multiply;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -391,7 +477,7 @@
 .containerConditions {
     @include flex-center;
     background-color: $base-white;
-    padding: 8em 4vw 0;
+    padding: 9em 4vw 0;
     article {
         display: flex;
         flex-direction: column;
@@ -436,6 +522,7 @@
                 align-items: flex-end;
                 justify-content: center;
                 border-radius: $radius14;
+                @include box-shadow;
                 .label {
                     width: 100%;
                     @include flex-center;
@@ -464,8 +551,7 @@
         left: 0;
         width: 100%;
         height: 5em;
-        border-bottom-left-radius: $radius80;
-        border-bottom-right-radius: $radius80;
+        @include bottom-radius($radius80);
         background-color: $base-white;
         font-size: inherit;
     }
@@ -564,7 +650,7 @@
                 position: absolute;
                 top: 0;
                 right: 100%;
-                width: 2.25em;
+                width: 1.625em;
                 @include svg-object-radius("fff");
             }
             h2 {

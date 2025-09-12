@@ -15,29 +15,22 @@ const Header = () => {
   const closeMenu = () => setIsOpen(false);
 
   useEffect(() => {
-    if (isOpen) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflowY = 'scroll';
-      document.body.dataset.scrollY = scrollY.toString();
-    } else {
-      const scrollY = document.body.dataset.scrollY || '0';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflowY = '';
-      window.scrollTo(0, parseInt(scrollY));
-    }
+    // DOM描画後に確実にoffsetTopを取得する
+    requestAnimationFrame(() => {
+      headerOffsetRef.current = headerRef.current?.offsetTop ?? 0;
 
-    return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflowY = '';
-    };
-  }, [isOpen]);
+      const handleScroll = () => {
+        const y = window.scrollY;
+        setIsFixed(y >= headerOffsetRef.current + 400);
+      };
+
+      window.addEventListener('scroll', handleScroll);
+      handleScroll();
+
+      // クリーンアップ
+      return () => window.removeEventListener('scroll', handleScroll);
+    });
+  }, []);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {

@@ -66,7 +66,17 @@ $radius8: 0.5em;
 $radius10: 0.625em;
 $radius14: 0.875em;
 $radius24: 1.5em;
+$radius40: 2.5em;
 $radius80: 5em;
+
+@mixin top-radius($radius: $radius14) {
+    border-top-left-radius: $radius;
+    border-top-right-radius: $radius;
+}
+@mixin bottom-radius($radius: $radius14) {
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+}
 
 /* =================================
  * レスポンシブ設定

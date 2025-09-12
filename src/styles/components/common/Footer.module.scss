@@ -17,8 +17,7 @@
         content: "";
         position: absolute;
         inset: 0;
-        border-top-left-radius: $radius80;
-        border-top-right-radius: $radius80;
+        @include top-radius($radius80);
     }
     &::before {
         background-color: $main-orange;
