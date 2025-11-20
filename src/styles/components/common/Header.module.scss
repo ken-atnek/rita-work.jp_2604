@@ -9,14 +9,13 @@
 /* stylelint-disable custom-property-pattern */
 // このファイル全体のルールを無効にする
 .containerHeader {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 5em;
     @include flex-center;
     z-index: 5;
-    background-color: $main-orange;
     transition: 0.3s ease-out;
     padding-inline: 3vw;
     @include bottom-radius($radius40);
@@ -67,15 +66,10 @@
         }
     }
 
-    // &.is-fixed {
-    //     position: fixed;
-    //     top: 0;
-    //     left: 0;
-    //     width: 100%;
-    //     z-index: 100;
-    //     background-color: rgba($main-orange, 0.9);
-    //     padding-bottom: 1em;
-    // }
+    &.is-fixed {
+        position: fixed;
+        background-color: $main-orange;
+    }
 }
 .hamburgerButton {
     position: fixed;
