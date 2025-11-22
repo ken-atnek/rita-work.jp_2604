@@ -41,21 +41,85 @@
       "value": 100
     }
   ],
-
-  "workDescription": [
-    "● ○○エリアを中心とした訪問リハビリのお仕事です。",
-    "● チームで連携しながら患者さんと向き合えます。"
-  ],
-
-  "dailySchedule": {
-    "morning": [
-      { "time": "9:00", "text": "出勤・カンファレンス" },
-      { "time": "10:00", "text": "訪問リハビリ" }
-    ],
-    "afternoon": [{ "time": "13:00", "text": "リハビリ実施" }]
+  "interview": {
+    "enabled": true,
+    "path": "/db/facilities/fac_0001/jobs/job_0001_interview.json"
   },
-
-  "holiday": "週休2日・年間休日110日",
-
+  "freeText": {
+    "enabled": true,
+    "path": "/db/facilities/fac_0001/jobs/job_0001_freespace.json"
+  },
+  "dailySchedule": {
+    "dayShift": [
+      {
+        "time": "08:30",
+        "body": ["出勤、食事介助・嚥下訓練・口腔ケア"]
+      },
+      {
+        "time": "09:00",
+        "body": [
+          "朝礼",
+          "オムツ交換",
+          "体位交換",
+          "トイレ誘導（移乗・感覚訓練）"
+        ]
+      },
+      {
+        "time": "12:00",
+        "body": ["食事介助・嚥下訓練"]
+      },
+      {
+        "time": "13:00",
+        "body": ["休憩（1時間）"]
+      },
+      {
+        "time": "14:00",
+        "body": ["オムツ交換・体位交換・トイレ誘導（移乗・感覚訓練）"]
+      },
+      {
+        "time": "17:00",
+        "body": ["食事介助・嚥下訓練・口腔ケア"]
+      },
+      {
+        "time": "17:30",
+        "body": ["業務終了"]
+      }
+    ],
+    "nightShift": [
+      {
+        "time": "17:00",
+        "body": ["出勤、食事介助・嚥下訓練・口腔ケア"]
+      },
+      {
+        "time": "20:00",
+        "body": ["眠前薬・内服チェック"]
+      },
+      {
+        "time": "21:00",
+        "body": ["オムツ交換・体位交換・トイレ誘導（移乗・感覚訓練）"]
+      },
+      {
+        "time": "22:00",
+        "body": [
+          "消灯・安否確認（2時間おき）",
+          "休憩（2時間）・安否確認",
+          "カルテの入力",
+          "明日のスケジュール確認"
+        ]
+      },
+      {
+        "time": "06:00",
+        "body": ["起床・安否確認・更衣介助"]
+      },
+      {
+        "time": "09:30",
+        "body": ["業務終了"]
+      }
+    ]
+  },
+  "premium": {
+    "enabled": true,
+    "path": "/db/facilities/fac_0001/jobs/job_0001_premium.json"
+  },
   "contractPlanId": "light"
 }
