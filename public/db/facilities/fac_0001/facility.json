@@ -1,0 +1,18 @@
+{
+  "id": "fac_0001",
+  "corporationId": "corp_0001",
+  "name": "メディケア華レ訪問看護ステーション花園",
+  "nameKana": "めでぃけあはなれほうもんかんごすてーしょんはなぞの",
+  "postalCode": "862-0000",
+  "prefecture": "熊本県",
+  "city": "熊本市東区",
+  "addressLine": "花園1-2-3 サンプルビル2F",
+  "phone": "096-000-0000",
+  "email": "aaa@ddek6.co.jp",
+  "contactPerson": "山田 太郎",
+  "specialBanner": {
+    "enabled": true,
+    "logoImagePath": "/db/images/facilities/fac_0001/logo.png",
+    "introVideoUrl": "https://www.youtube.com/watch?v=XXXXXXXXXXX"
+  }
+}

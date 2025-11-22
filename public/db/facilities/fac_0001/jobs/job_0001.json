@@ -1,0 +1,61 @@
+{
+  "id": "job_0001",
+  "facilityId": "fac_0001",
+  "publishedPeriod": {
+    "start": "2025-01-01",
+    "end": "2025-12-31"
+  },
+  "jobCategoryId": "pt",
+  "employmentTypeId": "fulltime",
+
+  "title": "機能回復を支える理学療法士",
+  "heroImages": [
+    "/db/images/facilities/fac_0001/hero01.png",
+    "/db/images/facilities/fac_0001/hero01.png",
+    "/db/images/facilities/fac_0001/hero01.png"
+  ],
+
+  "firstYearIncomeRangeId": "fy_0002",
+
+  "salary": {
+    "unitId": "monthly",
+    "min": 200000,
+    "max": 300000,
+    "bonus": {
+      "hasBonus": false,
+      "note": ""
+    }
+  },
+
+  "workEnvironmentStats": [
+    {
+      "metricId": "monthly_avg_overtime",
+      "value": 15.3
+    },
+    {
+      "metricId": "annual_avg_paid_leave_days",
+      "value": 38.6
+    },
+    {
+      "metricId": "paid_leave_rate_mf",
+      "value": 100
+    }
+  ],
+
+  "workDescription": [
+    "● ○○エリアを中心とした訪問リハビリのお仕事です。",
+    "● チームで連携しながら患者さんと向き合えます。"
+  ],
+
+  "dailySchedule": {
+    "morning": [
+      { "time": "9:00", "text": "出勤・カンファレンス" },
+      { "time": "10:00", "text": "訪問リハビリ" }
+    ],
+    "afternoon": [{ "time": "13:00", "text": "リハビリ実施" }]
+  },
+
+  "holiday": "週休2日・年間休日110日",
+
+  "contractPlanId": "light"
+}
