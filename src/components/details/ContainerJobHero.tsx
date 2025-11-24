@@ -5,17 +5,100 @@
  * Created: 2025-11-24
  * Last updated: 2025-11-24
  * ======================================= */
-import type { Job } from '@/types/job';
 import styles from './ContainerJobHero.module.scss';
+import type { Job } from '@/types/job';
+import type { Facility } from '@/types/facility';
+import { isNewByPublishedPeriod } from '@/lib/newIcon';
+import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
+import Image from 'next/image';
 
 type ContainerJobHeroProps = {
   job: Job;
+  facility: Facility;
+  newIconPeriodDays: number;
+  employmentTypes: { id: string; name: string }[];
 };
 
-export default function ContainerJobHero({ job }: ContainerJobHeroProps) {
+export default function ContainerJobHero({
+  job,
+  facility,
+  newIconPeriodDays,
+  employmentTypes,
+}: ContainerJobHeroProps) {
+  const isNew = isNewByPublishedPeriod(
+    job.publishedPeriod?.start,
+    newIconPeriodDays
+  );
+  const typeName =
+    employmentTypes.find((t) => t.id === job.employmentTypeId)?.name ?? '';
   return (
-    <section className={styles.ContainerJobHero}>
-      <h2 className="job-hero__title">{job.title}</h2>
+    <section className={styles.containerJobHero}>
+      <article>
+        <div className={styles.boxHeadIcons}>
+          {isNew && <span className={styles.iconNew}>新着</span>}
+          {typeName && (
+            <span className={styles.employmentType}>{typeName}</span>
+          )}
+        </div>
+        <h2>{job.title}</h2>
+        <div className={styles.facilityName}>{facility.name}</div>
+        <div className={styles.boxSlideImage}>
+          <Splide
+            className={styles.innerSlide}
+            hasTrack={false}
+            aria-label={`${facility.name} のイメージ`}
+            options={{
+              type: 'loop',
+              perPage: 1,
+              autoplay: true,
+              interval: 6000,
+              pauseOnHover: true,
+              speed: 1000,
+              arrows: true,
+              pagination: true,
+            }}
+          >
+            <SplideTrack>
+              {job.heroImages.map((src, index) => (
+                <SplideSlide key={`${job.id}-hero-${index}`}>
+                  <Image
+                    src={src}
+                    alt={`${job.title} イメージ ${index + 1}`}
+                    className={styles.heroImage}
+                    width={1158}
+                    height={600}
+                  />
+                </SplideSlide>
+              ))}
+            </SplideTrack>
+
+            <div className="splide__arrows">
+              <button
+                type="button"
+                className="splide__arrow splide__arrow--prev"
+              >
+                <svg>
+                  <use href="#svg_pageTop" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="splide__arrow splide__arrow--next"
+              >
+                <svg>
+                  <use href="#svg_pageTop" />
+                </svg>
+              </button>
+            </div>
+          </Splide>
+
+          {/* ← ここは別コンテンツ用としてそのまま残す */}
+          <div className={styles.wrapButtons}>
+            {/* 応募ボタンとか、あとで入れる用 */}
+          </div>
+        </div>
+      </article>
     </section>
   );
 }

@@ -97,9 +97,12 @@ const Header = () => {
       </button>
       <article>
         <Link href="/" className={styles.itemLogo}>
-          <svg aria-label="リタワークkロゴ">
-            <use href="#svg_logoMark" />
-          </svg>
+          <h1>
+            <svg aria-label="リタワーク">
+              <use href="#svg_logoMark" />
+            </svg>
+            <span>熊本医療＆介護の転職サイト</span>
+          </h1>
         </Link>
         <nav>
           <Link href="#">求人検索</Link>

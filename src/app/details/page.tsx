@@ -14,7 +14,11 @@ type DetailsPageProps = {
 };
 
 export default function DetailsPage({ searchParams }: DetailsPageProps) {
-  const jobId = searchParams?.id ?? '';
+  const rawId = searchParams?.id ?? '';
+
+  // URLが 0001 の場合 → job_0001 に変換
+  // URLが job_0001 の場合 → そのまま
+  const jobId = rawId.startsWith('job_') ? rawId : `job_${rawId}`;
 
   if (!jobId) {
     return (
@@ -27,7 +31,6 @@ export default function DetailsPage({ searchParams }: DetailsPageProps) {
 
   return (
     <main>
-      <h1>求人詳細</h1>
       {/* ここから先はクライアントコンポーネントに任せる */}
       <JobDetailsClient jobId={jobId} />
     </main>

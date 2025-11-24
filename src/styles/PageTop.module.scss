@@ -484,7 +484,6 @@
         flex-direction: column;
         max-width: $articleMaxWidth;
         gap: 2em 0;
-
         h2 {
             padding-left: 2em;
             &::before {
@@ -493,7 +492,6 @@
                 @include svg-object-star($color-orange);
             }
         }
-
         .boxSlideList {
             position: relative;
             --half-size: 9.5%;
