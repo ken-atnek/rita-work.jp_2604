@@ -1,0 +1,12 @@
+/* ===============================================================
+ * 	リタワーク 求人詳細ページ｜Heroビジュアル表示コンポーネント
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+
+.ContainerJobHero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

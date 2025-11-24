@@ -8,6 +8,8 @@
 import styles from '@/styles/components/common/Header.module.scss';
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
@@ -66,9 +68,17 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // ページ判定
+  const pathname = usePathname();
+  const isTop = pathname === '/';
+
   return (
     <header
-      className={`${styles.containerHeader} ${isFixed ? styles['is-fixed'] : ''}`}
+      className={clsx(
+        styles.containerHeader,
+        isFixed && styles['is-fixed'],
+        isTop ? styles['isTop'] : styles['isSub']
+      )}
       ref={headerRef}
       id="Header"
     >

@@ -18,7 +18,6 @@
     z-index: 5;
     transition: 0.3s ease-out;
     padding-inline: 3vw;
-    @include bottom-radius($radius40);
     @include sp {
         padding: 6vw 0 0 4vw;
     }
@@ -69,6 +68,13 @@
     &.is-fixed {
         position: fixed;
         background-color: $main-orange;
+    }
+    &.isTop {
+        @include bottom-radius($radius40);
+    }
+    &.isSub {
+        background-color: $main-orange;
+        position: fixed;
     }
 }
 .hamburgerButton {
