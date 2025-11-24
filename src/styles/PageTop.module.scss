@@ -478,11 +478,13 @@
     @include flex-center;
     background-color: $base-white;
     padding: 9em 4vw 0;
+
     article {
         display: flex;
         flex-direction: column;
         max-width: $articleMaxWidth;
         gap: 2em 0;
+
         h2 {
             padding-left: 2em;
             &::before {
@@ -491,43 +493,97 @@
                 @include svg-object-star($color-orange);
             }
         }
+
         .boxSlideList {
             position: relative;
-
-            // &::before,
-            // &::after {
-            //     content: "";
-            //     position: absolute;
-            //     top: 0;
-            //     width: 5.5em;
-            //     height: 100%;
-            //     background-color: rgba($base-white, 0.7);
-            //     z-index: +2;
-            // }
-            // &::before {
-            //     left: 0;
-            // }
-            // &::after {
-            //     right: 0;
-            // }
-            div {
-                font-size: inherit;
+            --half-size: 9.5%;
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: var(--half-size);
+                background-color: $base-white;
+                z-index: 1;
+                pointer-events: none;
+                opacity: 0.5;
             }
-            button {
+            &::before {
+                left: 0;
+            }
+            &::after {
+                right: 0;
+            }
+            // :global(.splide__track) {
+            //     overflow: visible;
+            // }
+            :global(.splide__list) {
+                translate: calc(var(--half-size) * -1);
+            }
+            // 矢印まわり（機能クラス splide__arrows は TSX 側で付与）
+            .splideArrows {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                translate: -50% -50%;
+                width: calc(100% + 5rem);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                pointer-events: none;
+                font-size: inherit;
+                z-index: 2;
+                // ★ ここで Splide デフォルトを打ち消す
+                :global(.splide__arrow--prev),
+                :global(.splide__arrow--next) {
+                    left: auto;
+                    right: auto;
+                    position: static;
+                    transform: unset;
+                }
+                // ★ 矢印ボタン本体と svg をまとめて上書き
+                :global(.splide__arrow) {
+                    pointer-events: auto;
+                    opacity: 1;
+                    width: 4.5rem;
+                    height: 4.5rem;
+                    @include flex-center;
+                    background-color: transparent;
+                    svg {
+                        width: 4.5rem;
+                        height: 4.5rem;
+                        fill: $main-black;
+                    }
+                }
+                :global(.splide__arrow--prev) {
+                    svg {
+                        rotate: -90deg;
+                    }
+                }
+                :global(.splide__arrow--next) {
+                    svg {
+                        rotate: 90deg;
+                    }
+                }
+            }
+
+            // スライド内の画像(button)
+            .tagButton {
                 width: 100%;
                 aspect-ratio: 211/256;
-                font-size: inherit;
-                padding: 0.8em;
+                padding: 1.4rem;
                 display: flex;
                 align-items: flex-end;
                 justify-content: center;
-                border-radius: $radius14;
+                border-radius: 14px;
                 @include box-shadow;
+
                 .label {
                     width: 100%;
                     @include flex-center;
                     background-color: #4c6be8;
-                    font-size: FZ(16);
+                    font-size: 1.6rem;
                     color: $base-white;
                     height: 2.4em;
                     border-radius: $radius8;
