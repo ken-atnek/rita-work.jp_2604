@@ -1,0 +1,104 @@
+@use "reset_v2.5" as *;
+@use "variable" as *;
+
+// @import "swiper/css";
+// @import "swiper/css/navigation";
+body {
+    @include SunSerif;
+
+    // font-feature-settings: "palt";
+    font-size: clamp(1.2rem, calc($base-vw * 1vw) + calc($slice * 1px), 1.6rem);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: space-between;
+    width: 100%;
+    color: $main-black;
+    background-color: $base-white;
+    @include tbw {
+        overflow-x: clip;
+    }
+    @include tb {
+        font-size: 1.4vw;
+    }
+    @include sp {
+        font-size: 3.6vw;
+    }
+}
+main {
+    font-size: inherit;
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #fffbf4;
+}
+section,
+article,
+header,
+footer {
+    width: 100%;
+    position: relative;
+    font-size: inherit;
+    z-index: 1;
+}
+svg {
+    width: 100%;
+    fill: unset;
+    stroke: unset;
+}
+br {
+    &.pc {
+        @include sp {
+            display: none;
+        }
+    }
+    &.sp {
+        display: none;
+        @include sp {
+            display: inline;
+        }
+    }
+}
+input {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    appearance: none;
+}
+.swiper-button-prev,
+.swiper-button-next {
+    font-size: inherit;
+    width: 44px !important;
+    aspect-ratio: 1;
+    &::before,
+    &::after {
+        display: none;
+    }
+    svg {
+        position: relative;
+        fill: #726b62;
+    }
+}
+.swiper-button-prev {
+    left: -20px !important;
+    rotate: -90deg;
+}
+.swiper-button-next {
+    right: -20px !important;
+    rotate: 90deg;
+}
+.swiper-slide {
+    opacity: 0.5;
+    transition: 0.8s;
+}
+.swiper-slide-visible {
+    opacity: 1;
+    transition: 0.8s;
+}

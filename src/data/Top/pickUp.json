@@ -1,0 +1,76 @@
+[
+  {
+    "id": "001",
+    "shopName": "益城病院",
+    "type": [1, 2, 3, 4, 5],
+    "image": "/images/__dummy/pick-up01.webp",
+    "url": "/test/"
+  },
+  {
+    "id": "002",
+    "shopName": "大塚医院",
+    "type": [1, 5],
+    "image": "/images/__dummy/pick-up02.webp",
+    "url": "/test/",
+    "iconNew": true
+  },
+  {
+    "id": "003",
+    "shopName": "益城病院",
+    "type": [3, 4, 5],
+    "image": "/images/__dummy/pick-up01.webp",
+    "url": "/test/"
+  },
+  {
+    "id": "004",
+    "shopName": "大塚医院",
+    "type": [1, 5],
+    "image": "/images/__dummy/pick-up02.webp",
+    "url": "/test/",
+    "iconNew": true
+  },
+  {
+    "id": "005",
+    "shopName": "益城病院",
+    "type": [3, 4, 5],
+    "image": "/images/__dummy/pick-up01.webp",
+    "url": "/test/"
+  },
+  {
+    "id": "006",
+    "shopName": "益城病院",
+    "type": [1, 2, 3, 4, 5],
+    "image": "/images/__dummy/pick-up01.webp",
+    "url": "/test/"
+  },
+  {
+    "id": "007",
+    "shopName": "大塚医院",
+    "type": [1, 5],
+    "image": "/images/__dummy/pick-up02.webp",
+    "url": "/test/",
+    "iconNew": true
+  },
+  {
+    "id": "008",
+    "shopName": "益城病院",
+    "type": [3, 4, 5],
+    "image": "/images/__dummy/pick-up01.webp",
+    "url": "/test/"
+  },
+  {
+    "id": "009",
+    "shopName": "大塚医院",
+    "type": [1, 5],
+    "image": "/images/__dummy/pick-up02.webp",
+    "url": "/test/",
+    "iconNew": true
+  },
+  {
+    "id": "010",
+    "shopName": "益城病院",
+    "type": [3, 4, 5],
+    "image": "/images/__dummy/pick-up01.webp",
+    "url": "/test/"
+  }
+]

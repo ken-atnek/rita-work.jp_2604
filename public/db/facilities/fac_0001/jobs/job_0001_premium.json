@@ -1,0 +1,38 @@
+{
+  "videos": {
+    "intro": {
+      "title": "紹介動画",
+      "youtubeUrl": "https://www.youtube.com/watch?v=XXXXXXXXXXX"
+    },
+    "camera360": {
+      "title": "360度動画",
+      "youtubeUrl": "https://www.youtube.com/watch?v=YYYYYYYYYYY"
+    }
+  },
+  "benefits": [
+    {
+      "image": "/db/images/facilities/fac_0001/jobs/job_0001/benefits/01.jpg",
+      "heading": "ライフイベントに寄り添う職場環境",
+      "body": [
+        "出産や育児といったライフイベントの際も、スタッフ同士で支え合い、無理のない働き方を実現しています。",
+        "急な体調の変化にも柔軟に対応できる体制を整え、安心して長く働ける環境を整備。家庭と仕事の両立を支援しています。"
+      ]
+    },
+    {
+      "image": "/db/images/facilities/fac_0001/jobs/job_0001/benefits/03.jpg",
+      "heading": "しっかり食べて、働く",
+      "body": [
+        "スタッフの健康が第一。栄養バランスを考えた食事補助や昼食支援制度を設け、忙しい日々の中でも心身のコンディションを保てるよう配慮しています。",
+        "職場のコミュニケーションの場としても、昼食の時間を大切にしています。"
+      ]
+    },
+    {
+      "image": "/db/images/facilities/fac_0001/jobs/job_0001/benefits/03.jpg",
+      "heading": "リフレッシュできる休暇制度",
+      "body": [
+        "オンとオフのメリハリを重視し、有給休暇の取得推進や連続休暇制度を導入。心身をリセットする時間を確保できるようサポートしています。",
+        "旅行や趣味の時間を楽しみ、仕事へのモチベーションを高められる職場です。"
+      ]
+    }
+  ]
+}

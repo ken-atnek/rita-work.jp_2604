@@ -1,0 +1,32 @@
+[
+  {
+    "id": "age_free",
+    "label": "年齢不問",
+    "image": "/images/__dummy/conditions-list.webp"
+  },
+  {
+    "id": "salary_300",
+    "label": "年収300万以上",
+    "image": "/images/__dummy/conditions-list.webp"
+  },
+  {
+    "id": "housewife_ok",
+    "label": "主夫・主夫歓迎",
+    "image": "/images/__dummy/conditions-list.webp"
+  },
+  {
+    "id": "dormitory",
+    "label": "寮完備",
+    "image": "/images/__dummy/conditions-list.webp"
+  },
+  {
+    "id": "kumamoto",
+    "label": "熊本市内",
+    "image": "/images/__dummy/conditions-list.webp"
+  },
+  {
+    "id": "transport",
+    "label": "交通費支給",
+    "image": "/images/__dummy/conditions-list.webp"
+  }
+]

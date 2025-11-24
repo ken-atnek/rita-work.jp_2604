@@ -1,0 +1,159 @@
+/* =================================
+ * 	リタワーク FOOTER
+ * ------------------------------ */
+@use "../../variable" as *;
+@use "../../svg" as *;
+@use "../../mixin" as *;
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable keyframes-name-pattern */
+/* stylelint-disable custom-property-pattern */
+// このファイル全体のルールを無効にする
+.containerFooter {
+    @include flex-center(column);
+    padding: 6em 4vw 1em;
+    gap: 3em 0;
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        @include top-radius($radius80);
+    }
+    &::before {
+        background-color: $main-orange;
+    }
+    &::after {
+        background: url("../../../assets/images/bg.webp") repeat center
+            center/contain;
+        mix-blend-mode: color-dodge;
+    }
+    .pageTop {
+        position: absolute;
+        right: 4em;
+        top: 3em;
+        width: 36px;
+        aspect-ratio: 1;
+        z-index: 1;
+        cursor: pointer;
+        @include box-shadow;
+        border-radius: 50%;
+        svg {
+            aspect-ratio: 1;
+            fill: #fff;
+        }
+    }
+    .linkOrder {
+        position: absolute;
+        left: 50%;
+        font-size: inherit;
+        translate: -50% -2.75em;
+        top: 0;
+        background-color: $sub-orange;
+        width: 100%;
+        max-width: 88rem;
+        height: 5.5em;
+        z-index: 1;
+        border-radius: $radius14;
+        @include flex-center;
+        @include box-shadow;
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            translate: 0 -50%;
+            right: 2em;
+            width: 0.5em;
+            @include svg-arrow-right("726b62");
+        }
+        span {
+            font-size: FZ(20);
+            line-height: 1em;
+        }
+    }
+    article {
+        display: flex;
+        justify-content: space-between;
+        color: #fff;
+        align-items: flex-start;
+        gap: 0 3em;
+        .boxShopInfo {
+            font-size: inherit;
+            .itemLogo {
+                font-size: inherit;
+                width: 17.2em;
+                svg {
+                    width: 100%;
+                    fill: #fff;
+                    stroke: unset;
+                    aspect-ratio: 275/50;
+                }
+            }
+            nav {
+                position: relative;
+                font-size: inherit;
+                display: flex;
+                gap: 0 1em;
+                align-items: center;
+                margin-top: 1.4em;
+                a {
+                    position: relative;
+                    font-size: inherit;
+                    svg {
+                        fill: #fff;
+                        font-size: inherit;
+                        &.insta {
+                            aspect-ratio: 1;
+                            width: 1.5em;
+                        }
+                        &.youtube {
+                            aspect-ratio: 28/20;
+                            width: 1.65em;
+                        }
+                    }
+                }
+            }
+        }
+        .listMenu {
+            position: relative;
+            font-size: inherit;
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-template-rows: repeat(4, 1fr);
+            grid-auto-flow: column;
+            gap: 0.5em 2em;
+            margin-left: auto;
+            a {
+                font-size: FZ(14);
+            }
+        }
+        .linkContact {
+            border: 1px solid #fff;
+            font-size: inherit;
+            padding: 0.8em 2em;
+            border-radius: $radius14;
+            span {
+                position: relative;
+                font-size: FZ(16);
+                font-weight: 700;
+                padding-left: 2em;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    translate: 0 -50%;
+                    left: 0;
+                    width: 1.2em;
+                    @include svg-icon-plane("ffffff");
+                }
+            }
+        }
+    }
+    .copyRight {
+        width: 100%;
+        display: flex;
+        max-width: $articleMaxWidth;
+        justify-content: flex-end;
+        color: #fff;
+        font-size: FZ(12);
+    }
+}

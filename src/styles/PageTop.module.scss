@@ -1,0 +1,671 @@
+/* =================================
+ * 	リタワーク TOPページ
+ * ------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable keyframes-name-pattern */
+/* stylelint-disable custom-property-pattern */
+// このファイル全体のルールを無効にする
+.btnLink {
+    position: relative;
+    background-color: $main-orange;
+    color: $base-white;
+    align-self: center;
+    width: 17.5em;
+    height: 3em;
+    font-size: inherit;
+    @include flex-center;
+    border-radius: $radius14;
+    border-top-left-radius: unset;
+    @include box-shadow;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 100%;
+        width: 5px;
+        @include svg-object-radius("f29400");
+    }
+    span {
+        font-size: FZ(16);
+        font-weight: 700;
+    }
+}
+.boxH2 {
+    position: relative;
+    display: flex;
+    font-size: inherit;
+    gap: 0 2em;
+    color: $font-black;
+    align-items: flex-end;
+    h2 {
+        position: relative;
+        font-size: FZ(24);
+        padding-left: 1.8em;
+        width: max-content;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            translate: 0 -50%;
+            left: 0;
+        }
+    }
+    p {
+        flex: 1;
+        font-size: FZ(16);
+        font-weight: 300;
+        line-height: 1.6em;
+    }
+}
+
+/* =================================
+ * HERO
+ * ------------------------------ */
+.containerHero {
+    aspect-ratio: 1900/1113;
+    max-height: 798px;
+    background-color: $bg-white;
+    .boxImage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: inherit;
+        width: 100%;
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            @include bottom-radius($radius80);
+            background: url("../assets/images/bg.webp") repeat center
+                center/contain;
+            mix-blend-mode: color-dodge;
+            z-index: 1;
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            border-bottom: 1px solid rgba(#fff, 0.7);
+            border-left: 1px solid rgba(#fff, 0.7);
+            border-right: 1px solid rgba(#fff, 0.7);
+            inset: 0 1rem 1rem;
+
+            // border-bottom-left-radius: calc($radius80 - 1rem);
+            // border-bottom-right-radius: calc($radius80 - 1rem);
+            @include bottom-radius($radius80);
+        }
+        img {
+            font-size: inherit;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            @include bottom-radius($radius80);
+            max-height: 798px;
+            object-fit: cover;
+        }
+    }
+    .boxLogo {
+        position: absolute;
+        top: 22%;
+        left: 70%;
+        translate: -50%;
+        font-size: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        svg {
+            font-size: inherit;
+            width: 18.56em;
+            fill: #fff;
+            aspect-ratio: 297/72;
+        }
+        p {
+            font-size: FZ(14);
+            color: #fff;
+            letter-spacing: 0.06em;
+            text-align: center;
+            margin-top: 0.8em;
+        }
+    }
+}
+
+/* =================================
+ * 求人を検索
+ * ------------------------------ */
+.containerSearch {
+    @include flex-center;
+    padding-inline: 4vw;
+    background-color: $bg-white;
+    z-index: 1;
+    article {
+        display: flex;
+        flex-direction: column;
+        max-width: $articleMaxWidth;
+        --padding-inline: 2em;
+        margin-bottom: -7.5em;
+        translate: 0 -7.5em;
+        .boxTop {
+            background-color: $bg-white;
+            position: relative;
+            font-size: inherit;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            gap: 0 0.8em;
+            padding: 0.8em var(--padding-inline);
+            @include top-radius($radius24);
+            .wrapTitle {
+                position: relative;
+                font-size: inherit;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                padding-top: 1em;
+                gap: 0.5em 0;
+                h2 {
+                    font-size: FZ(20);
+                    color: $font-black;
+                    position: relative;
+                    padding-left: 1.8em;
+                    font-weight: 500;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        translate: 0 -50%;
+                        left: 0;
+                        width: 1.4em;
+                        @include svg-icon-loupe($color-orange);
+                    }
+                }
+                .itemCount {
+                    color: $font-black;
+                    font-size: FZ(20);
+                    display: flex;
+                    align-items: flex-end;
+                    &::before,
+                    &::after {
+                        font-size: 0.6em;
+                        line-height: 1.82em;
+                    }
+                    &::before {
+                        content: "掲載：";
+                    }
+                    &::after {
+                        content: "件";
+                        margin-left: 0.3em;
+                    }
+                }
+            }
+            ul {
+                position: relative;
+                font-size: inherit;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5em;
+                flex: 1;
+                margin-left: 1.6em;
+                li {
+                    position: relative;
+                    font-size: inherit;
+                    background-color: #fff;
+                    @include box-shadow;
+                    border-radius: $radius14;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 1.6em;
+                    cursor: pointer;
+                    h3 {
+                        position: relative;
+                        font-size: FZ(14);
+                        color: $font-black;
+                        padding-left: 2.4em;
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            left: 0;
+                            top: 50%;
+                            translate: 0 -50%;
+                        }
+                    }
+                    &:nth-of-type(1) {
+                        h3 {
+                            &::before {
+                                width: 1.6em;
+                                @include svg-icon-search01($color-orange);
+                            }
+                        }
+                    }
+                    &:nth-of-type(2) {
+                        h3 {
+                            &::before {
+                                width: 1.25em;
+                                @include svg-icon-search02($color-orange);
+                            }
+                        }
+                    }
+                    &:nth-of-type(3) {
+                        h3 {
+                            &::before {
+                                width: 1.65em;
+                                @include svg-icon-search03($color-orange);
+                            }
+                        }
+                    }
+                    &:nth-of-type(4) {
+                        h3 {
+                            &::before {
+                                width: 1.42em;
+                                @include svg-icon-search04($color-orange);
+                            }
+                        }
+                    }
+                }
+            }
+            .btnSearch {
+                position: relative;
+                font-size: inherit;
+                @include flex-center;
+                background-color: $main-orange;
+                color: #fff;
+                width: 5.875em;
+                aspect-ratio: 1;
+                border-radius: $radius14;
+                border-top-left-radius: unset;
+                @include box-shadow;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: 100%;
+                    width: 5px;
+                    @include svg-object-radius("f29400");
+                }
+                span {
+                    font-size: FZ(14);
+                    font-weight: 700;
+                }
+            }
+            .btnReset {
+                font-size: inherit;
+                @include flex-center;
+                width: 4em;
+                min-width: 6rem;
+                background-color: #fff;
+                height: 3.5em;
+                @include box-shadow;
+                border-radius: $radius14;
+                align-self: flex-end;
+                span {
+                    font-size: FZ(12);
+                    font-weight: 500;
+                    color: $font-black;
+                    display: inline-block;
+                    width: max-content;
+                }
+            }
+        }
+        .boxBottom {
+            position: relative;
+            font-size: inherit;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            background-color: $main-orange;
+            align-items: center;
+            gap: 0 1.4em;
+            padding: 0.8em var(--padding-inline);
+            @include bottom-radius($radius24);
+            .itemInput {
+                position: relative;
+                flex: 1;
+                background-color: #fff;
+                border-radius: $radius14;
+                height: 2.75em;
+                display: flex;
+                align-items: center;
+                font-size: inherit;
+                @include box-shadow;
+                padding-left: 3em;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    translate: 0 -50%;
+                    left: 1.6em;
+                    width: 1em;
+                    @include svg-icon-building($color-orange);
+                    z-index: 1;
+                }
+                input {
+                    font-size: FZ(14);
+                    padding: 0.5em 1em;
+                    &::placeholder {
+                        color: rgba(#726b6299, 0.6);
+                    }
+                }
+            }
+            button {
+                position: relative;
+                font-size: inherit;
+                width: 3.8rem;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                background-color: #fff;
+                @include box-shadow;
+                margin-right: 0.6em;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    margin: auto;
+                    width: 45%;
+                    @include svg-icon-loupe($color-orange);
+                }
+            }
+        }
+    }
+}
+
+/* =================================
+ * 積極採用企業
+ * ------------------------------ */
+.containerPickUp {
+    @include flex-center;
+    background-color: $bg-white;
+    padding: 3em 4vw 0;
+    z-index: 2;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 5em;
+        @include bottom-radius($radius80);
+        background-color: $bg-white;
+        font-size: inherit;
+    }
+    article {
+        display: flex;
+        flex-direction: column;
+        max-width: $articleMaxWidth;
+        h2 {
+            &::before {
+                width: 1.25em;
+                top: 40%;
+                @include svg-object-fire($color-orange);
+            }
+        }
+        .listPickUp {
+            position: relative;
+            font-size: inherit;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            margin-top: 2em;
+            gap: 1em;
+            .boxShop {
+                position: relative;
+                font-size: inherit;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                @include box-shadow();
+                border-radius: $radius14;
+                .iconNew {
+                    position: absolute;
+                    top: -0.5em;
+                    left: -0.5em;
+                    font-size: inherit;
+                    width: 45px;
+                    height: 40px;
+                    @include flex-center;
+                    background-color: #d0442e;
+                    color: #fff;
+                    font-size: FZ(12);
+                    border-radius: 54px;
+                }
+                a {
+                    display: block;
+                    font-size: inherit;
+                    width: 100%;
+                    img {
+                        width: 100%;
+                        aspect-ratio: 218/130;
+                        object-fit: cover;
+                        font-size: inherit;
+                        @include top-radius();
+                    }
+                }
+                .typeList {
+                    background-color: $sub-orange;
+                    font-size: inherit;
+                    display: flex;
+                    justify-content: center;
+                    @include bottom-radius();
+                    li {
+                        padding-block: 0.9em;
+                        font-size: FZ(12);
+                        color: $font-black;
+                        position: relative;
+                        padding-inline: 0.6em;
+                        &:not(:first-of-type) {
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                left: 0;
+                                top: 50%;
+                                translate: 0 -50%;
+                                width: 1px;
+                                height: 1em;
+                                background-color: #d6d6d6;
+                                mix-blend-mode: multiply;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* =================================
+ * 人気の条件
+ * ------------------------------ */
+.containerConditions {
+    @include flex-center;
+    background-color: $base-white;
+    padding: 9em 4vw 0;
+    article {
+        display: flex;
+        flex-direction: column;
+        max-width: $articleMaxWidth;
+        gap: 2em 0;
+        h2 {
+            padding-left: 2em;
+            &::before {
+                width: 1.7em;
+                top: 40%;
+                @include svg-object-star($color-orange);
+            }
+        }
+        .boxSlideList {
+            position: relative;
+
+            // &::before,
+            // &::after {
+            //     content: "";
+            //     position: absolute;
+            //     top: 0;
+            //     width: 5.5em;
+            //     height: 100%;
+            //     background-color: rgba($base-white, 0.7);
+            //     z-index: +2;
+            // }
+            // &::before {
+            //     left: 0;
+            // }
+            // &::after {
+            //     right: 0;
+            // }
+            div {
+                font-size: inherit;
+            }
+            button {
+                width: 100%;
+                aspect-ratio: 211/256;
+                font-size: inherit;
+                padding: 0.8em;
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                border-radius: $radius14;
+                @include box-shadow;
+                .label {
+                    width: 100%;
+                    @include flex-center;
+                    background-color: #4c6be8;
+                    font-size: FZ(16);
+                    color: $base-white;
+                    height: 2.4em;
+                    border-radius: $radius8;
+                }
+            }
+        }
+    }
+}
+
+/* =================================
+ * 転職のヒント
+ * ------------------------------ */
+.containerTips {
+    @include flex-center;
+    background-color: $base-white;
+    padding: 4em 4vw 0;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 5em;
+        @include bottom-radius($radius80);
+        background-color: $base-white;
+        font-size: inherit;
+    }
+    article {
+        display: flex;
+        flex-direction: column;
+        max-width: $articleMaxWidth;
+        gap: 2em 0;
+        h2 {
+            padding-left: 2.2em;
+            &::before {
+                width: 1.7em;
+                top: 40%;
+                @include svg-object-book($color-orange);
+            }
+        }
+        ul {
+            position: relative;
+            font-size: inherit;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1em;
+            li {
+                position: relative;
+                aspect-ratio: 37/28;
+                font-size: inherit;
+                @include box-shadow;
+                border-radius: $radius14;
+                cursor: pointer;
+                img {
+                    font-size: inherit;
+                    width: 100%;
+                    border-radius: $radius14;
+                }
+            }
+        }
+    }
+}
+
+/* =================================
+ * Message
+ * ------------------------------ */
+.containerMessage {
+    padding: 10em 4vw 0;
+    z-index: 0;
+    @include flex-center;
+    &::before,
+    &::after {
+        content: "";
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: -1;
+        height: 100vh;
+        height: 100dvh;
+    }
+    &::before {
+        background: url("../assets/images/bg-top-message.webp") no-repeat center
+            center / cover;
+        filter: blur(4px);
+        scale: 1.01;
+    }
+    &::after {
+        background-color: rgba(#fff, 0.3);
+    }
+    article {
+        max-width: 1032px;
+        display: flex;
+        justify-content: space-between;
+        gap: 0 4em;
+        align-items: flex-start;
+        .itemImage {
+            flex: 1;
+            font-size: inherit;
+            overflow: hidden;
+            height: 37em;
+        }
+        .wrapMessage {
+            position: relative;
+            background-color: #fff;
+            color: $font-black;
+            font-size: inherit;
+
+            // width: 38.125em;
+            width: 58%;
+            display: flex;
+            flex-direction: column;
+            padding: 3em;
+            border-radius: 0 3.75em 3.75em;
+            margin-top: 2em;
+            @include box-shadow;
+            gap: 1em;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 100%;
+                width: 1.625em;
+                @include svg-object-radius("fff");
+            }
+            h2 {
+                font-size: FZ(24);
+                color: $main-orange;
+                font-weight: 500;
+                text-transform: capitalize;
+            }
+            p {
+                font-size: FZ(16);
+                text-align: justify;
+                font-feature-settings: "palt";
+                line-height: 1.8em;
+                letter-spacing: 0.04em;
+            }
+        }
+    }
+}

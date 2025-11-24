@@ -1,0 +1,11 @@
+@use "variable" as *;
+@use "svg" as *;
+@mixin flex-center($direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: center;
+    justify-content: center;
+}
+@mixin box-shadow {
+    box-shadow: 3px 3px 3px rgba(#b27e344d, 0.3);
+}

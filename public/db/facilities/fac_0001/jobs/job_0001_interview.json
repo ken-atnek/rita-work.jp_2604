@@ -1,0 +1,36 @@
+{
+  "interviewee": {
+    "name": "山田 太郎",
+    "department": "人事部",
+    "role": "人事部採用担当"
+  },
+  "articles": [
+    {
+      "id": 1,
+      "title": "“従業員に求めることは？”",
+      "image": "/db/images/facilities/fac_0001/jobs/job_0001/interview/01.jpg",
+      "sections": [
+        {
+          "heading": "“やさしさ”はスキルのひとつ ああああああ",
+          "body": "ここに本文1が入る…"
+        },
+        {
+          "heading": "チームの一員として動ける人へ",
+          "body": "ここに本文2が入る…"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "入社して驚いた職場のポイント",
+      "image": null,
+      "sections": []
+    },
+    {
+      "id": 3,
+      "title": "今後、改善していきたいことは？",
+      "image": null,
+      "sections": []
+    }
+  ]
+}
