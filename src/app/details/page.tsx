@@ -1,38 +1,17 @@
 /* =======================================
  * リタワーク 詳細ページ
  * URL: src/app/details/page.tsx
- * Created: 2025-11-24
- * Last updated: 2025-11-24
  * ======================================= */
 
-import { JobDetailsClient } from '@/components/details/JobDetailsClient';
+import { Suspense } from 'react';
+import { JobDetailsClientWrapper } from '../../components/details/JobDetailsClientWrapper';
 
-type DetailsPageProps = {
-  searchParams?: {
-    id?: string;
-  };
-};
-
-export default function DetailsPage({ searchParams }: DetailsPageProps) {
-  const rawId = searchParams?.id ?? '';
-
-  // URLが 0001 の場合 → job_0001 に変換
-  // URLが job_0001 の場合 → そのまま
-  const jobId = rawId.startsWith('job_') ? rawId : `job_${rawId}`;
-
-  if (!jobId) {
-    return (
-      <main>
-        <h1>求人詳細</h1>
-        <p>求人を特定する ID が指定されていません。</p>
-      </main>
-    );
-  }
-
+export default function DetailsPage() {
   return (
     <main>
-      {/* ここから先はクライアントコンポーネントに任せる */}
-      <JobDetailsClient jobId={jobId} />
+      <Suspense fallback={<div>読み込み中...</div>}>
+        <JobDetailsClientWrapper />
+      </Suspense>
     </main>
   );
 }

@@ -11,6 +11,8 @@ import { useEffect, useState } from 'react';
 import { JobDetailContent } from './JobDetailContent';
 import type { Job } from '@/types/job';
 import type { Facility } from '@/types/facility';
+import type { JobCategory } from '@/types/jobCategory';
+
 type DetailsListItem = {
   jobId: string;
   facilityId: string;
@@ -29,7 +31,8 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [employmentTypes, setEmploymentTypes] = useState<
     { id: string; name: string }[]
   >([]);
-  const [facility, setFacility] = useState<Facility | null>(null); // ★追加
+  const [facility, setFacility] = useState<Facility | null>(null);
+  const [jobCategories, setJobCategories] = useState<JobCategory[]>([]);
   useEffect(() => {
     const load = async () => {
       try {
@@ -88,6 +91,15 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
         setFacility(facilityData);
         setJob(jobData);
         setError(null);
+        // 5. 職種マスターの取得
+        let categories: JobCategory[] = [];
+        try {
+          const catRes = await fetch('/db/master/jobCategories.json');
+          if (catRes.ok) {
+            categories = (await catRes.json()) as JobCategory[];
+          }
+        } catch {}
+        setJobCategories(categories);
       } catch (e) {
         console.error(e);
         setError(
@@ -124,6 +136,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       facility={facility}
       newIconPeriodDays={newIconPeriodDays}
       employmentTypes={employmentTypes}
+      jobCategories={jobCategories}
     />
   );
 }

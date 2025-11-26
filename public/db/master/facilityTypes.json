@@ -1,0 +1,6 @@
+[
+  { "id": "hospital", "label": "病院" },
+  { "id": "clinic", "label": "診療所" },
+  { "id": "nursing_care", "label": "介護施設" },
+  { "id": "dental", "label": "歯科診療所" }
+]

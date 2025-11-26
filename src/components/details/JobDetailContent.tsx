@@ -5,15 +5,18 @@
  * Created: 2025-11-24
  * ======================================= */
 
-import ContainerJobHero from './ContainerJobHero';
 import type { Job } from '@/types/job';
 import type { Facility } from '@/types/facility';
+import type { JobCategory } from '@/types/jobCategory';
+import ContainerJobHero from './ContainerJobHero';
+import ContainerWorkEnvironmentStats from '@/components/details/ContainerWorkEnvironmentStats';
 
 type JobDetailContentProps = {
   job: Job;
   facility: Facility;
   newIconPeriodDays: number;
   employmentTypes: { id: string; name: string }[];
+  jobCategories: JobCategory[];
 };
 
 export function JobDetailContent({
@@ -21,6 +24,7 @@ export function JobDetailContent({
   facility,
   newIconPeriodDays,
   employmentTypes,
+  jobCategories,
 }: JobDetailContentProps) {
   return (
     <>
@@ -29,8 +33,9 @@ export function JobDetailContent({
         facility={facility}
         newIconPeriodDays={newIconPeriodDays}
         employmentTypes={employmentTypes}
+        jobCategories={jobCategories}
       />
-      {/* 今後ここにセクションを増やしていく */}
+      <ContainerWorkEnvironmentStats job={job} />
     </>
   );
 }

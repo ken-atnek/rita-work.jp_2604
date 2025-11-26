@@ -23,8 +23,8 @@
     "min": 200000,
     "max": 300000,
     "bonus": {
-      "hasBonus": false,
-      "note": ""
+      "hasBonus": true,
+      "note": "年二回"
     }
   },
 
@@ -34,12 +34,12 @@
       "value": 15.3
     },
     {
-      "metricId": "annual_avg_paid_leave_days",
+      "metricId": "annual_holidays",
       "value": 38.6
     },
     {
-      "metricId": "paid_leave_rate_mf",
-      "value": 100
+      "metricId": "avg_monthly_salary_increase",
+      "value": 2.5
     }
   ],
   "interview": {

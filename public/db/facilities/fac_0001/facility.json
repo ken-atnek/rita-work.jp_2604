@@ -1,7 +1,9 @@
 {
   "id": "fac_0001",
   "corporationId": "corp_0001",
+  "facilityTypeId": "nursing_care",
   "name": "住宅型有料老人ホーム メディケア癒やしDX花園",
+  "establishedDate": "1974-09",
   "postalCode": "862-0000",
   "prefecture": "熊本県",
   "city": "熊本市東区",
@@ -9,6 +11,11 @@
   "phone": "096-000-0000",
   "email": "aaa@ddek6.co.jp",
   "contactPerson": "山田 太郎",
+
+  "typeSpecific": {
+    "visitArea": "熊本市東区・中央区・菊陽町 など"
+  },
+
   "specialBanner": {
     "enabled": true,
     "logoImagePath": "/db/images/facilities/fac_0001/logo.png",

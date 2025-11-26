@@ -7,5 +7,8 @@
 export type Facility = {
   id: string;
   name: string;
+  prefecture: string;
+  city: string;
+  addressLine: string;
   // 必要になったらここに address や phone などを足していく
 };

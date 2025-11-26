@@ -66,7 +66,6 @@
             border: 1px solid #fff;
             font-size: inherit;
             width: 116px;
-            height: 32px;
             border-radius: $radius10;
             height: 2em;
             @include flex-center;
@@ -78,7 +77,6 @@
             }
         }
     }
-
     &.is-fixed {
         position: fixed;
         background-color: $main-orange;

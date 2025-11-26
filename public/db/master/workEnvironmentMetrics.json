@@ -1,23 +1,28 @@
 [
   {
     "id": "monthly_avg_overtime",
-    "label": "月平均残業",
+    "label": "月平均残業時間",
     "unit": "h"
   },
   {
-    "id": "annual_avg_paid_leave_days",
-    "label": "年間平均有給取得日数",
+    "id": "paid_leave_rate",
+    "label": "有休取得率",
     "unit": "day"
-  },
-  {
-    "id": "paid_leave_rate_mf",
-    "label": "男女有給取得率",
-    "unit": "%"
   },
   {
     "id": "childcare_leave_rate",
     "label": "育休取得率",
     "unit": "%"
+  },
+  {
+    "id": "annual_holidays",
+    "label": "年間休日数",
+    "unit": "day"
+  },
+  {
+    "id": "avg_monthly_salary_increase",
+    "label": "昇給月額平均",
+    "unit": "yen"
   },
   {
     "id": "avg_continuous_service_years",

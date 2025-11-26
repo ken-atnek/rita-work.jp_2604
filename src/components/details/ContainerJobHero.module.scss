@@ -4,13 +4,10 @@
 @use "variable" as *;
 @use "svg" as *;
 @use "mixin" as *;
-
 .containerJobHero {
     @include flex-center;
     padding-inline: 4vw;
     padding-top: 5em;
-    padding-bottom: 5em;
-    border: solid 1px #0000ff;
     &::before {
         content: "";
         position: absolute;
@@ -62,14 +59,19 @@
             position: relative;
             width: 100%;
             font-size: inherit;
+            @include box-shadow;
+            border-radius: 24px;
             .innerSlide {
                 position: relative;
                 width: 100%;
-                .heroImage {
-                    width: 100%;
-                    aspect-ratio: 1158/600;
-                    object-fit: cover;
+                .splideTrack {
                     border-radius: 24px;
+                    .heroImage {
+                        width: 100%;
+                        aspect-ratio: 1158/600;
+                        object-fit: cover;
+                        border-radius: 24px;
+                    }
                 }
                 :global(.splide__arrows) {
                     position: absolute;
@@ -122,6 +124,102 @@
                     transform: scale(1);
                     background-color: #fff;
                     opacity: 1;
+                }
+            }
+            .wrapButtons {
+                position: absolute;
+                bottom: -1.4rem;
+                right: -4vw;
+                background-color: #fef4e5;
+                font-size: inherit;
+                padding: 0.8em;
+                @include box-shadow;
+                border-radius: $radius14;
+                display: flex;
+                gap: 0 0.8em;
+                .iconFavorite {
+                    position: relative;
+                    width: 7.2rem;
+                    height: 5.6rem;
+                    background-color: #fff;
+                    @include box-shadow;
+                    border-radius: $radius14;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        margin: auto;
+                        width: 2.4rem;
+                        @include svg-icon-heart("A5A5A8");
+                    }
+                }
+                .contact {
+                    position: relative;
+                    font-size: inherit;
+                    background-color: $main-orange;
+                    color: #fff;
+                    width: 17.5em;
+                    border-radius: 0 $radius14 $radius14;
+                    @include box-shadow;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        right: 100%;
+                        width: 5px;
+                        @include svg-object-radius("f29400");
+                    }
+                    span {
+                        font-size: FZ(18);
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+        .listPrimary {
+            position: relative;
+            font-size: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8em 0;
+            margin-top: 1em;
+            li {
+                font-size: FZ(18);
+                position: relative;
+                padding-left: 2em;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    translate: 0 -50%;
+                    left: 0;
+                }
+                &.itemJobCategory {
+                    &::before {
+                        width: 2.7rem;
+                        @include svg-icon-search01(F29400);
+                    }
+                }
+                &.itemAddress {
+                    &::before {
+                        width: 1.9rem;
+                        left: 0.3rem;
+                        @include svg-icon-search02(F29400);
+                    }
+                }
+                &.itemSalary {
+                    &::before {
+                        width: 2.4rem;
+                        @include svg-icon-search04(F29400);
+                    }
+                    .bonus {
+                        background-color: $main-orange;
+                        color: #fff;
+                        font-size: 1.6rem;
+                        padding: 0.2em 0.8em;
+                        border-radius: 4px;
+                        margin-left: 1em;
+                    }
                 }
             }
         }

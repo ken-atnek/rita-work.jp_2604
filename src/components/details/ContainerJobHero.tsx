@@ -8,6 +8,7 @@
 import styles from './ContainerJobHero.module.scss';
 import type { Job } from '@/types/job';
 import type { Facility } from '@/types/facility';
+import type { JobCategory } from '@/types/jobCategory';
 import { isNewByPublishedPeriod } from '@/lib/newIcon';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
@@ -18,6 +19,7 @@ type ContainerJobHeroProps = {
   facility: Facility;
   newIconPeriodDays: number;
   employmentTypes: { id: string; name: string }[];
+  jobCategories: JobCategory[];
 };
 
 export default function ContainerJobHero({
@@ -25,6 +27,7 @@ export default function ContainerJobHero({
   facility,
   newIconPeriodDays,
   employmentTypes,
+  jobCategories,
 }: ContainerJobHeroProps) {
   const isNew = isNewByPublishedPeriod(
     job.publishedPeriod?.start,
@@ -32,6 +35,19 @@ export default function ContainerJobHero({
   );
   const typeName =
     employmentTypes.find((t) => t.id === job.employmentTypeId)?.name ?? '';
+  const jobCategoryName =
+    jobCategories.find((c) => c.id === job.jobCategoryId)?.name ?? '';
+  const fullAddress = `${facility.prefecture}${facility.city}${facility.addressLine}`;
+
+  // 給与表示テキスト生成
+  const { unitId, min, max, bonus } = job.salary;
+  const unitText = unitId === 'monthly' ? '月給' : '時給';
+  const minText = min.toLocaleString();
+  const maxText = max.toLocaleString();
+  const hasBonus = bonus.hasBonus;
+  const bonusText = hasBonus ? '賞与あり' : '';
+  const bonusNote = hasBonus && bonus.note ? ` ${bonus.note}` : '';
+
   return (
     <section className={styles.containerJobHero}>
       <article>
@@ -59,7 +75,7 @@ export default function ContainerJobHero({
               pagination: true,
             }}
           >
-            <SplideTrack>
+            <SplideTrack className={styles.splideTrack}>
               {job.heroImages.map((src, index) => (
                 <SplideSlide key={`${job.id}-hero-${index}`}>
                   <Image
@@ -93,11 +109,29 @@ export default function ContainerJobHero({
             </div>
           </Splide>
 
-          {/* ← ここは別コンテンツ用としてそのまま残す */}
           <div className={styles.wrapButtons}>
-            {/* 応募ボタンとか、あとで入れる用 */}
+            <button type="button" className={styles.iconFavorite}></button>
+            <button type="button" className={styles.contact}>
+              <span>LINEで相談する</span>
+            </button>
           </div>
         </div>
+        <ul className={styles.listPrimary}>
+          <li className={styles.itemJobCategory}>{jobCategoryName}</li>
+          <li className={styles.itemAddress}>{fullAddress}</li>
+          <li className={styles.itemSalary}>
+            <span className={styles.unit}>{unitText}：</span>
+            <span className={styles.amount}>
+              {minText}円〜{maxText}円
+            </span>
+            {bonusText && (
+              <span className={styles.bonus}>
+                {bonusText}
+                {bonusNote}
+              </span>
+            )}
+          </li>
+        </ul>
       </article>
     </section>
   );

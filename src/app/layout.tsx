@@ -7,7 +7,7 @@
 
 import type { Metadata } from 'next';
 import '@/styles/globals.scss';
-import { Noto_Sans_JP, Roboto } from 'next/font/google';
+import { Noto_Sans_JP, Roboto, Archivo_Black } from 'next/font/google';
 import SvgDefs from '@/components/SvgDefs';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
@@ -21,6 +21,11 @@ const notoSans = Noto_Sans_JP({
 const roboto = Roboto({
   subsets: ['latin'],
   weight: ['100', '300', '400', '500', '700', '900'],
+  display: 'swap',
+});
+const archivoBlack = Archivo_Black({
+  subsets: ['latin'],
+  weight: '400',
   display: 'swap',
 });
 

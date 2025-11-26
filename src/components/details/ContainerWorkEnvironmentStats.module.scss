@@ -1,0 +1,106 @@
+/* ===============================================================
+ * 	リタワーク 求人詳細ページ｜Heroビジュアル表示コンポーネント
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+.containerWorkEnvironmentStats {
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-bottom: 5em;
+    margin-top: 2em;
+    .environmentStatList {
+        width: 100%;
+        max-width: $articleMaxWidth;
+        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        font-size: inherit;
+        gap: 0 1em;
+        li {
+            position: relative;
+            display: grid;
+            grid-row: span 2;
+            grid-template-rows: subgrid;
+            background-color: $main-orange;
+            color: #fff;
+            font-size: inherit;
+            border-radius: $radius24;
+            padding: 0.8em 1.4em;
+            gap: 0.8em 0;
+            h3 {
+                font-size: FZ(16);
+            }
+            .boxContents {
+                position: relative;
+                font-size: inherit;
+                justify-self: end;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    translate: 0 -50%;
+                    right: calc(100% + 0.8em);
+                }
+                .value {
+                    @include Archivo-Black;
+                    font-size: FZ(50);
+                }
+                .unit {
+                    font-family: "Noto Sans JP", sans-serif;
+                    font-size: FZ(28);
+                    font-weight: 500;
+                    margin-left: 0.2em;
+                }
+
+                // 月平均残業時間
+                &.monthly-avg-overtime {
+                    &::before {
+                        width: 3.8rem;
+                        @include svg-icon-clock(fff);
+                    }
+                }
+
+                // 有休取得率
+                &.paid_leave_rate {
+                    &::before {
+                        width: 3.8rem;
+                        @include svg-icon-calender(fff);
+                    }
+                }
+
+                // 育休取得率
+                &.childcare-leave-rate {
+                    &::before {
+                        width: 2.3rem;
+                        @include svg-icon-bottle(fff);
+                    }
+                }
+
+                // 年間休日数
+                &.annual-holidays {
+                    &::before {
+                        width: 3.6rem;
+                        @include svg-icon-smile(fff);
+                    }
+                }
+
+                // 昇給月額平均
+                &.avg-monthly-salary-increase {
+                    &::before {
+                        width: 3.6rem;
+                        @include svg-icon-graph(fff);
+                    }
+                }
+
+                // 平均勤続年数
+                &.avg-continuous-service-years {
+                    &::before {
+                        width: 3.5rem;
+                        @include svg-icon-flag(fff);
+                    }
+                }
+            }
+        }
+    }
+}
