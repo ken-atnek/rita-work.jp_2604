@@ -1,0 +1,96 @@
+/* ===============================================================
+ * 	リタワーク 求人詳細ページ｜事業者情報
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+
+.containerFacilityInfo {
+    @include flex-center;
+    background-color: $base-white;
+    margin-top: 1em;
+    @include top-radius($radius80);
+    padding: 3em 4vw 5em;
+    article {
+        max-width: $articleMaxWidth;
+        display: flex;
+        flex-direction: column;
+        gap: 1.4em 0;
+        h2 {
+            @include detail-h2;
+            &::before {
+                top: 45%;
+                width: 2.7rem;
+                @include svg-icon-building(f29400);
+            }
+        }
+        .boxDl {
+            position: relative;
+            font-size: inherit;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            dl {
+                position: relative;
+                grid-column: span 2;
+                display: grid;
+                grid-template-columns: subgrid;
+                font-size: inherit;
+                gap: 0 5em;
+                padding-block: 1em;
+                border-top: 1px solid #d6d6d6;
+                dt {
+                    font-size: FZ(16);
+                    font-weight: 500;
+                }
+                dd {
+                    font-size: FZ(14);
+                    line-height: 1.6em;
+                    p {
+                        font-size: inherit;
+                        &::before {
+                            content: "・";
+                        }
+                    }
+                    .wrapMap {
+                        position: relative;
+                        font-size: inherit;
+                        width: 100%;
+                        margin-top: 1em;
+                        iframe {
+                            width: 100%;
+                            aspect-ratio: 3.8;
+                            font-size: inherit;
+                            border-radius: 24px;
+                        }
+                        .mapUrlLink {
+                            position: absolute;
+                            right: 0;
+                            bottom: calc(100% + 2em);
+                            border: solid 1px $main-orange;
+                            background-color: #fff;
+                            padding: 0.8em 2em;
+                            border-radius: 8px;
+                            @include box-shadow;
+                            span {
+                                font-size: 1.2rem;
+                                color: $main-orange;
+                            }
+                        }
+                    }
+                    .listRecruitJobs {
+                        font-size: inherit;
+                        display: flex;
+                        flex-direction: column;
+                        li {
+                            font-size: inherit;
+                            line-height: 1.6em;
+                            &::before {
+                                content: "・";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

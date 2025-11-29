@@ -9,6 +9,7 @@
     @include flex-center;
     padding-inline: 4vw;
     padding-bottom: 5em;
+    background-color: $base-white;
     article {
         max-width: $articleMaxWidth;
         display: flex;

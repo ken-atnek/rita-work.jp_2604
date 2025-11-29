@@ -8,7 +8,7 @@ import { JobDetailsClientWrapper } from '../../components/details/JobDetailsClie
 
 export default function DetailsPage() {
   return (
-    <main>
+    <main style={{ backgroundColor: '#F3F3F3' }}>
       <Suspense fallback={<div>読み込み中...</div>}>
         <JobDetailsClientWrapper />
       </Suspense>

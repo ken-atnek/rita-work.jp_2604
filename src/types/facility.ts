@@ -6,9 +6,31 @@
 
 export type Facility = {
   id: string;
+  corporationId: string;
+  facilityTypeId: string;
   name: string;
+  establishedDate: string;
+
+  postalCode: string;
   prefecture: string;
   city: string;
   addressLine: string;
-  // 必要になったらここに address や phone などを足していく
+  mapUrl?: string;
+  mapLinkUrl?: string;
+  phone: string;
+  email: string;
+  contactPerson: string;
+
+  typeSpecific?: {
+    visitArea?: string;
+  };
+  recruitJobs?: {
+    jobCategoryId: string;
+    employmentTypeId: string;
+  }[];
+  specialBanner?: {
+    enabled: boolean;
+    logoImagePath: string;
+    introVideoUrl?: string;
+  };
 };

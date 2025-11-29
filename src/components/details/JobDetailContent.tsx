@@ -7,14 +7,18 @@
 
 import type { Job } from '@/types/job';
 import type { Facility } from '@/types/facility';
+import type { Corporation } from '@/types/corporation';
 import type { JobCategory } from '@/types/jobCategory';
 import ContainerJobHero from './ContainerJobHero';
 import ContainerWorkEnvironmentStats from '@/components/details/ContainerWorkEnvironmentStats';
 import ContainerFreeSpace from '@/components/details/ContainerFreeSpace';
+import ContainerDailySchedule from '@/components/details/ContainerDailySchedule';
+import ContainerFacilityInfo from '@/components/details/ContainerFacilityInfo';
 
 type JobDetailContentProps = {
   job: Job;
   facility: Facility;
+  corporation: Corporation;
   newIconPeriodDays: number;
   employmentTypes: { id: string; name: string }[];
   jobCategories: JobCategory[];
@@ -23,6 +27,7 @@ type JobDetailContentProps = {
 export function JobDetailContent({
   job,
   facility,
+  corporation,
   newIconPeriodDays,
   employmentTypes,
   jobCategories,
@@ -38,6 +43,14 @@ export function JobDetailContent({
       />
       <ContainerWorkEnvironmentStats job={job} />
       <ContainerFreeSpace job={job} />
+      <ContainerDailySchedule job={job} />
+      <ContainerFacilityInfo
+        job={job}
+        facility={facility}
+        corporation={corporation}
+        employmentTypes={employmentTypes}
+        jobCategories={jobCategories}
+      />
     </>
   );
 }

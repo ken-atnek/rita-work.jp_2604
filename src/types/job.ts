@@ -2,6 +2,7 @@
  * リタワーク 型定義ファイル（求人）
  * URL: src/types/job.ts
  * Created: 2025-11-24
+ * Last updated: 2025-11-29
  * ======================================= */
 
 export type PublishedPeriod = {

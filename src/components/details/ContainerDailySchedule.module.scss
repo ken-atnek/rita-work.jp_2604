@@ -1,0 +1,94 @@
+/* ===============================================================
+ * 	リタワーク 求人詳細ページ｜1日の流れ
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+
+.containerDailySchedule {
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-bottom: 5em;
+    background-color: $base-white;
+    article {
+        max-width: $articleMaxWidth;
+        display: flex;
+        flex-direction: column;
+        gap: 1.4em 0;
+        h2 {
+            @include detail-h2;
+            &::before {
+                top: 45%;
+                width: 2.8rem;
+                @include svg-icon-clock(f29400);
+            }
+        }
+        .innerList {
+            position: relative;
+            font-size: inherit;
+            background-color: #fff;
+            border: 1px solid $main-orange;
+            border-radius: $radius24;
+            padding: 3em;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0 6em;
+            &::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                translate: -50% -50%;
+                width: 1px;
+                height: calc(100% - 5em);
+                background-color: $main-orange;
+            }
+            .boxShiftBlock {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                font-size: inherit;
+                gap: 1em 0;
+                h3 {
+                    background-color: $main-orange;
+                    color: #fff;
+                    align-self: flex-start;
+                    font-size: FZ(18);
+                    padding: 0.35em 1em;
+                    border-radius: 8px;
+                }
+                ul {
+                    position: relative;
+                    font-size: inherit;
+                    display: grid;
+                    grid-template-columns: auto 1fr;
+                    li {
+                        position: relative;
+                        grid-column: span 2;
+                        display: grid;
+                        grid-template-columns: subgrid;
+                        font-size: inherit;
+                        gap: 0 1em;
+                        padding-block: 1em;
+                        &:not(:last-of-type) {
+                            border-bottom: 1px solid #d6d6d6;
+                        }
+                        .time {
+                            color: $main-orange;
+                            font-size: FZ(16);
+                            text-align: right;
+                        }
+                        .contents {
+                            display: flex;
+                            flex-direction: column;
+                            font-size: inherit;
+                            p {
+                                font-size: FZ(16);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

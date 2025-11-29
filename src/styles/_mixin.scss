@@ -9,3 +9,19 @@
 @mixin box-shadow {
     box-shadow: 3px 3px 2px 0 rgb(178 126 52 / 20%);
 }
+@mixin detail-h2 {
+    position: relative;
+    font-size: FZ(24);
+    color: $sub-black;
+    font-weight: 500;
+    padding-left: 1.6em;
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        translate: 0 -50%;
+        // width: 2.8rem;
+        // @include svg-icon-clock(f29400);
+    }
+}
