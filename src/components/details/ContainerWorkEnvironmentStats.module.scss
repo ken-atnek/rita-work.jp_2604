@@ -7,12 +7,11 @@
 .containerWorkEnvironmentStats {
     @include flex-center;
     padding-inline: 4vw;
-    padding-bottom: 5em;
+    padding-bottom: 3em;
     margin-top: 2em;
     .environmentStatList {
         width: 100%;
         max-width: $articleMaxWidth;
-        flex-direction: column;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         font-size: inherit;

@@ -10,6 +10,7 @@ import type { Facility } from '@/types/facility';
 import type { JobCategory } from '@/types/jobCategory';
 import ContainerJobHero from './ContainerJobHero';
 import ContainerWorkEnvironmentStats from '@/components/details/ContainerWorkEnvironmentStats';
+import ContainerFreeSpace from '@/components/details/ContainerFreeSpace';
 
 type JobDetailContentProps = {
   job: Job;
@@ -36,6 +37,7 @@ export function JobDetailContent({
         jobCategories={jobCategories}
       />
       <ContainerWorkEnvironmentStats job={job} />
+      <ContainerFreeSpace job={job} />
     </>
   );
 }

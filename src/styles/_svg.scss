@@ -168,3 +168,11 @@
     background-size: contain;
     background-position: center center;
 }
+//  チェックアイコン
+@mixin svg-icon-Check($color) {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%23#{$color}"><path d="M8,0C3.58,0,0,3.58,0,8s3.58,8,8,8,8-3.58,8-8S12.42,0,8,0ZM11.8,6.04l-4.03,4.57c-.09.1-.21.16-.34.17-.01,0-.02,0-.03,0-.12,0-.24-.04-.33-.12l-2.82-2.49c-.21-.18-.23-.5-.04-.71.18-.21.5-.23.71-.04l2.45,2.16,3.7-4.2c.18-.21.5-.23.71-.04.21.18.23.5.04.71Z"/></svg>');
+    aspect-ratio: 1;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
