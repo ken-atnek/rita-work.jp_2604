@@ -1,29 +1,22 @@
 /* ===============================================================
- * 	リタワーク 求人詳細ページ｜事業者情報
+ * 	リタワーク 求人詳細ページ｜募集要項・事業者情報
  * ------------------------------------------------------------ */
 @use "variable" as *;
 @use "svg" as *;
 @use "mixin" as *;
 
-.containerFacilityInfo {
+.containerFacilityInfo,
+.containerJobRequirements {
     @include flex-center;
     background-color: $base-white;
-    margin-top: 1em;
-    @include top-radius($radius80);
+
     padding: 3em 4vw 5em;
     article {
         max-width: $articleMaxWidth;
         display: flex;
         flex-direction: column;
         gap: 1.4em 0;
-        h2 {
-            @include detail-h2;
-            &::before {
-                top: 45%;
-                width: 2.7rem;
-                @include svg-icon-building(f29400);
-            }
-        }
+
         .boxDl {
             position: relative;
             font-size: inherit;
@@ -49,6 +42,10 @@
                         font-size: inherit;
                         &::before {
                             content: "・";
+                        }
+                        & > span {
+                            font-size: inherit;
+                            margin-left: 0.8em;
                         }
                     }
                     .wrapMap {
@@ -91,6 +88,61 @@
                     }
                 }
             }
+        }
+    }
+}
+// 募集要項
+.containerJobRequirements {
+    @include bottom-radius($radius80);
+    h2 {
+        @include detail-h2;
+        &::before {
+            top: 45%;
+            width: 3.3rem;
+            @include svg-icon-memo(f29400);
+        }
+    }
+    .boxDl {
+        dl {
+            dd {
+                .benefitsList {
+                    font-size: inherit;
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 0.5em;
+                    li {
+                        font-size: inherit;
+                        line-height: 1.6em;
+                        &::before {
+                            content: "・";
+                        }
+                    }
+                }
+                .note {
+                    font-size: inherit;
+                    display: flex;
+                    flex-direction: column;
+                    & > p {
+                        line-height: 1.6em;
+                        &::before {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+// 事業所情報
+.containerFacilityInfo {
+    margin-top: 1em;
+    @include top-radius($radius80);
+    h2 {
+        @include detail-h2;
+        &::before {
+            top: 45%;
+            width: 2.7rem;
+            @include svg-icon-building(f29400);
         }
     }
 }

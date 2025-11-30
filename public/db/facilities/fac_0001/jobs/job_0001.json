@@ -118,6 +118,19 @@
       }
     ]
   },
+  "benefits": {
+    "optionIds": [
+      "dormitory",
+      "childcare_support",
+      "commuting_allowance",
+      "electric_bike",
+      "harassment_desk"
+    ],
+    "note": [
+      "賞与は年2回（昨年度実績3.5ヶ月）。電動自転車の使用可。",
+      "改行したらここ。"
+    ]
+  },
   "premium": {
     "enabled": true,
     "path": "/db/facilities/fac_0001/jobs/job_0001_premium.json"

@@ -23,7 +23,11 @@ type DetailsListItem = {
 type JobDetailsClientProps = {
   jobId: string;
 };
-
+type BenefitOption = {
+  id: string;
+  name: string;
+  sortOrder: number;
+};
 export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [job, setJob] = useState<Job | null>(null);
   const [facility, setFacility] = useState<Facility | null>(null);
@@ -35,6 +39,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [newIconPeriodDays, setNewIconPeriodDays] = useState<number>(90);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [benefitOptions, setBenefitOptions] = useState<BenefitOption[]>([]);
 
   useEffect(() => {
     const loadDetails = async () => {
@@ -107,6 +112,15 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
         setJobCategories(categories);
 
         /* -------------------------------
+         * 8. 待遇マスター 読み込み
+         * ------------------------------- */
+        const benefitRes = await fetch('/db/master/benefitOptions.json');
+        const benefitMaster = benefitRes.ok
+          ? ((await benefitRes.json()) as BenefitOption[])
+          : [];
+        setBenefitOptions(benefitMaster);
+
+        /* -------------------------------
          * 正常セット
          * ------------------------------- */
         setJob(jobData);
@@ -150,6 +164,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       newIconPeriodDays={newIconPeriodDays}
       employmentTypes={employmentTypes}
       jobCategories={jobCategories}
+      benefitOptions={benefitOptions}
     />
   );
 }

@@ -13,6 +13,7 @@ import ContainerJobHero from './ContainerJobHero';
 import ContainerWorkEnvironmentStats from '@/components/details/ContainerWorkEnvironmentStats';
 import ContainerFreeSpace from '@/components/details/ContainerFreeSpace';
 import ContainerDailySchedule from '@/components/details/ContainerDailySchedule';
+import ContainerJobRequirements from '@/components/details/ContainerJobRequirements';
 import ContainerFacilityInfo from '@/components/details/ContainerFacilityInfo';
 
 type JobDetailContentProps = {
@@ -22,6 +23,7 @@ type JobDetailContentProps = {
   newIconPeriodDays: number;
   employmentTypes: { id: string; name: string }[];
   jobCategories: JobCategory[];
+  benefitOptions: { id: string; name: string; sortOrder: number }[];
 };
 
 export function JobDetailContent({
@@ -31,6 +33,7 @@ export function JobDetailContent({
   newIconPeriodDays,
   employmentTypes,
   jobCategories,
+  benefitOptions,
 }: JobDetailContentProps) {
   return (
     <>
@@ -44,6 +47,12 @@ export function JobDetailContent({
       <ContainerWorkEnvironmentStats job={job} />
       <ContainerFreeSpace job={job} />
       <ContainerDailySchedule job={job} />
+      <ContainerJobRequirements
+        job={job}
+        employmentTypes={employmentTypes}
+        jobCategories={jobCategories}
+        benefitOptions={benefitOptions}
+      />
       <ContainerFacilityInfo
         job={job}
         facility={facility}

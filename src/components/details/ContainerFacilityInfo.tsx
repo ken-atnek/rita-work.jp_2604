@@ -24,7 +24,6 @@ type ContainerFacilityInfoProps = {
 };
 
 export default function ContainerFacilityInfo({
-  job,
   facility,
   corporation,
   employmentTypes,

@@ -104,7 +104,11 @@ export type Job = {
 
   // 日勤・夜勤のスケジュール
   dailySchedule: DailySchedule;
-
+  //待遇
+  benefits?: {
+    optionIds: string[];
+    note?: string[];
+  };
   // 契約プラン (light / standard / premium など)
   contractPlanId: string;
 };
