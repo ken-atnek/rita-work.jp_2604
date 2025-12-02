@@ -27,6 +27,7 @@ const archivoBlack = Archivo_Black({
   subsets: ['latin'],
   weight: '400',
   display: 'swap',
+  variable: '--font-archivo-black',
 });
 
 // 本番のみ metadataBase を設定
@@ -75,7 +76,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${notoSans.className} ${roboto.className}`}>
+    <html
+      className={`${notoSans.className} ${roboto.className} ${archivoBlack.variable}`}
+    >
       <head>
         <meta
           name="format-detection"
