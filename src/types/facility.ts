@@ -20,7 +20,14 @@ export type Facility = {
   phone: string;
   email: string;
   contactPerson: string;
+  // 営業時間（改行対応のテキストエリア想定）
+  businessHours?: string[];
 
+  // 休業日（改行対応のテキストエリア想定）
+  holidays?: string[];
+
+  // スタッフ構成（改行対応のテキストエリア想定）
+  staffComposition?: string[];
   typeSpecific?: {
     visitArea?: string;
   };

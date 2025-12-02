@@ -24,6 +24,7 @@ type JobDetailContentProps = {
   employmentTypes: { id: string; name: string }[];
   jobCategories: JobCategory[];
   benefitOptions: { id: string; name: string; sortOrder: number }[];
+  facilityTypes: { id: string; label: string }[];
 };
 
 export function JobDetailContent({
@@ -34,6 +35,7 @@ export function JobDetailContent({
   employmentTypes,
   jobCategories,
   benefitOptions,
+  facilityTypes,
 }: JobDetailContentProps) {
   return (
     <>
@@ -59,6 +61,7 @@ export function JobDetailContent({
         corporation={corporation}
         employmentTypes={employmentTypes}
         jobCategories={jobCategories}
+        facilityTypes={facilityTypes}
       />
     </>
   );

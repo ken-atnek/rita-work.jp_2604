@@ -21,6 +21,7 @@ type ContainerFacilityInfoProps = {
   corporation: Corporation;
   employmentTypes: { id: string; name: string }[];
   jobCategories: JobCategory[];
+  facilityTypes: { id: string; label: string }[];
 };
 
 export default function ContainerFacilityInfo({
@@ -28,6 +29,7 @@ export default function ContainerFacilityInfo({
   corporation,
   employmentTypes,
   jobCategories,
+  facilityTypes,
 }: ContainerFacilityInfoProps) {
   const formatEstablishedDate = (dateStr: string) => {
     if (!dateStr) return '';
@@ -48,6 +50,17 @@ export default function ContainerFacilityInfo({
     },
     {}
   );
+
+  const facilityTypeMap = (facilityTypes ?? []).reduce<Record<string, string>>(
+    (acc, item) => {
+      acc[item.id] = item.label;
+      return acc;
+    },
+    {}
+  );
+
+  const facilityTypeLabel =
+    facilityTypeMap[facility.facilityTypeId] ?? facility.facilityTypeId;
   return (
     <section className={styles.containerFacilityInfo}>
       <article>
@@ -65,6 +78,7 @@ export default function ContainerFacilityInfo({
               <p>{facility.name}</p>
             </dd>
           </dl>
+
           <dl>
             <dt>アクセス</dt>
             <dd>
@@ -126,6 +140,42 @@ export default function ContainerFacilityInfo({
               </dd>
             </dl>
           )}
+          <dl>
+            <dt>事業所形態</dt>
+            <dd>{facilityTypeLabel}</dd>
+          </dl>
+          {facility.businessHours && facility.businessHours.length > 0 && (
+            <dl>
+              <dt>営業時間</dt>
+              <dd>
+                {facility.businessHours.map((line, i) => (
+                  <p key={i}>{line}</p>
+                ))}
+              </dd>
+            </dl>
+          )}
+          {facility.holidays && facility.holidays.length > 0 && (
+            <dl>
+              <dt>休業日</dt>
+              <dd>
+                {facility.holidays.map((line, i) => (
+                  <p key={i}>{line}</p>
+                ))}
+              </dd>
+            </dl>
+          )}
+
+          {facility.staffComposition &&
+            facility.staffComposition.length > 0 && (
+              <dl>
+                <dt>スタッフ構成</dt>
+                <dd>
+                  {facility.staffComposition.map((line, i) => (
+                    <p key={i}>{line}</p>
+                  ))}
+                </dd>
+              </dl>
+            )}
           {facility.typeSpecific?.visitArea && (
             <dl>
               <dt>訪問エリア</dt>

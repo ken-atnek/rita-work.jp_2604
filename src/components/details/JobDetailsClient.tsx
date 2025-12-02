@@ -28,6 +28,11 @@ type BenefitOption = {
   name: string;
   sortOrder: number;
 };
+type FacilityType = {
+  id: string;
+  label: string;
+};
+
 export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [job, setJob] = useState<Job | null>(null);
   const [facility, setFacility] = useState<Facility | null>(null);
@@ -40,7 +45,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [benefitOptions, setBenefitOptions] = useState<BenefitOption[]>([]);
-
+  const [facilityTypes, setFacilityTypes] = useState<FacilityType[]>([]);
   useEffect(() => {
     const loadDetails = async () => {
       try {
@@ -119,7 +124,12 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
           ? ((await benefitRes.json()) as BenefitOption[])
           : [];
         setBenefitOptions(benefitMaster);
-
+        /* 9. 事業所形態マスター 読み込み */
+        const facilityTypesRes = await fetch('/db/master/facilityTypes.json');
+        const facilityTypesMaster = facilityTypesRes.ok
+          ? ((await facilityTypesRes.json()) as FacilityType[])
+          : [];
+        setFacilityTypes(facilityTypesMaster);
         /* -------------------------------
          * 正常セット
          * ------------------------------- */
@@ -165,6 +175,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       employmentTypes={employmentTypes}
       jobCategories={jobCategories}
       benefitOptions={benefitOptions}
+      facilityTypes={facilityTypes}
     />
   );
 }

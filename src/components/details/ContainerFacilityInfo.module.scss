@@ -4,19 +4,16 @@
 @use "variable" as *;
 @use "svg" as *;
 @use "mixin" as *;
-
 .containerFacilityInfo,
 .containerJobRequirements {
     @include flex-center;
     background-color: $base-white;
-
     padding: 3em 4vw 5em;
     article {
         max-width: $articleMaxWidth;
         display: flex;
         flex-direction: column;
         gap: 1.4em 0;
-
         .boxDl {
             position: relative;
             font-size: inherit;
@@ -74,23 +71,12 @@
                             }
                         }
                     }
-                    .listRecruitJobs {
-                        font-size: inherit;
-                        display: flex;
-                        flex-direction: column;
-                        li {
-                            font-size: inherit;
-                            line-height: 1.6em;
-                            &::before {
-                                content: "・";
-                            }
-                        }
-                    }
                 }
             }
         }
     }
 }
+
 // 募集要項
 .containerJobRequirements {
     @include bottom-radius($radius80);
@@ -133,6 +119,7 @@
         }
     }
 }
+
 // 事業所情報
 .containerFacilityInfo {
     margin-top: 1em;
@@ -143,6 +130,26 @@
             top: 45%;
             width: 2.7rem;
             @include svg-icon-building(f29400);
+        }
+    }
+    article {
+        .boxDl {
+            dl {
+                dd {
+                    .listRecruitJobs {
+                        font-size: inherit;
+                        display: flex;
+                        flex-direction: column;
+                        li {
+                            font-size: inherit;
+                            line-height: 1.6em;
+                            &::before {
+                                content: "・";
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
