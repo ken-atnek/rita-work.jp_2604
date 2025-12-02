@@ -3,8 +3,10 @@
  * URL: src/components/details/ContainerFacilityInfo.tsx
  * Referenced in: src/components/details/JobDetailContent.tsx
  * Created: 2025-11-29
- * Last updated: 2025-11-29
+ * Last updated: 2025-12-02
  * ======================================= */
+
+// 事業所情報セクション（法人・事業所・アクセス・スタッフ構成など）を表示するコンポーネント
 
 'use client';
 
@@ -15,12 +17,25 @@ import type { Corporation } from '@/types/corporation';
 import ExternalLink from '@/components/common/ExternalLink';
 import type { JobCategory } from '@/types/jobCategory';
 
+// === 事業所情報セクションに渡ってくるデータ群 ===
+// job            : 求人本体データ（現在は未使用・将来拡張用）
+// facility       : 事業所（施設）ごとの基本情報
+// corporation    : 法人情報（法人名など）
+// employmentTypes: 雇用形態マスタ（正社員・パートなど）
+// jobCategories  : 職種マスタ（看護師・理学療法士など）
+// facilityTypes  : 事業所形態マスタ（病院・診療所・訪問看護ステーションなど）
 type ContainerFacilityInfoProps = {
+  // 求人本体データ（現在このコンポーネント内では未使用）
   job: Job;
+  // 事業所（施設）の詳細情報
   facility: Facility;
+  // 法人情報（法人名など）
   corporation: Corporation;
+  // 雇用形態マスタ（id → 表示名）
   employmentTypes: { id: string; name: string }[];
+  // 職種マスタ（id → 表示名）
   jobCategories: JobCategory[];
+  // 事業所形態マスタ（id → 表示ラベル）
   facilityTypes: { id: string; label: string }[];
 };
 
@@ -31,11 +46,13 @@ export default function ContainerFacilityInfo({
   jobCategories,
   facilityTypes,
 }: ContainerFacilityInfoProps) {
+  // 「YYYY-MM」の文字列を「YYYY年M月」の表示用テキストに変換
   const formatEstablishedDate = (dateStr: string) => {
     if (!dateStr) return '';
     const [year, month] = dateStr.split('-');
     return `${year}年${Number(month)}月`;
   };
+  // 雇用形態マスタを id → name に変換して、後続で参照しやすくする
   const employmentTypeMap = (employmentTypes ?? []).reduce<
     Record<string, string>
   >((acc, type) => {
@@ -43,6 +60,7 @@ export default function ContainerFacilityInfo({
     return acc;
   }, {});
 
+  // 職種マスタを id → name に変換
   const jobCategoryMap = (jobCategories ?? []).reduce<Record<string, string>>(
     (acc, category) => {
       acc[category.id] = category.name;
@@ -51,6 +69,7 @@ export default function ContainerFacilityInfo({
     {}
   );
 
+  // 事業所形態マスタを id → label に変換
   const facilityTypeMap = (facilityTypes ?? []).reduce<Record<string, string>>(
     (acc, item) => {
       acc[item.id] = item.label;
@@ -59,8 +78,10 @@ export default function ContainerFacilityInfo({
     {}
   );
 
+  // 施設の facilityTypeId からラベルを取得（マスタに無ければ id をそのまま表示）
   const facilityTypeLabel =
     facilityTypeMap[facility.facilityTypeId] ?? facility.facilityTypeId;
+  // 画面表示：事業所情報（法人名・事業所名・住所・マップ・募集職種など）
   return (
     <section className={styles.containerFacilityInfo}>
       <article>

@@ -109,6 +109,36 @@ export type Job = {
     optionIds: string[];
     note?: string[];
   };
+
+  // 応募要件（チェックボックス＋備考・改行対応）
+  applicationRequirements?: {
+    optionIds: string[];
+    note?: string[];
+  };
+  // 休日・シフト条件（チェックボックス＋備考・改行対応）
+  holidayConditions?: {
+    optionIds: string[];
+    note?: string[];
+  };
+
+  longHolidays?: string[]; // 長期休暇・特別休暇（改行対応）
+  // 歓迎要件
+  welcomeRequirements?: string[];
+
+  // 研修・サポート
+  trainingSupport?: {
+    options: string[];
+    note?: string[];
+  };
+
+  // アクセス
+  access?: {
+    options: string[];
+  };
+
+  // 選考プロセス
+  selectionProcess?: string[];
+
   // 契約プラン (light / standard / premium など)
   contractPlanId: string;
 };

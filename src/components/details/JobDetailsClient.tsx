@@ -3,7 +3,7 @@
  * Component: JobDetailsClient
  * URL: src/components/details/JobDetailsClient.tsx
  * Created: 2025-11-24
- * Last updated: 2025-11-29
+ * Last updated: 2025-12-02
  * ======================================= */
 'use client';
 
@@ -33,6 +33,25 @@ type FacilityType = {
   label: string;
 };
 
+type TrainingSupportOption = {
+  id: string;
+  label: string;
+};
+
+type AccessOption = {
+  id: string;
+  label: string;
+};
+type ApplicationRequirementOption = {
+  id: string;
+  name: string;
+  sortOrder: number;
+};
+type HolidayOption = {
+  id: string;
+  label: string;
+};
+
 export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [job, setJob] = useState<Job | null>(null);
   const [facility, setFacility] = useState<Facility | null>(null);
@@ -46,6 +65,13 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [error, setError] = useState<string | null>(null);
   const [benefitOptions, setBenefitOptions] = useState<BenefitOption[]>([]);
   const [facilityTypes, setFacilityTypes] = useState<FacilityType[]>([]);
+  const [trainingSupportOptions, setTrainingSupportOptions] = useState<
+    TrainingSupportOption[]
+  >([]);
+  const [accessOptions, setAccessOptions] = useState<AccessOption[]>([]);
+  const [applicationRequirementOptions, setApplicationRequirementOptions] =
+    useState<ApplicationRequirementOption[]>([]);
+  const [holidayOptions, setHolidayOptions] = useState<HolidayOption[]>([]);
   useEffect(() => {
     const loadDetails = async () => {
       try {
@@ -98,6 +124,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
           }
         }
 
+        // 雇用形態マスタ取得
         /* -------------------------------
          * 6. 雇用形態マスター 読み込み
          * ------------------------------- */
@@ -107,6 +134,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
           : [];
         setEmploymentTypes(types);
 
+        // 職種マスタ取得
         /* -------------------------------
          * 7. 職種マスター 読み込み
          * ------------------------------- */
@@ -116,6 +144,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
           : [];
         setJobCategories(categories);
 
+        // 待遇マスタ取得
         /* -------------------------------
          * 8. 待遇マスター 読み込み
          * ------------------------------- */
@@ -124,12 +153,48 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
           ? ((await benefitRes.json()) as BenefitOption[])
           : [];
         setBenefitOptions(benefitMaster);
+        // 事業所形態マスタ取得
         /* 9. 事業所形態マスター 読み込み */
         const facilityTypesRes = await fetch('/db/master/facilityTypes.json');
         const facilityTypesMaster = facilityTypesRes.ok
           ? ((await facilityTypesRes.json()) as FacilityType[])
           : [];
         setFacilityTypes(facilityTypesMaster);
+
+        // 研修・サポートマスタ取得
+        /* 10. 研修・サポートマスター 読み込み */
+        const trainingSupportRes = await fetch(
+          '/db/master/trainingSupportOptions.json'
+        );
+        const trainingSupportMaster = trainingSupportRes.ok
+          ? ((await trainingSupportRes.json()) as TrainingSupportOption[])
+          : [];
+        setTrainingSupportOptions(trainingSupportMaster);
+
+        // アクセス条件マスタ取得
+        /* 11. アクセス条件マスター 読み込み */
+        const accessOptionsRes = await fetch('/db/master/accessOptions.json');
+        const accessOptionsMaster = accessOptionsRes.ok
+          ? ((await accessOptionsRes.json()) as AccessOption[])
+          : [];
+        setAccessOptions(accessOptionsMaster);
+
+        // 応募要件マスタ取得
+        /* 12. 応募要件マスター 読み込み */
+        const applicationRequirementRes = await fetch(
+          '/db/master/applicationRequirementOptions.json'
+        );
+        const applicationRequirementMaster = applicationRequirementRes.ok
+          ? ((await applicationRequirementRes.json()) as ApplicationRequirementOption[])
+          : [];
+        setApplicationRequirementOptions(applicationRequirementMaster);
+        // 休日条件マスタ取得
+        /* 13. 休日条件マスター 読み込み */
+        const holidayOptionsRes = await fetch('/db/master/holidayOptions.json');
+        const holidayOptionsMaster = holidayOptionsRes.ok
+          ? ((await holidayOptionsRes.json()) as HolidayOption[])
+          : [];
+        setHolidayOptions(holidayOptionsMaster);
         /* -------------------------------
          * 正常セット
          * ------------------------------- */
@@ -166,6 +231,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   /* -------------------------------
    * メイン表示
    * ------------------------------- */
+  // 画面側の詳細ページコンポーネントへ全データを渡す
   return (
     <JobDetailContent
       job={job}
@@ -176,6 +242,10 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       jobCategories={jobCategories}
       benefitOptions={benefitOptions}
       facilityTypes={facilityTypes}
+      trainingSupportOptions={trainingSupportOptions}
+      accessOptions={accessOptions}
+      applicationRequirementOptions={applicationRequirementOptions}
+      holidayOptions={holidayOptions}
     />
   );
 }

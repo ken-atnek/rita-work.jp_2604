@@ -115,6 +115,44 @@
                         }
                     }
                 }
+                .applicationRequirementList,
+                .holidayConditionList,
+                .trainingSupportList {
+                    font-size: inherit;
+                    display: flex;
+                    gap: 0 2em;
+                    margin-bottom: 0.5em;
+                    li {
+                        font-size: inherit;
+                        &::before {
+                            content: "○";
+                            margin-right: 0.2em;
+                        }
+                    }
+                }
+
+                .accessList {
+                    font-size: inherit;
+                    display: flex;
+                    gap: 0 2em;
+                    li {
+                        font-size: inherit;
+                        &::before {
+                            content: "○";
+                            margin-right: 0.2em;
+                        }
+                    }
+                }
+                .welcomeList,
+                .selectionProcessList {
+                    font-size: inherit;
+                    & > p {
+                        line-height: 1.6em;
+                        &::before {
+                            display: none;
+                        }
+                    }
+                }
             }
         }
     }

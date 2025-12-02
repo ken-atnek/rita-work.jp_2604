@@ -182,6 +182,84 @@
 
 ---
 
+## 5-1. trainingSupportOptions.json（研修・サポート項目マスタ）
+
+**用途**  
+求人詳細ページの「研修・サポート」項目（例：資格取得支援、研修制度）を ID で管理。
+
+**想定DBテーブル**  
+`m_training_support_options`
+
+**主な使用箇所**
+
+- 求人詳細の「研修・サポート」表示
+- 管理画面のチェックボックス
+- `job_0001.json` の `trainingSupport.options`
+
+**データ例**
+
+```json
+[
+  { "id": "qualification_support", "label": "資格取得支援あり" },
+  { "id": "training_available", "label": "研修制度あり" }
+]
+```
+
+---
+
+## 5-2. accessOptions.json（アクセス条件マスタ）
+
+**用途**  
+「駅から徒歩5分」「車通勤OK」などのアクセス条件を ID で管理。
+
+**想定DBテーブル**  
+`m_access_options`
+
+**主な使用箇所**
+
+- 求人詳細の「アクセス」表示
+- 将来的な検索条件（通勤条件フィルタ）
+- `job_0001.json` の `access.options`
+
+**データ例**
+
+```json
+[
+  { "id": "near_station_5min", "label": "駅から徒歩5分以内" },
+  { "id": "car_commute_ok", "label": "車通勤OK" }
+]
+```
+
+---
+
+## 5-3. applicationRequirementOptions.json（応募要件マスタ）
+
+**用途**  
+「応募要件」（未経験可／ブランク可／資格必須 など）のチェックボックス項目を定義するマスタ。  
+`sortOrder` は画面での表示順を制御するための数値。
+
+**想定DBテーブル**  
+`m_application_requirement_options`
+
+**主な使用箇所**
+
+- 求人詳細の「応募要件」一覧表示
+- 管理画面のチェックボックス
+- 将来的な検索条件（「未経験可のみ表示」など）
+- `job_0001.json` の `applicationRequirements.optionIds`
+
+**データ例**
+
+```json
+[
+  { "id": "no_experience_ok", "name": "未経験可", "sortOrder": 1 },
+  { "id": "career_gap_ok", "name": "ブランク可", "sortOrder": 2 },
+  { "id": "age_not_required", "name": "年齢不問", "sortOrder": 4 }
+]
+```
+
+---
+
 ## 6. workEnvironmentMetrics.json（職場環境データマスタ）
 
 **用途**  

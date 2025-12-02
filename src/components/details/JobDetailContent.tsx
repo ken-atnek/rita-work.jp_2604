@@ -25,6 +25,14 @@ type JobDetailContentProps = {
   jobCategories: JobCategory[];
   benefitOptions: { id: string; name: string; sortOrder: number }[];
   facilityTypes: { id: string; label: string }[];
+  trainingSupportOptions: { id: string; label: string }[];
+  accessOptions: { id: string; label: string }[];
+  applicationRequirementOptions: {
+    id: string;
+    name: string;
+    sortOrder: number;
+  }[];
+  holidayOptions: { id: string; label: string }[];
 };
 
 export function JobDetailContent({
@@ -36,6 +44,10 @@ export function JobDetailContent({
   jobCategories,
   benefitOptions,
   facilityTypes,
+  trainingSupportOptions,
+  accessOptions,
+  applicationRequirementOptions,
+  holidayOptions,
 }: JobDetailContentProps) {
   return (
     <>
@@ -54,6 +66,10 @@ export function JobDetailContent({
         employmentTypes={employmentTypes}
         jobCategories={jobCategories}
         benefitOptions={benefitOptions}
+        trainingSupportOptions={trainingSupportOptions}
+        accessOptions={accessOptions}
+        applicationRequirementOptions={applicationRequirementOptions}
+        holidayOptions={holidayOptions}
       />
       <ContainerFacilityInfo
         job={job}

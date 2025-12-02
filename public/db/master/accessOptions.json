@@ -1,0 +1,4 @@
+[
+  { "id": "near_station_5min", "label": "駅から徒歩5分以内" },
+  { "id": "car_commute_ok", "label": "車通勤OK" }
+]

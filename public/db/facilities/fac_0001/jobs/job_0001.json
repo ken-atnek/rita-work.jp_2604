@@ -118,6 +118,18 @@
       }
     ]
   },
+  "applicationRequirements": {
+    "optionIds": [
+      "no_experience_ok",
+      "career_gap_ok",
+      "age_not_required",
+      "new_graduate_ok"
+    ],
+    "note": [
+      "ブランクのある方も安心してご応募ください。",
+      "経験年数よりも人柄や意欲を重視しています。"
+    ]
+  },
   "benefits": {
     "optionIds": [
       "dormitory",
@@ -131,6 +143,44 @@
       "改行したらここ。"
     ]
   },
+  "holidayConditions": {
+    "optionIds": [
+      "four_week_eight_off_or_more",
+      "weekend_off",
+      "annual_holidays_120_or_more",
+      "long_vacation_available",
+      "paid_leave_almost_100",
+      "monthly_shift"
+    ],
+    "note": [
+      "シフト制ですが、希望休はできる限り考慮します。",
+      "お子さまの行事など家庭都合のお休みも柔軟に相談可能です。"
+    ]
+  },
+  "longHolidays": [
+    "夏季休暇あり（3日）",
+    "年末年始休暇あり（5日）",
+    "慶弔休暇あり"
+  ],
+  "welcomeRequirements": [
+    "例：コミュニケーションが好きな方歓迎",
+    "例：未経験の方もサポートします"
+  ],
+  "trainingSupport": {
+    "options": ["qualification_support", "training_available"],
+    "note": ["ここに備考を表示します", "改行です"]
+  },
+  "access": {
+    "options": ["near_station_5min", "car_commute_ok"]
+  },
+  "selectionProcess": [
+    "1.応募ボタンよりLINE登録を行なってください。",
+    "2.採用担当より直接連絡のうえ面接日をご案内させていただきます。",
+    "3.面接実施",
+    "4.採用決定のご連絡",
+    "5.入職手続きを行ってください。",
+    "※施設より直接ご連絡する場合もあります。 ※選考状況によりプロセスが変更になる場合があります。"
+  ],
   "premium": {
     "enabled": true,
     "path": "/db/facilities/fac_0001/jobs/job_0001_premium.json"
