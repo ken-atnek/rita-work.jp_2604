@@ -13,14 +13,18 @@
   "phone": "096-000-0000",
   "email": "aaa@ddek6.co.jp",
   "contactPerson": "山田 太郎",
-
+  "isEmergencyDesignated": true,
+  "facilityScale": ["一般病床50床", "", "療養型病床30床"],
+  "averagePatients": ["外来：1日あたり 約80名", "", "入院：1日あたり 約40名"],
   "businessHours": [
     "日勤 9:00〜18:00（休憩60分）",
+    "",
     "早出・遅出シフトあり（シフト制）"
   ],
   "holidays": ["週休2日制（シフト制）", "年間休日110日（年末年始休暇含む）"],
   "staffComposition": [
     "看護師：常勤5名・非常勤3名",
+    "",
     "理学療法士：常勤2名",
     "介護職員：常勤12名・非常勤4名"
   ],

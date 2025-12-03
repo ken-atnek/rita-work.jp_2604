@@ -37,13 +37,13 @@
                     line-height: 1.6em;
                     p {
                         font-size: inherit;
-                        &::before {
-                            content: "・";
-                        }
                         & > span {
                             font-size: inherit;
                             margin-left: 0.8em;
                         }
+                    }
+                    .emptyLine {
+                        height: 1.4em;
                     }
                     .wrapMap {
                         position: relative;
@@ -91,37 +91,25 @@
     .boxDl {
         dl {
             dd {
-                .benefitsList {
-                    font-size: inherit;
-                    display: flex;
-                    flex-direction: column;
-                    margin-bottom: 0.5em;
-                    li {
-                        font-size: inherit;
-                        line-height: 1.6em;
-                        &::before {
-                            content: "・";
-                        }
-                    }
-                }
                 .note {
                     font-size: inherit;
                     display: flex;
                     flex-direction: column;
                     & > p {
-                        line-height: 1.6em;
-                        &::before {
-                            display: none;
-                        }
+                        font-size: 0.875em;
+                        line-height: 1.4em;
                     }
                 }
+                .benefitsList,
                 .applicationRequirementList,
+                .workStyleList,
                 .holidayConditionList,
                 .trainingSupportList {
                     font-size: inherit;
                     display: flex;
-                    gap: 0 2em;
-                    margin-bottom: 0.5em;
+                    flex-flow: column wrap;
+                    gap: 0.3em 2em;
+                    margin-bottom: 1em;
                     li {
                         font-size: inherit;
                         &::before {
@@ -130,18 +118,25 @@
                         }
                     }
                 }
-
-                .accessList {
+                .jobContentList,
+                .accessList,
+                .serviceTypeList,
+                .clinicalDepartmentList {
                     font-size: inherit;
                     display: flex;
-                    gap: 0 2em;
+                    flex-wrap: wrap;
+                    gap: 0.5em 2em;
                     li {
                         font-size: inherit;
+                        width: max-content;
                         &::before {
                             content: "○";
                             margin-right: 0.2em;
                         }
                     }
+                }
+                .jobContentList {
+                    margin-bottom: 0.5em;
                 }
                 .welcomeList,
                 .selectionProcessList {
@@ -181,9 +176,10 @@
                         li {
                             font-size: inherit;
                             line-height: 1.6em;
-                            &::before {
-                                content: "・";
-                            }
+
+                            // &::before {
+                            //     content: "・";
+                            // }
                         }
                     }
                 }

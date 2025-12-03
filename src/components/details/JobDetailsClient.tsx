@@ -51,7 +51,26 @@ type HolidayOption = {
   id: string;
   label: string;
 };
-
+type WorkStyleOption = {
+  id: string;
+  name: string;
+  sortOrder: number;
+};
+type ClinicalDepartmentOption = {
+  id: string;
+  name: string;
+  sortOrder: number;
+};
+type JobContentOption = {
+  id: string;
+  name: string;
+  sortOrder: number;
+};
+type ServiceTypeOption = {
+  id: string;
+  name: string;
+  sortOrder: number;
+};
 export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [job, setJob] = useState<Job | null>(null);
   const [facility, setFacility] = useState<Facility | null>(null);
@@ -72,6 +91,19 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [applicationRequirementOptions, setApplicationRequirementOptions] =
     useState<ApplicationRequirementOption[]>([]);
   const [holidayOptions, setHolidayOptions] = useState<HolidayOption[]>([]);
+  const [workStyleOptions, setWorkStyleOptions] = useState<WorkStyleOption[]>(
+    []
+  );
+  const [clinicalDepartments, setClinicalDepartments] = useState<
+    ClinicalDepartmentOption[]
+  >([]);
+  const [jobContentOptions, setJobContentOptions] = useState<
+    JobContentOption[]
+  >([]);
+  // サービス形態マスタ
+  const [serviceTypeOptions, setServiceTypeOptions] = useState<
+    ServiceTypeOption[]
+  >([]);
   useEffect(() => {
     const loadDetails = async () => {
       try {
@@ -144,6 +176,10 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
           : [];
         setJobCategories(categories);
 
+        const depRes = await fetch('/db/master/clinicalDepartments.json');
+        const depMaster = depRes.ok ? await depRes.json() : [];
+        setClinicalDepartments(depMaster);
+
         // 待遇マスタ取得
         /* -------------------------------
          * 8. 待遇マスター 読み込み
@@ -195,6 +231,31 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
           ? ((await holidayOptionsRes.json()) as HolidayOption[])
           : [];
         setHolidayOptions(holidayOptionsMaster);
+        // 勤務スタイルマスタ取得
+        /* 14. 勤務スタイルマスター 読み込み */
+        const workStyleRes = await fetch('/db/master/workStyleOptions.json');
+        const workStyleMaster = workStyleRes.ok
+          ? ((await workStyleRes.json()) as WorkStyleOption[])
+          : [];
+        setWorkStyleOptions(workStyleMaster);
+
+        // 仕事内容マスタ取得
+        /* 15. 仕事内容マスター 読み込み */
+        const jobContentRes = await fetch('/db/master/jobContentOptions.json');
+        const jobContentMaster = jobContentRes.ok
+          ? ((await jobContentRes.json()) as JobContentOption[])
+          : [];
+        setJobContentOptions(jobContentMaster);
+
+        // サービス形態マスタ取得
+        /* 16. サービス形態マスター 読み込み */
+        const serviceTypeRes = await fetch(
+          '/db/master/serviceTypeOptions.json'
+        );
+        const serviceTypeMaster = serviceTypeRes.ok
+          ? ((await serviceTypeRes.json()) as ServiceTypeOption[])
+          : [];
+        setServiceTypeOptions(serviceTypeMaster);
         /* -------------------------------
          * 正常セット
          * ------------------------------- */
@@ -246,6 +307,10 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       accessOptions={accessOptions}
       applicationRequirementOptions={applicationRequirementOptions}
       holidayOptions={holidayOptions}
+      workStyleOptions={workStyleOptions}
+      clinicalDepartments={clinicalDepartments}
+      jobContentOptions={jobContentOptions}
+      serviceTypeOptions={serviceTypeOptions}
     />
   );
 }

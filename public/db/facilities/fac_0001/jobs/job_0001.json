@@ -18,6 +18,8 @@
 
   "firstYearIncomeRangeId": "fy_0002",
 
+  "clinicalDepartments": ["ophthalmology", "dermatology"],
+
   "salary": {
     "unitId": "monthly",
     "min": 200000,
@@ -27,7 +29,33 @@
       "note": "年二回"
     }
   },
+  "salaryNotes": [
+    "基本給に加えて、経験やスキルに応じた手当を支給します。",
+    "前職の給与も考慮のうえ優遇いたします。"
+  ],
 
+  "jobContents": {
+    "optionIds": [
+      "outpatient",
+      "orthopedic_rehab",
+      "cerebrovascular_rehab",
+      "ward"
+    ],
+    "note": [
+      "外来と病棟の両方でリハビリ業務を担当していただきます。",
+      "運動器・脳血管リハビリを中心に、患者さま一人ひとりに合わせた個別リハを行います。"
+    ]
+  },
+  "serviceTypes": {
+    "optionIds": [
+      "home_nursing_station",
+      "daycare_rehab",
+      "day_service",
+      "rojin_hoken",
+      "care_paid_home",
+      "general_hospital"
+    ]
+  },
   "workEnvironmentStats": [
     {
       "metricId": "monthly_avg_overtime",
@@ -130,16 +158,26 @@
       "経験年数よりも人柄や意欲を重視しています。"
     ]
   },
+  "workStyle": {
+    "optionIds": ["day_only", "no_overtime"],
+    "note": [
+      "子育て中のスタッフも多く在籍しています。",
+      "時短勤務やシフト相談もしやすい職場です。"
+    ]
+  },
   "benefits": {
     "optionIds": [
       "dormitory",
       "childcare_support",
       "commuting_allowance",
       "electric_bike",
-      "harassment_desk"
+      "harassment_desk",
+      "side_job_ok",
+      "housing_allowance"
     ],
     "note": [
-      "賞与は年2回（昨年度実績3.5ヶ月）。電動自転車の使用可。",
+      "・賞与は年2回（昨年度実績3.5ヶ月）。電動自転車の使用可。",
+      "",
       "改行したらここ。"
     ]
   },
@@ -159,6 +197,7 @@
   },
   "longHolidays": [
     "夏季休暇あり（3日）",
+    "",
     "年末年始休暇あり（5日）",
     "慶弔休暇あり"
   ],
@@ -179,7 +218,7 @@
     "3.面接実施",
     "4.採用決定のご連絡",
     "5.入職手続きを行ってください。",
-    "※施設より直接ご連絡する場合もあります。 ※選考状況によりプロセスが変更になる場合があります。"
+    "※施設より直接ご連絡する場合もあります。※選考状況によりプロセスが変更になる場合があります。"
   ],
   "premium": {
     "enabled": true,

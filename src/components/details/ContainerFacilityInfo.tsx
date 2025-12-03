@@ -3,7 +3,7 @@
  * URL: src/components/details/ContainerFacilityInfo.tsx
  * Referenced in: src/components/details/JobDetailContent.tsx
  * Created: 2025-11-29
- * Last updated: 2025-12-02
+ * Last updated: 2025-12-03
  * ======================================= */
 
 // 事業所情報セクション（法人・事業所・アクセス・スタッフ構成など）を表示するコンポーネント
@@ -81,12 +81,15 @@ export default function ContainerFacilityInfo({
   // 施設の facilityTypeId からラベルを取得（マスタに無ければ id をそのまま表示）
   const facilityTypeLabel =
     facilityTypeMap[facility.facilityTypeId] ?? facility.facilityTypeId;
-  // 画面表示：事業所情報（法人名・事業所名・住所・マップ・募集職種など）
+  // ==========================
+  // 画面表示（dlの順番はデザイン通りに固定）
+  // ==========================
   return (
     <section className={styles.containerFacilityInfo}>
       <article>
         <h2 className={styles.title}>事業所情報</h2>
         <div className={styles.boxDl}>
+          {/* === 基本情報（法人・事業所） === */}
           <dl>
             <dt>法人名</dt>
             <dd>
@@ -130,14 +133,16 @@ export default function ContainerFacilityInfo({
               )}
             </dd>
           </dl>
+          {/* === 事業所の基本データ === */}
           {facility.establishedDate && (
             <dl>
-              <dt>設立年月日</dt>
+              <dt>設立年月</dt>
               <dd>
                 <p>{formatEstablishedDate(facility.establishedDate)}</p>
               </dd>
             </dl>
           )}
+          {/* === 募集関連（この事業所で募集している職種） === */}
           {facility.recruitJobs && facility.recruitJobs.length > 0 && (
             <dl>
               <dt>募集職種</dt>
@@ -161,42 +166,97 @@ export default function ContainerFacilityInfo({
               </dd>
             </dl>
           )}
+          {/* === 事業所の属性情報 === */}
           <dl>
             <dt>事業所形態</dt>
             <dd>{facilityTypeLabel}</dd>
           </dl>
+
+          {/* 施設規模：病床数などの規模感 */}
+          {facility.facilityScale && facility.facilityScale.length > 0 && (
+            <dl>
+              <dt>施設規模</dt>
+              <dd>
+                {facility.facilityScale.map((line, i) =>
+                  line.trim() === '' ? (
+                    <p key={i} className={styles.emptyLine}></p>
+                  ) : (
+                    <p key={i}>{line}</p>
+                  )
+                )}
+              </dd>
+            </dl>
+          )}
+          {/* 救急指定：true の場合のみ表示 */}
+          {facility.isEmergencyDesignated && (
+            <dl>
+              <dt>救急指定</dt>
+              <dd>救急指定あり</dd>
+            </dl>
+          )}
+          {/* === 営業・運営情報 === */}
           {facility.businessHours && facility.businessHours.length > 0 && (
             <dl>
               <dt>営業時間</dt>
               <dd>
-                {facility.businessHours.map((line, i) => (
-                  <p key={i}>{line}</p>
-                ))}
+                {facility.businessHours.map((line, i) =>
+                  line.trim() === '' ? (
+                    <p key={i} className={styles.emptyLine}></p>
+                  ) : (
+                    <p key={i}>{line}</p>
+                  )
+                )}
               </dd>
             </dl>
           )}
+          {/* 休業日：テキストエリア入力をそのまま行単位で表示 */}
           {facility.holidays && facility.holidays.length > 0 && (
             <dl>
               <dt>休業日</dt>
               <dd>
-                {facility.holidays.map((line, i) => (
-                  <p key={i}>{line}</p>
-                ))}
+                {facility.holidays.map((line, i) =>
+                  line.trim() === '' ? (
+                    <p key={i} className={styles.emptyLine}></p>
+                  ) : (
+                    <p key={i}>{line}</p>
+                  )
+                )}
               </dd>
             </dl>
           )}
-
+          {/* 平均患者数：外来・入院などの目安を改行付きで表示 */}
+          {facility.averagePatients && facility.averagePatients.length > 0 && (
+            <dl>
+              <dt>平均患者数</dt>
+              <dd>
+                {facility.averagePatients.map((line, i) =>
+                  line.trim() === '' ? (
+                    <p key={i} className={styles.emptyLine}></p>
+                  ) : (
+                    <p key={i}>{line}</p>
+                  )
+                )}
+              </dd>
+            </dl>
+          )}
+          {/* === スタッフ・サービス情報 === */}
+          {/* スタッフ構成：職種や人数構成など */}
           {facility.staffComposition &&
             facility.staffComposition.length > 0 && (
               <dl>
                 <dt>スタッフ構成</dt>
                 <dd>
-                  {facility.staffComposition.map((line, i) => (
-                    <p key={i}>{line}</p>
-                  ))}
+                  {facility.staffComposition.map((line, i) =>
+                    line.trim() === '' ? (
+                      <p key={i} className={styles.emptyLine}></p>
+                    ) : (
+                      <p key={i}>{line}</p>
+                    )
+                  )}
                 </dd>
               </dl>
             )}
+          {/* 訪問エリア：訪問看護ステーション等のときのみ表示 */}
           {facility.typeSpecific?.visitArea && (
             <dl>
               <dt>訪問エリア</dt>

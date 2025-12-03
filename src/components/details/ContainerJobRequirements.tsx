@@ -15,37 +15,83 @@ import type { JobCategory } from '@/types/jobCategory';
 import styles from './ContainerFacilityInfo.module.scss';
 
 type ContainerJobRequirementsProps = {
+  // ==========================
   // 求人本体データ（job_0001.json）
+  // ==========================
   job: Job;
+
+  // ==========================
+  // 基本マスタ（募集職種・雇用形態）
+  // ==========================
   // 雇用形態マスタ（正社員・パートなど）
   employmentTypes: { id: string; name: string }[];
   // 職種マスタ（看護師・理学療法士など）
   jobCategories: JobCategory[];
+
+  // ==========================
+  // 仕事内容まわりのマスタ
+  // ==========================
+  // 診療科目マスタ
+  clinicalDepartments: {
+    id: string;
+    name: string;
+    sortOrder: number;
+  }[];
+  // 仕事内容マスタ
+  jobContentOptions: {
+    id: string;
+    name: string;
+    sortOrder: number;
+  }[];
+  // サービス形態マスタ
+  serviceTypeOptions: {
+    id: string;
+    name: string;
+    sortOrder: number;
+  }[];
+
+  // ==========================
+  // 給与・待遇・働き方系マスタ
+  // ==========================
   // 待遇（福利厚生）マスタ
   benefitOptions: { id: string; name: string; sortOrder: number }[];
-  // 研修・サポートマスタ
-  trainingSupportOptions: { id: string; label: string }[];
-  // アクセス条件マスタ
-  accessOptions: { id: string; label: string }[];
-  // 応募要件マスタ
-  applicationRequirementOptions: {
+  // 勤務スタイルマスタ（勤務時間）
+  workStyleOptions: {
     id: string;
     name: string;
     sortOrder: number;
   }[];
   // 休日条件マスタ
   holidayOptions: { id: string; label: string }[];
+
+  // ==========================
+  // 応募要件・研修・アクセス系マスタ
+  // ==========================
+  // 応募要件マスタ
+  applicationRequirementOptions: {
+    id: string;
+    name: string;
+    sortOrder: number;
+  }[];
+  // 研修・サポートマスタ
+  trainingSupportOptions: { id: string; label: string }[];
+  // アクセス条件マスタ
+  accessOptions: { id: string; label: string }[];
 };
 
 export default function ContainerJobRequirements({
   job,
   employmentTypes,
   jobCategories,
+  clinicalDepartments,
+  jobContentOptions,
+  serviceTypeOptions,
   benefitOptions,
+  workStyleOptions,
+  holidayOptions,
+  applicationRequirementOptions,
   trainingSupportOptions,
   accessOptions,
-  applicationRequirementOptions,
-  holidayOptions,
 }: ContainerJobRequirementsProps) {
   // ----------------------------------------
   // --- マスタを id → label に引けるよう変換 ---
@@ -98,6 +144,9 @@ export default function ContainerJobRequirements({
       ? `賞与あり（${salary.bonus.note}）`
       : '賞与あり'
     : '';
+  // 給与備考（Job 直下の独立項目／複数行・改行対応）
+  const salaryNotes =
+    job.salaryNotes?.filter((line) => line.trim() !== '') ?? [];
 
   // ----------------------------------------
   // --- マスタを id → label に引けるよう変換 ---
@@ -197,9 +246,83 @@ export default function ContainerJobRequirements({
       .filter(Boolean) ?? [];
 
   const holidayConditionNotes = job.holidayConditions?.note ?? [];
-
   const hasHolidayConditions =
     holidayConditionLabels.length > 0 || holidayConditionNotes.length > 0;
+
+  // ----------------------------------------
+  // --- マスタを id → label に引けるよう変換 ---
+  // 勤務スタイル用のマスタ Map
+  // ----------------------------------------
+  const workStyleMap = workStyleOptions.reduce<Record<string, string>>(
+    (acc: Record<string, string>, opt) => {
+      acc[opt.id] = opt.name;
+      return acc;
+    },
+    {} as Record<string, string>
+  );
+  const workStyleLabels =
+    job.workStyle?.optionIds?.map((id) => workStyleMap[id]).filter(Boolean) ??
+    [];
+
+  const workStyleNotes = job.workStyle?.note ?? [];
+  const hasWorkStyle = workStyleLabels.length > 0 || workStyleNotes.length > 0;
+  // ----------------------------------------
+  // --- マスタを id → label に引けるよう変換 ---
+  // 診療科目マスタを「id → name」に変換
+  // ----------------------------------------
+  const clinicalDepartmentMap = clinicalDepartments.reduce<
+    Record<string, string>
+  >((acc, dep) => {
+    acc[dep.id] = dep.name;
+    return acc;
+  }, {});
+
+  // 求人側に設定された診療科目 ID 配列をラベル配列に変換
+  const clinicalDepartmentLabels =
+    job.clinicalDepartments
+      ?.map((id) => clinicalDepartmentMap[id])
+      .filter(Boolean) ?? [];
+
+  // ----------------------------------------
+  // --- 仕事内容マスタを id → label に引けるよう変換 ---
+  // job.jobContents.optionIds からラベルを引くための Map
+  // ----------------------------------------
+  const jobContentMap = jobContentOptions.reduce<Record<string, string>>(
+    (acc, opt) => {
+      acc[opt.id] = opt.name;
+      return acc;
+    },
+    {}
+  );
+
+  const jobContentLabels =
+    job.jobContents?.optionIds
+      ?.map((id) => jobContentMap[id])
+      .filter(Boolean) ?? [];
+
+  const jobContentNotes = job.jobContents?.note ?? [];
+
+  const hasJobContents =
+    jobContentLabels.length > 0 || jobContentNotes.length > 0;
+
+  // ----------------------------------------
+  // --- サービス形態マスタを id → label に引けるよう変換 ---
+  // job.serviceTypes.optionIds からラベルを引くための Map
+  // ----------------------------------------
+  const serviceTypeMap = serviceTypeOptions.reduce<Record<string, string>>(
+    (acc, opt) => {
+      acc[opt.id] = opt.name;
+      return acc;
+    },
+    {}
+  );
+
+  const serviceTypeLabels =
+    job.serviceTypes?.optionIds
+      ?.map((id) => serviceTypeMap[id])
+      .filter(Boolean) ?? [];
+
+  const hasServiceTypes = serviceTypeLabels.length > 0;
 
   // ==============================
   // 表示ブロック（<dl> の並び）
@@ -224,7 +347,61 @@ export default function ContainerJobRequirements({
               <p>{typeName}</p>
             </dd>
           </dl>
+          {/* 仕事内容 */}
+          {hasJobContents && (
+            <dl>
+              <dt>仕事内容</dt>
+              <dd>
+                {jobContentLabels.length > 0 && (
+                  <ul className={styles.jobContentList}>
+                    {jobContentLabels.map((label) => (
+                      <li key={label}>{label}</li>
+                    ))}
+                  </ul>
+                )}
 
+                {jobContentNotes.length > 0 && (
+                  <div className={styles.note}>
+                    {jobContentNotes.map((line, index) =>
+                      line.trim() === '' ? (
+                        <p key={index} className={styles.emptyLine}></p>
+                      ) : (
+                        <p key={index}>{line}</p>
+                      )
+                    )}
+                  </div>
+                )}
+              </dd>
+            </dl>
+          )}
+          {/* 診療科目 */}
+          {clinicalDepartmentLabels.length > 0 && (
+            <dl>
+              <dt>診療科目</dt>
+              <dd>
+                <ul className={styles.clinicalDepartmentList}>
+                  {clinicalDepartmentLabels.map((label) => (
+                    <li key={label}>{label}</li>
+                  ))}
+                </ul>
+              </dd>
+            </dl>
+          )}
+          {/* サービス形態 */}
+          {hasServiceTypes && (
+            <dl>
+              <dt>サービス形態</dt>
+              <dd>
+                {serviceTypeLabels.length > 0 && (
+                  <ul className={styles.serviceTypeList}>
+                    {serviceTypeLabels.map((label) => (
+                      <li key={label}>{label}</li>
+                    ))}
+                  </ul>
+                )}
+              </dd>
+            </dl>
+          )}
           {/* 給与・賞与 */}
           <dl>
             <dt>給与</dt>
@@ -234,6 +411,17 @@ export default function ContainerJobRequirements({
               </p>
             </dd>
           </dl>
+          {/* 給与備考（独立項目・複数行対応） */}
+          {salaryNotes.length > 0 && (
+            <dl>
+              <dt>給与の備考</dt>
+              <dd>
+                {salaryNotes.map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
+              </dd>
+            </dl>
+          )}
 
           {/* 待遇（福利厚生） */}
           {selectedBenefits.length > 0 && (
@@ -247,16 +435,48 @@ export default function ContainerJobRequirements({
                 </ul>
 
                 {/* 待遇の補足テキスト（任意） */}
-                {job.benefits?.note && job.benefits.note.length > 0 && (
+                {job.benefits?.note && (
                   <div className={styles.note}>
-                    {job.benefits.note.map((line, index) => (
-                      <p key={index}>{line}</p>
-                    ))}
+                    {job.benefits.note.map((line, index) =>
+                      line.trim() === '' ? (
+                        <p key={index} className={styles.emptyLine}></p>
+                      ) : (
+                        <p key={index}>{line}</p>
+                      )
+                    )}
                   </div>
                 )}
               </dd>
             </dl>
           )}
+          {/* 勤務スタイル */}
+          {hasWorkStyle && (
+            <dl>
+              <dt>勤務時間</dt>
+              <dd>
+                {workStyleLabels.length > 0 && (
+                  <ul className={styles.workStyleList}>
+                    {workStyleLabels.map((label) => (
+                      <li key={label}>{label}</li>
+                    ))}
+                  </ul>
+                )}
+
+                {workStyleNotes.length > 0 && (
+                  <div className={styles.note}>
+                    {workStyleNotes.map((line, index) =>
+                      line.trim() === '' ? (
+                        <p key={index} className={styles.emptyLine}></p>
+                      ) : (
+                        <p key={index}>{line}</p>
+                      )
+                    )}
+                  </div>
+                )}
+              </dd>
+            </dl>
+          )}
+
           {/* 休日・シフト */}
           {hasHolidayConditions && (
             <dl>
@@ -272,9 +492,13 @@ export default function ContainerJobRequirements({
 
                 {holidayConditionNotes.length > 0 && (
                   <div className={styles.note}>
-                    {holidayConditionNotes.map((line, index) => (
-                      <p key={index}>{line}</p>
-                    ))}
+                    {holidayConditionNotes.map((line, index) =>
+                      line.trim() === '' ? (
+                        <p key={index} className={styles.emptyLine}></p>
+                      ) : (
+                        <p key={index}>{line}</p>
+                      )
+                    )}
                   </div>
                 )}
               </dd>
@@ -285,9 +509,13 @@ export default function ContainerJobRequirements({
             <dl>
               <dt>長期休暇・特別休暇</dt>
               <dd>
-                {job.longHolidays.map((line, index) => (
-                  <p key={index}>{line}</p>
-                ))}
+                {job.longHolidays.map((line, index) =>
+                  line.trim() === '' ? (
+                    <p key={index} className={styles.emptyLine}></p>
+                  ) : (
+                    <p key={index}>{line}</p>
+                  )
+                )}
               </dd>
             </dl>
           )}
@@ -306,9 +534,13 @@ export default function ContainerJobRequirements({
 
                 {applicationRequirementNotes.length > 0 && (
                   <div className={styles.note}>
-                    {applicationRequirementNotes.map((line, index) => (
-                      <p key={index}>{line}</p>
-                    ))}
+                    {applicationRequirementNotes.map((line, index) =>
+                      line.trim() === '' ? (
+                        <p key={index} className={styles.emptyLine}></p>
+                      ) : (
+                        <p key={index}>{line}</p>
+                      )
+                    )}
                   </div>
                 )}
               </dd>
@@ -320,9 +552,13 @@ export default function ContainerJobRequirements({
               <dt>歓迎要件</dt>
               <dd>
                 <div className={styles.welcomeList}>
-                  {welcomeRequirements.map((line, index) => (
-                    <p key={index}>{line}</p>
-                  ))}
+                  {welcomeRequirements.map((line, index) =>
+                    line.trim() === '' ? (
+                      <p key={index} className={styles.emptyLine}></p>
+                    ) : (
+                      <p key={index}>{line}</p>
+                    )
+                  )}
                 </div>
               </dd>
             </dl>
@@ -331,7 +567,7 @@ export default function ContainerJobRequirements({
           {/* 研修・サポート */}
           {hasTrainingSupport && (
             <dl>
-              <dt>研修・サポート</dt>
+              <dt>教育体制・研修</dt>
               <dd>
                 {trainingSupportLabels.length > 0 && (
                   <ul className={styles.trainingSupportList}>
@@ -342,9 +578,13 @@ export default function ContainerJobRequirements({
                 )}
                 {trainingSupportNotes.length > 0 && (
                   <div className={styles.note}>
-                    {trainingSupportNotes.map((line, index) => (
-                      <p key={index}>{line}</p>
-                    ))}
+                    {trainingSupportNotes.map((line, index) =>
+                      line.trim() === '' ? (
+                        <p key={index} className={styles.emptyLine}></p>
+                      ) : (
+                        <p key={index}>{line}</p>
+                      )
+                    )}
                   </div>
                 )}
               </dd>
@@ -371,9 +611,13 @@ export default function ContainerJobRequirements({
               <dt>選考プロセス</dt>
               <dd>
                 <div className={styles.selectionProcessList}>
-                  {selectionProcess.map((line, index) => (
-                    <p key={index}>{line}</p>
-                  ))}
+                  {selectionProcess.map((line, index) =>
+                    line.trim() === '' ? (
+                      <p key={index} className={styles.emptyLine}></p>
+                    ) : (
+                      <p key={index}>{line}</p>
+                    )
+                  )}
                 </div>
               </dd>
             </dl>
