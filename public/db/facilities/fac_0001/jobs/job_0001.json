@@ -2,7 +2,7 @@
   "id": "job_0001",
   "facilityId": "fac_0001",
   "publishedPeriod": {
-    "start": "2025-01-01",
+    "start": "2025-09-01",
     "end": "2025-12-31"
   },
   "jobCategoryId": "pt",
@@ -10,35 +10,64 @@
 
   "title": "機能回復を支える理学療法士",
   "heroImages": [
-    "/db/images/facilities/fac_0001/hero01.png",
-    "/db/images/facilities/fac_0001/hero01.png",
-    "/db/images/facilities/fac_0001/hero01.png"
+    "/db/images/facilities/fac_0001/hero01.jpg",
+    "/db/images/facilities/fac_0001/hero02.jpg",
+    "/db/images/facilities/fac_0001/hero03.jpg",
+    "/db/images/facilities/fac_0001/hero04.jpg"
   ],
 
   "firstYearIncomeRangeId": "fy_0002",
+
+  "clinicalDepartments": ["ophthalmology", "dermatology"],
 
   "salary": {
     "unitId": "monthly",
     "min": 200000,
     "max": 300000,
     "bonus": {
-      "hasBonus": false,
-      "note": ""
+      "hasBonus": true,
+      "note": "年二回"
     }
   },
+  "salaryNotes": [
+    "基本給に加えて、経験やスキルに応じた手当を支給します。",
+    "前職の給与も考慮のうえ優遇いたします。"
+  ],
 
+  "jobContents": {
+    "optionIds": [
+      "outpatient",
+      "orthopedic_rehab",
+      "cerebrovascular_rehab",
+      "ward"
+    ],
+    "note": [
+      "外来と病棟の両方でリハビリ業務を担当していただきます。",
+      "運動器・脳血管リハビリを中心に、患者さま一人ひとりに合わせた個別リハを行います。"
+    ]
+  },
+  "serviceTypes": {
+    "optionIds": [
+      "home_nursing_station",
+      "daycare_rehab",
+      "day_service",
+      "rojin_hoken",
+      "care_paid_home",
+      "general_hospital"
+    ]
+  },
   "workEnvironmentStats": [
     {
       "metricId": "monthly_avg_overtime",
       "value": 15.3
     },
     {
-      "metricId": "annual_avg_paid_leave_days",
+      "metricId": "annual_holidays",
       "value": 38.6
     },
     {
-      "metricId": "paid_leave_rate_mf",
-      "value": 100
+      "metricId": "avg_monthly_salary_increase",
+      "value": 2.5
     }
   ],
   "interview": {
@@ -52,16 +81,16 @@
   "dailySchedule": {
     "dayShift": [
       {
-        "time": "08:30",
+        "time": "8:30",
         "body": ["出勤、食事介助・嚥下訓練・口腔ケア"]
       },
       {
-        "time": "09:00",
+        "time": "9:00",
         "body": [
-          "朝礼",
-          "オムツ交換",
-          "体位交換",
-          "トイレ誘導（移乗・感覚訓練）"
+          "・朝礼",
+          "・オムツ交換",
+          "・体位交換",
+          "・トイレ誘導（移乗・感覚訓練）"
         ]
       },
       {
@@ -117,6 +146,80 @@
       }
     ]
   },
+  "applicationRequirements": {
+    "optionIds": [
+      "no_experience_ok",
+      "career_gap_ok",
+      "age_not_required",
+      "new_graduate_ok"
+    ],
+    "note": [
+      "ブランクのある方も安心してご応募ください。",
+      "経験年数よりも人柄や意欲を重視しています。"
+    ]
+  },
+  "workStyle": {
+    "optionIds": ["day_only", "no_overtime"],
+    "note": [
+      "子育て中のスタッフも多く在籍しています。",
+      "時短勤務やシフト相談もしやすい職場です。"
+    ]
+  },
+  "benefits": {
+    "optionIds": [
+      "dormitory",
+      "childcare_support",
+      "commuting_allowance",
+      "electric_bike",
+      "harassment_desk",
+      "side_job_ok",
+      "housing_allowance"
+    ],
+    "note": [
+      "・賞与は年2回（昨年度実績3.5ヶ月）。電動自転車の使用可。",
+      "",
+      "改行したらここ。"
+    ]
+  },
+  "holidayConditions": {
+    "optionIds": [
+      "four_week_eight_off_or_more",
+      "weekend_off",
+      "annual_holidays_120_or_more",
+      "long_vacation_available",
+      "paid_leave_almost_100",
+      "monthly_shift"
+    ],
+    "note": [
+      "シフト制ですが、希望休はできる限り考慮します。",
+      "お子さまの行事など家庭都合のお休みも柔軟に相談可能です。"
+    ]
+  },
+  "longHolidays": [
+    "夏季休暇あり（3日）",
+    "",
+    "年末年始休暇あり（5日）",
+    "慶弔休暇あり"
+  ],
+  "welcomeRequirements": [
+    "例：コミュニケーションが好きな方歓迎",
+    "例：未経験の方もサポートします"
+  ],
+  "trainingSupport": {
+    "options": ["qualification_support", "training_available"],
+    "note": ["ここに備考を表示します", "改行です"]
+  },
+  "access": {
+    "options": ["near_station_5min", "car_commute_ok"]
+  },
+  "selectionProcess": [
+    "1.応募ボタンよりLINE登録を行なってください。",
+    "2.採用担当より直接連絡のうえ面接日をご案内させていただきます。",
+    "3.面接実施",
+    "4.採用決定のご連絡",
+    "5.入職手続きを行ってください。",
+    "※施設より直接ご連絡する場合もあります。※選考状況によりプロセスが変更になる場合があります。"
+  ],
   "premium": {
     "enabled": true,
     "path": "/db/facilities/fac_0001/jobs/job_0001_premium.json"

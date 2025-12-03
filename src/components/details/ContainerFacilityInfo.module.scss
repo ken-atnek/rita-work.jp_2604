@@ -1,0 +1,189 @@
+/* ===============================================================
+ * 	リタワーク 求人詳細ページ｜募集要項・事業者情報
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+.containerFacilityInfo,
+.containerJobRequirements {
+    @include flex-center;
+    background-color: $base-white;
+    padding: 3em 4vw 5em;
+    article {
+        max-width: $articleMaxWidth;
+        display: flex;
+        flex-direction: column;
+        gap: 1.4em 0;
+        .boxDl {
+            position: relative;
+            font-size: inherit;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            dl {
+                position: relative;
+                grid-column: span 2;
+                display: grid;
+                grid-template-columns: subgrid;
+                font-size: inherit;
+                gap: 0 5em;
+                padding-block: 1em;
+                border-top: 1px solid #d6d6d6;
+                dt {
+                    font-size: FZ(16);
+                    font-weight: 500;
+                }
+                dd {
+                    font-size: FZ(14);
+                    line-height: 1.6em;
+                    p {
+                        font-size: inherit;
+                        & > span {
+                            font-size: inherit;
+                            margin-left: 0.8em;
+                        }
+                    }
+                    .emptyLine {
+                        height: 1.4em;
+                    }
+                    .wrapMap {
+                        position: relative;
+                        font-size: inherit;
+                        width: 100%;
+                        margin-top: 1em;
+                        iframe {
+                            width: 100%;
+                            aspect-ratio: 3.8;
+                            font-size: inherit;
+                            border-radius: 24px;
+                        }
+                        .mapUrlLink {
+                            position: absolute;
+                            right: 0;
+                            bottom: calc(100% + 2em);
+                            border: solid 1px $main-orange;
+                            background-color: #fff;
+                            padding: 0.8em 2em;
+                            border-radius: 8px;
+                            @include box-shadow;
+                            span {
+                                font-size: 1.2rem;
+                                color: $main-orange;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 募集要項
+.containerJobRequirements {
+    @include bottom-radius($radius80);
+    h2 {
+        @include detail-h2;
+        &::before {
+            top: 45%;
+            width: 3.3rem;
+            @include svg-icon-memo(f29400);
+        }
+    }
+    .boxDl {
+        dl {
+            dd {
+                .note {
+                    font-size: inherit;
+                    display: flex;
+                    flex-direction: column;
+                    & > p {
+                        font-size: 0.875em;
+                        line-height: 1.4em;
+                    }
+                }
+                .benefitsList,
+                .applicationRequirementList,
+                .workStyleList,
+                .holidayConditionList,
+                .trainingSupportList {
+                    font-size: inherit;
+                    display: flex;
+                    flex-flow: column wrap;
+                    gap: 0.3em 2em;
+                    margin-bottom: 1em;
+                    li {
+                        font-size: inherit;
+                        &::before {
+                            content: "○";
+                            margin-right: 0.2em;
+                        }
+                    }
+                }
+                .jobContentList,
+                .accessList,
+                .serviceTypeList,
+                .clinicalDepartmentList {
+                    font-size: inherit;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.5em 2em;
+                    li {
+                        font-size: inherit;
+                        width: max-content;
+                        &::before {
+                            content: "○";
+                            margin-right: 0.2em;
+                        }
+                    }
+                }
+                .jobContentList {
+                    margin-bottom: 0.5em;
+                }
+                .welcomeList,
+                .selectionProcessList {
+                    font-size: inherit;
+                    & > p {
+                        line-height: 1.6em;
+                        &::before {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 事業所情報
+.containerFacilityInfo {
+    margin-top: 1em;
+    @include top-radius($radius80);
+    h2 {
+        @include detail-h2;
+        &::before {
+            top: 45%;
+            width: 2.7rem;
+            @include svg-icon-building(f29400);
+        }
+    }
+    article {
+        .boxDl {
+            dl {
+                dd {
+                    .listRecruitJobs {
+                        font-size: inherit;
+                        display: flex;
+                        flex-direction: column;
+                        li {
+                            font-size: inherit;
+                            line-height: 1.6em;
+
+                            // &::before {
+                            //     content: "・";
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

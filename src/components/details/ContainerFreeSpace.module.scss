@@ -1,0 +1,65 @@
+/* ===============================================================
+ * 	リタワーク 求人詳細ページ｜フリースペース
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+.containerFreeSpace {
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-bottom: 5em;
+    background-color: $base-white;
+    article {
+        max-width: $articleMaxWidth;
+        display: flex;
+        flex-direction: column;
+        background-color: #fef4e5;
+        border-radius: $radius24;
+        padding: 3em;
+        gap: 2em 0;
+        h2 {
+            font-size: FZ(24);
+            color: $main-orange;
+            font-weight: 500;
+        }
+        ul {
+            position: relative;
+            font-size: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 1.68em 0;
+            li {
+                display: flex;
+                font-size: inherit;
+                flex-direction: column;
+                color: #5f4e37;
+                gap: 0.3em 0;
+                h3 {
+                    position: relative;
+                    font-size: FZ(18);
+                    font-weight: 500;
+                    padding-left: 1.4em;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        left: 0.3rem;
+                        top: 50%;
+                        translate: 0 -50%;
+                        width: 1.6rem;
+                        @include svg-icon-Check(f29400);
+                    }
+                }
+                .sectionBody {
+                    display: flex;
+                    flex-direction: column;
+                    font-size: inherit;
+                    p {
+                        font-size: FZ(16);
+                        letter-spacing: 0.04em;
+                        line-height: 1.6em;
+                    }
+                }
+            }
+        }
+    }
+}

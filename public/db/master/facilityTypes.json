@@ -1,0 +1,22 @@
+[
+  {
+    "id": "hospital",
+    "label": "病院"
+  },
+  {
+    "id": "clinic",
+    "label": "診療所"
+  },
+  {
+    "id": "dental_clinic",
+    "label": "歯科診療所"
+  },
+  {
+    "id": "nursing_care",
+    "label": "介護・福祉事業所"
+  },
+  {
+    "id": "home_nursing_station",
+    "label": "訪問看護ステーション"
+  }
+]
