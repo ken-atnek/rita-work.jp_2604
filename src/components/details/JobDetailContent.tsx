@@ -6,7 +6,12 @@
  * Last updated: 2025-12-04
  * ======================================= */
 
-import type { Job, FreeSpaceContent } from '@/types/job';
+import type {
+  Job,
+  FreeSpaceContent,
+  BenefitsDetailContent,
+  InterviewContent,
+} from '@/types/job';
 import type { Facility } from '@/types/facility';
 import type { Corporation } from '@/types/corporation';
 import type { JobCategory } from '@/types/jobCategory';
@@ -18,7 +23,8 @@ import ContainerJobVideos from '@/components/details/ContainerJobVideos';
 import ContainerDailySchedule from '@/components/details/ContainerDailySchedule';
 import ContainerJobRequirements from '@/components/details/ContainerJobRequirements';
 import ContainerFacilityInfo from '@/components/details/ContainerFacilityInfo';
-
+import ContainerBenefitsDetail from '@/components/details/ContainerBenefitsDetail';
+import ContainerInterview from '@/components/details/ContainerInterview';
 type JobDetailContentProps = {
   job: Job;
   facility: Facility;
@@ -60,6 +66,8 @@ type JobDetailContentProps = {
     title: string;
   }[];
   freeSpace: FreeSpaceContent | null;
+  benefitsDetail: BenefitsDetailContent | null;
+  interviewContent: InterviewContent | null;
 };
 
 export function JobDetailContent({
@@ -85,6 +93,8 @@ export function JobDetailContent({
   serviceTypeOptions,
   jobVideos,
   freeSpace,
+  benefitsDetail,
+  interviewContent,
 
   // === 事業者マスタ（FacilityInfo専用） ===
   facilityTypes,
@@ -103,11 +113,26 @@ export function JobDetailContent({
       {/* === 職場環境データ（スタッフ構成・業務比率など） === */}
       <ContainerWorkEnvironmentStats job={job} />
 
+      {/* === インタビュー === */}
+      <ContainerInterview
+        interviewContent={interviewContent}
+        contractPlanId={job.contractPlanId}
+      />
+
       {/* === 職場関連動画 === */}
       <ContainerJobVideos jobVideos={jobVideos} />
 
+      {/* === 福利厚生（リッチコンテンツ） === */}
+      <ContainerBenefitsDetail
+        benefitsDetail={benefitsDetail}
+        contractPlanId={job.contractPlanId}
+      />
+
       {/* === フリースペース（テキスト・画像など任意情報） === */}
-      <ContainerFreeSpace freeSpace={freeSpace} />
+      <ContainerFreeSpace
+        freeSpace={freeSpace}
+        contractPlanId={job.contractPlanId}
+      />
 
       {/* === 一日の流れ（勤務スケジュール） === */}
       <ContainerDailySchedule job={job} />

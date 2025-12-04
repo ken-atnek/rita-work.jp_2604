@@ -7,9 +7,9 @@
 .containerJobVideos {
     @include flex-center;
     padding-inline: 4vw;
-    padding-bottom: 4em;
+    padding-bottom: 2em;
     padding-top: 2em;
-    background-color: $base-white;
+    background-color: $bg-white;
     .videoList {
         max-width: $articleMaxWidth;
         display: flex;
@@ -24,7 +24,7 @@
             flex-direction: column;
             width: 100%;
             gap: 1em 0;
-            h3 {
+            h2 {
                 position: relative;
                 font-size: FZ(24);
                 padding-left: 1.6em;

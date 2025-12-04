@@ -7,9 +7,16 @@
 .containerWorkEnvironmentStats {
     @include flex-center;
     padding-inline: 4vw;
-    padding-bottom: 3em;
+    padding-bottom: 4em;
     padding-top: 2em;
-    background-color: $base-white;
+    background-color: $bg-white;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: $base-white;
+        @include bottom-radius($radius80);
+    }
     .environmentStatList {
         width: 100%;
         max-width: $articleMaxWidth;
@@ -17,6 +24,7 @@
         grid-template-columns: repeat(3, 1fr);
         font-size: inherit;
         gap: 0 1em;
+        z-index: 1;
         li {
             position: relative;
             display: grid;

@@ -62,4 +62,10 @@
             }
         }
     }
+    &.plan-light {
+        padding-top: unset;
+    }
+    &.plan-premium {
+        padding-top: 5em;
+    }
 }

@@ -78,6 +78,10 @@
     "enabled": true,
     "path": "/db/facilities/fac_0001/jobs/job_0001_interview.json"
   },
+  "benefitsDetailRef": {
+    "enabled": true,
+    "path": "/db/facilities/fac_0001/jobs/job_0001_benefits.json"
+  },
   "freeText": {
     "enabled": true,
     "path": "/db/facilities/fac_0001/jobs/job_0001_freespace.json"
@@ -228,5 +232,5 @@
     "enabled": true,
     "path": "/db/facilities/fac_0001/jobs/job_0001_premium.json"
   },
-  "contractPlanId": "light"
+  "contractPlanId": "premium"
 }

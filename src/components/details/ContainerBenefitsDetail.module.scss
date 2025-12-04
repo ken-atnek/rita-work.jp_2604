@@ -1,0 +1,92 @@
+/* ===============================================================
+ * 	リタワーク 求人詳細ページ｜福利厚生
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+.containerBenefitsDetail {
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-bottom: 4em;
+    padding-top: 2em;
+    background-color: $base-white;
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: $bg-white;
+        @include bottom-radius($radius80);
+    }
+    article {
+        max-width: $articleMaxWidth;
+        display: flex;
+        flex-direction: column;
+        border-radius: $radius24;
+        gap: 1em 0;
+        h2 {
+            position: relative;
+            font-size: FZ(24);
+            padding-left: 1.6em;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 42%;
+                translate: 0 -50%;
+                left: 0;
+                width: 3.2rem;
+                @include svg-icon-gift("f29400");
+            }
+        }
+        .benefitsDetailList {
+            position: relative;
+            font-size: inherit;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            background-color: #fff;
+            border: 1px solid $main-orange;
+            border-radius: $radius24;
+            padding: 3em;
+            gap: 2em 0;
+            li {
+                position: relative;
+                display: grid;
+                grid-column: span 2;
+                grid-template-columns: subgrid;
+                gap: 0 2em;
+                font-size: inherit;
+                .itemImage {
+                    width: 100%;
+                    max-width: 48rem;
+                    img {
+                        width: 100%;
+                        border-radius: 1.2rem;
+                    }
+                }
+                .boxText {
+                    display: flex;
+                    flex-direction: column;
+                    font-size: inherit;
+                    gap: 2em 0;
+                    h3 {
+                        border-top: 1px solid #000;
+                        border-bottom: 1px solid #000;
+                        color: $sub-black;
+                        font-size: FZ(18);
+                        text-align: center;
+                        padding-block: 1.4em;
+                        font-weight: 500;
+                    }
+                    .body {
+                        font-size: inherit;
+                        p {
+                            font-size: FZ(16);
+                            line-height: 1.8em;
+                            text-align: justify;
+                            letter-spacing: 0.04em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -26,7 +26,7 @@ const ContainerJobVideos: FC<ContainerJobVideosProps> = ({ jobVideos }) => {
       <ul className={styles.videoList}>
         {jobVideos.map((video) => (
           <li key={video.id}>
-            <h3>{video.title}</h3>
+            <h2>{video.title}</h2>
             <div>
               <iframe
                 src={video.url}

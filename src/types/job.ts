@@ -33,6 +33,42 @@ export type FreeSpaceContent = {
   title: string;
   sections: FreeSpaceSection[];
 };
+
+export type BenefitsDetailSection = {
+  id: string;
+  title: string;
+  body: string[]; // 改行対応（空文字で空行OK）
+  image: string; // 画像パス
+};
+
+export type BenefitsDetailContent = {
+  sections: BenefitsDetailSection[];
+};
+
+/**
+ * インタビュー参照
+ * 例: /db/facilities/fac_0001/jobs/job_0001_interview.json
+ */
+export type InterviewArticleSection = {
+  heading: string;
+  body: string[];
+};
+
+export type InterviewArticle = {
+  id: number;
+  title: string;
+  image: string | null;
+  sections: InterviewArticleSection[];
+};
+
+export type InterviewContent = {
+  interviewee: {
+    name: string;
+    role: string;
+  };
+  articles: InterviewArticle[];
+};
+
 /**
  * 職場関連動画 JSON 参照
  * 例: /db/facilities/fac_0001/jobs/job_0001_movie.json
@@ -42,14 +78,21 @@ export type JobVideosRef = {
   path: string;
 };
 /**
- * インタビュー用 JSON 参照
+ * インタビュー JSON 中身
  * 例: /db/facilities/fac_0001/jobs/job_0001_interview.json
  */
 export type Interview = {
   enabled: boolean;
   path: string;
 };
-
+/**
+ * 福利厚生詳細（リッチコンテンツ）JSON 参照
+ * 例: /db/facilities/fac_0001/jobs/job_0001_benefits.json
+ */
+export type BenefitsDetailRef = {
+  enabled: boolean;
+  path: string;
+};
 /**
  * プレミアム用 JSON 参照
  * 例: /db/facilities/fac_0001/jobs/job_0001_premium.json
@@ -140,12 +183,13 @@ export type Job = {
   workEnvironmentStats: WorkEnvironmentStat[];
 
   /* ============================
-   * 職場関連動画・インタビュー・フリースペース・プレミアム
+   * 職場関連動画・インタビュー・フリースペース・福利厚生詳細
    * ============================ */
   jobVideos?: JobVideosRef;
-  interview: Interview;
+  interview?: Interview;
   freeText: FreeText;
-  premium: PremiumContent;
+  benefitsDetailRef?: BenefitsDetailRef;
+  premium?: PremiumContent;
 
   /* ============================
    * 日勤・夜勤スケジュール

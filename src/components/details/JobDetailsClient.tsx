@@ -9,7 +9,12 @@
 
 import { useEffect, useState } from 'react';
 import { JobDetailContent } from './JobDetailContent';
-import type { Job, FreeSpaceContent } from '@/types/job';
+import type {
+  Job,
+  FreeSpaceContent,
+  BenefitsDetailContent,
+  InterviewContent,
+} from '@/types/job';
 import type { Facility } from '@/types/facility';
 import type { Corporation } from '@/types/corporation';
 import type { JobCategory } from '@/types/jobCategory';
@@ -111,6 +116,10 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   >([]);
   const [jobVideos, setJobVideos] = useState<JobVideo[]>([]);
   const [freeSpace, setFreeSpace] = useState<FreeSpaceContent | null>(null);
+  const [benefitsDetail, setBenefitsDetail] =
+    useState<BenefitsDetailContent | null>(null);
+  const [interviewContent, setInterviewContent] =
+    useState<InterviewContent | null>(null);
   useEffect(() => {
     const loadDetails = async () => {
       try {
@@ -288,6 +297,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
             console.warn('動画データの取得に失敗しました', e);
           }
         }
+        setJobVideos(videos);
 
         // 18. フリースペース取得
         let freeSpaceData: FreeSpaceContent | null = null;
@@ -304,10 +314,44 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
             console.warn('フリースペースの取得に失敗しました', e);
           }
         }
-
         setFreeSpace(freeSpaceData);
 
-        setJobVideos(videos);
+        // 19. 福利厚生詳細（リッチコンテンツ）取得 ★ここから追加
+        let benefitsDetailData: BenefitsDetailContent | null = null;
+
+        if (
+          jobData.benefitsDetailRef?.enabled &&
+          jobData.benefitsDetailRef.path
+        ) {
+          try {
+            const benefitsRes = await fetch(jobData.benefitsDetailRef.path);
+
+            if (benefitsRes.ok) {
+              const data = (await benefitsRes.json()) as BenefitsDetailContent;
+              benefitsDetailData = data;
+            }
+          } catch (e) {
+            console.warn('福利厚生詳細の取得に失敗しました', e);
+          }
+        }
+        setBenefitsDetail(benefitsDetailData);
+
+        // 20. インタビュー取得
+        let interviewData: InterviewContent | null = null;
+
+        if (jobData.interview?.enabled && jobData.interview.path) {
+          try {
+            const interviewRes = await fetch(jobData.interview.path);
+
+            if (interviewRes.ok) {
+              const data = (await interviewRes.json()) as InterviewContent;
+              interviewData = data;
+            }
+          } catch (e) {
+            console.warn('インタビューの取得に失敗しました', e);
+          }
+        }
+        setInterviewContent(interviewData);
 
         /* -------------------------------
          * 正常セット
@@ -328,6 +372,8 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
         setCorporation(null);
         setJobVideos([]);
         setFreeSpace(null);
+        setBenefitsDetail(null);
+        setInterviewContent(null);
       } finally {
         setLoading(false);
       }
@@ -368,6 +414,8 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       serviceTypeOptions={serviceTypeOptions}
       jobVideos={jobVideos}
       freeSpace={freeSpace}
+      benefitsDetail={benefitsDetail}
+      interviewContent={interviewContent}
     />
   );
 }

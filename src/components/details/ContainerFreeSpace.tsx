@@ -8,13 +8,16 @@
 
 import styles from './ContainerFreeSpace.module.scss';
 import type { FreeSpaceContent } from '@/types/job';
+import clsx from 'clsx';
 
 type ContainerFreeSpaceProps = {
   freeSpace: FreeSpaceContent | null;
+  contractPlanId: string;
 };
 
 export default function ContainerFreeSpace({
   freeSpace,
+  contractPlanId,
 }: ContainerFreeSpaceProps) {
   // 無効・未取得・セクションなしなら非表示
   if (!freeSpace || !freeSpace.sections?.length) {
@@ -24,7 +27,12 @@ export default function ContainerFreeSpace({
   const { title, sections } = freeSpace;
 
   return (
-    <section className={styles.containerFreeSpace}>
+    <section
+      className={clsx(
+        styles.containerFreeSpace,
+        styles[`plan-${contractPlanId}`] // ★ 追加
+      )}
+    >
       {/* このコンテナ全体の見出し：ページ内なので h2 */}
       <article className={styles.inner}>
         <h2>{title}</h2>
