@@ -1,0 +1,14 @@
+{
+  "videos": [
+    {
+      "id": "movie_001",
+      "url": "https://www.youtube.com/embed/DXzCJE8KnzA",
+      "title": "紹介動画"
+    },
+    {
+      "id": "movie_002",
+      "url": "https://www.youtube.com/embed/DXzCJE8KnzA",
+      "title": "360度カメラ"
+    }
+  ]
+}

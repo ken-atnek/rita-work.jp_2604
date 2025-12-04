@@ -3,9 +3,10 @@
  * Component: JobDetailContent
  * URL: src/components/details/JobDetailContent.tsx
  * Created: 2025-11-24
+ * Last updated: 2025-12-04
  * ======================================= */
 
-import type { Job } from '@/types/job';
+import type { Job, FreeSpaceContent } from '@/types/job';
 import type { Facility } from '@/types/facility';
 import type { Corporation } from '@/types/corporation';
 import type { JobCategory } from '@/types/jobCategory';
@@ -13,6 +14,7 @@ import type { JobCategory } from '@/types/jobCategory';
 import ContainerJobHero from './ContainerJobHero';
 import ContainerWorkEnvironmentStats from '@/components/details/ContainerWorkEnvironmentStats';
 import ContainerFreeSpace from '@/components/details/ContainerFreeSpace';
+import ContainerJobVideos from '@/components/details/ContainerJobVideos';
 import ContainerDailySchedule from '@/components/details/ContainerDailySchedule';
 import ContainerJobRequirements from '@/components/details/ContainerJobRequirements';
 import ContainerFacilityInfo from '@/components/details/ContainerFacilityInfo';
@@ -52,6 +54,12 @@ type JobDetailContentProps = {
     name: string;
     sortOrder: number;
   }[];
+  jobVideos: {
+    id: string;
+    url: string;
+    title: string;
+  }[];
+  freeSpace: FreeSpaceContent | null;
 };
 
 export function JobDetailContent({
@@ -75,6 +83,8 @@ export function JobDetailContent({
   clinicalDepartments,
   jobContentOptions,
   serviceTypeOptions,
+  jobVideos,
+  freeSpace,
 
   // === 事業者マスタ（FacilityInfo専用） ===
   facilityTypes,
@@ -93,8 +103,11 @@ export function JobDetailContent({
       {/* === 職場環境データ（スタッフ構成・業務比率など） === */}
       <ContainerWorkEnvironmentStats job={job} />
 
+      {/* === 職場関連動画 === */}
+      <ContainerJobVideos jobVideos={jobVideos} />
+
       {/* === フリースペース（テキスト・画像など任意情報） === */}
-      <ContainerFreeSpace job={job} />
+      <ContainerFreeSpace freeSpace={freeSpace} />
 
       {/* === 一日の流れ（勤務スケジュール） === */}
       <ContainerDailySchedule job={job} />

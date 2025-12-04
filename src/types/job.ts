@@ -33,7 +33,14 @@ export type FreeSpaceContent = {
   title: string;
   sections: FreeSpaceSection[];
 };
-
+/**
+ * 職場関連動画 JSON 参照
+ * 例: /db/facilities/fac_0001/jobs/job_0001_movie.json
+ */
+export type JobVideosRef = {
+  enabled: boolean;
+  path: string;
+};
 /**
  * インタビュー用 JSON 参照
  * 例: /db/facilities/fac_0001/jobs/job_0001_interview.json
@@ -133,8 +140,9 @@ export type Job = {
   workEnvironmentStats: WorkEnvironmentStat[];
 
   /* ============================
-   * インタビュー・フリースペース・プレミアム
+   * 職場関連動画・インタビュー・フリースペース・プレミアム
    * ============================ */
+  jobVideos?: JobVideosRef;
   interview: Interview;
   freeText: FreeText;
   premium: PremiumContent;

@@ -9,7 +9,7 @@
 
 import { useEffect, useState } from 'react';
 import { JobDetailContent } from './JobDetailContent';
-import type { Job } from '@/types/job';
+import type { Job, FreeSpaceContent } from '@/types/job';
 import type { Facility } from '@/types/facility';
 import type { Corporation } from '@/types/corporation';
 import type { JobCategory } from '@/types/jobCategory';
@@ -66,6 +66,11 @@ type JobContentOption = {
   name: string;
   sortOrder: number;
 };
+type JobVideo = {
+  id: string;
+  url: string;
+  title: string;
+};
 type ServiceTypeOption = {
   id: string;
   name: string;
@@ -104,6 +109,8 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [serviceTypeOptions, setServiceTypeOptions] = useState<
     ServiceTypeOption[]
   >([]);
+  const [jobVideos, setJobVideos] = useState<JobVideo[]>([]);
+  const [freeSpace, setFreeSpace] = useState<FreeSpaceContent | null>(null);
   useEffect(() => {
     const loadDetails = async () => {
       try {
@@ -256,6 +263,52 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
           ? ((await serviceTypeRes.json()) as ServiceTypeOption[])
           : [];
         setServiceTypeOptions(serviceTypeMaster);
+
+        // 17. 動画マスタ取得
+        let videos: JobVideo[] = [];
+
+        // job.json に jobVideos 設定があって、かつ有効な場合のみ取得
+        if (
+          jobData.jobVideos &&
+          jobData.jobVideos.enabled &&
+          jobData.jobVideos.path
+        ) {
+          try {
+            const jobVideosRes = await fetch(jobData.jobVideos.path);
+
+            if (jobVideosRes.ok) {
+              const movieJson = (await jobVideosRes.json()) as {
+                videos?: JobVideo[];
+              };
+
+              // JSON が { "videos": [...] } 形式なので、videos プロパティだけ取り出す
+              videos = Array.isArray(movieJson.videos) ? movieJson.videos : [];
+            }
+          } catch (e) {
+            console.warn('動画データの取得に失敗しました', e);
+          }
+        }
+
+        // 18. フリースペース取得
+        let freeSpaceData: FreeSpaceContent | null = null;
+
+        if (jobData.freeText?.enabled && jobData.freeText.path) {
+          try {
+            const freeRes = await fetch(jobData.freeText.path);
+
+            if (freeRes.ok) {
+              const data = (await freeRes.json()) as FreeSpaceContent;
+              freeSpaceData = data;
+            }
+          } catch (e) {
+            console.warn('フリースペースの取得に失敗しました', e);
+          }
+        }
+
+        setFreeSpace(freeSpaceData);
+
+        setJobVideos(videos);
+
         /* -------------------------------
          * 正常セット
          * ------------------------------- */
@@ -273,6 +326,8 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
         setJob(null);
         setFacility(null);
         setCorporation(null);
+        setJobVideos([]);
+        setFreeSpace(null);
       } finally {
         setLoading(false);
       }
@@ -311,6 +366,8 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       clinicalDepartments={clinicalDepartments}
       jobContentOptions={jobContentOptions}
       serviceTypeOptions={serviceTypeOptions}
+      jobVideos={jobVideos}
+      freeSpace={freeSpace}
     />
   );
 }

@@ -70,6 +70,10 @@
       "value": 2.5
     }
   ],
+  "jobVideos": {
+    "enabled": true,
+    "path": "/db/facilities/fac_0001/jobs/job_0001_movie.json"
+  },
   "interview": {
     "enabled": true,
     "path": "/db/facilities/fac_0001/jobs/job_0001_interview.json"
