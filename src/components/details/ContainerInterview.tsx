@@ -115,12 +115,7 @@ export default function ContainerInterview({
                     <div className={styles.articleBody}>
                       {article.sections.map((section, sIndex) => (
                         <section key={sIndex} className={styles.sectionBlock}>
-                          {section.heading && (
-                            <h3 className={styles.sectionHeading}>
-                              {section.heading}
-                            </h3>
-                          )}
-
+                          {section.heading && <h3>{section.heading}</h3>}
                           <div className={styles.sectionBody}>
                             {section.body.map((line, i) =>
                               line === '' ? (
