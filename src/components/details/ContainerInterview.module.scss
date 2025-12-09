@@ -1,0 +1,172 @@
+/* ===============================================================
+ * 	リタワーク 求人詳細ページ｜インタビュー
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+.containerInterview {
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-bottom: 4em;
+    padding-top: 3em;
+    background-color: $base-white;
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: $bg-white;
+        @include bottom-radius($radius80);
+    }
+    article {
+        max-width: $articleMaxWidth;
+        display: flex;
+        flex-direction: column;
+        border-radius: $radius24;
+        gap: 1em 0;
+        h2 {
+            position: relative;
+            font-size: FZ(24);
+            padding-left: 1.4em;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 42%;
+                translate: 0 -50%;
+                left: 0;
+                width: 2.2rem;
+                @include svg-icon-microphone("f29400");
+            }
+        }
+        .interviewee {
+            font-size: inherit;
+            display: flex;
+            .intervieweeRole {
+                font-size: FZ(16);
+                padding-left: 2em;
+                &::before {
+                    content: "→";
+                    margin-right: 0.5em;
+                }
+                &::after {
+                    content: "：";
+                }
+            }
+        }
+        .articleList {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            font-size: inherit;
+            gap: 0.8em 0;
+            .articleItem {
+                position: relative;
+                background-color: #fff;
+                border: 1px solid $main-orange;
+                border-radius: $radius24;
+                padding: 2em 3em;
+                font-size: inherit;
+                @include box-shadow;
+                button {
+                    font-size: inherit;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    color: $main-orange;
+                    .articleNumber {
+                        position: relative;
+                        font-size: FZ(24);
+                        margin-right: 2em;
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            translate: 0 -50%;
+                            left: calc(100% + 0.5em);
+                            height: 1px;
+                            width: 2.4rem;
+                            background-color: $main-orange;
+                        }
+                    }
+                    h3 {
+                        font-size: FZ(28);
+                        display: inline-block;
+                        margin-right: auto;
+                        &::before {
+                            content: "“";
+                        }
+                        &::after {
+                            content: "”";
+                        }
+                    }
+                    .articleToggleIcon {
+                        position: relative;
+                        width: 2.8rem;
+                        aspect-ratio: 1;
+                        background-color: $main-orange;
+                        display: flex;
+                        border-radius: 50%;
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            inset: 0;
+                            margin: auto;
+                            width: 20%;
+                            @include svg-arrow-right("fff");
+                            rotate: 90deg;
+                        }
+                    }
+                }
+                &.articleItemOpen {
+                    .articleToggleIcon {
+                        &::before {
+                            scale: -1 1;
+                        }
+                    }
+                }
+                .articlePanel {
+                    font-size: inherit;
+                    display: flex;
+                    flex-direction: column;
+                    .articleImage {
+                        width: 100%;
+                        font-size: inherit;
+                        padding-top: 2em;
+                        img {
+                            width: 100%;
+                            border-radius: 1.2rem;
+                        }
+                    }
+                    .articleBody {
+                        position: relative;
+                        font-size: inherit;
+                        display: grid;
+                        grid-template-columns: 40% 1fr;
+                        gap: 0 5em;
+                        .sectionBlock {
+                            font-size: inherit;
+                            grid-column: span 2;
+                            display: grid;
+                            grid-template-columns: subgrid;
+                            padding-block: 2em;
+                            &:not(:last-of-type) {
+                                border-bottom: 1px solid $main-orange;
+                            }
+                            h3 {
+                                font-size: FZ(18);
+                            }
+                            .sectionBody {
+                                font-size: inherit;
+                                p {
+                                    font-size: FZ(16);
+                                    text-align: justify;
+                                    line-height: 1.6em;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

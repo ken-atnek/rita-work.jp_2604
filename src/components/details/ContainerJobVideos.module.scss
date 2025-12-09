@@ -1,0 +1,49 @@
+/* ===============================================================
+ * 	リタワーク 求人詳細ページ｜職場関連動画
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+.containerJobVideos {
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-bottom: 2em;
+    padding-top: 2em;
+    background-color: $bg-white;
+    .videoList {
+        max-width: $articleMaxWidth;
+        display: flex;
+        flex-direction: column;
+        border-radius: $radius24;
+        gap: 4em 0;
+        font-size: inherit;
+        width: 100%;
+        li {
+            font-size: inherit;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 1em 0;
+            h2 {
+                position: relative;
+                font-size: FZ(24);
+                padding-left: 1.6em;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 42%;
+                    translate: 0 -50%;
+                    left: 0;
+                    width: 2.8rem;
+                    @include svg-icon-camera("f29400");
+                }
+            }
+            & > div {
+                font-size: inherit;
+                iframe {
+                    aspect-ratio: 16/9;
+                }
+            }
+        }
+    }
+}
