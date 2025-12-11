@@ -13,6 +13,7 @@ import { isNewByPublishedPeriod } from '@/lib/newIcon';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type ContainerJobHeroProps = {
   job: Job;
@@ -38,6 +39,9 @@ export default function ContainerJobHero({
   const jobCategoryName =
     jobCategories.find((c) => c.id === job.jobCategoryId)?.name ?? '';
   const fullAddress = `${facility.prefecture}${facility.city}${facility.addressLine}`;
+
+  // LINEで応募リンク先
+  const lineApplyUrl = `/lineApply?job_id=${encodeURIComponent(job.id)}`;
 
   // 給与表示テキスト生成
   const { unitId, min, max, bonus } = job.salary;
@@ -111,9 +115,14 @@ export default function ContainerJobHero({
 
           <div className={styles.wrapButtons}>
             <button type="button" className={styles.iconFavorite}></button>
-            <button type="button" className={styles.contact}>
-              <span>LINEで相談する</span>
-            </button>
+            <Link
+              href={lineApplyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.contact}
+            >
+              <span>LINEで応募</span>
+            </Link>
           </div>
         </div>
         <ul className={styles.listPrimary}>
