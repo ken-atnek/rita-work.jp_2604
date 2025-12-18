@@ -4,7 +4,7 @@
 
 declare(strict_types=1);
 
-const LINE_LOGIN_CHANNEL_ID = '2008588556';
+const LINE_LOGIN_CHANNEL_ID = '';
 const LINE_LOGIN_REDIRECT_URI = 'https://rita5258.xbiz.jp/backend/line-login/callback/';
 
 function abort_with_message(string $message, int $statusCode = 400): never
