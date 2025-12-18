@@ -162,6 +162,7 @@
                     width: 17.5em;
                     border-radius: 0 $radius14 $radius14;
                     @include box-shadow;
+                    @include flex-center;
                     &::before {
                         content: "";
                         position: absolute;
