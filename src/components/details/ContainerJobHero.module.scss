@@ -227,3 +227,118 @@
         }
     }
 }
+// LINEで応募するモーダル
+.boxLineModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    width: 100vw;
+    height: 100vh;
+    height: 100Vdh;
+    background-color: rgba($main-orange, 0.4);
+    @include flex-center;
+    font-size: inherit;
+    padding-inline: 4vw;
+    z-index: 1000;
+    .modalDetails {
+        font-size: inherit;
+        width: 100%;
+        max-width: 64rem;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include box-shadow;
+
+        border-radius: $radius20;
+        .boxHead {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            font-size: inherit;
+            border-bottom: 1px solid #e2e0db;
+            padding-block: 2.4rem;
+            h3 {
+                font-size: FZ(20);
+                font-weight: 600;
+            }
+            button {
+                position: absolute;
+                top: 50%;
+                translate: 0 -50%;
+                right: 2.4rem;
+                width: 14px;
+                aspect-ratio: 1;
+                &::before,
+                &::after {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    margin: auto;
+                    width: 14px;
+                    height: 1px;
+                    background-color: #403726;
+                }
+                &::before {
+                    rotate: -45deg;
+                }
+                &::after {
+                    rotate: 45deg;
+                }
+            }
+        }
+        .boxDetails {
+            padding: 4rem 3.6rem;
+            font-size: inherit;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            h4 {
+                font-size: FZ(16);
+                font-weight: 600;
+                align-self: center;
+            }
+            .headAnnounce {
+                font-size: FZ(16);
+                font-weight: 300;
+                text-align: center;
+                line-height: 1.6em;
+                margin-top: 0.5em;
+            }
+            .itemQR {
+                position: relative;
+                align-self: center;
+                width: 17rem;
+                margin-top: 2rem;
+            }
+            .wrapBottom {
+                width: 100%;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                font-size: inherit;
+                margin-top: 6rem;
+                gap: 0 1em;
+                h5 {
+                    grid-column: span 2;
+                    font-size: FZ(16);
+                    font-weight: 600;
+                }
+                p {
+                    font-size: FZ(14);
+                    padding-top: 0.3em;
+                }
+                a {
+                    background-color: #06c755;
+                    color: #fff;
+                    font-size: FZ(12);
+                    font-weight: 600;
+                    @include flex-center;
+                    border-radius: 100vmax;
+                    height: 4.8rem;
+                }
+            }
+        }
+    }
+}
