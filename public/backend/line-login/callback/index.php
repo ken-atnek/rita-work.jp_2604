@@ -3,8 +3,8 @@
 
 declare(strict_types=1);
 
-const LINE_LOGIN_CHANNEL_ID = '2008588556';
-const LINE_LOGIN_CHANNEL_SECRET = 'dea6fdc2058ffe6335d8487b4f291708';
+const LINE_LOGIN_CHANNEL_ID = '';
+const LINE_LOGIN_CHANNEL_SECRET = '';
 const LINE_LOGIN_REDIRECT_URI = 'https://rita5258.xbiz.jp/backend/line-login/callback/';
 
 function debug_log(string $message): void
