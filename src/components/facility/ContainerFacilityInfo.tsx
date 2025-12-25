@@ -1,6 +1,6 @@
 /* =======================================
  * リタワーク 求人詳細ページ｜事業者情報
- * URL: src/components/details/ContainerFacilityInfo.tsx
+ * URL: src/components/facility/ContainerFacilityInfo.tsx
  * Referenced in: src/components/details/JobDetailContent.tsx
  * Created: 2025-11-29
  * Last updated: 2025-12-03
@@ -26,7 +26,7 @@ import type { JobCategory } from '@/types/jobCategory';
 // facilityTypes  : 事業所形態マスタ（病院・診療所・訪問看護ステーションなど）
 type ContainerFacilityInfoProps = {
   // 求人本体データ（現在このコンポーネント内では未使用）
-  job: Job;
+  job?: Job;
   // 事業所（施設）の詳細情報
   facility: Facility;
   // 法人情報（法人名など）
@@ -39,7 +39,7 @@ type ContainerFacilityInfoProps = {
   facilityTypes: { id: string; label: string }[];
 };
 
-export default function ContainerFacilityInfo({
+export function ContainerFacilityInfo({
   facility,
   corporation,
   employmentTypes,
@@ -90,12 +90,14 @@ export default function ContainerFacilityInfo({
         <h2 className={styles.title}>事業所情報</h2>
         <div className={styles.boxDl}>
           {/* === 基本情報（法人・事業所） === */}
-          <dl>
-            <dt>法人名</dt>
-            <dd>
-              <p>{corporation.name}</p>
-            </dd>
-          </dl>
+          {corporation?.name && (
+            <dl>
+              <dt>法人名</dt>
+              <dd>
+                <p>{corporation.name}</p>
+              </dd>
+            </dl>
+          )}
           <dl>
             <dt>事業所名</dt>
             <dd>

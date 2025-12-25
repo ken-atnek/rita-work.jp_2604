@@ -15,16 +15,15 @@ import type {
 import type { Facility } from '@/types/facility';
 import type { Corporation } from '@/types/corporation';
 import type { JobCategory } from '@/types/jobCategory';
-
 import ContainerJobHero from './ContainerJobHero';
 import ContainerWorkEnvironmentStats from '@/components/details/ContainerWorkEnvironmentStats';
 import ContainerFreeSpace from '@/components/details/ContainerFreeSpace';
 import ContainerJobVideos from '@/components/details/ContainerJobVideos';
 import ContainerDailySchedule from '@/components/details/ContainerDailySchedule';
 import ContainerJobRequirements from '@/components/details/ContainerJobRequirements';
-import ContainerFacilityInfo from '@/components/details/ContainerFacilityInfo';
 import ContainerBenefitsDetail from '@/components/details/ContainerBenefitsDetail';
 import ContainerInterview from '@/components/details/ContainerInterview';
+import { ContainerFacilityInfo } from '@/components/facility/ContainerFacilityInfo';
 type JobDetailContentProps = {
   job: Job;
   facility: Facility;

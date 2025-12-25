@@ -1,0 +1,61 @@
+/* ===============================================================
+ * 	リタワーク 事業所ページ｜HERO部分 （オレンジ背景部分）
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+
+.containerFacilityHero {
+    position: relative;
+    font-size: inherit;
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-top: 5em;
+    background-color: $base-white;
+    padding-bottom: 3.4rem;
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        font-size: inherit;
+        background-color: $main-orange;
+        border-bottom-left-radius: $radius80;
+        border-bottom-right-radius: $radius80;
+    }
+    article {
+        max-width: $articleMaxWidth;
+        display: flex;
+        flex-direction: column;
+        padding-top: 1em;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 1fr auto;
+        gap: 2.4rem 3.2rem;
+        .boxLogo {
+            grid-row: span 2;
+        }
+        h2 {
+            color: #fff;
+            font-size: FZ(24);
+            font-weight: 500;
+            padding-top: 6px;
+        }
+        .listJobCategory {
+            display: flex;
+            font-size: inherit;
+            position: relative;
+            gap: 0 8px;
+            padding-bottom: 7px;
+            li {
+                position: relative;
+                font-size: inherit;
+                width: 16rem;
+                height: 48px;
+                background-color: $sub-orange;
+                @include flex-center;
+                font-size: FZ(18);
+                border-radius: 100vmax;
+            }
+        }
+    }
+}

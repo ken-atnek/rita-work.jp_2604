@@ -12,7 +12,7 @@
 // === 画面に渡される全マスタ + 求人データ ===
 import type { Job } from '@/types/job';
 import type { JobCategory } from '@/types/jobCategory';
-import styles from './ContainerFacilityInfo.module.scss';
+import styles from '@/components/facility/ContainerFacilityInfo.module.scss';
 
 type ContainerJobRequirementsProps = {
   // ==========================

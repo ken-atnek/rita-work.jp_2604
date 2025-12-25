@@ -1,4 +1,4 @@
 [
-  { "id": "monthly", "name": "月給" },
-  { "id": "hourly", "name": "時給" }
+  { "id": "monthly", "label": "月給" },
+  { "id": "hourly", "label": "時給" }
 ]
