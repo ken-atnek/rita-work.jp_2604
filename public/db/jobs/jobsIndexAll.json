@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "jobId": "job_0001",
+      "facilityId": "fac_0001",
+      "title": "機能回復を支える理学療法士",
+      "facilityName": "〇〇クリニック",
+      "jobCategoryId": "pt",
+      "employmentTypeId": "fulltime",
+      "salary": {
+        "unitId": "monthly",
+        "min": 200000,
+        "max": 300000
+      },
+      "workLocationText": "熊本県熊本市中央区〇〇町",
+      "heroImages": ["/db/images/facilities/fac_0001/hero01.jpg"],
+      "isNew": true,
+      "updatedAt": "2025-12-20"
+    }
+  ]
+}
