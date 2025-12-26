@@ -1,4 +1,5 @@
 // src/utils/salaryText.ts
+import type { JobSalary } from '@/types/jobIndex';
 
 export type SalaryBonus = {
   hasBonus: boolean;
@@ -47,12 +48,21 @@ export const buildSalaryRangeText = (min?: number, max?: number) => {
  * 一覧カード向け：例）"月給 200,000円〜300,000円"
  */
 export const buildSalaryText = (
-  salary: SalaryBase,
-  salaryUnitMap?: Record<string, string>
+  salary: JobSalary,
+  salaryUnitMap?: Record<string, string>,
+  hourlyBandMap?: Record<string, string>
 ) => {
   const unitLabel = getSalaryUnitLabel(salary.unitId, salaryUnitMap);
-  const range = buildSalaryRangeText(salary.min, salary.max);
-  return range ? `${unitLabel} ${range}` : unitLabel;
+
+  // 月給：min/max 表示
+  if (salary.unitId === 'monthly') {
+    const range = buildSalaryRangeText(salary.min, salary.max);
+    return range ? `${unitLabel} ${range}` : unitLabel;
+  }
+
+  // 時給：bandId 表示（仕様）
+  const bandLabel = hourlyBandMap?.[salary.bandId] ?? salary.bandId;
+  return `${unitLabel} ${bandLabel}`;
 };
 
 /**

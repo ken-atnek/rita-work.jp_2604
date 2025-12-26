@@ -67,6 +67,9 @@ type JobDetailContentProps = {
   freeSpace: FreeSpaceContent | null;
   benefitsDetail: BenefitsDetailContent | null;
   interviewContent: InterviewContent | null;
+  // 給与表示用マップ（時給 bandId 対応）
+  salaryUnitMap: Record<string, string>;
+  hourlyBandMap: Record<string, string>;
 };
 
 export function JobDetailContent({
@@ -97,6 +100,9 @@ export function JobDetailContent({
 
   // === 事業者マスタ（FacilityInfo専用） ===
   facilityTypes,
+  // === 給与表示用マップ ===
+  salaryUnitMap,
+  hourlyBandMap,
 }: JobDetailContentProps) {
   return (
     <>
@@ -107,6 +113,8 @@ export function JobDetailContent({
         newIconPeriodDays={newIconPeriodDays}
         employmentTypes={employmentTypes}
         jobCategories={jobCategories}
+        salaryUnitMap={salaryUnitMap}
+        hourlyBandMap={hourlyBandMap}
       />
 
       {/* === 職場環境データ（スタッフ構成・業務比率など） === */}
@@ -150,6 +158,8 @@ export function JobDetailContent({
         clinicalDepartments={clinicalDepartments}
         jobContentOptions={jobContentOptions}
         serviceTypeOptions={serviceTypeOptions}
+        salaryUnitMap={salaryUnitMap}
+        hourlyBandMap={hourlyBandMap}
       />
 
       {/* === 事業者情報（法人・事業所の基本情報） === */}

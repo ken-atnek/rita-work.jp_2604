@@ -23,6 +23,7 @@ type Props = {
   salaryUnitMap: Record<string, string>;
   employmentTypeMap: Record<string, string>;
   jobCategoryMap?: Record<string, string>;
+  hourlyBandMap?: Record<string, string>;
 
   // お気に入り状態は親から渡す（localStorageは触らない）
   isFavorite: boolean;
@@ -36,6 +37,7 @@ export function JobCardItem({
   jobCategoryMap,
   isFavorite,
   onToggleFavorite,
+  hourlyBandMap,
 }: Props) {
   const heroSrc = job.heroImages?.[0] ?? '';
 
@@ -51,7 +53,7 @@ export function JobCardItem({
         href={buildJobDetailUrl(job.jobId)}
         className={styles.itemLink}
         aria-label={`${job.title}の求人詳細へ`}
-      />
+      ></Link>
 
       <button
         type="button"
@@ -92,7 +94,7 @@ export function JobCardItem({
           <dl>
             <dt className={styles.metaTerm}>給与</dt>
             <dd className={styles.metaDesc}>
-              {buildSalaryText(job.salary, salaryUnitMap)}
+              {buildSalaryText(job.salary, salaryUnitMap, hourlyBandMap)}
             </dd>
           </dl>
 

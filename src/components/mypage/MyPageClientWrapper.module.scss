@@ -67,19 +67,23 @@
             }
         }
     }
-    article {
-        display: flex;
-        flex-direction: column;
+    .listCard {
         max-width: $articleMaxWidth;
-        padding-top: 5rem;
-        .listCard {
-            position: relative;
-            font-size: inherit;
-            width: 100%;
-            max-width: $articleMaxWidth;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0 2.4rem;
-        }
+        position: relative;
+        font-size: inherit;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0 2.4rem;
+        margin-top: 5rem;
+    }
+    .historyList {
+        position: relative;
+        font-size: inherit;
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        margin-top: 5rem;
+        gap: 1.6rem 0;
     }
 }

@@ -5,13 +5,14 @@
  * Created: 2025-11-24
  * Last updated: 2025-11-24
  * ======================================= */
-import { useState, useCallback, useMemo } from 'react';
+'use client';
+import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useJobHistoryIds } from '@/hooks/useJobHistoryIds';
 import clsx from 'clsx';
 import styles from './ContainerJobHero.module.scss';
 import type { Job } from '@/types/job';
 import type { Facility } from '@/types/facility';
 import type { JobCategory } from '@/types/jobCategory';
-import { buildSalaryParts } from '@/utils/salaryText';
 import { isNewByPublishedPeriod } from '@/lib/newIcon';
 import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
@@ -25,6 +26,8 @@ type ContainerJobHeroProps = {
   newIconPeriodDays: number;
   employmentTypes: { id: string; name: string }[];
   jobCategories: JobCategory[];
+  salaryUnitMap: Record<string, string>;
+  hourlyBandMap: Record<string, string>;
 };
 
 export default function ContainerJobHero({
@@ -33,6 +36,8 @@ export default function ContainerJobHero({
   newIconPeriodDays,
   employmentTypes,
   jobCategories,
+  salaryUnitMap,
+  hourlyBandMap,
 }: ContainerJobHeroProps) {
   const isNew = isNewByPublishedPeriod(
     job.publishedPeriod?.start,
@@ -50,8 +55,29 @@ export default function ContainerJobHero({
   }, [job.id]);
 
   // 給与表示テキスト生成
-  const { unitLabel, minText, maxText, bonusText, bonusNote } =
-    buildSalaryParts(job.salary);
+  const salary = job.salary;
+
+  // 単位（例：月給/時給）
+  const unitLabel = salaryUnitMap[salary.unitId] ?? salary.unitId;
+
+  // 金額表示（hourlyならband、monthlyならmin/max）
+  let amountText = '';
+  let bonusText = '';
+  let bonusNote = '';
+
+  if (salary.unitId === 'monthly') {
+    amountText = `${salary.min.toLocaleString()}円〜${salary.max.toLocaleString()}円`;
+
+    if (salary.bonus?.hasBonus) {
+      bonusText = '賞与あり';
+      bonusNote = salary.bonus.note ? `（${salary.bonus.note}）` : '';
+    }
+  }
+
+  if (salary.unitId === 'hourly') {
+    const bandLabel = hourlyBandMap[salary.bandId] ?? salary.bandId;
+    amountText = bandLabel; // 例：1,500円〜2,000円
+  }
 
   // LINE応募用モーダル：PC判定（シンプルにUAと画面幅で判定）
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,10 +95,15 @@ export default function ContainerJobHero({
   // お気に入り（求人ID単位）
   const { favoriteJobIds, toggleFavorite } = useFavoriteJobIds();
   const isFavorite = favoriteJobIds.has(job.id);
+  const { addHistory } = useJobHistoryIds();
+  useEffect(() => {
+    addHistory(job.id);
+  }, [addHistory, job.id]);
 
   const handleToggleFavorite = useCallback(() => {
     toggleFavorite(job.id);
   }, [toggleFavorite, job.id]);
+
   return (
     <>
       <section className={styles.containerJobHero}>
@@ -161,9 +192,7 @@ export default function ContainerJobHero({
             <li className={styles.itemAddress}>{fullAddress}</li>
             <li className={styles.itemSalary}>
               <span className={styles.unit}>{unitLabel}：</span>
-              <span className={styles.amount}>
-                {minText}円〜{maxText}円
-              </span>
+              <span className={styles.amount}>{amountText}</span>
               {bonusText && (
                 <span className={styles.bonus}>
                   {bonusText}

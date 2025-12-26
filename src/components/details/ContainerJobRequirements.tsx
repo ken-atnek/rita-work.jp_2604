@@ -77,6 +77,9 @@ type ContainerJobRequirementsProps = {
   trainingSupportOptions: { id: string; label: string }[];
   // アクセス条件マスタ
   accessOptions: { id: string; label: string }[];
+
+  salaryUnitMap: Record<string, string>;
+  hourlyBandMap: Record<string, string>;
 };
 
 export default function ContainerJobRequirements({
@@ -92,6 +95,8 @@ export default function ContainerJobRequirements({
   applicationRequirementOptions,
   trainingSupportOptions,
   accessOptions,
+  salaryUnitMap,
+  hourlyBandMap,
 }: ContainerJobRequirementsProps) {
   // ----------------------------------------
   // --- マスタを id → label に引けるよう変換 ---
@@ -131,23 +136,35 @@ export default function ContainerJobRequirements({
   // - min / max は数値 → 3桁区切りに整形
   // ----------------------------------------
   const salary = job.salary;
-  const unitText = salary.unitId === 'monthly' ? '月給' : '';
-  const salaryMinText = salary.min.toLocaleString();
-  const salaryMaxText = salary.max.toLocaleString();
-  const salaryText = `${unitText}：${salaryMinText}円〜${salaryMaxText}円`;
 
-  // 賞与欄の文言
-  // hasBonus が true のときだけ表示し、
-  // note があれば「賞与あり（note）」、なければ「賞与あり」
-  const bonusText = salary.bonus?.hasBonus
-    ? salary.bonus.note
-      ? `賞与あり（${salary.bonus.note}）`
-      : '賞与あり'
-    : '';
-  // 給与備考（Job 直下の独立項目／複数行・改行対応）
-  const salaryNotes =
-    job.salaryNotes?.filter((line) => line.trim() !== '') ?? [];
+  // 単位（例：月給 / 時給）
+  const unitLabel = salaryUnitMap[salary.unitId] ?? salary.unitId;
 
+  // 表示テキスト
+  let salaryText = '';
+  let bonusText = '';
+
+  if (salary.unitId === 'monthly') {
+    // monthly 型に自動で絞られる
+    const minText = salary.min.toLocaleString();
+    const maxText = salary.max.toLocaleString();
+
+    salaryText = `${unitLabel}：${minText}円〜${maxText}円`;
+
+    bonusText = salary.bonus?.hasBonus
+      ? salary.bonus.note
+        ? `賞与あり（${salary.bonus.note}）`
+        : '賞与あり'
+      : '';
+  }
+
+  if (salary.unitId === 'hourly') {
+    // hourly 型に自動で絞られる
+    const bandLabel = hourlyBandMap[salary.bandId] ?? salary.bandId;
+
+    salaryText = `${unitLabel}：${bandLabel}`;
+    bonusText = '';
+  }
   // ----------------------------------------
   // --- マスタを id → label に引けるよう変換 ---
   // 待遇マスタを「id → name」に変換
@@ -168,6 +185,9 @@ export default function ContainerJobRequirements({
 
   // 歓迎要件（そのまま配列で使う）
   const welcomeRequirements = job.welcomeRequirements ?? [];
+
+  // 給与の備考（複数行・空行あり）
+  const salaryNotes = job.salaryNotes ?? [];
 
   // ----------------------------------------
   // --- マスタを id → label に引けるよう変換 ---
