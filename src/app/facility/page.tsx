@@ -1,16 +1,16 @@
 /* =======================================
- * リタワーク 求人カード詳細
- * URL: src/app/details/page.tsx
+ * リタワーク 事業所詳細ページ
+ * URL: src/app/facility/page.tsx
  * ======================================= */
 
 import { Suspense } from 'react';
-import { JobDetailsClientWrapper } from '../../components/details/JobDetailsClientWrapper';
+import { FacilityPageClientWrapper } from '@/components/facility/FacilityPageClientWrapper';
 
-export default function DetailsPage() {
+export default function FacilityPage() {
   return (
     <main style={{ backgroundColor: '#F3F3F3' }}>
       <Suspense fallback={<div>読み込み中...</div>}>
-        <JobDetailsClientWrapper />
+        <FacilityPageClientWrapper />
       </Suspense>
     </main>
   );

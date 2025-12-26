@@ -3,7 +3,7 @@
   "corporationId": "corp_0001",
   "facilityTypeId": "nursing_care",
   "name": "住宅型有料老人ホーム メディケア癒やしDX花園",
-  "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d838.4446079446119!2d130.706145465374!3d32.79813373447472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3540f5202b10359b%3A0x7b508f6af95dbe73!2sART-FACTORY!5e0!3m2!1sja!2sjp!4v1764420303881!5m2!1sja!2sjp",
+  "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3355.237456653746!2d130.70740270000002!3d32.79811349999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3540f5202b10359b%3A0x7b508f6af95dbe73!2sART-FACTORY!5e0!3m2!1sja!2sjp!4v1766658928335!5m2!1sja!2sjp",
   "mapLinkUrl": "https://maps.app.goo.gl/jB3fXpTjUnXCz2Rm8",
   "establishedDate": "1974-09",
   "postalCode": "862-0000",
@@ -39,6 +39,6 @@
   "specialBanner": {
     "enabled": true,
     "logoImagePath": "/db/images/facilities/fac_0001/logo.png",
-    "introVideoUrl": "https://www.youtube.com/watch?v=XXXXXXXXXXX"
+    "introVideoUrl": "https://youtu.be/a8dgNdJVluc?si=NZjJYXFdXL267-5V"
   }
 }
