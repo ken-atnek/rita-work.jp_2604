@@ -9,6 +9,7 @@ import styles from './ContainerJobHero.module.scss';
 import type { Job } from '@/types/job';
 import type { Facility } from '@/types/facility';
 import type { JobCategory } from '@/types/jobCategory';
+import { buildSalaryParts } from '@/utils/salaryText';
 import { isNewByPublishedPeriod } from '@/lib/newIcon';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
@@ -48,13 +49,8 @@ export default function ContainerJobHero({
   }, [job.id]);
 
   // 給与表示テキスト生成
-  const { unitId, min, max, bonus } = job.salary;
-  const unitText = unitId === 'monthly' ? '月給' : '時給';
-  const minText = min.toLocaleString();
-  const maxText = max.toLocaleString();
-  const hasBonus = bonus.hasBonus;
-  const bonusText = hasBonus ? '賞与あり' : '';
-  const bonusNote = hasBonus && bonus.note ? ` ${bonus.note}` : '';
+  const { unitLabel, minText, maxText, bonusText, bonusNote } =
+    buildSalaryParts(job.salary);
 
   // LINE応募用モーダル：PC判定（シンプルにUAと画面幅で判定）
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -147,7 +143,7 @@ export default function ContainerJobHero({
             <li className={styles.itemJobCategory}>{jobCategoryName}</li>
             <li className={styles.itemAddress}>{fullAddress}</li>
             <li className={styles.itemSalary}>
-              <span className={styles.unit}>{unitText}：</span>
+              <span className={styles.unit}>{unitLabel}：</span>
               <span className={styles.amount}>
                 {minText}円〜{maxText}円
               </span>
