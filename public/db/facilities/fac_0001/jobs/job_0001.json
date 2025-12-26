@@ -24,10 +24,7 @@
     "unitId": "monthly",
     "min": 200000,
     "max": 300000,
-    "bonus": {
-      "hasBonus": true,
-      "note": "年二回"
-    }
+    "bonus": { "hasBonus": true, "note": "年二回" }
   },
   "salaryNotes": [
     "基本給に加えて、経験やスキルに応じた手当を支給します。",

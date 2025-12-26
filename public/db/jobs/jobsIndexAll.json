@@ -7,11 +7,7 @@
       "facilityName": "〇〇クリニック",
       "jobCategoryId": "pt",
       "employmentTypeId": "fulltime",
-      "salary": {
-        "unitId": "monthly",
-        "min": 200000,
-        "max": 300000
-      },
+      "salary": { "unitId": "hourly", "bandId": "hourly_1500_2000" },
       "workLocationText": "熊本県熊本市中央区〇〇町",
       "heroImages": ["/db/images/facilities/fac_0001/hero01.jpg"],
       "isNew": true,

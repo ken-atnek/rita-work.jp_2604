@@ -14,11 +14,7 @@
       ],
       "employmentTypeId": "fulltime",
       "jobCategoryId": "pt",
-      "salary": {
-        "unitId": "monthly",
-        "min": 200000,
-        "max": 300000
-      },
+      "salary": { "unitId": "hourly", "bandId": "hourly_1500_2000" },
       "workLocationText": "熊本県熊本市西区花園1-12-8"
     }
   ]
