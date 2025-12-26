@@ -8,6 +8,7 @@
 
 'use client';
 
+import { useEffect, useState } from 'react';
 import styles from './ContainerCardList.module.scss';
 import { JobCardList } from '@/components/job/JobCardList';
 import type { JobIndexItem } from '@/types/jobIndex';
@@ -17,8 +18,10 @@ type Props = {
   jobs: JobIndexItem[];
   salaryUnitMap: Record<string, string>;
   employmentTypeMap: Record<string, string>;
-  jobCategoryMap?: Record<string, string>; // あれば日本語ラベル化、なければidのまま
+  jobCategoryMap?: Record<string, string>;
 };
+
+type SalaryBand = { id: string; label?: string; name?: string };
 
 export function ContainerCardList({
   jobs,
@@ -26,7 +29,29 @@ export function ContainerCardList({
   jobCategoryMap,
   employmentTypeMap,
 }: Props) {
-  const { favoriteJobIds, toggleFavorite } = useFavoriteJobIds();
+  const { toggleFavorite, favoriteIdsArray } = useFavoriteJobIds();
+
+  const [hourlyBandMap, setHourlyBandMap] = useState<Record<string, string>>(
+    {}
+  );
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const basePath = process.env.NEXT_PUBLIC_BASEPATH ?? '';
+        const res = await fetch(`${basePath}/db/master/salaryBandsHourly.json`);
+        const bands = res.ok ? ((await res.json()) as SalaryBand[]) : [];
+        const map = bands.reduce<Record<string, string>>((acc, cur) => {
+          const text = cur.label ?? cur.name;
+          if (text) acc[cur.id] = text;
+          return acc;
+        }, {});
+        setHourlyBandMap(map);
+      } catch {
+        setHourlyBandMap({});
+      }
+    })();
+  }, []);
 
   /* ---------------------------------------
    * 求人が無ければ表示しない
@@ -40,9 +65,10 @@ export function ContainerCardList({
         salaryUnitMap={salaryUnitMap}
         employmentTypeMap={employmentTypeMap}
         jobCategoryMap={jobCategoryMap}
-        favoriteJobIds={favoriteJobIds}
+        favoriteJobIds={favoriteIdsArray}
         onToggleFavorite={toggleFavorite}
         ulClassName={styles.listCard}
+        hourlyBandMap={hourlyBandMap}
       />
     </section>
   );

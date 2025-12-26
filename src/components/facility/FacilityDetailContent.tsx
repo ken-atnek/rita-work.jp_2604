@@ -29,7 +29,7 @@ export function FacilityDetailContent({
   facility,
   corporation,
   employmentTypes,
-  jobCategories = [],
+  jobCategories,
   facilityTypes,
   jobs,
   salaryUnitMap,

@@ -13,13 +13,12 @@ type Props = {
   salaryUnitMap: Record<string, string>;
   employmentTypeMap: Record<string, string>;
   jobCategoryMap?: Record<string, string>;
-
+  hourlyBandMap?: Record<string, string>;
   // お気に入り制御は親から渡す（司令塔が持つ）
-  favoriteJobIds: Set<string>;
+  favoriteJobIds: string[];
   onToggleFavorite: (jobId: string) => void;
 
-  // ulのclassは使う側が決められるようにしておく（再利用しやすい）
-  ulClassName?: string;
+  ulClassName: string;
 };
 
 export function JobCardList({
@@ -30,13 +29,14 @@ export function JobCardList({
   favoriteJobIds,
   onToggleFavorite,
   ulClassName,
+  hourlyBandMap,
 }: Props) {
   if (!jobs || jobs.length === 0) return null;
-
+  const favoriteSet = new Set(favoriteJobIds);
   return (
     <ul className={ulClassName}>
       {jobs.map((job) => {
-        const isFav = favoriteJobIds.has(job.jobId);
+        const isFav = favoriteSet.has(job.jobId);
 
         return (
           <JobCardItem
@@ -47,6 +47,7 @@ export function JobCardList({
             jobCategoryMap={jobCategoryMap}
             isFavorite={isFav}
             onToggleFavorite={onToggleFavorite}
+            hourlyBandMap={hourlyBandMap}
           />
         );
       })}

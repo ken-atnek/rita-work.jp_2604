@@ -115,6 +115,23 @@ export type DailySchedule = {
   nightShift: DailyScheduleItem[];
 };
 
+type SalaryMonthly = {
+  unitId: 'monthly';
+  min: number;
+  max: number;
+  bonus?: {
+    hasBonus: boolean;
+    note?: string;
+  };
+};
+
+type SalaryHourly = {
+  unitId: 'hourly';
+  bandId: string;
+};
+
+export type JobSalary = SalaryMonthly | SalaryHourly;
+
 export type Job = {
   id: string;
   facilityId: string;
@@ -149,15 +166,7 @@ export type Job = {
   /* ============================
    * 給与関連
    * ============================ */
-  salary: {
-    unitId: 'monthly' | 'hourly';
-    min: number;
-    max: number;
-    bonus: {
-      hasBonus: boolean;
-      note: string;
-    };
-  };
+  salary: JobSalary;
 
   /* 給与備考（改行対応） */
   salaryNotes?: string[];
