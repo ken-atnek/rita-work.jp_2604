@@ -153,6 +153,11 @@
                         width: 2.4rem;
                         @include svg-icon-heart("A5A5A8");
                     }
+                    &.is-active {
+                        &::before {
+                            @include svg-icon-heart("f29400");
+                        }
+                    }
                 }
                 .contact {
                     position: relative;

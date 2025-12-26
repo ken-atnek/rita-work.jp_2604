@@ -5,19 +5,20 @@
  * Created: 2025-11-24
  * Last updated: 2025-11-24
  * ======================================= */
+import { useState, useCallback, useMemo } from 'react';
+import clsx from 'clsx';
 import styles from './ContainerJobHero.module.scss';
 import type { Job } from '@/types/job';
 import type { Facility } from '@/types/facility';
 import type { JobCategory } from '@/types/jobCategory';
 import { buildSalaryParts } from '@/utils/salaryText';
 import { isNewByPublishedPeriod } from '@/lib/newIcon';
+import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import Image from 'next/image';
-import { useState, useCallback, useMemo } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import ExternalLink from '@/components/common/ExternalLink';
-
 type ContainerJobHeroProps = {
   job: Job;
   facility: Facility;
@@ -65,7 +66,13 @@ export default function ContainerJobHero({
       setIsModalOpen(true);
     }
   }, [backendStartUrl]);
+  // お気に入り（求人ID単位）
+  const { favoriteJobIds, toggleFavorite } = useFavoriteJobIds();
+  const isFavorite = favoriteJobIds.has(job.id);
 
+  const handleToggleFavorite = useCallback(() => {
+    toggleFavorite(job.id);
+  }, [toggleFavorite, job.id]);
   return (
     <>
       <section className={styles.containerJobHero}>
@@ -129,7 +136,17 @@ export default function ContainerJobHero({
             </Splide>
 
             <div className={styles.wrapButtons}>
-              <button type="button" className={styles.iconFavorite}></button>
+              <button
+                type="button"
+                className={clsx(
+                  styles.iconFavorite,
+                  isFavorite && styles['is-active']
+                )}
+                onClick={handleToggleFavorite}
+                aria-pressed={isFavorite}
+                aria-label={isFavorite ? 'お気に入り解除' : 'お気に入りに追加'}
+              ></button>
+
               <button
                 type="button"
                 className={styles.contact}
