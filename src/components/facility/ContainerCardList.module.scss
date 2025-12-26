@@ -11,7 +11,7 @@
     padding-top: 4.8rem;
     background-color: $base-white;
     border-radius: 0 0 $radius80 $radius80;
-    ul {
+    .listCard {
         position: relative;
         font-size: inherit;
         width: 100%;
@@ -19,120 +19,5 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 0 2.4rem;
-        li {
-            position: relative;
-            grid-row: span 3;
-            display: grid;
-            grid-template-rows: subgrid;
-            font-size: inherit;
-            border-radius: $radius14;
-            @include box-shadow;
-            .itemFavorite {
-                position: absolute;
-                top: 1rem;
-                right: 1rem;
-                width: 4rem;
-                aspect-ratio: 1;
-                border-radius: 50%;
-                background-color: rgba(#fff, 0.8);
-                @include box-shadow;
-                z-index: 1;
-                &::before {
-                    content: "";
-                    position: absolute;
-                    inset: 0;
-                    margin: auto;
-                    width: 2rem;
-                    @include svg-icon-heart("A5A5A8");
-                }
-                &.is-active {
-                    &::before {
-                        @include svg-icon-heart("f29400");
-                    }
-                }
-            }
-            .itemImage {
-                position: relative;
-                aspect-ratio: 37/18;
-                font-size: inherit;
-                img {
-                    border-radius: $radius14 $radius14 0 0;
-                    object-fit: cover;
-                    font-size: inherit;
-                }
-            }
-            .itemDetails {
-                position: relative;
-                grid-row: span 2;
-                display: grid;
-                grid-template-rows: subgrid;
-                font-size: inherit;
-                background-color: #fff;
-                border-radius: 0 0 $radius14 $radius14;
-                padding: 1.6rem 1.6rem 2.7rem;
-                .innerHead {
-                    font-size: inherit;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1.4rem 0;
-                    padding-bottom: 1.3rem;
-                    .wrapHead {
-                        position: relative;
-                        font-size: inherit;
-                        display: flex;
-                        align-items: center;
-                        gap: 0 6px;
-                        span {
-                            height: 22px;
-                            font-size: FZ(14);
-                            @include flex-center;
-                            border-radius: 4px;
-                        }
-                        .iconNew {
-                            color: #fff;
-                            width: 4rem;
-                            background-color: #d0442e;
-                        }
-                        .employmentType {
-                            background-color: #eceaea;
-                            padding-inline: 0.8em;
-                        }
-                    }
-                    h2 {
-                        font-size: FZ(22);
-                    }
-                    h3 {
-                        font-size: FZ(18);
-                    }
-                }
-                .detailsList {
-                    font-size: inherit;
-                    position: relative;
-                    display: grid;
-                    grid-template-columns: auto 1fr;
-                    gap: 8px 0;
-                    border-top: 1px solid #d6d6d6;
-                    padding-top: 1.4rem;
-                    dl {
-                        font-size: inherit;
-                        grid-column: span 2;
-                        display: grid;
-                        grid-template-columns: subgrid;
-                        dt {
-                            font-size: FZ(16);
-                            display: flex;
-                            justify-content: space-between;
-                            &::after {
-                                content: "：";
-                                margin-inline: 0.2em;
-                            }
-                        }
-                        dd {
-                            font-size: FZ(16);
-                        }
-                    }
-                }
-            }
-        }
     }
 }
