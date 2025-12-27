@@ -28,6 +28,7 @@ type ContainerJobHeroProps = {
   jobCategories: JobCategory[];
   salaryUnitMap: Record<string, string>;
   hourlyBandMap: Record<string, string>;
+  contractPlanId: string;
 };
 
 export default function ContainerJobHero({
@@ -38,6 +39,7 @@ export default function ContainerJobHero({
   jobCategories,
   salaryUnitMap,
   hourlyBandMap,
+  contractPlanId,
 }: ContainerJobHeroProps) {
   const isNew = isNewByPublishedPeriod(
     job.publishedPeriod?.start,
@@ -106,7 +108,12 @@ export default function ContainerJobHero({
 
   return (
     <>
-      <section className={styles.containerJobHero}>
+      <section
+        className={clsx(
+          styles.containerJobHero,
+          styles[`plan-${contractPlanId}`] // ★ 追加
+        )}
+      >
         <article>
           <div className={styles.boxHeadIcons}>
             {isNew && <span className={styles.iconNew}>新着</span>}

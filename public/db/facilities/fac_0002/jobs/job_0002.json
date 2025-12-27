@@ -1,20 +1,18 @@
 {
-  "id": "job_0001",
+  "id": "job_0002",
   "facilityId": "fac_0001",
   "status": "public",
   "publishedPeriod": {
-    "start": "2025-11-01",
+    "start": "2025-10-01",
     "end": null
   },
   "jobCategoryId": "pt",
   "employmentTypeId": "fulltime",
 
-  "title": "機能回復を支える理学療法士",
+  "title": "ラシクアーレの正看護師",
   "heroImages": [
-    "/db/images/facilities/fac_0001/hero01.jpg",
-    "/db/images/facilities/fac_0001/hero02.jpg",
-    "/db/images/facilities/fac_0001/hero03.jpg",
-    "/db/images/facilities/fac_0001/hero04.jpg"
+    "/db/images/facilities/fac_0002/hero01.jpg",
+    "/db/images/facilities/fac_0002/hero02.jpg"
   ],
 
   "firstYearIncomeRangeId": "fy_0002",
@@ -23,8 +21,8 @@
 
   "salary": {
     "unitId": "monthly",
-    "min": 200000,
-    "max": 300000,
+    "min": 500000,
+    "max": 600000,
     "bonus": { "hasBonus": true, "note": "年二回" }
   },
   "salaryNotes": [
@@ -69,20 +67,20 @@
     }
   ],
   "jobVideos": {
-    "enabled": true,
-    "path": "/db/facilities/fac_0001/jobs/job_0001_movie.json"
+    "enabled": false,
+    "path": "/db/facilities/fac_0002/jobs/job_0002_movie.json"
   },
   "interview": {
-    "enabled": true,
-    "path": "/db/facilities/fac_0001/jobs/job_0001_interview.json"
+    "enabled": false,
+    "path": "/db/facilities/fac_0002/jobs/job_0002_interview.json"
   },
   "benefitsDetailRef": {
-    "enabled": true,
-    "path": "/db/facilities/fac_0001/jobs/job_0001_benefits.json"
+    "enabled": false,
+    "path": "/db/facilities/fac_0002/jobs/job_0002_benefits.json"
   },
   "freeText": {
     "enabled": true,
-    "path": "/db/facilities/fac_0001/jobs/job_0001_freespace.json"
+    "path": "/db/facilities/fac_0002/jobs/job_0002_freespace.json"
   },
   "dailySchedule": {
     "dayShift": [
@@ -227,9 +225,8 @@
     "※施設より直接ご連絡する場合もあります。※選考状況によりプロセスが変更になる場合があります。"
   ],
   "premium": {
-    "enabled": true,
-    "path": "/db/facilities/fac_0001/jobs/job_0001_premium.json"
+    "enabled": false
   },
-  "contractPlanId": "premium",
+  "contractPlanId": "light",
   "updatedAt": "2025-12-20"
 }

@@ -231,6 +231,11 @@
             }
         }
     }
+    &.plan-light {
+        &::before {
+            border-radius: unset;
+        }
+    }
 }
 // LINEで応募するモーダル
 .boxLineModal {

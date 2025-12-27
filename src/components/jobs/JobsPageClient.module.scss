@@ -1,0 +1,80 @@
+/* ===============================================================
+ * 	リタワーク マイページ
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+
+.containerHead {
+    position: relative;
+    font-size: inherit;
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-top: 5em;
+    background-color: $base-white;
+    padding-bottom: 4rem;
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        font-size: inherit;
+        background-color: $main-orange;
+        border-bottom-left-radius: $radius80;
+        border-bottom-right-radius: $radius80;
+        z-index: -1;
+    }
+    h2 {
+        margin-top: 17px;
+        font-size: FZ(28);
+        color: #fff;
+        font-weight: 500;
+    }
+}
+
+.containerJobs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding-top: 4rem;
+    padding-inline: 4vw;
+    .noFavorite {
+        @include flex-center;
+        font-size: FZ(18);
+        flex: 1;
+    }
+    nav {
+        position: relative;
+        align-self: center;
+        display: flex;
+        align-items: center;
+        font-size: inherit;
+        padding: 2px;
+        @include box-shadow;
+        border-radius: $radius8;
+        background-color: #fff;
+        button {
+            position: relative;
+            width: 24.5rem;
+            height: 44px;
+            @include flex-center;
+            font-size: FZ(18);
+            font-weight: 500;
+            border-radius: 7px;
+            &.isActive {
+                background-color: $main-orange;
+                color: #fff;
+            }
+        }
+    }
+    .jobsList {
+        max-width: $articleMaxWidth;
+        position: relative;
+        font-size: inherit;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0 2.4rem;
+        margin-top: 5rem;
+    }
+}

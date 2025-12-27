@@ -497,6 +497,54 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
     loadDetails();
   }, [jobId, isPreview]);
 
+  useEffect(() => {
+    if (!isPreview) return;
+
+    const applyNoindex = () => {
+      // 既存の meta[name="robots"] を上書き（無ければ作る）
+      let meta = document.querySelector(
+        'meta[name="robots"]'
+      ) as HTMLMetaElement | null;
+
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('name', 'robots');
+        document.head.appendChild(meta);
+      }
+
+      meta.setAttribute('content', 'noindex,nofollow,noarchive');
+      meta.setAttribute('data-rita-preview', '1');
+    };
+
+    // まず1回適用
+    applyNoindex();
+
+    // Nextが head を書き換えても、即戻す
+    const observer = new MutationObserver(() => {
+      applyNoindex();
+    });
+
+    observer.observe(document.head, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['content'],
+    });
+
+    return () => {
+      observer.disconnect();
+
+      // preview解除時は index/follow に戻す（必要なら）
+      const meta = document.querySelector(
+        'meta[name="robots"][data-rita-preview="1"]'
+      ) as HTMLMetaElement | null;
+
+      if (meta) {
+        meta.setAttribute('content', 'index,follow');
+        meta.removeAttribute('data-rita-preview');
+      }
+    };
+  }, [isPreview]);
   /* -------------------------------
    * UI: 読み込み・エラー処理
    * ------------------------------- */
