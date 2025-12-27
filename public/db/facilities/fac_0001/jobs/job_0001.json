@@ -3,7 +3,7 @@
   "facilityId": "fac_0001",
   "publishedPeriod": {
     "start": "2025-09-01",
-    "end": "2025-12-31"
+    "end": null
   },
   "jobCategoryId": "pt",
   "employmentTypeId": "fulltime",
@@ -229,5 +229,6 @@
     "enabled": true,
     "path": "/db/facilities/fac_0001/jobs/job_0001_premium.json"
   },
-  "contractPlanId": "premium"
+  "contractPlanId": "premium",
+  "updatedAt": "2025-12-20"
 }
