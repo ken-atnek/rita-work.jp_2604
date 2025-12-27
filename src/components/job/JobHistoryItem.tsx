@@ -14,9 +14,15 @@ type Props = {
   job: JobIndexItem;
   employmentTypeLabel: string;
   href: string;
+  isNew: boolean;
 };
 
-export function JobHistoryItem({ job, employmentTypeLabel, href }: Props) {
+export function JobHistoryItem({
+  job,
+  employmentTypeLabel,
+  isNew,
+  href,
+}: Props) {
   return (
     <li className={styles.historyItem}>
       <Link
@@ -25,7 +31,7 @@ export function JobHistoryItem({ job, employmentTypeLabel, href }: Props) {
         aria-label={`${job.title} 詳細へ`}
       ></Link>
       <div className={styles.wrapHead}>
-        {job.isNew && <span className={styles.iconNew}>新着</span>}
+        {isNew && <span className={styles.iconNew}>新着</span>}
         {employmentTypeLabel && (
           <span className={styles.employmentType}>{employmentTypeLabel}</span>
         )}

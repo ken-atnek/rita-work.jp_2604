@@ -7,7 +7,7 @@
 
 import { JobCardItem } from '@/components/job/JobCardItem';
 import type { JobIndexItem } from '@/types/jobIndex';
-
+import { isNewByPublishedStart } from '@/utils/isNewByPublishedStart';
 type Props = {
   jobs: JobIndexItem[];
   salaryUnitMap: Record<string, string>;
@@ -19,6 +19,7 @@ type Props = {
   onToggleFavorite: (jobId: string) => void;
 
   ulClassName: string;
+  newIconPeriodDays: number;
 };
 
 export function JobCardList({
@@ -30,18 +31,24 @@ export function JobCardList({
   onToggleFavorite,
   ulClassName,
   hourlyBandMap,
+  newIconPeriodDays,
 }: Props) {
   if (!jobs || jobs.length === 0) return null;
   const favoriteSet = new Set(favoriteJobIds);
+
   return (
     <ul className={ulClassName}>
       {jobs.map((job) => {
         const isFav = favoriteSet.has(job.jobId);
-
+        const isNew = isNewByPublishedStart({
+          start: job.publishedPeriod?.start,
+          newIconPeriodDays,
+        });
         return (
           <JobCardItem
             key={job.jobId}
             job={job}
+            isNew={isNew}
             salaryUnitMap={salaryUnitMap}
             employmentTypeMap={employmentTypeMap}
             jobCategoryMap={jobCategoryMap}

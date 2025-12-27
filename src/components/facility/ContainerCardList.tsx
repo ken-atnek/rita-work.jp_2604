@@ -13,12 +13,16 @@ import styles from './ContainerCardList.module.scss';
 import { JobCardList } from '@/components/job/JobCardList';
 import type { JobIndexItem } from '@/types/jobIndex';
 import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
+import { withBasePath } from '@/utils/withBasePath';
+import { fetchJson } from '@/utils/fetchJson';
+import { toIdLabelMap } from '@/utils/toIdLabelMap';
 
 type Props = {
   jobs: JobIndexItem[];
   salaryUnitMap: Record<string, string>;
   employmentTypeMap: Record<string, string>;
   jobCategoryMap?: Record<string, string>;
+  newIconPeriodDays: number;
 };
 
 type SalaryBand = { id: string; label?: string; name?: string };
@@ -28,6 +32,7 @@ export function ContainerCardList({
   salaryUnitMap,
   jobCategoryMap,
   employmentTypeMap,
+  newIconPeriodDays,
 }: Props) {
   const { toggleFavorite, favoriteIdsArray } = useFavoriteJobIds();
 
@@ -35,22 +40,22 @@ export function ContainerCardList({
     {}
   );
 
+  /* ---------------------------------------
+   * 時給バンドマスター（bandId → 日本語ラベル）
+   * - 失敗してもページは落とさない（空Map）
+   * -------------------------------------- */
   useEffect(() => {
-    (async () => {
-      try {
-        const basePath = process.env.NEXT_PUBLIC_BASEPATH ?? '';
-        const res = await fetch(`${basePath}/db/master/salaryBandsHourly.json`);
-        const bands = res.ok ? ((await res.json()) as SalaryBand[]) : [];
-        const map = bands.reduce<Record<string, string>>((acc, cur) => {
-          const text = cur.label ?? cur.name;
-          if (text) acc[cur.id] = text;
-          return acc;
-        }, {});
-        setHourlyBandMap(map);
-      } catch {
-        setHourlyBandMap({});
-      }
-    })();
+    const loadBands = async () => {
+      const bands = await fetchJson<SalaryBand[]>(
+        withBasePath('/db/master/salaryBandsHourly.json'),
+        []
+      );
+
+      const map = toIdLabelMap(bands, (b) => b.label ?? b.name);
+      setHourlyBandMap(map);
+    };
+
+    loadBands();
   }, []);
 
   /* ---------------------------------------
@@ -69,6 +74,7 @@ export function ContainerCardList({
         onToggleFavorite={toggleFavorite}
         ulClassName={styles.listCard}
         hourlyBandMap={hourlyBandMap}
+        newIconPeriodDays={newIconPeriodDays}
       />
     </section>
   );

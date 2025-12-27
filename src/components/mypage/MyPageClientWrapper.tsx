@@ -15,6 +15,10 @@ import type { JobCategory } from '@/types/jobCategory';
 import type { JobIndexItem } from '@/types/jobIndex';
 import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
 import { useJobHistoryIds } from '@/hooks/useJobHistoryIds';
+import { buildJobDetailUrl } from '@/utils/buildJobDetailUrl';
+import { withBasePath } from '@/utils/withBasePath';
+import { fetchJson } from '@/utils/fetchJson';
+import { toIdLabelMap } from '@/utils/toIdLabelMap';
 
 export function MyPageClientWrapper() {
   // 全件求人 index（jobsIndexAll.json）
@@ -35,23 +39,20 @@ export function MyPageClientWrapper() {
   const [hourlyBandMap, setHourlyBandMap] = useState<Record<string, string>>(
     {}
   );
+  // 新着表示の期間（日数） ※configから読む
+  const [newIconPeriodDays, setNewIconPeriodDays] = useState<number>(30);
   /* -------------------------------
    * 2) jobsIndexAll.json → jobsAll
+   * - 失敗してもページは落とさない（items: [] にフォールバック）
    * ------------------------------- */
   useEffect(() => {
     const loadJobsAll = async () => {
-      const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+      const json = await fetchJson<{ items: JobIndexItem[] }>(
+        withBasePath('/db/jobs/jobsIndexAll.json'),
+        { items: [] }
+      );
 
-      try {
-        const res = await fetch(`${basePath}/db/jobs/jobsIndexAll.json`);
-        const json = res.ok
-          ? ((await res.json()) as { items: JobIndexItem[] })
-          : { items: [] };
-
-        setJobsAll(json.items);
-      } catch {
-        setJobsAll([]);
-      }
+      setJobsAll(json.items);
     };
 
     loadJobsAll();
@@ -60,74 +61,59 @@ export function MyPageClientWrapper() {
   /* -------------------------------
    * 2.5) master JSON → label maps
    * - マイページでカード表示するために必要
+   * - 失敗してもページは落とさない（ID表示にフォールバックできる）
    * ------------------------------- */
   useEffect(() => {
     const loadMasters = async () => {
-      const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+      // 雇用形態
+      const employmentMaster = await fetchJson<{ id: string; name: string }[]>(
+        withBasePath('/db/master/employmentTypes.json'),
+        []
+      );
+      setEmploymentTypes(employmentMaster);
 
-      try {
-        // 雇用形態
-        const employmentRes = await fetch(
-          `${basePath}/db/master/employmentTypes.json`
-        );
-        const employmentMaster = employmentRes.ok
-          ? ((await employmentRes.json()) as { id: string; name: string }[])
-          : [];
-        setEmploymentTypes(employmentMaster);
+      // 職種
+      const categories = await fetchJson<JobCategory[]>(
+        withBasePath('/db/master/jobCategories.json'),
+        []
+      );
+      setJobCategories(categories);
 
-        // 職種
-        const categoryRes = await fetch(
-          `${basePath}/db/master/jobCategories.json`
-        );
-        const categories = categoryRes.ok
-          ? ((await categoryRes.json()) as JobCategory[])
-          : [];
-        setJobCategories(categories);
+      // 給与単位（unitId → 日本語ラベル）
+      const salaryUnits = await fetchJson<
+        { id: string; label?: string; name?: string }[]
+      >(withBasePath('/db/master/salaryUnits.json'), []);
 
-        // 給与単位
-        const salaryUnitRes = await fetch(
-          `${basePath}/db/master/salaryUnits.json`
-        );
-        const salaryUnits = salaryUnitRes.ok
-          ? ((await salaryUnitRes.json()) as {
-              id: string;
-              label?: string;
-              name?: string;
-            }[])
-          : [];
-        // 時給バンド（hourly）
-        const bandRes = await fetch(
-          `${basePath}/db/master/salaryBandsHourly.json`
-        );
-        const bands = bandRes.ok
-          ? ((await bandRes.json()) as {
-              id: string;
-              label?: string;
-              name?: string;
-            }[])
-          : [];
+      const unitMap = toIdLabelMap(salaryUnits, (u) => u.label ?? u.name);
+      setSalaryUnitMap(unitMap);
 
-        const bandMap = bands.reduce<Record<string, string>>((acc, cur) => {
-          const text = cur.label ?? cur.name;
-          if (text) acc[cur.id] = text;
-          return acc;
-        }, {});
+      // 時給バンド（bandId → 日本語ラベル）
+      const bands = await fetchJson<
+        { id: string; label?: string; name?: string }[]
+      >(withBasePath('/db/master/salaryBandsHourly.json'), []);
 
-        setHourlyBandMap(bandMap);
-        const map: Record<string, string> = Object.fromEntries(
-          salaryUnits.map((u) => [u.id, u.label ?? u.name ?? u.id])
-        );
-        setSalaryUnitMap(map);
-      } catch {
-        // master が取れなくてもページ自体は落とさない（ID表示にフォールバックできる）
-        setEmploymentTypes([]);
-        setJobCategories([]);
-        setSalaryUnitMap({});
-        setHourlyBandMap({});
-      }
+      const bandMap = toIdLabelMap(bands, (b) => b.label ?? b.name);
+      setHourlyBandMap(bandMap);
     };
 
     loadMasters();
+  }, []);
+  /* -------------------------------
+   * 2.6) config（新着表示の期間）
+   * ------------------------------- */
+  useEffect(() => {
+    const loadConfig = async () => {
+      const json = await fetchJson<{ newIconPeriodDays?: number }>(
+        withBasePath('/db/config/job_common.json'),
+        {}
+      );
+
+      if (typeof json.newIconPeriodDays === 'number') {
+        setNewIconPeriodDays(json.newIconPeriodDays);
+      }
+    };
+
+    loadConfig();
   }, []);
 
   const { toggleFavorite, favoriteIdsArray } = useFavoriteJobIds();
@@ -150,17 +136,11 @@ export function MyPageClientWrapper() {
     return picked;
   }, [favoriteIdsArray, jobsAll]);
   const employmentTypeMap = useMemo(() => {
-    return employmentTypes.reduce<Record<string, string>>((acc, type) => {
-      acc[type.id] = type.name;
-      return acc;
-    }, {});
+    return toIdLabelMap(employmentTypes, (t) => t.name);
   }, [employmentTypes]);
 
   const jobCategoryMap = useMemo(() => {
-    return jobCategories.reduce<Record<string, string>>((acc, category) => {
-      acc[category.id] = category.name;
-      return acc;
-    }, {});
+    return toIdLabelMap(jobCategories, (c) => c.name);
   }, [jobCategories]);
 
   const historyJobs = useMemo(() => {
@@ -182,10 +162,6 @@ export function MyPageClientWrapper() {
     return picked;
   }, [historyIds, jobsAll]);
 
-  const buildJobDetailUrl = (jobId: string) => {
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
-    return `${basePath}/details?id=${encodeURIComponent(jobId)}`;
-  };
   /* -------------------------------
    * render
    * ------------------------------- */
@@ -233,6 +209,7 @@ export function MyPageClientWrapper() {
               onToggleFavorite={toggleFavorite}
               ulClassName={styles.listCard}
               hourlyBandMap={hourlyBandMap}
+              newIconPeriodDays={newIconPeriodDays}
             />
           )
         ) : historyJobs.length === 0 ? (
@@ -244,6 +221,7 @@ export function MyPageClientWrapper() {
             buildJobUrl={buildJobDetailUrl}
             // onRemove={removeHistory} ←後でやるなら
             ulClassName={styles.historyList}
+            newIconPeriodDays={newIconPeriodDays}
           />
         )}
       </section>

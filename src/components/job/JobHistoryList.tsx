@@ -8,7 +8,7 @@
 
 import { JobHistoryItem } from './JobHistoryItem';
 import type { JobIndexItem } from '@/types/jobIndex';
-
+import { isNewByPublishedStart } from '@/utils/isNewByPublishedStart';
 type Props = {
   jobs: JobIndexItem[];
 
@@ -17,6 +17,7 @@ type Props = {
   buildJobUrl: (jobId: string) => string;
 
   ulClassName: string;
+  newIconPeriodDays: number;
 };
 
 export function JobHistoryList({
@@ -24,19 +25,24 @@ export function JobHistoryList({
   employmentTypeMap,
   buildJobUrl,
   ulClassName,
+  newIconPeriodDays,
 }: Props) {
   return (
     <ul className={ulClassName}>
       {jobs.map((job) => {
         const employmentTypeLabel =
           employmentTypeMap[job.employmentTypeId] ?? job.employmentTypeId;
-
+        const isNew = isNewByPublishedStart({
+          start: job.publishedPeriod?.start,
+          newIconPeriodDays,
+        });
         return (
           <JobHistoryItem
             key={job.jobId}
             job={job}
             employmentTypeLabel={employmentTypeLabel}
             href={buildJobUrl(job.jobId)}
+            isNew={isNew}
           />
         );
       })}

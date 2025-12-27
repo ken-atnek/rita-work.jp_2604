@@ -3,12 +3,13 @@
  * Component: JobDetailsClient
  * URL: src/components/details/JobDetailsClient.tsx
  * Created: 2025-11-24
- * Last updated: 2025-12-xx
+ * Last updated: 2025-12-27
  * ======================================= */
 'use client';
 
 import { useEffect, useState } from 'react';
 import { JobDetailContent } from './JobDetailContent';
+
 import type {
   Job,
   FreeSpaceContent,
@@ -18,7 +19,9 @@ import type {
 import type { Facility } from '@/types/facility';
 import type { Corporation } from '@/types/corporation';
 import type { JobCategory } from '@/types/jobCategory';
-
+import { withBasePath } from '@/utils/withBasePath';
+import { fetchJson } from '@/utils/fetchJson';
+import { toIdLabelMap } from '@/utils/toIdLabelMap';
 type DetailsListItem = {
   jobId: string;
   facilityId: string;
@@ -92,7 +95,7 @@ type ServiceTypeOption = {
 };
 
 /* ---------------------------------------
- * 給与系マスタ（追加）
+ * 給与系マスタ
  * - salaryUnits.json: { id, label or name }
  * - salaryBandsHourly.json: { id, label or name }
  * -------------------------------------- */
@@ -108,6 +111,12 @@ type SalaryBandHourlyMaster = {
   name?: string;
 };
 
+// 雇用形態マスター（MyPageと揃える）
+type EmploymentTypeMaster = {
+  id: string;
+  name: string;
+};
+
 export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   /* ---------------------------------------
    * 画面表示用 state
@@ -117,7 +126,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   const [corporation, setCorporation] = useState<Corporation | null>(null);
 
   const [employmentTypes, setEmploymentTypes] = useState<
-    { id: string; name: string }[]
+    EmploymentTypeMaster[]
   >([]);
   const [jobCategories, setJobCategories] = useState<JobCategory[]>([]);
 
@@ -158,9 +167,9 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
     useState<InterviewContent | null>(null);
 
   /* ---------------------------------------
-   * 給与系マスタ Map（追加）
-   * - salaryUnitMap: unitId -> 日本語ラベル（例: monthly -> 月給, hourly -> 時給）
-   * - hourlyBandMap: bandId -> 日本語ラベル（例: hourly_1500_2000 -> 1,500円〜2,000円）
+   * 給与系マスタ Map
+   * - salaryUnitMap: unitId -> 日本語ラベル
+   * - hourlyBandMap: bandId -> 日本語ラベル
    * -------------------------------------- */
   const [salaryUnitMap, setSalaryUnitMap] = useState<Record<string, string>>(
     {}
@@ -173,203 +182,204 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
     const loadDetails = async () => {
       try {
         /* -------------------------------
+         * 0. 開始時ガード
+         * - jobId 切り替えでも「読み込み中」に戻るようにする
+         * ------------------------------- */
+        setLoading(true);
+        setError(null);
+
+        /* -------------------------------
          * 1. details_list.json 読み込み
          * ------------------------------- */
-        const listRes = await fetch('/db/details_list.json');
-        if (!listRes.ok) throw new Error('details_list の取得に失敗しました');
-        const allJobs: DetailsListItem[] = await listRes.json();
+        const allJobs = await fetchJson<DetailsListItem[]>(
+          withBasePath('/db/details_list.json'),
+          []
+        );
+        if (allJobs.length === 0) {
+          throw new Error(
+            'details_list の取得に失敗しました（0件または取得不可）'
+          );
+        }
 
         const target = allJobs.find((item) => item.jobId === jobId);
-        if (!target)
+        if (!target) {
           throw new Error('指定された求人が details_list に見つかりません');
+        }
 
         /* -------------------------------
          * 2. job_xxxx.json 読み込み
          * ------------------------------- */
-        const jobRes = await fetch(target.path);
-        if (!jobRes.ok) throw new Error('求人データの取得に失敗しました');
-        const jobData = (await jobRes.json()) as Job;
+        const jobData = await fetchJson<Job | null>(
+          withBasePath(target.path),
+          null
+        );
+        if (!jobData) throw new Error('求人データの取得に失敗しました');
 
         /* -------------------------------
          * 3. facility.json 読み込み
          * ------------------------------- */
-        const facilityRes = await fetch(
-          `/db/facilities/${jobData.facilityId}/facility.json`
+        const facilityData = await fetchJson<Facility | null>(
+          withBasePath(`/db/facilities/${jobData.facilityId}/facility.json`),
+          null
         );
-        if (!facilityRes.ok) throw new Error('施設データの取得に失敗しました');
-        const facilityData = (await facilityRes.json()) as Facility;
+        if (!facilityData) throw new Error('施設データの取得に失敗しました');
 
         /* -------------------------------
          * 4. corporations.json 読み込み
          * ------------------------------- */
-        const corpRes = await fetch('/db/master/corporations.json');
-        const corporations = corpRes.ok
-          ? ((await corpRes.json()) as Corporation[])
-          : [];
-        const corporationData =
-          corporations.find((item) => item.id === facilityData.corporationId) ??
-          null;
+        const corporations = await fetchJson<Corporation[]>(
+          withBasePath('/db/master/corporations.json'),
+          []
+        );
+        const corporationData = corporations.find(
+          (item) => item.id === facilityData.corporationId
+        );
+        if (!corporationData) {
+          throw new Error('法人データが corporations.json に見つかりません');
+        }
 
         /* -------------------------------
          * 5. 新着期間設定 読み込み
          * ------------------------------- */
-        const configRes = await fetch('/db/config/job_common.json');
-        if (configRes.ok) {
-          const config = await configRes.json();
-          if (typeof config.newIconPeriodDays === 'number') {
-            setNewIconPeriodDays(config.newIconPeriodDays);
-          }
+        const config = await fetchJson<{ newIconPeriodDays?: number }>(
+          withBasePath('/db/config/job_common.json'),
+          {}
+        );
+        if (typeof config.newIconPeriodDays === 'number') {
+          setNewIconPeriodDays(config.newIconPeriodDays);
         }
 
         /* -------------------------------
          * 6. 雇用形態マスター 読み込み
          * ------------------------------- */
-        const typesRes = await fetch('/db/master/employmentTypes.json');
-        const types = typesRes.ok
-          ? ((await typesRes.json()) as { id: string; name: string }[])
-          : [];
+        const types = await fetchJson<EmploymentTypeMaster[]>(
+          withBasePath('/db/master/employmentTypes.json'),
+          []
+        );
         setEmploymentTypes(types);
 
         /* -------------------------------
          * 7. 職種マスター 読み込み
          * ------------------------------- */
-        const catRes = await fetch('/db/master/jobCategories.json');
-        const categories = catRes.ok
-          ? ((await catRes.json()) as JobCategory[])
-          : [];
+        const categories = await fetchJson<JobCategory[]>(
+          withBasePath('/db/master/jobCategories.json'),
+          []
+        );
         setJobCategories(categories);
 
         /* -------------------------------
-         * 7.5 給与単位マスター（追加）
-         * - /db/master/salaryUnits.json
+         * 7.5 給与単位マスター
          * ------------------------------- */
-        const salaryUnitRes = await fetch('/db/master/salaryUnits.json');
-        const salaryUnits = salaryUnitRes.ok
-          ? ((await salaryUnitRes.json()) as SalaryUnitMaster[])
-          : [];
-        const salaryUnitMapBuilt = salaryUnits.reduce<Record<string, string>>(
-          (acc, cur) => {
-            const text = cur.label ?? cur.name;
-            if (text) acc[cur.id] = text;
-            return acc;
-          },
-          {}
+        const salaryUnits = await fetchJson<SalaryUnitMaster[]>(
+          withBasePath('/db/master/salaryUnits.json'),
+          []
+        );
+        const salaryUnitMapBuilt = toIdLabelMap(
+          salaryUnits,
+          (u) => u.label ?? u.name
         );
         setSalaryUnitMap(salaryUnitMapBuilt);
 
         /* -------------------------------
-         * 7.6 時給バンドマスター（追加）
-         * - /db/master/salaryBandsHourly.json
+         * 7.6 時給バンドマスター
          * ------------------------------- */
-        const bandRes = await fetch('/db/master/salaryBandsHourly.json');
-        const bands = bandRes.ok
-          ? ((await bandRes.json()) as SalaryBandHourlyMaster[])
-          : [];
-        const hourlyBandMapBuilt = bands.reduce<Record<string, string>>(
-          (acc, cur) => {
-            const text = cur.label ?? cur.name;
-            if (text) acc[cur.id] = text;
-            return acc;
-          },
-          {}
+        const bands = await fetchJson<SalaryBandHourlyMaster[]>(
+          withBasePath('/db/master/salaryBandsHourly.json'),
+          []
+        );
+        const hourlyBandMapBuilt = toIdLabelMap(
+          bands,
+          (b) => b.label ?? b.name
         );
         setHourlyBandMap(hourlyBandMapBuilt);
 
         /* -------------------------------
          * 以降、既存の master 読み込み群
          * ------------------------------- */
-        const depRes = await fetch('/db/master/clinicalDepartments.json');
-        const depMaster = depRes.ok ? await depRes.json() : [];
+        const depMaster = await fetchJson<ClinicalDepartmentOption[]>(
+          withBasePath('/db/master/clinicalDepartments.json'),
+          []
+        );
         setClinicalDepartments(depMaster);
 
         // 8. 待遇マスター
-        const benefitRes = await fetch('/db/master/benefitOptions.json');
-        const benefitMaster = benefitRes.ok
-          ? ((await benefitRes.json()) as BenefitOption[])
-          : [];
+        const benefitMaster = await fetchJson<BenefitOption[]>(
+          withBasePath('/db/master/benefitOptions.json'),
+          []
+        );
         setBenefitOptions(benefitMaster);
 
         // 9. 事業所形態マスター
-        const facilityTypesRes = await fetch('/db/master/facilityTypes.json');
-        const facilityTypesMaster = facilityTypesRes.ok
-          ? ((await facilityTypesRes.json()) as FacilityType[])
-          : [];
+        const facilityTypesMaster = await fetchJson<FacilityType[]>(
+          withBasePath('/db/master/facilityTypes.json'),
+          []
+        );
         setFacilityTypes(facilityTypesMaster);
 
         // 10. 研修・サポートマスター
-        const trainingSupportRes = await fetch(
-          '/db/master/trainingSupportOptions.json'
+        const trainingSupportMaster = await fetchJson<TrainingSupportOption[]>(
+          withBasePath('/db/master/trainingSupportOptions.json'),
+          []
         );
-        const trainingSupportMaster = trainingSupportRes.ok
-          ? ((await trainingSupportRes.json()) as TrainingSupportOption[])
-          : [];
         setTrainingSupportOptions(trainingSupportMaster);
 
         // 11. アクセス条件マスター
-        const accessOptionsRes = await fetch('/db/master/accessOptions.json');
-        const accessOptionsMaster = accessOptionsRes.ok
-          ? ((await accessOptionsRes.json()) as AccessOption[])
-          : [];
+        const accessOptionsMaster = await fetchJson<AccessOption[]>(
+          withBasePath('/db/master/accessOptions.json'),
+          []
+        );
         setAccessOptions(accessOptionsMaster);
 
         // 12. 応募要件マスター
-        const applicationRequirementRes = await fetch(
-          '/db/master/applicationRequirementOptions.json'
-        );
-        const applicationRequirementMaster = applicationRequirementRes.ok
-          ? ((await applicationRequirementRes.json()) as ApplicationRequirementOption[])
-          : [];
+        const applicationRequirementMaster = await fetchJson<
+          ApplicationRequirementOption[]
+        >(withBasePath('/db/master/applicationRequirementOptions.json'), []);
         setApplicationRequirementOptions(applicationRequirementMaster);
 
         // 13. 休日条件マスター
-        const holidayOptionsRes = await fetch('/db/master/holidayOptions.json');
-        const holidayOptionsMaster = holidayOptionsRes.ok
-          ? ((await holidayOptionsRes.json()) as HolidayOption[])
-          : [];
+        const holidayOptionsMaster = await fetchJson<HolidayOption[]>(
+          withBasePath('/db/master/holidayOptions.json'),
+          []
+        );
         setHolidayOptions(holidayOptionsMaster);
 
         // 14. 勤務スタイルマスター
-        const workStyleRes = await fetch('/db/master/workStyleOptions.json');
-        const workStyleMaster = workStyleRes.ok
-          ? ((await workStyleRes.json()) as WorkStyleOption[])
-          : [];
+        const workStyleMaster = await fetchJson<WorkStyleOption[]>(
+          withBasePath('/db/master/workStyleOptions.json'),
+          []
+        );
         setWorkStyleOptions(workStyleMaster);
 
         // 15. 仕事内容マスター
-        const jobContentRes = await fetch('/db/master/jobContentOptions.json');
-        const jobContentMaster = jobContentRes.ok
-          ? ((await jobContentRes.json()) as JobContentOption[])
-          : [];
+        const jobContentMaster = await fetchJson<JobContentOption[]>(
+          withBasePath('/db/master/jobContentOptions.json'),
+          []
+        );
         setJobContentOptions(jobContentMaster);
 
         // 16. サービス形態マスター
-        const serviceTypeRes = await fetch(
-          '/db/master/serviceTypeOptions.json'
+        const serviceTypeMaster = await fetchJson<ServiceTypeOption[]>(
+          withBasePath('/db/master/serviceTypeOptions.json'),
+          []
         );
-        const serviceTypeMaster = serviceTypeRes.ok
-          ? ((await serviceTypeRes.json()) as ServiceTypeOption[])
-          : [];
         setServiceTypeOptions(serviceTypeMaster);
 
         /* -------------------------------
          * 17. 動画（job.json 参照で任意取得）
          * ------------------------------- */
         let videos: JobVideo[] = [];
-
         if (
           jobData.jobVideos &&
           jobData.jobVideos.enabled &&
           jobData.jobVideos.path
         ) {
+          // fetchJson は落ちないが、ログは出したいので try/catch は残す
           try {
-            const jobVideosRes = await fetch(jobData.jobVideos.path);
-
-            if (jobVideosRes.ok) {
-              const movieJson = (await jobVideosRes.json()) as {
-                videos?: JobVideo[];
-              };
-              videos = Array.isArray(movieJson.videos) ? movieJson.videos : [];
-            }
+            const movieJson = await fetchJson<{ videos?: JobVideo[] }>(
+              withBasePath(jobData.jobVideos.path),
+              {}
+            );
+            videos = Array.isArray(movieJson.videos) ? movieJson.videos : [];
           } catch (e) {
             console.warn('動画データの取得に失敗しました', e);
           }
@@ -380,15 +390,12 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
          * 18. フリースペース（任意取得）
          * ------------------------------- */
         let freeSpaceData: FreeSpaceContent | null = null;
-
         if (jobData.freeText?.enabled && jobData.freeText.path) {
           try {
-            const freeRes = await fetch(jobData.freeText.path);
-
-            if (freeRes.ok) {
-              const data = (await freeRes.json()) as FreeSpaceContent;
-              freeSpaceData = data;
-            }
+            freeSpaceData = await fetchJson<FreeSpaceContent | null>(
+              withBasePath(jobData.freeText.path),
+              null
+            );
           } catch (e) {
             console.warn('フリースペースの取得に失敗しました', e);
           }
@@ -399,18 +406,15 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
          * 19. 福利厚生詳細（任意取得）
          * ------------------------------- */
         let benefitsDetailData: BenefitsDetailContent | null = null;
-
         if (
           jobData.benefitsDetailRef?.enabled &&
           jobData.benefitsDetailRef.path
         ) {
           try {
-            const benefitsRes = await fetch(jobData.benefitsDetailRef.path);
-
-            if (benefitsRes.ok) {
-              const data = (await benefitsRes.json()) as BenefitsDetailContent;
-              benefitsDetailData = data;
-            }
+            benefitsDetailData = await fetchJson<BenefitsDetailContent | null>(
+              withBasePath(jobData.benefitsDetailRef.path),
+              null
+            );
           } catch (e) {
             console.warn('福利厚生詳細の取得に失敗しました', e);
           }
@@ -421,15 +425,12 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
          * 20. インタビュー（任意取得）
          * ------------------------------- */
         let interviewData: InterviewContent | null = null;
-
         if (jobData.interview?.enabled && jobData.interview.path) {
           try {
-            const interviewRes = await fetch(jobData.interview.path);
-
-            if (interviewRes.ok) {
-              const data = (await interviewRes.json()) as InterviewContent;
-              interviewData = data;
-            }
+            interviewData = await fetchJson<InterviewContent | null>(
+              withBasePath(jobData.interview.path),
+              null
+            );
           } catch (e) {
             console.warn('インタビューの取得に失敗しました', e);
           }
@@ -446,14 +447,13 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       } catch (e) {
         console.error(e);
 
-        // 画面上に出すエラー文言
         setError(
           e instanceof Error
             ? e.message
             : '求人データの読み込み中にエラーが発生しました。'
         );
 
-        // 失敗時はクリア
+        // 失敗時はクリア（画面で事故らないように）
         setJob(null);
         setFacility(null);
         setCorporation(null);
@@ -473,8 +473,6 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
         setFreeSpace(null);
         setBenefitsDetail(null);
         setInterviewContent(null);
-
-        // 給与系マップも念のためクリア（追加）
         setSalaryUnitMap({});
         setHourlyBandMap({});
       } finally {
@@ -518,10 +516,6 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       freeSpace={freeSpace}
       benefitsDetail={benefitsDetail}
       interviewContent={interviewContent}
-      /* -------------------------------
-       * 給与系マップ（追加）
-       * - ContainerJobRequirements へ渡すため
-       * ------------------------------- */
       salaryUnitMap={salaryUnitMap}
       hourlyBandMap={hourlyBandMap}
     />
