@@ -16,14 +16,16 @@ import type { Facility } from '@/types/facility';
 import type { Corporation } from '@/types/corporation';
 import type { JobCategory } from '@/types/jobCategory';
 import type { JobIndexItem } from '@/types/jobIndex';
-
+import { withBasePath } from '@/utils/withBasePath';
+import { fetchJson } from '@/utils/fetchJson';
+import { toIdLabelMap } from '@/utils/toIdLabelMap';
 type Props = {
   facilityId: string;
 };
 
 type EmploymentType = { id: string; name: string };
 type FacilityType = { id: string; label: string };
-type SalaryUnit = { id: string; label: string };
+type SalaryUnit = { id: string; label?: string; name?: string };
 
 export function FacilityPageClient({ facilityId }: Props) {
   /* ===============================
@@ -38,19 +40,15 @@ export function FacilityPageClient({ facilityId }: Props) {
   const [salaryUnitMap, setSalaryUnitMap] = useState<Record<string, string>>(
     {}
   );
-
   const [facilityJobs, setFacilityJobs] = useState<JobIndexItem[]>([]);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const [newIconPeriodDays, setNewIconPeriodDays] = useState<number>(90);
   /* ===============================
    * data fetch
    * =============================== */
   useEffect(() => {
     const loadFacility = async () => {
-      const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
-
       try {
         setLoading(true);
         setError(null);
@@ -58,85 +56,81 @@ export function FacilityPageClient({ facilityId }: Props) {
         /* -------------------------------
          * 1. 事業所データ
          * ------------------------------- */
-        const facilityRes = await fetch(
-          `${basePath}/db/facilities/${facilityId}/facility.json`
+        const facilityData = await fetchJson<Facility | null>(
+          withBasePath(`/db/facilities/${facilityId}/facility.json`),
+          null
         );
-        if (!facilityRes.ok) {
+        if (!facilityData) {
           throw new Error('事業所データの取得に失敗しました');
         }
-        const facilityData = (await facilityRes.json()) as Facility;
 
         /* -------------------------------
          * 1.5 施設配下の求人一覧（jobsIndex）
          * ※無い施設もあるので、失敗しても落とさない
          * ------------------------------- */
-        const jobsIndexRes = await fetch(
-          `${basePath}/db/facilities/${facilityId}/jobs/jobsIndex.json`
+        const jobsIndexJson = await fetchJson<{ items: JobIndexItem[] }>(
+          withBasePath(`/db/facilities/${facilityId}/jobs/jobsIndex.json`),
+          { items: [] }
         );
-        const jobsIndexJson = jobsIndexRes.ok
-          ? ((await jobsIndexRes.json()) as { items: JobIndexItem[] })
-          : { items: [] };
 
         /* -------------------------------
          * 2. 法人マスター
          * ------------------------------- */
-        const corpRes = await fetch(`${basePath}/db/master/corporations.json`);
-        const corporations = corpRes.ok
-          ? ((await corpRes.json()) as Corporation[])
-          : [];
-
-        const corporationData =
-          corporations.find((c) => c.id === facilityData.corporationId) ?? null;
+        const corporations = await fetchJson<Corporation[]>(
+          withBasePath('/db/master/corporations.json'),
+          []
+        );
+        const corporationData = corporations.find(
+          (c) => c.id === facilityData.corporationId
+        );
+        if (!corporationData) {
+          throw new Error('法人データが corporations.json に見つかりません');
+        }
 
         /* -------------------------------
          * 3. 雇用形態マスター
          * ------------------------------- */
-        const employmentRes = await fetch(
-          `${basePath}/db/master/employmentTypes.json`
+        const employmentMaster = await fetchJson<EmploymentType[]>(
+          withBasePath('/db/master/employmentTypes.json'),
+          []
         );
-        const employmentMaster = employmentRes.ok
-          ? ((await employmentRes.json()) as EmploymentType[])
-          : [];
 
         /* -------------------------------
          * 4. 事業所形態マスター
          * ------------------------------- */
-        const facilityTypesRes = await fetch(
-          `${basePath}/db/master/facilityTypes.json`
+        const facilityTypesMaster = await fetchJson<FacilityType[]>(
+          withBasePath('/db/master/facilityTypes.json'),
+          []
         );
-        const facilityTypesMaster = facilityTypesRes.ok
-          ? ((await facilityTypesRes.json()) as FacilityType[])
-          : [];
 
         /* -------------------------------
          * 5. 職種マスター
          * ------------------------------- */
-        const categoryRes = await fetch(
-          `${basePath}/db/master/jobCategories.json`
+        const categories = await fetchJson<JobCategory[]>(
+          withBasePath('/db/master/jobCategories.json'),
+          []
         );
-        const categories = categoryRes.ok
-          ? ((await categoryRes.json()) as JobCategory[])
-          : [];
 
         /* -------------------------------
          * 6. 給与単位マスター（salaryUnits）
          * ------------------------------- */
-        const salaryUnitRes = await fetch(
-          `${basePath}/db/master/salaryUnits.json`
-        );
-        const salaryUnits = salaryUnitRes.ok
-          ? ((await salaryUnitRes.json()) as SalaryUnit[])
-          : [];
-
-        const salaryMap: Record<string, string> = Object.fromEntries(
-          salaryUnits.map((u) => [
-            u.id,
-            (u as unknown as { label?: string; name?: string }).label ??
-              (u as unknown as { label?: string; name?: string }).name ??
-              u.id,
-          ])
+        const salaryUnits = await fetchJson<SalaryUnit[]>(
+          withBasePath('/db/master/salaryUnits.json'),
+          []
         );
 
+        const salaryMap = toIdLabelMap(salaryUnits, (u) => u.label ?? u.name);
+
+        /* -------------------------------
+         * 新着期間設定（job_common）
+         * ------------------------------- */
+        const config = await fetchJson<{ newIconPeriodDays?: number }>(
+          withBasePath('/db/config/job_common.json'),
+          {}
+        );
+        if (typeof config.newIconPeriodDays === 'number') {
+          setNewIconPeriodDays(config.newIconPeriodDays);
+        }
         /* -------------------------------
          * state 反映
          * ------------------------------- */
@@ -188,6 +182,7 @@ export function FacilityPageClient({ facilityId }: Props) {
       facilityTypes={facilityTypes}
       salaryUnitMap={salaryUnitMap}
       jobs={facilityJobs}
+      newIconPeriodDays={newIconPeriodDays}
     />
   );
 }

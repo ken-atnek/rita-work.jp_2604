@@ -13,7 +13,7 @@ import Link from 'next/link';
 
 import styles from './JobCardItem.module.scss';
 
-import { buildJobDetailUrl } from '@/utils/buildJobUrl';
+import { buildJobDetailUrl } from '@/utils/buildJobDetailUrl';
 import { buildSalaryText } from '@/utils/salaryText';
 
 import type { JobIndexItem } from '@/types/jobIndex';
@@ -24,8 +24,7 @@ type Props = {
   employmentTypeMap: Record<string, string>;
   jobCategoryMap?: Record<string, string>;
   hourlyBandMap?: Record<string, string>;
-
-  // お気に入り状態は親から渡す（localStorageは触らない）
+  isNew: boolean;
   isFavorite: boolean;
   onToggleFavorite: (jobId: string) => void;
 };
@@ -38,6 +37,7 @@ export function JobCardItem({
   isFavorite,
   onToggleFavorite,
   hourlyBandMap,
+  isNew,
 }: Props) {
   const heroSrc = job.heroImages?.[0] ?? '';
 
@@ -79,7 +79,7 @@ export function JobCardItem({
       <div className={styles.itemDetails}>
         <div className={styles.innerHead}>
           <div className={styles.wrapHead}>
-            {job.isNew && <span className={styles.iconNew}>新着</span>}
+            {isNew && <span className={styles.iconNew}>新着</span>}
 
             <span className={styles.employmentType}>{employmentTypeLabel}</span>
           </div>

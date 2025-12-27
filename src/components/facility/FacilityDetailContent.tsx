@@ -20,6 +20,7 @@ type Props = {
   facilityTypes: { id: string; label: string }[];
   jobs: JobIndexItem[];
   salaryUnitMap: Record<string, string>;
+  newIconPeriodDays: number;
 };
 type JobVideo = {
   id: string;
@@ -33,6 +34,7 @@ export function FacilityDetailContent({
   facilityTypes,
   jobs,
   salaryUnitMap,
+  newIconPeriodDays,
 }: Props) {
   const jobCategoryMap = jobCategories.reduce<Record<string, string>>(
     (acc, category) => {
@@ -81,6 +83,7 @@ export function FacilityDetailContent({
         salaryUnitMap={salaryUnitMap}
         employmentTypeMap={employmentTypeMap}
         jobCategoryMap={jobCategoryMap}
+        newIconPeriodDays={newIconPeriodDays}
       />
       {/* === 職場関連動画 === */}
       <ContainerFacilityVideos jobVideos={jobVideos} />
