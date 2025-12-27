@@ -290,7 +290,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
         );
         const salaryUnitMapBuilt = toIdLabelMap(
           salaryUnits,
-          (u) => u.label ?? u.name
+          (u) => u.label ?? u.name ?? u.id
         );
         setSalaryUnitMap(salaryUnitMapBuilt);
 
@@ -303,7 +303,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
         );
         const hourlyBandMapBuilt = toIdLabelMap(
           bands,
-          (b) => b.label ?? b.name
+          (b) => b.label ?? b.name ?? b.id
         );
         setHourlyBandMap(hourlyBandMapBuilt);
 
