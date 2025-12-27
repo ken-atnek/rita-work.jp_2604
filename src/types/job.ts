@@ -12,6 +12,11 @@ export type PublishedPeriod = {
 };
 
 /* ---------------------------------------
+ * 表示ステータス
+ * -------------------------------------- */
+export type JobStatus = 'public' | 'draft' | 'private';
+
+/* ---------------------------------------
  * 職場環境データ
  * -------------------------------------- */
 export type WorkEnvironmentStat = {
@@ -144,6 +149,7 @@ export type Job = {
    * 掲載情報
    * ---------------------------------- */
   publishedPeriod: PublishedPeriod;
+  status: JobStatus;
 
   /* -----------------------------------
    * マスター参照
