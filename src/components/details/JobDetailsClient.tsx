@@ -9,6 +9,8 @@
 
 import { useEffect, useState } from 'react';
 import { JobDetailContent } from './JobDetailContent';
+import { useSearchParams } from 'next/navigation';
+import { isPreviewAccess } from '@/utils/isPreviewAccess';
 
 import type {
   Job,
@@ -121,6 +123,10 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
   /* ---------------------------------------
    * 画面表示用 state
    * -------------------------------------- */
+  // inside component
+  const searchParams = useSearchParams();
+  const isPreview = isPreviewAccess(searchParams);
+
   const [job, setJob] = useState<Job | null>(null);
   const [facility, setFacility] = useState<Facility | null>(null);
   const [corporation, setCorporation] = useState<Corporation | null>(null);
@@ -214,6 +220,14 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
           null
         );
         if (!jobData) throw new Error('求人データの取得に失敗しました');
+
+        // -------------------------------
+        // 表示ステータス判定（public以外はpreview時のみ表示）
+        // -------------------------------
+        const isPublic = jobData.status === 'public';
+        if (!isPublic && !isPreview) {
+          throw new Error('この求人は現在公開されていません。');
+        }
 
         /* -------------------------------
          * 3. facility.json 読み込み
@@ -481,7 +495,7 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
     };
 
     loadDetails();
-  }, [jobId]);
+  }, [jobId, isPreview]);
 
   /* -------------------------------
    * UI: 読み込み・エラー処理

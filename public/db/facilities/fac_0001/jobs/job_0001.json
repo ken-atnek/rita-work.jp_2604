@@ -1,6 +1,7 @@
 {
   "id": "job_0001",
   "facilityId": "fac_0001",
+  "status": "draft",
   "publishedPeriod": {
     "start": "2025-09-01",
     "end": null
