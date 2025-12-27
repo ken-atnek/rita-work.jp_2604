@@ -1,24 +1,27 @@
 /* =======================================
- * リタワーク 型定義ファイル（求人）
- * URL: src/types/job.ts
- * Created: 2025-11-24
- * Last updated: 2025-11-29
+ * リタワーク 型定義（求人）
+ * File: src/types/job.ts
  * ======================================= */
 
+/* ---------------------------------------
+ * 掲載期間
+ * -------------------------------------- */
 export type PublishedPeriod = {
   start: string;
-  end: string;
+  end: string | null; // 掲載中の場合は null
 };
 
+/* ---------------------------------------
+ * 職場環境データ
+ * -------------------------------------- */
 export type WorkEnvironmentStat = {
   metricId: string;
   value: number;
 };
 
-/**
- * フリーテキスト（フリースペース）参照
- * 例: /db/facilities/fac_0001/jobs/job_0001_freespace.json
- */
+/* ---------------------------------------
+ * フリースペース（任意テキスト）
+ * -------------------------------------- */
 export type FreeText = {
   enabled: boolean;
   path: string;
@@ -26,7 +29,7 @@ export type FreeText = {
 
 export type FreeSpaceSection = {
   heading: string;
-  body: string[];
+  body: string[]; // 改行対応（空文字で空行OK）
 };
 
 export type FreeSpaceContent = {
@@ -34,21 +37,23 @@ export type FreeSpaceContent = {
   sections: FreeSpaceSection[];
 };
 
+/* ---------------------------------------
+ * 福利厚生詳細（リッチコンテンツ）
+ * -------------------------------------- */
 export type BenefitsDetailSection = {
   id: string;
   title: string;
-  body: string[]; // 改行対応（空文字で空行OK）
-  image: string; // 画像パス
+  body: string[];
+  image: string;
 };
 
 export type BenefitsDetailContent = {
   sections: BenefitsDetailSection[];
 };
 
-/**
- * インタビュー参照
- * 例: /db/facilities/fac_0001/jobs/job_0001_interview.json
- */
+/* ---------------------------------------
+ * インタビュー
+ * -------------------------------------- */
 export type InterviewArticleSection = {
   heading: string;
   body: string[];
@@ -69,42 +74,32 @@ export type InterviewContent = {
   articles: InterviewArticle[];
 };
 
-/**
- * 職場関連動画 JSON 参照
- * 例: /db/facilities/fac_0001/jobs/job_0001_movie.json
- */
+/* ---------------------------------------
+ * 外部JSON参照（動画・インタビュー等）
+ * -------------------------------------- */
 export type JobVideosRef = {
   enabled: boolean;
   path: string;
 };
-/**
- * インタビュー JSON 中身
- * 例: /db/facilities/fac_0001/jobs/job_0001_interview.json
- */
+
 export type Interview = {
   enabled: boolean;
   path: string;
 };
-/**
- * 福利厚生詳細（リッチコンテンツ）JSON 参照
- * 例: /db/facilities/fac_0001/jobs/job_0001_benefits.json
- */
+
 export type BenefitsDetailRef = {
   enabled: boolean;
   path: string;
 };
-/**
- * プレミアム用 JSON 参照
- * 例: /db/facilities/fac_0001/jobs/job_0001_premium.json
- */
+
 export type PremiumContent = {
   enabled: boolean;
   path: string;
 };
 
-/**
- * 日勤・夜勤の1日の流れ
- */
+/* ---------------------------------------
+ * 1日の流れ（勤務スケジュール）
+ * -------------------------------------- */
 export type DailyScheduleItem = {
   time: string;
   body: string[];
@@ -115,6 +110,9 @@ export type DailySchedule = {
   nightShift: DailyScheduleItem[];
 };
 
+/* ---------------------------------------
+ * 給与型
+ * -------------------------------------- */
 type SalaryMonthly = {
   unitId: 'monthly';
   min: number;
@@ -132,139 +130,120 @@ type SalaryHourly = {
 
 export type JobSalary = SalaryMonthly | SalaryHourly;
 
+/* =======================================
+ * 求人本体
+ * ======================================= */
 export type Job = {
+  /* -----------------------------------
+   * 識別情報
+   * ---------------------------------- */
   id: string;
   facilityId: string;
 
-  /* ============================
-   * 掲載期間
-   * ============================ */
+  /* -----------------------------------
+   * 掲載情報
+   * ---------------------------------- */
   publishedPeriod: PublishedPeriod;
 
-  /* ============================
+  /* -----------------------------------
    * マスター参照
-   * ============================ */
+   * ---------------------------------- */
   jobCategoryId: string;
   employmentTypeId: string;
 
-  /* ============================
-   * 基本表示情報（タイトル・画像など）
-   * ============================ */
+  /* -----------------------------------
+   * 基本表示情報
+   * ---------------------------------- */
   title: string;
   heroImages: string[];
 
-  /* ============================
-   * 初年度年収レンジ
-   * ============================ */
+  /* -----------------------------------
+   * 年収・給与
+   * ---------------------------------- */
   firstYearIncomeRangeId: string;
+  salary: JobSalary;
+  salaryNotes?: string[]; // 改行対応
 
-  /* ============================
-   * 診療科目（複数選択）
-   * ============================ */
+  /* -----------------------------------
+   * 診療科目
+   * ---------------------------------- */
   clinicalDepartments?: string[];
 
-  /* ============================
-   * 給与関連
-   * ============================ */
-  salary: JobSalary;
-
-  /* 給与備考（改行対応） */
-  salaryNotes?: string[];
-
-  /* ============================
-   * 仕事内容
-   * ============================ */
+  /* -----------------------------------
+   * 仕事内容・サービス形態
+   * ---------------------------------- */
   jobContents?: {
     optionIds: string[];
     note?: string[];
   };
 
-  /* ============================
-   * サービス形態
-   * ============================ */
   serviceTypes?: {
     optionIds: string[];
   };
 
-  /* ============================
-   * 職場環境データ（3項目）
-   * ============================ */
+  /* -----------------------------------
+   * 職場環境データ
+   * ---------------------------------- */
   workEnvironmentStats: WorkEnvironmentStat[];
 
-  /* ============================
-   * 職場関連動画・インタビュー・フリースペース・福利厚生詳細
-   * ============================ */
+  /* -----------------------------------
+   * 任意コンテンツ参照
+   * ---------------------------------- */
   jobVideos?: JobVideosRef;
   interview?: Interview;
   freeText: FreeText;
   benefitsDetailRef?: BenefitsDetailRef;
   premium?: PremiumContent;
 
-  /* ============================
-   * 日勤・夜勤スケジュール
-   * ============================ */
+  /* -----------------------------------
+   * 勤務スケジュール
+   * ---------------------------------- */
   dailySchedule: DailySchedule;
 
-  /* ============================
-   * 待遇（福利厚生）
-   * ============================ */
+  /* -----------------------------------
+   * 待遇・応募条件
+   * ---------------------------------- */
   benefits?: {
     optionIds: string[];
     note?: string[];
   };
 
-  /* ============================
-   * 応募要件
-   * ============================ */
   applicationRequirements?: {
     optionIds: string[];
     note?: string[];
   };
 
-  /* ============================
-   * 勤務スタイル・働き方
-   * ============================ */
   workStyle?: {
     optionIds: string[];
     note?: string[];
   };
 
-  /* ============================
-   * 休日・シフト条件
-   * ============================ */
   holidayConditions?: {
     optionIds: string[];
     note?: string[];
   };
 
-  /* 長期休暇・特別休暇 */
   longHolidays?: string[];
-
-  /* 歓迎要件 */
   welcomeRequirements?: string[];
 
-  /* ============================
+  /* -----------------------------------
    * 研修・サポート
-   * ============================ */
+   * ---------------------------------- */
   trainingSupport?: {
     options: string[];
     note?: string[];
   };
 
-  /* ============================
+  /* -----------------------------------
    * アクセス
-   * ============================ */
+   * ---------------------------------- */
   access?: {
     options: string[];
   };
 
-  /* ============================
-   * 選考プロセス
-   * ============================ */
+  /* -----------------------------------
+   * 選考・契約
+   * ---------------------------------- */
   selectionProcess?: string[];
-
-  /* ============================
-   * 契約プラン
-   * ============================ */
   contractPlanId: string;
 };

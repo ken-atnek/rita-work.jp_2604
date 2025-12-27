@@ -3,7 +3,10 @@
   "items": [
     {
       "jobId": "job_0001",
-      "isNew": true,
+      "publishedPeriod": {
+        "start": "2025-10-01",
+        "end": null
+      },
       "title": "機能回復を支える理学療法士",
       "facilityName": "メディケア癒やしDX花園",
       "heroImages": [
@@ -15,7 +18,8 @@
       "employmentTypeId": "fulltime",
       "jobCategoryId": "pt",
       "salary": { "unitId": "hourly", "bandId": "hourly_1500_2000" },
-      "workLocationText": "熊本県熊本市西区花園1-12-8"
+      "workLocationText": "熊本県熊本市西区花園1-12-8",
+      "updatedAt": "2025-12-20"
     }
   ]
 }

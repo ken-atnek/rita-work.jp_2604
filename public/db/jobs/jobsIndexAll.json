@@ -10,7 +10,10 @@
       "salary": { "unitId": "hourly", "bandId": "hourly_1500_2000" },
       "workLocationText": "熊本県熊本市中央区〇〇町",
       "heroImages": ["/db/images/facilities/fac_0001/hero01.jpg"],
-      "isNew": true,
+      "publishedPeriod": {
+        "start": "2025-10-01",
+        "end": null
+      },
       "updatedAt": "2025-12-20"
     }
   ]
