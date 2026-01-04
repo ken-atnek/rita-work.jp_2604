@@ -1,14 +1,14 @@
 /* =======================================
  * リタワーク｜マイページ（お気に入り求人）
- * URL: src/components/mypage/MyPageClientWrapper.tsx
- * Referenced in: src/components/mypage/MyPageClientWrapper.tsx
+ * URL: src/components/library/LibraryClientWrapper.tsx
+ * Referenced in: src/app/library/page.tsx
  * Created: 2025-12-25
  * Last updated: 2025-12-26
  * ======================================= */
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import styles from './MyPageClientWrapper.module.scss';
+import styles from './LibraryClientWrapper.module.scss';
 import { JobCardList } from '@/components/job/JobCardList';
 import { JobHistoryList } from '@/components/job/JobHistoryList';
 import type { JobCategory } from '@/types/jobCategory';
@@ -20,7 +20,7 @@ import { withBasePath } from '@/utils/withBasePath';
 import { fetchJson } from '@/utils/fetchJson';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
 
-export function MyPageClientWrapper() {
+export function LibraryClientWrapper() {
   // 全件求人 index（jobsIndexAll.json）
   const [jobsAll, setJobsAll] = useState<JobIndexItem[]>([]);
   // 表示タブ（お気に入り / 閲覧履歴）
@@ -84,7 +84,10 @@ export function MyPageClientWrapper() {
         { id: string; label?: string; name?: string }[]
       >(withBasePath('/db/master/salaryUnits.json'), []);
 
-      const unitMap = toIdLabelMap(salaryUnits, (u) => u.label ?? u.name);
+      const unitMap = toIdLabelMap(
+        salaryUnits,
+        (u) => u.label ?? u.name ?? u.id
+      );
       setSalaryUnitMap(unitMap);
 
       // 時給バンド（bandId → 日本語ラベル）
@@ -92,7 +95,7 @@ export function MyPageClientWrapper() {
         { id: string; label?: string; name?: string }[]
       >(withBasePath('/db/master/salaryBandsHourly.json'), []);
 
-      const bandMap = toIdLabelMap(bands, (b) => b.label ?? b.name);
+      const bandMap = toIdLabelMap(bands, (b) => b.label ?? b.name ?? b.id);
       setHourlyBandMap(bandMap);
     };
 

@@ -105,8 +105,8 @@ const Header = () => {
           </h1>
         </Link>
         <nav>
-          <Link href="#">求人検索</Link>
-          <Link href="#">お気に入り・閲覧検索</Link>
+          <Link href="/jobs/">求人検索</Link>
+          <Link href="/library/">お気に入り・閲覧検索</Link>
         </nav>
         <Link href="" className={styles.linkMyPage}>
           <span> マイページ</span>

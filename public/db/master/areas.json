@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "id": "kumamoto",
+      "label": "熊本県内",
+      "items": [
+        { "id": "kumamoto_city", "label": "熊本市" },
+        { "id": "yamaga_ozu_kikuyo", "label": "山鹿・大津・菊陽" },
+        { "id": "nishihara_mashiki_mifune", "label": "西原・益城・御船" },
+        { "id": "misumi_ashikita_tsunanoki", "label": "水俣・芦北・津奈木" },
+        { "id": "arao_tamana_nagasu", "label": "荒尾・玉名・長洲" },
+        { "id": "oguni_aso_minamiaso", "label": "小国・阿蘇・南阿蘇" },
+        { "id": "uto_uki_misato", "label": "宇土・宇城・美里" },
+        { "id": "hitoyoshi_kuma_nishiki", "label": "人吉・球磨・錦町" },
+        { "id": "kamiamakusa_amakusa_ashikita", "label": "上天草・天草・苓北" }
+      ]
+    },
+    {
+      "id": "others",
+      "label": "その他エリア",
+      "items": [{ "id": "fukuoka", "label": "福岡県内" }]
+    }
+  ]
+}

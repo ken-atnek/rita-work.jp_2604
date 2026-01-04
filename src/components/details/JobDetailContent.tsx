@@ -115,10 +115,14 @@ export function JobDetailContent({
         jobCategories={jobCategories}
         salaryUnitMap={salaryUnitMap}
         hourlyBandMap={hourlyBandMap}
+        contractPlanId={job.contractPlanId}
       />
 
       {/* === 職場環境データ（スタッフ構成・業務比率など） === */}
-      <ContainerWorkEnvironmentStats job={job} />
+      <ContainerWorkEnvironmentStats
+        job={job}
+        contractPlanId={job.contractPlanId}
+      />
 
       {/* === インタビュー === */}
       <ContainerInterview

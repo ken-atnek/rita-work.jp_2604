@@ -13,6 +13,7 @@ import type { Job } from '@/types/job';
 
 type ContainerWorkEnvironmentStatsProps = {
   job: Job;
+  contractPlanId: string;
 };
 type WorkEnvironmentMetric = {
   id: string;
@@ -22,6 +23,7 @@ type WorkEnvironmentMetric = {
 
 export default function ContainerWorkEnvironmentStats({
   job,
+  contractPlanId,
 }: ContainerWorkEnvironmentStatsProps) {
   const [metrics, setMetrics] = useState<WorkEnvironmentMetric[]>([]);
 
@@ -91,7 +93,12 @@ export default function ContainerWorkEnvironmentStats({
     }
   };
   return (
-    <section className={styles.containerWorkEnvironmentStats}>
+    <section
+      className={clsx(
+        styles.containerWorkEnvironmentStats,
+        styles[`plan-${contractPlanId}`] // ★ 追加
+      )}
+    >
       <ul className={styles.environmentStatList}>
         {job.workEnvironmentStats.map((stat) => {
           const metric = metricsMap[stat.metricId];
