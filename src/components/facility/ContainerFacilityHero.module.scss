@@ -4,7 +4,6 @@
 @use "variable" as *;
 @use "svg" as *;
 @use "mixin" as *;
-
 .containerFacilityHero {
     position: relative;
     font-size: inherit;
@@ -24,7 +23,6 @@
     }
     article {
         max-width: $articleMaxWidth;
-        display: flex;
         flex-direction: column;
         padding-top: 1em;
         display: grid;
@@ -48,7 +46,6 @@
             padding-bottom: 7px;
             li {
                 position: relative;
-                font-size: inherit;
                 width: 16rem;
                 height: 48px;
                 background-color: $sub-orange;

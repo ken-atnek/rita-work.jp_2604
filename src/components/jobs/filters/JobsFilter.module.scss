@@ -1,0 +1,185 @@
+/* ===============================================================
+ * 	リタワーク フィルターコンポーネント
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+.innerFilters {
+    display: flex;
+    .boxFilters {
+        position: relative;
+        display: grid;
+        flex: 1;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7px;
+        font-size: inherit;
+        .itemFilter {
+            position: relative;
+            background-color: #fff;
+            border-radius: $radius14;
+            font-size: inherit;
+            @include box-shadow;
+            height: 44px;
+            display: flex;
+            button {
+                position: relative;
+                display: flex;
+                width: 100%;
+                justify-content: flex-start;
+                font-size: FZ(14);
+                padding-left: 4em;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    translate: 0 -50%;
+                    left: 2rem;
+                }
+            }
+            .wrapFilterList {
+                font-size: inherit;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                display: grid;
+                grid-template-rows: 0fr;
+                transition: 0.1s ease-out;
+                .innerFilterList {
+                    overflow: hidden;
+                    font-size: inherit;
+                    display: flex;
+                    flex-direction: column;
+                    min-width: 30rem;
+                    .itemFilterList {
+                        background-color: #fff;
+                        font-size: inherit;
+                        display: flex;
+                        flex-direction: column;
+                        padding: 1.6rem 2rem 2.4rem;
+                        border: 1px solid $main-orange;
+                        border-radius: $radius14;
+                        h3 {
+                            position: relative;
+                            font-size: FZ(18);
+                            padding-left: 4rem;
+                            border-bottom: 1px solid #d6d6d6;
+                            padding-bottom: 1.2rem;
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                left: 0;
+                            }
+                        }
+                        ul {
+                            font-size: inherit;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 1.5rem 0;
+                            margin-top: 1.4rem;
+                            li {
+                                font-size: inherit;
+                                display: flex;
+                                align-items: center;
+                                position: relative;
+                                label {
+                                    font-size: inherit;
+                                    position: relative;
+                                    padding-left: 3rem;
+                                    &::before {
+                                        content: "";
+                                        position: absolute;
+                                        left: 0;
+                                        top: 50%;
+                                        translate: 0 -50%;
+                                        width: 2.1rem;
+                                        aspect-ratio: 1;
+                                        border-radius: 4px;
+                                        border: 1px solid $main-orange;
+                                    }
+                                    span {
+                                        font-size: FZ(18);
+                                    }
+                                    &:has(input:checked) {
+                                        &::before {
+                                            background-color: $main-orange;
+                                        }
+                                        &::after {
+                                            content: "";
+                                            position: absolute;
+                                            top: 50%;
+                                            translate: 0 -50%;
+                                            width: 13px;
+                                            @include svg-label-check("fff");
+                                            left: 4px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &.isOpen {
+                    grid-template-rows: 1fr;
+                }
+            }
+
+            // 職種
+            &.jobCategory {
+                button {
+                    &::before {
+                        width: 2.2rem;
+                        @include svg-icon-search01("f29400");
+                    }
+                }
+                .wrapFilterList {
+                    .innerFilterList {
+                        .itemFilterList {
+                            h3 {
+                                &::before {
+                                    top: -1px;
+                                    width: 2.5rem;
+                                    @include svg-icon-search01("f29400");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .boxBtn {
+        font-size: inherit;
+        display: flex;
+        align-items: flex-end;
+        gap: 0 1rem;
+        .btnSearch {
+            position: relative;
+            width: 9.4rem;
+            aspect-ratio: 1;
+            background-color: $main-orange;
+            font-size: FZ(14);
+            font-weight: 700;
+            color: #fff;
+            border-radius: 0 $radius14 $radius14;
+            @include box-shadow;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 100%;
+                width: 5px;
+                @include svg-object-radius("f29400");
+            }
+        }
+        .btnReset {
+            width: 64px;
+            height: 56px;
+            background-color: #fff;
+            @include flex-center;
+            font-size: FZ(12);
+            font-weight: 500;
+            @include box-shadow;
+            border-radius: $radius14;
+        }
+    }
+}

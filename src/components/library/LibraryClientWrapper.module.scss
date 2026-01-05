@@ -4,7 +4,6 @@
 @use "variable" as *;
 @use "svg" as *;
 @use "mixin" as *;
-
 .containerHead {
     position: relative;
     font-size: inherit;
@@ -30,7 +29,6 @@
         font-weight: 500;
     }
 }
-
 .containerMyPage {
     display: flex;
     flex-direction: column;

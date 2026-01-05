@@ -4,15 +4,15 @@
 @use "variable" as *;
 @use "svg" as *;
 @use "mixin" as *;
-
 .containerHead {
     position: relative;
     font-size: inherit;
-    @include flex-center;
+    @include flex-center(column);
     padding-inline: 4vw;
     padding-top: 5em;
     background-color: $base-white;
     padding-bottom: 4rem;
+    z-index: 2;
     &::before {
         content: "";
         position: absolute;
@@ -29,8 +29,18 @@
         color: #fff;
         font-weight: 500;
     }
+    .blockFilters {
+        position: relative;
+        font-size: inherit;
+        width: 100%;
+        max-width: 1185px;
+        margin-top: 2.4rem;
+        background-color: $bg-white;
+        border-radius: $radius24;
+        @include box-shadow;
+        padding: 1.1rem 2rem 1.1rem 3rem;
+    }
 }
-
 .containerJobs {
     display: flex;
     flex-direction: column;
@@ -38,6 +48,7 @@
     flex: 1;
     padding-top: 4rem;
     padding-inline: 4vw;
+    z-index: 1;
     .noFavorite {
         @include flex-center;
         font-size: FZ(18);
