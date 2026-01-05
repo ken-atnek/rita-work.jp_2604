@@ -101,7 +101,7 @@ export function ContainerFacilityInfo({
           <dl>
             <dt>事業所名</dt>
             <dd>
-              <p>{facility.name}</p>
+              <p>{facility.facilityName}</p>
             </dd>
           </dl>
 

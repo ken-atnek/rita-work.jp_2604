@@ -70,7 +70,7 @@ export function FacilityDetailContent({
   return (
     <>
       <ContainerFacilityHero
-        name={facility.name}
+        name={facility.facilityName}
         logoSrc={
           facility.specialBanner?.enabled
             ? facility.specialBanner.logoImagePath
