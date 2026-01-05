@@ -12,7 +12,7 @@ export type Facility = {
   facilityTypeId: string;
 
   // === 事業所の基本情報 ===
-  name: string;
+  facilityName: string;
   establishedDate: string;
 
   // === 住所・アクセス情報 ===
