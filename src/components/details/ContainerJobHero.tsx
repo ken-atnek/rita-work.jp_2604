@@ -122,12 +122,12 @@ export default function ContainerJobHero({
             )}
           </div>
           <h2>{job.title}</h2>
-          <div className={styles.facilityName}>{facility.name}</div>
+          <div className={styles.facilityName}>{facility.facilityName}</div>
           <div className={styles.boxSlideImage}>
             <Splide
               className={styles.innerSlide}
               hasTrack={false}
-              aria-label={`${facility.name} のイメージ`}
+              aria-label={`${facility.facilityName} のイメージ`}
               options={{
                 type: 'loop',
                 perPage: 1,

@@ -237,6 +237,7 @@
         }
     }
 }
+
 // LINEで応募するモーダル
 .boxLineModal {
     position: fixed;
@@ -245,10 +246,10 @@
     width: 100%;
     width: 100vw;
     height: 100vh;
-    height: 100Vdh;
+    height: 100dvh;
     background-color: rgba($main-orange, 0.4);
-    @include flex-center;
     font-size: inherit;
+    @include flex-center;
     padding-inline: 4vw;
     z-index: 1000;
     .modalDetails {
@@ -260,7 +261,6 @@
         flex-direction: column;
         align-items: center;
         @include box-shadow;
-
         border-radius: $radius20;
         .boxHead {
             position: relative;
