@@ -12,6 +12,7 @@ import type { AreasMaster } from '@/types/area';
 
 import { JobCategoryField } from './JobCategoryField';
 import { AreaField } from './AreaField';
+import { EmploymentTypeField } from './EmploymentTypeField';
 import styles from './JobsFilter.module.scss';
 
 type Option = {
@@ -23,24 +24,32 @@ type Props = {
   // URL復元値（appliedの初期値）
   initialJobCategoryIds: string[];
   initialAreaIds: string[];
+  initialEmploymentTypeIds: string[];
 
   // マスター
   jobCategoryOptions: Option[];
   areas: AreasMaster | null;
+  employmentTypeOptions: Option[];
 
   // 親へ：検索ボタン押下
-  onSearch: (payload: { jobCategoryIds: string[]; areaIds: string[] }) => void;
+  onSearch: (payload: {
+    jobCategoryIds: string[];
+    areaIds: string[];
+    employmentTypeIds: string[];
+  }) => void;
 
   // 親へ：リセット押下
   onReset: () => void;
 };
 
-type OpenFilterKey = 'jobCategory' | 'area' | null;
+type OpenFilterKey = 'jobCategory' | 'employmentType' | 'area' | null;
 
 export function JobsFilter({
   initialJobCategoryIds,
   initialAreaIds,
+  initialEmploymentTypeIds,
   jobCategoryOptions,
+  employmentTypeOptions,
   areas,
   onSearch,
   onReset,
@@ -59,10 +68,15 @@ export function JobsFilter({
   );
   const [draftAreaIds, setDraftAreaIds] = useState<string[]>(initialAreaIds);
 
+  const [draftEmploymentTypeIds, setDraftEmploymentTypeIds] = useState<
+    string[]
+  >(initialEmploymentTypeIds);
+
   useEffect(() => {
     setDraftJobCategoryIds(initialJobCategoryIds);
     setDraftAreaIds(initialAreaIds);
-  }, [initialJobCategoryIds, initialAreaIds]);
+    setDraftEmploymentTypeIds(initialEmploymentTypeIds);
+  }, [initialJobCategoryIds, initialAreaIds, initialEmploymentTypeIds]);
 
   /* ---------------------------------------
    * 外側クリックで閉じる
@@ -85,7 +99,11 @@ export function JobsFilter({
    * 検索（apply）
    * -------------------------------------- */
   const handleSearch = () => {
-    onSearch({ jobCategoryIds: draftJobCategoryIds, areaIds: draftAreaIds });
+    onSearch({
+      jobCategoryIds: draftJobCategoryIds,
+      areaIds: draftAreaIds,
+      employmentTypeIds: draftEmploymentTypeIds,
+    });
     setOpenFilter(null); // ついでに閉じる（不要なら消してOK）
   };
 
@@ -95,6 +113,7 @@ export function JobsFilter({
   const handleReset = () => {
     setDraftJobCategoryIds([]);
     setDraftAreaIds([]);
+    setDraftEmploymentTypeIds([]);
     onReset();
     setOpenFilter(null);
   };
@@ -123,6 +142,19 @@ export function JobsFilter({
           isOpen={openFilter === 'area'}
           onToggleOpen={() =>
             setOpenFilter((prev) => (prev === 'area' ? null : 'area'))
+          }
+        />
+
+        <EmploymentTypeField
+          title="雇用形態"
+          options={employmentTypeOptions}
+          value={draftEmploymentTypeIds}
+          onChange={setDraftEmploymentTypeIds}
+          isOpen={openFilter === 'employmentType'}
+          onToggleOpen={() =>
+            setOpenFilter((prev) =>
+              prev === 'employmentType' ? null : 'employmentType'
+            )
           }
         />
       </div>

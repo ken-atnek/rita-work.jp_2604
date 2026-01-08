@@ -93,9 +93,11 @@ export default function JobsPageClient() {
    * -------------------------------------- */
   const jcParam = sp.get('jc') ?? '';
   const arParam = sp.get('ar') ?? '';
+  const etParam = sp.get('et') ?? '';
 
   const initialJobCategoryIds = useMemo(() => decodeCsv(jcParam), [jcParam]);
   const initialAreaIds = useMemo(() => decodeCsv(arParam), [arParam]);
+  const initialEmploymentTypeIds = useMemo(() => decodeCsv(etParam), [etParam]);
 
   /* ---------------------------------------
    * favorites（localStorage）
@@ -141,7 +143,9 @@ export default function JobsPageClient() {
 
   // areas は groups構造で保持（AreaField で g.label を表示するため）
   const [areasMaster, setAreasMaster] = useState<AreasMaster | null>(null);
-
+  const [employmentTypeOptions, setEmploymentTypeOptions] = useState<
+    Array<{ id: string; label: string }>
+  >([]);
   /* ---------------------------------------
    * 検索条件（applied）
    * -------------------------------------- */
@@ -151,11 +155,16 @@ export default function JobsPageClient() {
   const [appliedAreaIds, setAppliedAreaIds] =
     useState<string[]>(initialAreaIds);
 
+  const [appliedEmploymentTypeIds, setAppliedEmploymentTypeIds] = useState<
+    string[]
+  >(initialEmploymentTypeIds);
+
   // URL変更時に applied を同期
   useEffect(() => {
     setAppliedJobCategoryIds(initialJobCategoryIds);
     setAppliedAreaIds(initialAreaIds);
-  }, [initialJobCategoryIds, initialAreaIds]);
+    setAppliedEmploymentTypeIds(initialEmploymentTypeIds);
+  }, [initialJobCategoryIds, initialAreaIds, initialEmploymentTypeIds]);
 
   /* ---------------------------------------
    * 初期ロード
@@ -178,6 +187,10 @@ export default function JobsPageClient() {
           withBasePath('/db/master/employmentTypes.json'),
           []
         );
+        setEmploymentTypeOptions(
+          employmentTypes.map((t) => ({ id: t.id, label: t.name }))
+        );
+
         setEmploymentTypeMap(toIdLabelMap(employmentTypes, (t) => t.name));
 
         const categories = await fetchJson<JobCategoryMaster[]>(
@@ -283,12 +296,15 @@ export default function JobsPageClient() {
   const handleSearch = (payload: {
     jobCategoryIds: string[];
     areaIds: string[];
+    employmentTypeIds: string[];
   }) => {
     const ids = payload.jobCategoryIds;
     const areaIds = payload.areaIds;
+    const employmentTypeIds = payload.employmentTypeIds;
 
     setAppliedJobCategoryIds(ids);
     setAppliedAreaIds(areaIds);
+    setAppliedEmploymentTypeIds(employmentTypeIds);
 
     const params = new URLSearchParams();
 
@@ -298,6 +314,9 @@ export default function JobsPageClient() {
     const ar = encodeCsv(areaIds);
     if (ar) params.set('ar', ar);
 
+    const et = encodeCsv(employmentTypeIds);
+    if (et) params.set('et', et);
+
     const qs = params.toString();
     router.push(qs ? `/jobs?${qs}` : '/jobs');
   };
@@ -305,6 +324,7 @@ export default function JobsPageClient() {
   const handleReset = () => {
     setAppliedJobCategoryIds([]);
     setAppliedAreaIds([]);
+    setAppliedEmploymentTypeIds([]);
     router.push('/jobs');
   };
 
@@ -336,7 +356,11 @@ export default function JobsPageClient() {
     }
 
     // 絞り込みなし
-    if (appliedJobCategoryIds.length === 0 && appliedAreaIds.length === 0) {
+    if (
+      appliedJobCategoryIds.length === 0 &&
+      appliedAreaIds.length === 0 &&
+      appliedEmploymentTypeIds.length === 0
+    ) {
       return base;
     }
 
@@ -351,7 +375,11 @@ export default function JobsPageClient() {
         appliedAreaIds.length === 0 ||
         jobAreaIds.some((id) => appliedAreaIds.includes(id));
 
-      return okCategory && okArea;
+      const okEmployment =
+        appliedEmploymentTypeIds.length === 0 ||
+        appliedEmploymentTypeIds.includes(job.employmentTypeId);
+
+      return okCategory && okArea && okEmployment;
     });
   }, [
     activeTab,
@@ -359,6 +387,7 @@ export default function JobsPageClient() {
     recommendedJobs,
     appliedJobCategoryIds,
     appliedAreaIds,
+    appliedEmploymentTypeIds,
   ]);
 
   /* ---------------------------------------
@@ -376,7 +405,9 @@ export default function JobsPageClient() {
           <JobsFilter
             initialJobCategoryIds={initialJobCategoryIds}
             initialAreaIds={initialAreaIds}
+            initialEmploymentTypeIds={initialEmploymentTypeIds}
             jobCategoryOptions={jobCategoryOptions}
+            employmentTypeOptions={employmentTypeOptions}
             areas={areasMaster}
             onSearch={handleSearch}
             onReset={handleReset}
