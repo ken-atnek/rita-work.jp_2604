@@ -2,12 +2,13 @@
  * リタワーク フィルター｜職種
  * URL: src/components/jobs/filters/JobCategoryField.tsx
  * Created: 2026-01-05
- * Last updated: 2026-01-05
+ * Last updated: 2026-01-08
  * ======================================= */
 
 'use client';
-import styles from './JobsFilter.module.scss';
+
 import clsx from 'clsx';
+import styles from './JobsFilter.module.scss';
 
 type Option = {
   id: string;
@@ -46,21 +47,38 @@ export function JobCategoryField({
       </section>
     );
   }
+
+  const hasValue = value.length > 0;
+
   return (
     <div
       className={clsx(
         styles.itemFilter,
         styles.jobCategory,
-        value.length > 0 && styles.isActive
+        hasValue && styles.isSelected
       )}
     >
       <button type="button" onClick={onToggleOpen}>
         {title}
       </button>
+
       <div className={clsx(styles.wrapFilterList, isOpen && styles.isOpen)}>
         <div className={styles.innerFilterList}>
           <div className={styles.itemFilterList}>
-            <h3>{title}</h3>
+            <div className={styles.wrapHead}>
+              <h3>{title}</h3>
+              <span
+                className={styles.btnClose}
+                role="button"
+                tabIndex={0}
+                aria-label="閉じる"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleOpen();
+                }}
+              />
+            </div>
+
             <ul>
               {options.map((opt) => (
                 <li key={opt.id}>

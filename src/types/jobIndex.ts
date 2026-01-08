@@ -23,10 +23,11 @@ export type SalaryMonthly = {
   max: number;
 };
 
-// 時給：bandId のみを持つ
 export type SalaryHourly = {
   unitId: 'hourly';
-  bandId: string;
+  min: number;
+  max: number;
+  bandIds: string[];
 };
 
 // 一覧で使用する給与型
@@ -70,12 +71,6 @@ export type JobIndexItem = {
    * ------------------------------ */
   salary: JobSalary;
   workLocationText: string;
-
-  /* -------------------------------
-   * 表示用フラグ
-   * - 現在は UI では非推奨（将来的に削除予定）
-   * ------------------------------ */
-  isNew: boolean;
 };
 
 /* ---------------------------------------

@@ -8,14 +8,10 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
 import styles from './ContainerCardList.module.scss';
 import { JobCardList } from '@/components/job/JobCardList';
 import type { JobIndexItem } from '@/types/jobIndex';
 import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
-import { withBasePath } from '@/utils/withBasePath';
-import { fetchJson } from '@/utils/fetchJson';
-import { toIdLabelMap } from '@/utils/toIdLabelMap';
 
 type Props = {
   jobs: JobIndexItem[];
@@ -25,8 +21,6 @@ type Props = {
   newIconPeriodDays: number;
 };
 
-type SalaryBand = { id: string; label?: string; name?: string };
-
 export function ContainerCardList({
   jobs,
   salaryUnitMap,
@@ -35,28 +29,6 @@ export function ContainerCardList({
   newIconPeriodDays,
 }: Props) {
   const { toggleFavorite, favoriteIdsArray } = useFavoriteJobIds();
-
-  const [hourlyBandMap, setHourlyBandMap] = useState<Record<string, string>>(
-    {}
-  );
-
-  /* ---------------------------------------
-   * 時給バンドマスター（bandId → 日本語ラベル）
-   * - 失敗してもページは落とさない（空Map）
-   * -------------------------------------- */
-  useEffect(() => {
-    const loadBands = async () => {
-      const bands = await fetchJson<SalaryBand[]>(
-        withBasePath('/db/master/salaryBandsHourly.json'),
-        []
-      );
-
-      const map = toIdLabelMap(bands, (b) => b.label ?? b.name);
-      setHourlyBandMap(map);
-    };
-
-    loadBands();
-  }, []);
 
   /* ---------------------------------------
    * 求人が無ければ表示しない
@@ -73,7 +45,6 @@ export function ContainerCardList({
         favoriteJobIds={favoriteIdsArray}
         onToggleFavorite={toggleFavorite}
         ulClassName={styles.listCard}
-        hourlyBandMap={hourlyBandMap}
         newIconPeriodDays={newIconPeriodDays}
       />
     </section>

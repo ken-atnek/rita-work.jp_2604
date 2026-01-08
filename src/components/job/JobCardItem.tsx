@@ -23,7 +23,6 @@ type Props = {
   salaryUnitMap: Record<string, string>;
   employmentTypeMap: Record<string, string>;
   jobCategoryMap?: Record<string, string>;
-  hourlyBandMap?: Record<string, string>;
   isNew: boolean;
   isFavorite: boolean;
   onToggleFavorite: (jobId: string) => void;
@@ -36,7 +35,6 @@ export function JobCardItem({
   jobCategoryMap,
   isFavorite,
   onToggleFavorite,
-  hourlyBandMap,
   isNew,
 }: Props) {
   const heroSrc = job.heroImages?.[0] ?? '';
@@ -94,7 +92,7 @@ export function JobCardItem({
           <dl>
             <dt className={styles.metaTerm}>給与</dt>
             <dd className={styles.metaDesc}>
-              {buildSalaryText(job.salary, salaryUnitMap, hourlyBandMap)}
+              {buildSalaryText(job.salary, salaryUnitMap)}
             </dd>
           </dl>
 
