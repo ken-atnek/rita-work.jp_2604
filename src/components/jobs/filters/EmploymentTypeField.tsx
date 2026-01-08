@@ -1,7 +1,7 @@
 /* =======================================
- * リタワーク フィルター｜職種
- * URL: src/components/jobs/filters/JobCategoryField.tsx
- * Created: 2026-01-05
+ * リタワーク フィルター｜雇用形態
+ * URL: src/components/jobs/filters/EmploymentTypeField.tsx
+ * Created: 2026-01-08
  * Last updated: 2026-01-08
  * ======================================= */
 
@@ -24,8 +24,8 @@ type Props = {
   onToggleOpen: () => void;
 };
 
-export function JobCategoryField({
-  title = '職種',
+export function EmploymentTypeField({
+  title = '雇用形態',
   options,
   value,
   onChange,
@@ -43,7 +43,7 @@ export function JobCategoryField({
     return (
       <section>
         <h3>{title}</h3>
-        <p>職種を読み込み中...</p>
+        <p>雇用形態を読み込み中...</p>
       </section>
     );
   }
@@ -54,7 +54,7 @@ export function JobCategoryField({
     <div
       className={clsx(
         styles.itemFilter,
-        styles.jobCategory,
+        styles.employmentType,
         hasValue && styles.isSelected
       )}
     >

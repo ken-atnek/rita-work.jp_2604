@@ -45,13 +45,13 @@ export const buildSalaryRangeText = (min?: number, max?: number) => {
 };
 
 /**
- * 一覧カード向け：例）"月給 200,000円〜300,000円"
+ * 一覧カード向け：例）"月給 200,000円〜300,000円" / "時給 14,000円〜16,000円"
+ * - hourly の bandIds は検索用（表示は min/max を使用）
  */
 export const buildSalaryText = (
   salary: JobSalary,
-  salaryUnitMap?: Record<string, string>,
-  hourlyBandMap?: Record<string, string>
-) => {
+  salaryUnitMap?: Record<string, string>
+): string => {
   const unitLabel = getSalaryUnitLabel(salary.unitId, salaryUnitMap);
 
   // 月給：min/max 表示
@@ -60,9 +60,14 @@ export const buildSalaryText = (
     return range ? `${unitLabel} ${range}` : unitLabel;
   }
 
-  // 時給：bandId 表示（仕様）
-  const bandLabel = hourlyBandMap?.[salary.bandId] ?? salary.bandId;
-  return `${unitLabel} ${bandLabel}`;
+  // 時給：min/max 表示（bandIds は検索用）
+  if (salary.unitId === 'hourly') {
+    const range = buildSalaryRangeText(salary.min, salary.max);
+    return range ? `${unitLabel} ${range}` : unitLabel;
+  }
+
+  // 念のためフォールバック
+  return unitLabel;
 };
 
 /**

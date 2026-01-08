@@ -108,9 +108,9 @@ const Header = () => {
           <Link href="/jobs/">求人検索</Link>
           <Link href="/library/">お気に入り・閲覧検索</Link>
         </nav>
-        <Link href="" className={styles.linkMyPage}>
+        {/* <Link href="" className={styles.linkMyPage}>
           <span> マイページ</span>
-        </Link>
+        </Link> */}
       </article>
     </header>
   );

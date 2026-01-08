@@ -6,6 +6,7 @@
 @use "mixin" as *;
 .innerFilters {
     display: flex;
+    gap: 0 1rem;
     .boxFilters {
         position: relative;
         display: grid;
@@ -44,13 +45,16 @@
                 display: grid;
                 grid-template-rows: 0fr;
                 transition: 0.1s ease-out;
+                width: 80%;
+                min-width: 28rem;
                 .innerFilterList {
                     overflow: hidden;
                     font-size: inherit;
                     display: flex;
                     flex-direction: column;
-                    min-width: 30rem;
+                    width: 100%;
                     .itemFilterList {
+                        position: relative;
                         background-color: #fff;
                         font-size: inherit;
                         display: flex;
@@ -58,16 +62,45 @@
                         padding: 1.6rem 2rem 2.4rem;
                         border: 1px solid $main-orange;
                         border-radius: $radius14;
-                        h3 {
+                        .wrapHead {
                             position: relative;
-                            font-size: FZ(18);
-                            padding-left: 4rem;
+                            font-size: inherit;
+                            display: flex;
+                            justify-content: space-between;
                             border-bottom: 1px solid #d6d6d6;
+                            align-items: center;
                             padding-bottom: 1.2rem;
-                            &::before {
-                                content: "";
-                                position: absolute;
-                                left: 0;
+                            .btnClose {
+                                position: relative;
+                                width: 13px;
+                                aspect-ratio: 1;
+                                cursor: pointer;
+                                &::before,
+                                &::after {
+                                    content: "";
+                                    position: absolute;
+                                    inset: 0;
+                                    margin: auto;
+                                    width: 100%;
+                                    height: 1px;
+                                    background-color: #574232;
+                                }
+                                &::before {
+                                    rotate: -45deg;
+                                }
+                                &::after {
+                                    rotate: 45deg;
+                                }
+                            }
+                            h3 {
+                                position: relative;
+                                font-size: FZ(18);
+                                padding-left: 4rem;
+                                &::before {
+                                    content: "";
+                                    position: absolute;
+                                    left: 0;
+                                }
                             }
                         }
                         ul {
@@ -125,6 +158,7 @@
 
             // 職種
             &.jobCategory {
+                z-index: 2;
                 button {
                     &::before {
                         width: 2.2rem;
@@ -144,6 +178,74 @@
                         }
                     }
                 }
+            }
+
+            // エリア
+            &.areaField {
+                z-index: 2;
+                button {
+                    &::before {
+                        width: 1.7rem;
+                        @include svg-icon-search02("f29400");
+                    }
+                }
+                .wrapFilterList {
+                    .innerFilterList {
+                        .itemFilterList {
+                            h3 {
+                                &::before {
+                                    top: -1px;
+                                    width: 2rem;
+                                    @include svg-icon-search02("f29400");
+                                }
+                            }
+                            .areaGroup {
+                                font-size: inherit;
+                                display: flex;
+                                flex-direction: column;
+                                .areaLabel {
+                                    font-size: FZ(18);
+                                    padding-block: 1rem;
+                                    display: flex;
+                                    align-items: center;
+                                    &.areaLabel--kumamoto {
+                                        border-bottom: 1px solid #d6d6d6;
+                                    }
+                                    &.areaLabel--others {
+                                        margin-top: 1.8rem;
+                                        border-top: 1px solid #d6d6d6;
+                                        border-bottom: 1px solid #d6d6d6;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 雇用形態
+            &.employmentType {
+                button {
+                    &::before {
+                        width: 2.3rem;
+                        @include svg-icon-search03("f29400");
+                    }
+                }
+                .wrapFilterList {
+                    .innerFilterList {
+                        .itemFilterList {
+                            h3 {
+                                &::before {
+                                    width: 2.7rem;
+                                    @include svg-icon-search03("f29400");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.isSelected {
+                background-color: #ffd28a;
             }
         }
     }

@@ -1,53 +1,47 @@
 /* =======================================
  * リタワーク /jobs 一覧ページ（Client）
- * - URLパラメータ（jc）から絞り込み条件を復元
- * - 「おすすめ」: contractPlan順 + 同一プラン内シャッフル（読み込み時に1回固定）
+ * - URLパラメータ（jc / ar）から絞り込み条件を復元
+ * - 「おすすめ」: contractPlan順 + 同一プラン内シャッフル（初回のみ固定）
  * - 「新着」: updatedAt 降順
+ * URL: src/components/jobs/JobsPageClient.tsx
+ * Created: 2025-12-27
+ * Last updated: 2026-01-08
  * ======================================= */
 
 'use client';
 
-import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { JobsFilter } from '@/components/jobs/filters/JobsFilter';
+
 import styles from './JobsPageClient.module.scss';
+
+import { JobsFilter } from '@/components/jobs/filters/JobsFilter';
+import { JobCardList } from '@/components/job/JobCardList';
+import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
 
 import { fetchJson } from '@/utils/fetchJson';
 import { withBasePath } from '@/utils/withBasePath';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
 
-import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
-import { JobCardList } from '@/components/job/JobCardList';
-
 import type { JobIndexItem } from '@/types/jobIndex';
-
-/* ---------------------------------------
- * マスター型（最低限）
- * -------------------------------------- */
-type SalaryUnitMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
-
-type SalaryBandHourlyMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
+import type { AreasMaster, AreaGroup } from '@/types/area';
 
 /* ---------------------------------------
  * URLパラメータ用ユーティリティ
- * - jc=pt,nurse のような CSV を扱う
+ * - jc=pt,nurse のようなCSVを扱う
  * -------------------------------------- */
-// "pt,nurse" → ["pt","nurse"]
 const decodeCsv = (v: string | undefined): string[] => {
   if (!v) return [];
   return v
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean);
+};
+
+const encodeCsv = (arr: string[]): string | undefined => {
+  if (arr.length === 0) return undefined;
+  return arr.join(',');
 };
 
 // Fisher–Yates shuffle（元配列は壊さない）
@@ -60,10 +54,34 @@ const shuffle = <T,>(arr: T[]): T[] => {
   return a;
 };
 
-// ["pt","nurse"] → "pt,nurse"
-const encodeCsv = (arr: string[]): string | undefined => {
-  if (arr.length === 0) return undefined;
-  return arr.join(',');
+/* ---------------------------------------
+ * マスター型（最低限）
+ * -------------------------------------- */
+type SalaryUnitMaster = {
+  id: string;
+  label?: string;
+  name?: string;
+};
+
+type JobCategoryMaster = {
+  id: string;
+  name?: string;
+  label?: string;
+};
+
+type ContractPlanMaster = {
+  id: string;
+  label?: string;
+  name?: string;
+};
+
+type EmploymentTypeMaster = {
+  id: string;
+  name: string;
+};
+
+type JobCommonConfig = {
+  newIconPeriodDays?: number;
 };
 
 export default function JobsPageClient() {
@@ -71,13 +89,15 @@ export default function JobsPageClient() {
   const sp = useSearchParams();
 
   /* ---------------------------------------
-   * URL（職種）復元
+   * URL復元（jc / ar）
    * -------------------------------------- */
   const jcParam = sp.get('jc') ?? '';
+  const arParam = sp.get('ar') ?? '';
+  const etParam = sp.get('et') ?? '';
 
-  const initialJobCategoryIds = useMemo(() => {
-    return decodeCsv(jcParam);
-  }, [jcParam]);
+  const initialJobCategoryIds = useMemo(() => decodeCsv(jcParam), [jcParam]);
+  const initialAreaIds = useMemo(() => decodeCsv(arParam), [arParam]);
+  const initialEmploymentTypeIds = useMemo(() => decodeCsv(etParam), [etParam]);
 
   /* ---------------------------------------
    * favorites（localStorage）
@@ -88,8 +108,8 @@ export default function JobsPageClient() {
    * 一覧データ
    * -------------------------------------- */
   const [jobsAll, setJobsAll] = useState<JobIndexItem[]>([]);
-  // おすすめ表示用（読み込み時に一度だけ並びを作って固定）
   const [recommendedJobs, setRecommendedJobs] = useState<JobIndexItem[]>([]);
+  const recommendedBuiltRef = useRef(false);
 
   /* ---------------------------------------
    * 表示用マップ
@@ -103,9 +123,6 @@ export default function JobsPageClient() {
   const [salaryUnitMap, setSalaryUnitMap] = useState<Record<string, string>>(
     {}
   );
-  const [hourlyBandMap, setHourlyBandMap] = useState<Record<string, string>>(
-    {}
-  );
 
   /* ---------------------------------------
    * UI state
@@ -114,27 +131,40 @@ export default function JobsPageClient() {
   const [error, setError] = useState<string | null>(null);
   const [newIconPeriodDays, setNewIconPeriodDays] = useState<number>(90);
   const [activeTab, setActiveTab] = useState<'recommend' | 'new'>('recommend');
+
   const [jobCategoryOptions, setJobCategoryOptions] = useState<
     Array<{ id: string; label: string }>
   >([]);
+
   // contractPlan の優先度（小さいほど上）: premium=0, standard=1 ...
   const [contractPlanPriority, setContractPlanPriority] = useState<
     Record<string, number>
   >({});
 
+  // areas は groups構造で保持（AreaField で g.label を表示するため）
+  const [areasMaster, setAreasMaster] = useState<AreasMaster | null>(null);
+  const [employmentTypeOptions, setEmploymentTypeOptions] = useState<
+    Array<{ id: string; label: string }>
+  >([]);
   /* ---------------------------------------
-   * 検索条件（職種）：draft / applied
+   * 検索条件（applied）
    * -------------------------------------- */
   const [appliedJobCategoryIds, setAppliedJobCategoryIds] = useState<string[]>(
     initialJobCategoryIds
   );
+  const [appliedAreaIds, setAppliedAreaIds] =
+    useState<string[]>(initialAreaIds);
 
-  /* ---------------------------------------
-   * URL変更時の同期
-   * -------------------------------------- */
+  const [appliedEmploymentTypeIds, setAppliedEmploymentTypeIds] = useState<
+    string[]
+  >(initialEmploymentTypeIds);
+
+  // URL変更時に applied を同期
   useEffect(() => {
     setAppliedJobCategoryIds(initialJobCategoryIds);
-  }, [initialJobCategoryIds]);
+    setAppliedAreaIds(initialAreaIds);
+    setAppliedEmploymentTypeIds(initialEmploymentTypeIds);
+  }, [initialJobCategoryIds, initialAreaIds, initialEmploymentTypeIds]);
 
   /* ---------------------------------------
    * 初期ロード
@@ -145,56 +175,56 @@ export default function JobsPageClient() {
         setLoading(true);
         setError(null);
 
-        // 求人一覧
-        const json = await fetchJson<{ items: JobIndexItem[] }>(
+        // jobs
+        const jobsJson = await fetchJson<{ items: JobIndexItem[] }>(
           withBasePath('/db/jobs/jobsIndexAll.json'),
           { items: [] }
         );
-        setJobsAll(json.items);
+        setJobsAll(jobsJson.items);
 
-        // 雇用形態
-        const employmentTypes = await fetchJson<
-          Array<{ id: string; name: string }>
-        >(withBasePath('/db/master/employmentTypes.json'), []);
+        // masters（順番に読む：読みやすさ優先）
+        const employmentTypes = await fetchJson<EmploymentTypeMaster[]>(
+          withBasePath('/db/master/employmentTypes.json'),
+          []
+        );
+        setEmploymentTypeOptions(
+          employmentTypes.map((t) => ({ id: t.id, label: t.name }))
+        );
+
         setEmploymentTypeMap(toIdLabelMap(employmentTypes, (t) => t.name));
 
-        // 職種
-        const categories = await fetchJson<
-          Array<{ id: string; name?: string; label?: string }>
-        >(withBasePath('/db/master/jobCategories.json'), []);
-
+        const categories = await fetchJson<JobCategoryMaster[]>(
+          withBasePath('/db/master/jobCategories.json'),
+          []
+        );
         setJobCategoryMap(
           toIdLabelMap(categories, (c) => c.name ?? c.label ?? c.id)
         );
-
-        const jobCategoryOptionsBuilt = categories.map((c) => ({
-          id: c.id,
-          label: c.name ?? c.label ?? c.id,
-        }));
-        setJobCategoryOptions(jobCategoryOptionsBuilt);
-
-        // 新着期間
-        const config = await fetchJson<{ newIconPeriodDays?: number }>(
-          withBasePath('/db/config/job_common.json'),
-          {}
+        setJobCategoryOptions(
+          categories.map((c) => ({
+            id: c.id,
+            label: c.name ?? c.label ?? c.id,
+          }))
         );
-        if (typeof config.newIconPeriodDays === 'number') {
-          setNewIconPeriodDays(config.newIconPeriodDays);
-        }
-        // 契約プラン（並び順が “おすすめ” の優先順位になる）
-        const contractPlans = await fetchJson<
-          Array<{ id: string; label?: string; name?: string }>
-        >(withBasePath('/db/master/contractPlans.json'), []);
 
-        const priority = contractPlans.reduce<Record<string, number>>(
-          (acc, p, idx) => {
+        // ✅ areas.json は groups構造前提で読む（g.label安定）
+        const areasJson = await fetchJson<{ groups: AreaGroup[] }>(
+          withBasePath('/db/master/areas.json'),
+          { groups: [] }
+        );
+        setAreasMaster(areasJson);
+
+        const contractPlans = await fetchJson<ContractPlanMaster[]>(
+          withBasePath('/db/master/contractPlans.json'),
+          []
+        );
+        setContractPlanPriority(
+          contractPlans.reduce<Record<string, number>>((acc, p, idx) => {
             acc[p.id] = idx;
             return acc;
-          },
-          {}
+          }, {})
         );
-        setContractPlanPriority(priority);
-        // 給与単位
+
         const salaryUnits = await fetchJson<SalaryUnitMaster[]>(
           withBasePath('/db/master/salaryUnits.json'),
           []
@@ -203,12 +233,14 @@ export default function JobsPageClient() {
           toIdLabelMap(salaryUnits, (u) => u.label ?? u.name ?? u.id)
         );
 
-        // 時給バンド
-        const bands = await fetchJson<SalaryBandHourlyMaster[]>(
-          withBasePath('/db/master/salaryBandsHourly.json'),
-          []
+        // config
+        const config = await fetchJson<JobCommonConfig>(
+          withBasePath('/db/config/job_common.json'),
+          {}
         );
-        setHourlyBandMap(toIdLabelMap(bands, (b) => b.label ?? b.name ?? b.id));
+        if (typeof config.newIconPeriodDays === 'number') {
+          setNewIconPeriodDays(config.newIconPeriodDays);
+        }
       } catch (e) {
         console.error(e);
         setError('求人一覧の読み込みに失敗しました。');
@@ -221,26 +253,21 @@ export default function JobsPageClient() {
   }, []);
 
   /* ---------------------------------------
-   * おすすめ順（読み込み時に1回だけ生成して固定）
+   * おすすめ順（初回のみ固定生成）
    * - contractPlans.json の並びを優先度にする
    * - 同一プラン内は shuffle
    * -------------------------------------- */
   useEffect(() => {
-    // jobs がまだ無い / priority がまだ無い / すでに作った → 何もしない
+    if (recommendedBuiltRef.current) return;
     if (jobsAll.length === 0) return;
     if (Object.keys(contractPlanPriority).length === 0) return;
 
-    // すでにおすすめ順を作っていたら再計算しない（= 読み込みごとに1回）
-    if (recommendedJobs.length > 0) return;
-
-    // contractPlanId が無い/未知のものは末尾へ
     const getPriority = (job: JobIndexItem) => {
       const id = (job as unknown as { contractPlanId?: string }).contractPlanId;
       if (!id) return Number.MAX_SAFE_INTEGER;
       return contractPlanPriority[id] ?? Number.MAX_SAFE_INTEGER;
     };
 
-    // まずプラン優先度でグループ化 → 同一プラン内はシャッフル
     const grouped = new Map<number, JobIndexItem[]>();
     for (const job of jobsAll) {
       const key = getPriority(job);
@@ -257,22 +284,38 @@ export default function JobsPageClient() {
     }
 
     setRecommendedJobs(merged);
-  }, [jobsAll, contractPlanPriority, recommendedJobs.length]);
+    recommendedBuiltRef.current = true;
+  }, [jobsAll, contractPlanPriority]);
 
   /* ---------------------------------------
    * 検索アクション
    * - JobsFilter（UI）から payload を受け取り
    *   1) 一覧へ適用（applied）
-   *   2) URLへ反映（jc）
+   *   2) URLへ反映（jc / ar）
    * -------------------------------------- */
-  const handleSearch = (payload: { jobCategoryIds: string[] }) => {
+  const handleSearch = (payload: {
+    jobCategoryIds: string[];
+    areaIds: string[];
+    employmentTypeIds: string[];
+  }) => {
     const ids = payload.jobCategoryIds;
+    const areaIds = payload.areaIds;
+    const employmentTypeIds = payload.employmentTypeIds;
 
     setAppliedJobCategoryIds(ids);
+    setAppliedAreaIds(areaIds);
+    setAppliedEmploymentTypeIds(employmentTypeIds);
 
     const params = new URLSearchParams();
+
     const jc = encodeCsv(ids);
     if (jc) params.set('jc', jc);
+
+    const ar = encodeCsv(areaIds);
+    if (ar) params.set('ar', ar);
+
+    const et = encodeCsv(employmentTypeIds);
+    if (et) params.set('et', et);
 
     const qs = params.toString();
     router.push(qs ? `/jobs?${qs}` : '/jobs');
@@ -280,6 +323,8 @@ export default function JobsPageClient() {
 
   const handleReset = () => {
     setAppliedJobCategoryIds([]);
+    setAppliedAreaIds([]);
+    setAppliedEmploymentTypeIds([]);
     router.push('/jobs');
   };
 
@@ -287,6 +332,7 @@ export default function JobsPageClient() {
    * 表示用一覧（タブ + 絞り込み適用）
    * -------------------------------------- */
   const jobsForView = useMemo(() => {
+    // タブによる base 決定
     let base: JobIndexItem[] =
       activeTab === 'recommend'
         ? recommendedJobs.length
@@ -294,6 +340,7 @@ export default function JobsPageClient() {
           : jobsAll
         : jobsAll;
 
+    // 新着タブは updatedAt 降順
     if (activeTab === 'new') {
       const hasUpdatedAt = (
         job: JobIndexItem
@@ -308,14 +355,40 @@ export default function JobsPageClient() {
         );
     }
 
-    if (appliedJobCategoryIds.length === 0) {
+    // 絞り込みなし
+    if (
+      appliedJobCategoryIds.length === 0 &&
+      appliedAreaIds.length === 0 &&
+      appliedEmploymentTypeIds.length === 0
+    ) {
       return base;
     }
 
-    return base.filter((job) =>
-      appliedJobCategoryIds.includes(job.jobCategoryId)
-    );
-  }, [activeTab, jobsAll, appliedJobCategoryIds, recommendedJobs]);
+    return base.filter((job) => {
+      const okCategory =
+        appliedJobCategoryIds.length === 0 ||
+        appliedJobCategoryIds.includes(job.jobCategoryId);
+
+      const jobAreaIds =
+        (job as unknown as { areaIds?: string[] }).areaIds ?? [];
+      const okArea =
+        appliedAreaIds.length === 0 ||
+        jobAreaIds.some((id) => appliedAreaIds.includes(id));
+
+      const okEmployment =
+        appliedEmploymentTypeIds.length === 0 ||
+        appliedEmploymentTypeIds.includes(job.employmentTypeId);
+
+      return okCategory && okArea && okEmployment;
+    });
+  }, [
+    activeTab,
+    jobsAll,
+    recommendedJobs,
+    appliedJobCategoryIds,
+    appliedAreaIds,
+    appliedEmploymentTypeIds,
+  ]);
 
   /* ---------------------------------------
    * UI
@@ -327,11 +400,15 @@ export default function JobsPageClient() {
     <>
       <section className={styles.containerHead}>
         <h2>求人を検索</h2>
+
         <div className={styles.blockFilters}>
-          {/* ↓ ここにフィルターを読み込む */}
           <JobsFilter
             initialJobCategoryIds={initialJobCategoryIds}
+            initialAreaIds={initialAreaIds}
+            initialEmploymentTypeIds={initialEmploymentTypeIds}
             jobCategoryOptions={jobCategoryOptions}
+            employmentTypeOptions={employmentTypeOptions}
+            areas={areasMaster}
             onSearch={handleSearch}
             onReset={handleReset}
           />
@@ -359,7 +436,6 @@ export default function JobsPageClient() {
         <JobCardList
           jobs={jobsForView}
           salaryUnitMap={salaryUnitMap}
-          hourlyBandMap={hourlyBandMap}
           employmentTypeMap={employmentTypeMap}
           jobCategoryMap={jobCategoryMap}
           favoriteJobIds={favoriteIdsArray}

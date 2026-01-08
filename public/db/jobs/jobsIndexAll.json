@@ -8,6 +8,7 @@
       "jobCategoryId": "pt",
       "employmentTypeId": "fulltime",
       "salary": { "unitId": "monthly", "min": 200000, "max": 300000 },
+      "firstYearIncomeRangeId": "fy_0003",
       "workLocationText": "熊本県熊本市中央区〇〇町",
       "areaIds": ["kumamoto_city"],
       "heroImages": ["/db/images/facilities/fac_0001/hero01.jpg"],
@@ -27,8 +28,8 @@
       "employmentTypeId": "part",
       "salary": {
         "unitId": "hourly",
-        "min": 14000,
-        "max": 16000,
+        "min": 1400,
+        "max": 1600,
         "bandIds": ["hourly_1500_2000", "hourly_1000_1500"]
       },
       "workLocationText": "熊本県天草市浄南町2-303",
