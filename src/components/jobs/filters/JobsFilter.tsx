@@ -13,6 +13,7 @@ import type { AreasMaster } from '@/types/area';
 import { JobCategoryField } from './JobCategoryField';
 import { AreaField } from './AreaField';
 import { EmploymentTypeField } from './EmploymentTypeField';
+import { SalaryField } from './SalaryField';
 import styles from './JobsFilter.module.scss';
 
 type Option = {
@@ -21,36 +22,59 @@ type Option = {
 };
 
 type Props = {
-  // URL復元値（appliedの初期値）
+  // URL復元値
   initialJobCategoryIds: string[];
   initialAreaIds: string[];
   initialEmploymentTypeIds: string[];
 
+  initialSalaryTab: 'yearly' | 'hourly';
+  initialSalaryYearlyIds: string[];
+  initialSalaryHourlyIds: string[];
+
   // マスター
   jobCategoryOptions: Option[];
-  areas: AreasMaster | null;
   employmentTypeOptions: Option[];
+  areas: AreasMaster | null;
 
-  // 親へ：検索ボタン押下
+  // 🔽 これを追加
+  salaryYearlyOptions: Option[];
+  salaryHourlyOptions: Option[];
+
   onSearch: (payload: {
     jobCategoryIds: string[];
     areaIds: string[];
     employmentTypeIds: string[];
+    salaryTab: 'yearly' | 'hourly';
+    salaryYearlyIds: string[];
+    salaryHourlyIds: string[];
   }) => void;
 
-  // 親へ：リセット押下
   onReset: () => void;
 };
 
-type OpenFilterKey = 'jobCategory' | 'employmentType' | 'area' | null;
+type OpenFilterKey =
+  | 'jobCategory'
+  | 'employmentType'
+  | 'area'
+  | 'salary'
+  | null;
 
 export function JobsFilter({
   initialJobCategoryIds,
   initialAreaIds,
   initialEmploymentTypeIds,
+
+  initialSalaryTab,
+  initialSalaryYearlyIds,
+  initialSalaryHourlyIds,
+
   jobCategoryOptions,
   employmentTypeOptions,
   areas,
+
+  salaryYearlyOptions,
+  salaryHourlyOptions,
+
   onSearch,
   onReset,
 }: Props) {
@@ -72,11 +96,31 @@ export function JobsFilter({
     string[]
   >(initialEmploymentTypeIds);
 
+  const [draftSalaryTab, setDraftSalaryTab] = useState<'yearly' | 'hourly'>(
+    initialSalaryTab
+  );
+  const [draftSalaryYearlyIds, setDraftSalaryYearlyIds] = useState<string[]>(
+    initialSalaryYearlyIds
+  );
+  const [draftSalaryHourlyIds, setDraftSalaryHourlyIds] = useState<string[]>(
+    initialSalaryHourlyIds
+  );
+
   useEffect(() => {
     setDraftJobCategoryIds(initialJobCategoryIds);
     setDraftAreaIds(initialAreaIds);
     setDraftEmploymentTypeIds(initialEmploymentTypeIds);
-  }, [initialJobCategoryIds, initialAreaIds, initialEmploymentTypeIds]);
+    setDraftSalaryTab(initialSalaryTab);
+    setDraftSalaryYearlyIds(initialSalaryYearlyIds);
+    setDraftSalaryHourlyIds(initialSalaryHourlyIds);
+  }, [
+    initialJobCategoryIds,
+    initialAreaIds,
+    initialEmploymentTypeIds,
+    initialSalaryTab,
+    initialSalaryYearlyIds,
+    initialSalaryHourlyIds,
+  ]);
 
   /* ---------------------------------------
    * 外側クリックで閉じる
@@ -103,6 +147,9 @@ export function JobsFilter({
       jobCategoryIds: draftJobCategoryIds,
       areaIds: draftAreaIds,
       employmentTypeIds: draftEmploymentTypeIds,
+      salaryTab: draftSalaryTab,
+      salaryYearlyIds: draftSalaryYearlyIds,
+      salaryHourlyIds: draftSalaryHourlyIds,
     });
     setOpenFilter(null); // ついでに閉じる（不要なら消してOK）
   };
@@ -114,6 +161,11 @@ export function JobsFilter({
     setDraftJobCategoryIds([]);
     setDraftAreaIds([]);
     setDraftEmploymentTypeIds([]);
+
+    setDraftSalaryTab('yearly');
+    setDraftSalaryYearlyIds([]);
+    setDraftSalaryHourlyIds([]);
+
     onReset();
     setOpenFilter(null);
   };
@@ -155,6 +207,22 @@ export function JobsFilter({
             setOpenFilter((prev) =>
               prev === 'employmentType' ? null : 'employmentType'
             )
+          }
+        />
+
+        <SalaryField
+          title="給与"
+          salaryTab={draftSalaryTab}
+          onChangeSalaryTab={setDraftSalaryTab}
+          yearlyOptions={salaryYearlyOptions}
+          hourlyOptions={salaryHourlyOptions}
+          yearlyValue={draftSalaryYearlyIds}
+          hourlyValue={draftSalaryHourlyIds}
+          onChangeYearly={setDraftSalaryYearlyIds}
+          onChangeHourly={setDraftSalaryHourlyIds}
+          isOpen={openFilter === 'salary'}
+          onToggleOpen={() =>
+            setOpenFilter((prev) => (prev === 'salary' ? null : 'salary'))
           }
         />
       </div>
