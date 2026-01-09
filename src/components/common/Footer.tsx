@@ -18,7 +18,7 @@ const Footer = () => {
       >
         <span>求人掲載をご検討の事業者様</span>
       </ExternalLink>
-      <a href="#Header" className={styles.pageTop}>
+      <a href="#Main" className={styles.pageTop}>
         <svg aria-label="リタワーク ロゴ">
           <use href="#svg_pageTop" />
         </svg>
@@ -32,16 +32,16 @@ const Footer = () => {
               </svg>
             </Link>
             <nav>
-              <ExternalLink href="#">
+              <ExternalLink href="https://www.instagram.com/igara_ritawork/">
                 <svg aria-label="instagram ロゴ" className={styles.insta}>
                   <use href="#svg_insta" />
                 </svg>
               </ExternalLink>
-              <ExternalLink href="#">
+              {/* <ExternalLink href="#">
                 <svg aria-label="youtube ロゴ" className={styles.youtube}>
                   <use href="#svg_youtube" />
                 </svg>
-              </ExternalLink>
+              </ExternalLink> */}
             </nav>
           </div>
           <ExternalLink
@@ -68,7 +68,10 @@ const Footer = () => {
           <Link href="#">利用規約</Link>
           <Link href="#">運営会社</Link>
         </nav>
-        <Link href="#" className={styles.linkContact}>
+        <Link
+          href="mailto:r.igara@ritagroup.net"
+          className={styles.linkContact}
+        >
           <span>お問い合わせ窓口</span>
         </Link>
       </article>
