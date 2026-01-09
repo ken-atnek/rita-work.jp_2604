@@ -28,6 +28,33 @@
         font-size: FZ(28);
         color: #fff;
         font-weight: 500;
+        position: relative;
+        padding-left: 1.5em;
+        display: flex;
+        align-items: center;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            translate: 0 -50%;
+            left: 0;
+            width: 3.1rem;
+            @include svg-icon-loupe("fff");
+        }
+        span {
+            font-size: 0.64em;
+            margin-left: 1em;
+            display: flex;
+            align-items: center;
+            translate: 0 0.2em;
+            font-weight: 400;
+            i {
+                font-size: 1.44em;
+                display: inline-block;
+                translate: 0 -0.05em;
+                margin-right: 0.2em;
+            }
+        }
     }
     .blockFilters {
         position: relative;
@@ -47,6 +74,7 @@
     align-items: center;
     flex: 1;
     padding-top: 4rem;
+    padding-bottom: 10rem;
     padding-inline: 4vw;
     z-index: 1;
     .noFavorite {
@@ -54,7 +82,7 @@
         font-size: FZ(18);
         flex: 1;
     }
-    nav {
+    .wrapBtn {
         position: relative;
         align-self: center;
         display: flex;
