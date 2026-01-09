@@ -424,17 +424,11 @@ export default function JobsPageClient() {
 
     // 新着タブは updatedAt 降順
     if (activeTab === 'new') {
-      const hasUpdatedAt = (
-        job: JobIndexItem
-      ): job is JobIndexItem & { updatedAt: string } =>
-        typeof job.updatedAt === 'string' && job.updatedAt.length > 0;
-
-      base = [...jobsAll]
-        .filter(hasUpdatedAt)
-        .sort(
-          (a, b) =>
-            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-        );
+      base = [...jobsAll].sort((a, b) => {
+        const at = Date.parse(a.updatedAt);
+        const bt = Date.parse(b.updatedAt);
+        return bt - at;
+      });
     }
     const hasSalaryFilter =
       (appliedSalaryTab === 'yearly' && appliedSalaryYearlyIds.length > 0) ||
@@ -454,8 +448,7 @@ export default function JobsPageClient() {
         appliedJobCategoryIds.length === 0 ||
         appliedJobCategoryIds.includes(job.jobCategoryId);
 
-      const jobAreaIds =
-        (job as unknown as { areaIds?: string[] }).areaIds ?? [];
+      const jobAreaIds = job.areaIds;
       const okArea =
         appliedAreaIds.length === 0 ||
         jobAreaIds.some((id) => appliedAreaIds.includes(id));
@@ -489,6 +482,8 @@ export default function JobsPageClient() {
     appliedSalaryHourlyIds,
   ]);
 
+  const jobsCountText = jobsForView.length.toLocaleString();
+
   /* ---------------------------------------
    * UI
    * -------------------------------------- */
@@ -498,7 +493,12 @@ export default function JobsPageClient() {
   return (
     <>
       <section className={styles.containerHead}>
-        <h2>求人を検索</h2>
+        <h2>
+          求人を検索
+          <span>
+            掲載：<i>{jobsCountText}</i>件
+          </span>
+        </h2>
 
         <div className={styles.blockFilters}>
           <JobsFilter
@@ -537,16 +537,20 @@ export default function JobsPageClient() {
           </button>
         </nav>
 
-        <JobCardList
-          jobs={jobsForView}
-          salaryUnitMap={salaryUnitMap}
-          employmentTypeMap={employmentTypeMap}
-          jobCategoryMap={jobCategoryMap}
-          favoriteJobIds={favoriteIdsArray}
-          onToggleFavorite={toggleFavorite}
-          ulClassName={styles.jobsList}
-          newIconPeriodDays={newIconPeriodDays}
-        />
+        {jobsForView.length === 0 ? (
+          <p className={styles.noFavorite}>該当の求人情報はありません</p>
+        ) : (
+          <JobCardList
+            jobs={jobsForView}
+            salaryUnitMap={salaryUnitMap}
+            employmentTypeMap={employmentTypeMap}
+            jobCategoryMap={jobCategoryMap}
+            favoriteJobIds={favoriteIdsArray}
+            onToggleFavorite={toggleFavorite}
+            ulClassName={styles.jobsList}
+            newIconPeriodDays={newIconPeriodDays}
+          />
+        )}
       </section>
     </>
   );

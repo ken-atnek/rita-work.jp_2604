@@ -40,13 +40,13 @@ export type JobSalary = SalaryMonthly | SalaryHourly;
 export type JobIndexItem = {
   jobId: string;
   facilityId?: string;
-
   publishedPeriod: PublishedPeriod;
-  updatedAt?: string;
+  updatedAt: string;
 
   title: string;
   facilityName: string;
 
+  areaIds: string[];
   employmentTypeId: string;
   jobCategoryId: string;
 
