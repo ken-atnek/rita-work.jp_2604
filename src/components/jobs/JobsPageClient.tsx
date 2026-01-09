@@ -94,10 +94,19 @@ export default function JobsPageClient() {
   const jcParam = sp.get('jc') ?? '';
   const arParam = sp.get('ar') ?? '';
   const etParam = sp.get('et') ?? '';
+  const stParam = sp.get('st') ?? 'yearly';
+  const syParam = sp.get('sy') ?? '';
+  const shParam = sp.get('sh') ?? '';
 
   const initialJobCategoryIds = useMemo(() => decodeCsv(jcParam), [jcParam]);
   const initialAreaIds = useMemo(() => decodeCsv(arParam), [arParam]);
   const initialEmploymentTypeIds = useMemo(() => decodeCsv(etParam), [etParam]);
+  const initialSalaryTab = (stParam === 'hourly' ? 'hourly' : 'yearly') as
+    | 'yearly'
+    | 'hourly';
+
+  const initialSalaryYearlyIds = useMemo(() => decodeCsv(syParam), [syParam]);
+  const initialSalaryHourlyIds = useMemo(() => decodeCsv(shParam), [shParam]);
 
   /* ---------------------------------------
    * favorites（localStorage）
@@ -146,6 +155,14 @@ export default function JobsPageClient() {
   const [employmentTypeOptions, setEmploymentTypeOptions] = useState<
     Array<{ id: string; label: string }>
   >([]);
+
+  const [salaryYearlyOptions, setSalaryYearlyOptions] = useState<
+    Array<{ id: string; label: string }>
+  >([]);
+  const [salaryHourlyOptions, setSalaryHourlyOptions] = useState<
+    Array<{ id: string; label: string }>
+  >([]);
+
   /* ---------------------------------------
    * 検索条件（applied）
    * -------------------------------------- */
@@ -159,12 +176,33 @@ export default function JobsPageClient() {
     string[]
   >(initialEmploymentTypeIds);
 
+  const [appliedSalaryTab, setAppliedSalaryTab] = useState<'yearly' | 'hourly'>(
+    initialSalaryTab
+  );
+  const [appliedSalaryYearlyIds, setAppliedSalaryYearlyIds] = useState<
+    string[]
+  >(initialSalaryYearlyIds);
+  const [appliedSalaryHourlyIds, setAppliedSalaryHourlyIds] = useState<
+    string[]
+  >(initialSalaryHourlyIds);
+
   // URL変更時に applied を同期
   useEffect(() => {
     setAppliedJobCategoryIds(initialJobCategoryIds);
     setAppliedAreaIds(initialAreaIds);
     setAppliedEmploymentTypeIds(initialEmploymentTypeIds);
-  }, [initialJobCategoryIds, initialAreaIds, initialEmploymentTypeIds]);
+
+    setAppliedSalaryTab(initialSalaryTab);
+    setAppliedSalaryYearlyIds(initialSalaryYearlyIds);
+    setAppliedSalaryHourlyIds(initialSalaryHourlyIds);
+  }, [
+    initialJobCategoryIds,
+    initialAreaIds,
+    initialEmploymentTypeIds,
+    initialSalaryTab,
+    initialSalaryYearlyIds,
+    initialSalaryHourlyIds,
+  ]);
 
   /* ---------------------------------------
    * 初期ロード
@@ -233,6 +271,20 @@ export default function JobsPageClient() {
           toIdLabelMap(salaryUnits, (u) => u.label ?? u.name ?? u.id)
         );
 
+        const firstYearIncomeRanges = await fetchJson<
+          Array<{ id: string; label: string }>
+        >(withBasePath('/db/master/firstYearIncomeRanges.json'), []);
+        setSalaryYearlyOptions(
+          firstYearIncomeRanges.map((r) => ({ id: r.id, label: r.label }))
+        );
+
+        const salaryBandsHourly = await fetchJson<
+          Array<{ id: string; label: string }>
+        >(withBasePath('/db/master/salaryBandsHourly.json'), []);
+        setSalaryHourlyOptions(
+          salaryBandsHourly.map((r) => ({ id: r.id, label: r.label }))
+        );
+
         // config
         const config = await fetchJson<JobCommonConfig>(
           withBasePath('/db/config/job_common.json'),
@@ -297,25 +349,50 @@ export default function JobsPageClient() {
     jobCategoryIds: string[];
     areaIds: string[];
     employmentTypeIds: string[];
+    salaryTab: 'yearly' | 'hourly';
+    salaryYearlyIds: string[];
+    salaryHourlyIds: string[];
   }) => {
-    const ids = payload.jobCategoryIds;
-    const areaIds = payload.areaIds;
-    const employmentTypeIds = payload.employmentTypeIds;
+    // applied 反映（排他）
+    setAppliedJobCategoryIds(payload.jobCategoryIds);
+    setAppliedAreaIds(payload.areaIds);
+    setAppliedEmploymentTypeIds(payload.employmentTypeIds);
 
-    setAppliedJobCategoryIds(ids);
-    setAppliedAreaIds(areaIds);
-    setAppliedEmploymentTypeIds(employmentTypeIds);
+    setAppliedSalaryTab(payload.salaryTab);
+    if (payload.salaryTab === 'yearly') {
+      setAppliedSalaryYearlyIds(payload.salaryYearlyIds);
+      setAppliedSalaryHourlyIds([]); // ←排他：時給を必ず消す
+    } else {
+      setAppliedSalaryYearlyIds([]); // ←排他：年収を必ず消す
+      setAppliedSalaryHourlyIds(payload.salaryHourlyIds);
+    }
 
     const params = new URLSearchParams();
 
-    const jc = encodeCsv(ids);
+    const jc = encodeCsv(payload.jobCategoryIds);
     if (jc) params.set('jc', jc);
 
-    const ar = encodeCsv(areaIds);
+    const ar = encodeCsv(payload.areaIds);
     if (ar) params.set('ar', ar);
 
-    const et = encodeCsv(employmentTypeIds);
+    const et = encodeCsv(payload.employmentTypeIds);
     if (et) params.set('et', et);
+
+    // ✅ 給与（排他でURLも片方だけ）
+    params.set('st', payload.salaryTab);
+
+    if (payload.salaryTab === 'yearly') {
+      const sy = encodeCsv(payload.salaryYearlyIds);
+      if (sy) params.set('sy', sy);
+      params.delete('sh'); // ←必ず消す
+    } else {
+      const sh = encodeCsv(payload.salaryHourlyIds);
+      if (sh) params.set('sh', sh);
+      params.delete('sy'); // ←必ず消す
+    }
+
+    // ※ sy/sh が空のときも st は残すかどうかは好み。
+    //   「給与条件なしならstも消したい」ならここで条件分岐。
 
     const qs = params.toString();
     router.push(qs ? `/jobs?${qs}` : '/jobs');
@@ -325,6 +402,11 @@ export default function JobsPageClient() {
     setAppliedJobCategoryIds([]);
     setAppliedAreaIds([]);
     setAppliedEmploymentTypeIds([]);
+
+    setAppliedSalaryTab('yearly');
+    setAppliedSalaryYearlyIds([]);
+    setAppliedSalaryHourlyIds([]);
+
     router.push('/jobs');
   };
 
@@ -354,12 +436,15 @@ export default function JobsPageClient() {
             new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
         );
     }
+    const hasSalaryFilter =
+      (appliedSalaryTab === 'yearly' && appliedSalaryYearlyIds.length > 0) ||
+      (appliedSalaryTab === 'hourly' && appliedSalaryHourlyIds.length > 0);
 
-    // 絞り込みなし
     if (
       appliedJobCategoryIds.length === 0 &&
       appliedAreaIds.length === 0 &&
-      appliedEmploymentTypeIds.length === 0
+      appliedEmploymentTypeIds.length === 0 &&
+      !hasSalaryFilter
     ) {
       return base;
     }
@@ -379,7 +464,18 @@ export default function JobsPageClient() {
         appliedEmploymentTypeIds.length === 0 ||
         appliedEmploymentTypeIds.includes(job.employmentTypeId);
 
-      return okCategory && okArea && okEmployment;
+      const okSalary =
+        appliedSalaryTab === 'yearly'
+          ? appliedSalaryYearlyIds.length === 0 ||
+            (job.firstYearIncomeRangeId !== undefined &&
+              appliedSalaryYearlyIds.includes(job.firstYearIncomeRangeId))
+          : appliedSalaryHourlyIds.length === 0 ||
+            (job.salary?.unitId === 'hourly' &&
+              job.salary.bandIds.some((id) =>
+                appliedSalaryHourlyIds.includes(id)
+              ));
+
+      return okCategory && okArea && okEmployment && okSalary;
     });
   }, [
     activeTab,
@@ -388,6 +484,9 @@ export default function JobsPageClient() {
     appliedJobCategoryIds,
     appliedAreaIds,
     appliedEmploymentTypeIds,
+    appliedSalaryTab,
+    appliedSalaryYearlyIds,
+    appliedSalaryHourlyIds,
   ]);
 
   /* ---------------------------------------
@@ -406,9 +505,14 @@ export default function JobsPageClient() {
             initialJobCategoryIds={initialJobCategoryIds}
             initialAreaIds={initialAreaIds}
             initialEmploymentTypeIds={initialEmploymentTypeIds}
+            initialSalaryTab={initialSalaryTab}
+            initialSalaryYearlyIds={initialSalaryYearlyIds}
+            initialSalaryHourlyIds={initialSalaryHourlyIds}
             jobCategoryOptions={jobCategoryOptions}
             employmentTypeOptions={employmentTypeOptions}
             areas={areasMaster}
+            salaryYearlyOptions={salaryYearlyOptions}
+            salaryHourlyOptions={salaryHourlyOptions}
             onSearch={handleSearch}
             onReset={handleReset}
           />

@@ -22,7 +22,7 @@
             @include box-shadow;
             height: 44px;
             display: flex;
-            button {
+            & > button {
                 position: relative;
                 display: flex;
                 width: 100%;
@@ -69,19 +69,21 @@
                             justify-content: space-between;
                             border-bottom: 1px solid #d6d6d6;
                             align-items: center;
-                            padding-bottom: 1.2rem;
+                            padding-bottom: 0.8rem;
                             .btnClose {
                                 position: relative;
-                                width: 13px;
+                                width: 32px;
+                                border-radius: 50%;
                                 aspect-ratio: 1;
                                 cursor: pointer;
+                                transition: 0.3s ease-out;
                                 &::before,
                                 &::after {
                                     content: "";
                                     position: absolute;
                                     inset: 0;
                                     margin: auto;
-                                    width: 100%;
+                                    width: 13px;
                                     height: 1px;
                                     background-color: #574232;
                                 }
@@ -90,6 +92,9 @@
                                 }
                                 &::after {
                                     rotate: 45deg;
+                                }
+                                &:hover {
+                                    background-color: #f9e1cc;
                                 }
                             }
                             h3 {
@@ -238,6 +243,47 @@
                                 &::before {
                                     width: 2.7rem;
                                     @include svg-icon-search03("f29400");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 給与
+            &.salaryField {
+                & > button {
+                    &::before {
+                        width: 2rem;
+                        @include svg-icon-search04("f29400");
+                    }
+                }
+                .wrapFilterList {
+                    .innerFilterList {
+                        .itemFilterList {
+                            h3 {
+                                &::before {
+                                    width: 2.4rem;
+                                    @include svg-icon-search04("f29400");
+                                }
+                            }
+                            .tabs {
+                                position: relative;
+                                font-size: inherit;
+                                display: grid;
+                                grid-template-columns: repeat(2, 1fr);
+                                background-color: $bg-white;
+                                @include box-shadow;
+                                margin-top: 1.2rem;
+                                border-radius: 7px;
+                                padding: 2px 1px;
+                                & > button {
+                                    height: 4rem;
+                                    &.isActive {
+                                        background-color: $main-orange;
+                                        color: #fff;
+                                        border-radius: 7px;
+                                    }
                                 }
                             }
                         }

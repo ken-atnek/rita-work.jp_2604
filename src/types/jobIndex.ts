@@ -38,38 +38,25 @@ export type JobSalary = SalaryMonthly | SalaryHourly;
  * - facilities 内一覧 / 全件一覧 共通
  * -------------------------------------- */
 export type JobIndexItem = {
-  /* -------------------------------
-   * 識別情報
-   * ------------------------------ */
   jobId: string;
-
-  // 全件 index（jobsIndexAll.json）では必須
-  // 施設別 index（facilities/.../jobsIndex.json）では省略可
   facilityId?: string;
 
-  /* -------------------------------
-   * 掲載情報
-   * ------------------------------ */
   publishedPeriod: PublishedPeriod;
-
-  // 並び替え・新着判定用（ISO文字列）
   updatedAt?: string;
 
-  /* -------------------------------
-   * 表示用基本情報
-   * ------------------------------ */
   title: string;
   facilityName: string;
 
   employmentTypeId: string;
   jobCategoryId: string;
 
-  heroImages: string[];
+  // 🔍 年収検索用
+  firstYearIncomeRangeId?: string;
 
-  /* -------------------------------
-   * 給与・勤務地
-   * ------------------------------ */
-  salary: JobSalary;
+  // 🖥 表示・時給検索用
+  salary?: JobSalary;
+
+  heroImages: string[];
   workLocationText: string;
 };
 

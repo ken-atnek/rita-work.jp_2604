@@ -49,9 +49,14 @@ export const buildSalaryRangeText = (min?: number, max?: number) => {
  * - hourly の bandIds は検索用（表示は min/max を使用）
  */
 export const buildSalaryText = (
-  salary: JobSalary,
+  salary: JobSalary | undefined,
   salaryUnitMap?: Record<string, string>
 ): string => {
+  // 給与未設定の場合（安全ガード）
+  if (!salary) {
+    return '—';
+  }
+
   const unitLabel = getSalaryUnitLabel(salary.unitId, salaryUnitMap);
 
   // 月給：min/max 表示
@@ -60,7 +65,7 @@ export const buildSalaryText = (
     return range ? `${unitLabel} ${range}` : unitLabel;
   }
 
-  // 時給：min/max 表示（bandIds は検索用）
+  // 時給：min/max 表示（bandIds は検索専用）
   if (salary.unitId === 'hourly') {
     const range = buildSalaryRangeText(salary.min, salary.max);
     return range ? `${unitLabel} ${range}` : unitLabel;
