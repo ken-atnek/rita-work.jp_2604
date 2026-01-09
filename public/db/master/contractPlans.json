@@ -1,14 +1,14 @@
 [
   {
-    "id": "light",
-    "name": "ライトプラン"
+    "id": "premium",
+    "name": "プレミアムプラン"
   },
   {
     "id": "standard",
     "name": "スタンダードプラン"
   },
   {
-    "id": "premium",
-    "name": "プレミアムプラン"
+    "id": "light",
+    "name": "ライトプラン"
   }
 ]
