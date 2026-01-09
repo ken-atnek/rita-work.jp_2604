@@ -40,11 +40,26 @@
                     width: 5.6rem;
                     fill: #fff;
                     aspect-ratio: 59/56;
+                    transition: 0.3s ease-out;
                 }
                 span {
                     font-size: inherit;
                     letter-spacing: 0.2em;
                     padding-bottom: 1em;
+                }
+            }
+            &:hover {
+                h1 {
+                    svg {
+                        fill: #574232;
+                    }
+                }
+            }
+            &:active {
+                h1 {
+                    svg {
+                        fill: #fff;
+                    }
                 }
             }
         }
@@ -60,6 +75,13 @@
                 font-size: FZ(16);
                 color: #fff;
                 letter-spacing: 0.04em;
+                transition: 0.3s ease-out;
+                &:hover {
+                    color: #574232;
+                }
+                &:active {
+                    color: #fff;
+                }
             }
         }
         .linkMyPage {

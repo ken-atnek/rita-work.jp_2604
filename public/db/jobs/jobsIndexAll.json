@@ -17,7 +17,7 @@
         "end": null
       },
       "updatedAt": "2025-10-15T06:05:00+09:00",
-      "contractPlanId": "light"
+      "contractPlanId": "premium"
     },
     {
       "jobId": "job_0002",
@@ -40,7 +40,7 @@
         "end": null
       },
       "updatedAt": "2025-12-20T13:45:00+09:00",
-      "contractPlanId": "light"
+      "contractPlanId": "premium"
     }
   ]
 }

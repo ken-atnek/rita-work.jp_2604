@@ -13,6 +13,7 @@ import ContainerTopMessage from '@/components/Top/ContainerMessage';
 import ContainerTopPickUp from '@/components/Top/ContainerPickUp';
 import ContainerTopConditions from '@/components/Top/ContainerConditions';
 import ContainerTopTips from '@/components/Top/ContainerTips';
+import ContainerSpotlightCard from '@/components/Top/ContainerSpotlightCard';
 
 export const generateMetadata = (): Metadata => {
   return {
@@ -28,6 +29,7 @@ export default function Home() {
       <ContainerTopHero />
       <ContainerTopSearch />
       <ContainerTopPickUp />
+      <ContainerSpotlightCard />
       <ContainerTopConditions />
       <ContainerTopTips />
       <ContainerTopMessage />

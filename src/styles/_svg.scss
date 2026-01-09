@@ -231,3 +231,12 @@
     background-size: contain;
     background-position: center center;
 }
+
+//  スピーカーアイコン
+@mixin svg-icon-speaker($color) {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 35" fill="%23#{$color}"><path d="M2.8453 11.7649H0V23.0503H2.8453V11.7649Z"/><path d="M36.2523 34.6361C31.515 30.9149 26.2504 27.9665 20.5093 25.977L20.5237 8.84491C26.2649 6.89125 31.5294 3.92855 36.2523 0.200126C36.8517 -0.272188 37.74 0.142876 37.74 0.908597V33.9348C37.74 34.6934 36.8589 35.1156 36.2523 34.6433V34.6361Z"/><path d="M19.8158 8.94531H3.38672V25.8699H19.8158V8.94531Z"/><path d="M15.5119 26.4854V33.0405C15.5119 34.0281 14.8042 34.8296 13.9303 34.8296H11.0923C10.2185 34.8296 9.51074 34.0281 9.51074 33.0405V26.4854H15.5046H15.5119Z"/></svg>');
+    aspect-ratio: 38/35;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
