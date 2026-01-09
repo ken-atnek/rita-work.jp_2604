@@ -16,7 +16,7 @@
         "start": "2025-10-01",
         "end": null
       },
-      "updatedAt": "2025-10-04",
+      "updatedAt": "2025-10-15T06:05:00+09:00",
       "contractPlanId": "light"
     },
     {
@@ -39,7 +39,7 @@
         "start": "2025-10-01",
         "end": null
       },
-      "updatedAt": "2025-12-20",
+      "updatedAt": "2025-12-20T13:45:00+09:00",
       "contractPlanId": "light"
     }
   ]
