@@ -39,7 +39,7 @@ export type JobSalary = SalaryMonthly | SalaryHourly;
  * -------------------------------------- */
 export type JobIndexItem = {
   jobId: string;
-  facilityId?: string;
+  facilityId: string;
   publishedPeriod: PublishedPeriod;
   updatedAt: string;
 

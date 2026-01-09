@@ -138,14 +138,26 @@
     @include flex-center;
     padding-inline: 4vw;
     background-color: $bg-white;
-    z-index: 1;
-    article {
+    z-index: 3;
+    .searchInner {
         display: flex;
+        width: 100%;
+        font-size: inherit;
         flex-direction: column;
         max-width: $articleMaxWidth;
         --padding-inline: 2em;
         margin-bottom: -7.5em;
         translate: 0 -7.5em;
+        &::before {
+            content: "";
+            position: absolute;
+            right: 6rem;
+            bottom: calc(100% - 6rem);
+            width: 9.8rem;
+            background: url("/images/mascot01.webp") no-repeat center center /
+                contain;
+            aspect-ratio: 589/1000;
+        }
         .boxTop {
             background-color: $bg-white;
             position: relative;
@@ -153,7 +165,7 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
-            gap: 0 0.8em;
+            gap: 0 3.2rem;
             padding: 0.8em var(--padding-inline);
             @include top-radius($radius24);
             .wrapTitle {
@@ -199,112 +211,9 @@
                     }
                 }
             }
-            ul {
-                position: relative;
+            .blockFilters {
                 font-size: inherit;
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.5em;
                 flex: 1;
-                margin-left: 1.6em;
-                li {
-                    position: relative;
-                    font-size: inherit;
-                    background-color: #fff;
-                    @include box-shadow;
-                    border-radius: $radius14;
-                    display: flex;
-                    align-items: center;
-                    padding-left: 1.6em;
-                    cursor: pointer;
-                    h3 {
-                        position: relative;
-                        font-size: FZ(14);
-                        color: $font-black;
-                        padding-left: 2.4em;
-                        &::before {
-                            content: "";
-                            position: absolute;
-                            left: 0;
-                            top: 50%;
-                            translate: 0 -50%;
-                        }
-                    }
-                    &:nth-of-type(1) {
-                        h3 {
-                            &::before {
-                                width: 1.6em;
-                                @include svg-icon-search01($color-orange);
-                            }
-                        }
-                    }
-                    &:nth-of-type(2) {
-                        h3 {
-                            &::before {
-                                width: 1.25em;
-                                @include svg-icon-search02($color-orange);
-                            }
-                        }
-                    }
-                    &:nth-of-type(3) {
-                        h3 {
-                            &::before {
-                                width: 1.65em;
-                                @include svg-icon-search03($color-orange);
-                            }
-                        }
-                    }
-                    &:nth-of-type(4) {
-                        h3 {
-                            &::before {
-                                width: 1.42em;
-                                @include svg-icon-search04($color-orange);
-                            }
-                        }
-                    }
-                }
-            }
-            .btnSearch {
-                position: relative;
-                font-size: inherit;
-                @include flex-center;
-                background-color: $main-orange;
-                color: #fff;
-                width: 5.875em;
-                aspect-ratio: 1;
-                border-radius: $radius14;
-                border-top-left-radius: unset;
-                @include box-shadow;
-                &::before {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    right: 100%;
-                    width: 5px;
-                    @include svg-object-radius("f29400");
-                }
-                span {
-                    font-size: FZ(14);
-                    font-weight: 700;
-                }
-            }
-            .btnReset {
-                font-size: inherit;
-                @include flex-center;
-                width: 4em;
-                min-width: 6rem;
-                background-color: #fff;
-                height: 3.5em;
-                @include box-shadow;
-                border-radius: $radius14;
-                align-self: flex-end;
-                span {
-                    font-size: FZ(12);
-                    font-weight: 500;
-                    color: $font-black;
-                    display: inline-block;
-                    width: max-content;
-                }
             }
         }
         .boxBottom {
