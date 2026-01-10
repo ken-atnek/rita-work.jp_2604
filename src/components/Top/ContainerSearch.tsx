@@ -79,8 +79,9 @@ const ContainerTopSearch = () => {
         setSalaryHourlyOptions(masters.salaryHourlyOptions);
 
         // ✅ トップ表示用：全件件数（jobsIndexAll）
+        const timestamp = Date.now();
         const jobsJson = await fetchJson<{ items: Array<unknown> }>(
-          withBasePath('/db/jobs/jobsIndexAll.json'),
+          withBasePath(`/db/jobs/jobsIndexAll.json?t=${timestamp}`),
           { items: [] }
         );
         setJobsCount(jobsJson.items.length);

@@ -197,8 +197,9 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
         /* -------------------------------
          * 1. details_list.json 読み込み
          * ------------------------------- */
+        const timestamp = Date.now();
         const allJobs = await fetchJson<DetailsListItem[]>(
-          withBasePath('/db/details_list.json'),
+          withBasePath(`/db/details_list.json?t=${timestamp}`),
           []
         );
         if (allJobs.length === 0) {

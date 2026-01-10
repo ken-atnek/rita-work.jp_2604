@@ -104,8 +104,9 @@ export default function ContainerSpotlightCard() {
         setLoading(true);
 
         // jobs
+        const timestamp = Date.now();
         const jobsJson = await fetchJson<{ items: JobIndexItem[] }>(
-          withBasePath('/db/jobs/jobsIndexAll.json'),
+          withBasePath(`/db/jobs/jobsIndexAll.json?t=${timestamp}`),
           { items: [] }
         );
 
