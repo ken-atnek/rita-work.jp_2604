@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && rm -f out/404.html && rm -rf out/404",
+    "build": "next build && rm -f out/404.html && rm -rf out/404 && rm -rf out/db",
     "start": "next start",
     "lint": "next lint",
     "lint:style": "stylelint \"src/**/*.scss\" --fix"
