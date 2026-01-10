@@ -17,9 +17,10 @@ import ContainerSpotlightCard from '@/components/Top/ContainerSpotlightCard';
 
 export const generateMetadata = (): Metadata => {
   return {
-    title: 'リタワーク',
+    title:
+      '熊本の医療・介護・福祉の求人検索ならリタワーク｜条件から探せる仕事情報',
     description: isRealProduction
-      ? 'リタワークのディスクリプション'
+      ? '熊本の医療・介護・福祉業界の求人を掲載する求人ポータルサイト。エリア・職種・雇用形態など条件から、自分に合った仕事を簡単に探せます。'
       : undefined,
   };
 };

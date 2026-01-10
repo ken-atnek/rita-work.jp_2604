@@ -9,9 +9,10 @@ import { Suspense } from 'react';
 import { JobDetailsClientWrapper } from '../../components/details/JobDetailsClientWrapper';
 
 export const metadata: Metadata = {
+  title: '求人詳細｜リタワーク',
+  description: '熊本の医療・介護・福祉求人の詳細情報を掲載しています。',
   robots: { index: true, follow: true },
 };
-
 export default function DetailsPage() {
   return (
     <main style={{ backgroundColor: '#F3F3F3' }}>

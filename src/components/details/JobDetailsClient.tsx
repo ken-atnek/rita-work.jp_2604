@@ -545,6 +545,17 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       }
     };
   }, [isPreview]);
+
+  useEffect(() => {
+    if (!job || !facility) return;
+
+    const jobTitle = (job.title || '').trim();
+    const facilityName = (facility.facilityName || '').trim();
+
+    document.title = [jobTitle, facilityName, 'リタワーク']
+      .filter(Boolean)
+      .join('｜');
+  }, [job, facility]);
   /* -------------------------------
    * UI: 読み込み・エラー処理
    * ------------------------------- */
