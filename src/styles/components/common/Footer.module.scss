@@ -23,8 +23,7 @@
         background-color: $main-orange;
     }
     &::after {
-        background: url("../../../assets/images/bg.webp") repeat center
-            center/contain;
+        background: url("/images/bg.webp") repeat center center/contain;
         mix-blend-mode: color-dodge;
     }
     .pageTop {
@@ -40,6 +39,17 @@
         svg {
             aspect-ratio: 1;
             fill: #fff;
+            transition: 0.3s ease-out;
+        }
+        &:hover {
+            svg {
+                fill: #fff9e3;
+            }
+        }
+        &:active {
+            svg {
+                fill: #fff;
+            }
         }
     }
     .linkOrder {
@@ -56,6 +66,7 @@
         border-radius: $radius14;
         @include flex-center;
         @include box-shadow;
+        transition: 0.3s ease-out;
         &::after {
             content: "";
             position: absolute;
@@ -64,10 +75,30 @@
             right: 2em;
             width: 0.5em;
             @include svg-arrow-right("726b62");
+            transition: 0.3s ease-out;
         }
         span {
             font-size: FZ(20);
             line-height: 1em;
+            transition: 0.3s ease-out;
+        }
+        &:hover {
+            background-color: #574232;
+            &::after {
+                @include svg-arrow-right("ffcd39");
+            }
+            span {
+                color: $sub-orange;
+            }
+        }
+        &:active {
+            background-color: $sub-orange;
+            &::after {
+                @include svg-arrow-right("726b62");
+            }
+            span {
+                color: #574232;
+            }
         }
     }
     article {
@@ -78,38 +109,101 @@
         gap: 0 3em;
         .boxShopInfo {
             font-size: inherit;
-            .itemLogo {
-                font-size: inherit;
-                width: 17.2em;
-                svg {
-                    width: 100%;
-                    fill: #fff;
-                    stroke: unset;
-                    aspect-ratio: 275/50;
-                }
-            }
-            nav {
-                position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem 0;
+            .wrapRita {
                 font-size: inherit;
                 display: flex;
-                gap: 0 1em;
-                align-items: center;
-                margin-top: 1.4em;
-                a {
-                    position: relative;
+                gap: 0 1.8rem;
+                .itemLogo {
                     font-size: inherit;
+                    width: 17.2em;
                     svg {
+                        width: 100%;
                         fill: #fff;
-                        font-size: inherit;
-                        &.insta {
-                            aspect-ratio: 1;
-                            width: 1.5em;
-                        }
-                        &.youtube {
-                            aspect-ratio: 28/20;
-                            width: 1.65em;
+                        stroke: unset;
+                        aspect-ratio: 275/50;
+                        transition: 0.3s ease-out;
+                    }
+                    &:hover {
+                        svg {
+                            fill: #574232;
                         }
                     }
+                    &:active {
+                        svg {
+                            fill: #fff;
+                        }
+                    }
+                }
+                nav {
+                    position: relative;
+                    font-size: inherit;
+                    display: flex;
+                    gap: 0 1em;
+                    align-items: center;
+                    margin-top: 1.4em;
+                    a {
+                        position: relative;
+                        font-size: inherit;
+                        svg {
+                            fill: #fff;
+                            font-size: inherit;
+                            transition: 0.3s ease-out;
+                            &.insta {
+                                aspect-ratio: 1;
+                                width: 1.5em;
+                            }
+                            &.youtube {
+                                aspect-ratio: 28/20;
+                                width: 1.65em;
+                            }
+                        }
+                        &:hover {
+                            svg {
+                                fill: #574232;
+                            }
+                        }
+                        &:active {
+                            svg {
+                                fill: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+            .wrapKpta {
+                display: flex;
+                align-items: center;
+                background-color: rgba(#fff9e3, 1);
+                width: 216px;
+                height: 44px;
+                border-radius: 8px;
+                padding-inline: 2rem;
+                padding-block: 1rem;
+                gap: 0 1rem;
+                transition: 0.3s ease-out;
+                span {
+                    color: #898989;
+                    text-transform: uppercase;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: FZ(20);
+                    font-weight: 600;
+                    flex: 1;
+                    border-left: 1px solid;
+                    padding-left: 1rem;
+                    line-height: 0.9em;
+                    translate: 0 0.2rem;
+                }
+                &:hover {
+                    background-color: rgba(#fff9e3, 0.8);
+                }
+                &:active {
+                    background-color: rgba(#fff9e3, 1);
                 }
             }
         }
@@ -124,6 +218,13 @@
             margin-left: auto;
             a {
                 font-size: FZ(14);
+                transition: 0.3s ease-out;
+                &:hover {
+                    color: #574232;
+                }
+                &:active {
+                    color: #fff;
+                }
             }
         }
         .linkContact {
@@ -131,11 +232,13 @@
             font-size: inherit;
             padding: 0.8em 2em;
             border-radius: $radius14;
+            transition: 0.3s ease-out;
             span {
                 position: relative;
                 font-size: FZ(16);
                 font-weight: 700;
                 padding-left: 2em;
+                transition: 0.3s ease-out;
                 &::before {
                     content: "";
                     position: absolute;
@@ -144,6 +247,25 @@
                     left: 0;
                     width: 1.2em;
                     @include svg-icon-plane("ffffff");
+                    transition: 0.3s ease-out;
+                }
+            }
+            &:hover {
+                background-color: #fff;
+                span {
+                    color: $main-orange;
+                    &::before {
+                        @include svg-icon-plane("f29400");
+                    }
+                }
+            }
+            &:active {
+                background-color: transparent;
+                span {
+                    color: #fff;
+                    &::before {
+                        @include svg-icon-plane("ffffff");
+                    }
                 }
             }
         }

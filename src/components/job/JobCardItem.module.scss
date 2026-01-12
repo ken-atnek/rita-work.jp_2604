@@ -4,6 +4,13 @@
 @use "variable" as *;
 @use "svg" as *;
 @use "mixin" as *;
+.itemCardBody {
+    position: relative;
+    grid-row: span 3;
+    display: grid;
+    grid-template-rows: subgrid;
+    font-size: inherit;
+}
 .itemCard {
     position: relative;
     grid-row: span 3;

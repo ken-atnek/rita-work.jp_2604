@@ -61,8 +61,9 @@ export function LibraryClientWrapper() {
   useEffect(() => {
     const loadAll = async () => {
       // jobs は失敗しても落ちない（items: [] でフォールバック）
+      const timestamp = Date.now();
       const jobsPromise = fetchJson<{ items: JobIndexItem[] }>(
-        withBasePath('/db/jobs/jobsIndexAll.json'),
+        withBasePath(`/db/jobs/jobsIndexAll.json?t=${timestamp}`),
         { items: [] }
       );
 

@@ -201,10 +201,13 @@ export default function JobsPageClient() {
         setError(null);
 
         // jobs
+        const timestamp = Date.now();
+
         const jobsJson = await fetchJson<{ items: JobIndexItem[] }>(
-          withBasePath('/db/jobs/jobsIndexAll.json'),
+          withBasePath(`/db/jobs/jobsIndexAll.json?t=${timestamp}`),
           { items: [] }
         );
+
         setJobsAll(jobsJson.items);
 
         // ✅ JobsFilter 用 master（共通）

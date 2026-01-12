@@ -92,7 +92,7 @@ export default function RootLayout({
       <body>
         <SvgDefs />
         <Header />
-        <main>{children}</main>
+        <main id="Main">{children}</main>
         <Footer />
       </body>
     </html>

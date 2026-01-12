@@ -42,7 +42,7 @@ export type JobIndexItem = {
   facilityId: string;
   publishedPeriod: PublishedPeriod;
   updatedAt: string;
-
+  contractPlanId: string;
   title: string;
   facilityName: string;
 

@@ -197,8 +197,9 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
         /* -------------------------------
          * 1. details_list.json 読み込み
          * ------------------------------- */
+        const timestamp = Date.now();
         const allJobs = await fetchJson<DetailsListItem[]>(
-          withBasePath('/db/details_list.json'),
+          withBasePath(`/db/details_list.json?t=${timestamp}`),
           []
         );
         if (allJobs.length === 0) {
@@ -545,6 +546,17 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
       }
     };
   }, [isPreview]);
+
+  useEffect(() => {
+    if (!job || !facility) return;
+
+    const jobTitle = (job.title || '').trim();
+    const facilityName = (facility.facilityName || '').trim();
+
+    document.title = [jobTitle, facilityName, 'リタワーク']
+      .filter(Boolean)
+      .join('｜');
+  }, [job, facility]);
   /* -------------------------------
    * UI: 読み込み・エラー処理
    * ------------------------------- */

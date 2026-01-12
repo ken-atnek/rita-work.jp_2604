@@ -7,7 +7,6 @@
 
 import styles from '@/styles/PageTop.module.scss';
 import ExternalLink from '@/components/common/ExternalLink';
-import ImagePhone from '@/assets/images/iphone.webp';
 import Image from 'next/image';
 
 const ContainerTopMessage = () => {
@@ -15,7 +14,12 @@ const ContainerTopMessage = () => {
     <section className={styles.containerMessage}>
       <article>
         <div className={styles.itemImage}>
-          <Image src={ImagePhone} alt="iPhone画像" />
+          <Image
+            src="/images/iphone.webp"
+            width={346}
+            height={728}
+            alt="iPhone画像"
+          />
         </div>
         <div className={styles.wrapMessage}>
           <h2>message</h2>
@@ -31,6 +35,7 @@ const ContainerTopMessage = () => {
             <span>ラインで相談する</span>
           </ExternalLink>
         </div>
+        <div className={styles.itemMascot}></div>
       </article>
     </section>
   );
