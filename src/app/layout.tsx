@@ -43,7 +43,7 @@ export const metadata: Metadata = {
       type: 'website',
       images: [
         {
-          url: '/ogp.png',
+          url: '/ogp.jpg',
           width: 1200,
           height: 630,
           alt: 'リタワークのOGP画像',
