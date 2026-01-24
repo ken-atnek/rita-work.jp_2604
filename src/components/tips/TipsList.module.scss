@@ -1,0 +1,96 @@
+/* ===============================================================
+ * 	リタワーク 転職のヒント
+ * ------------------------------------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+
+.containerHead {
+    position: relative;
+    font-size: inherit;
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-top: 5em;
+    background-color: $base-white;
+    padding-bottom: 4rem;
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        font-size: inherit;
+        background-color: $main-orange;
+        border-bottom-left-radius: $radius80;
+        border-bottom-right-radius: $radius80;
+        z-index: -1;
+    }
+    h2 {
+        margin-top: 17px;
+        font-size: FZ(28);
+        color: #fff;
+        font-weight: 500;
+    }
+}
+.containerTipsDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5.6rem;
+    padding-inline: 4vw;
+    padding-bottom: 10rem;
+    flex: 1;
+    .headAnnounce {
+        font-size: FZ(18);
+        font-weight: 300;
+    }
+    .listTips {
+        position: relative;
+        display: grid;
+        font-size: inherit;
+        max-width: $articleMaxWidth;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 4.8rem;
+        gap: 2.8rem 2.4rem;
+        .boxDetails {
+            font-size: inherit;
+            grid-row: span 3;
+            display: grid;
+            grid-template-rows: subgrid;
+            .wrapLink {
+                font-size: inherit;
+                grid-row: span 3;
+                display: grid;
+                grid-template-rows: subgrid;
+                gap: 0 0;
+                .itemImage {
+                    position: relative;
+                    img {
+                        aspect-ratio: 304/230;
+                        border-radius: 1.4rem;
+                        object-fit: cover;
+                    }
+                }
+                h3 {
+                    padding-inline: 1.3rem;
+                    font-size: FZ(20);
+                    margin-top: 1.6rem;
+                    line-height: 1.4em;
+                    letter-spacing: 0.1em;
+                    font-weight: 500;
+                }
+                .summary {
+                    padding-inline: 1.3rem;
+                    margin-top: 0.8rem;
+                    font-size: FZ(14);
+                    letter-spacing: 0.1em;
+                    text-align: justify;
+                    line-height: 1.4em;
+                    display: -webkit-box; /* 必須 */
+                    -webkit-box-orient: vertical; /* 必須 */
+                    -webkit-line-clamp: 2;
+                    line-clamp: 2; /* 行数を制限 */
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}
