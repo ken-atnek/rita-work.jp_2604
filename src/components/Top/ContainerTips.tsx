@@ -38,7 +38,7 @@ const ContainerTopTips = () => {
             <Image src="/images/__dummy/tips.webp" fill alt="ダミー画像" />
           </li>
         </ul>
-        <Link href="#" className={styles.btnLink}>
+        <Link href="/tips/" className={styles.btnLink}>
           <span>一覧を見る</span>
         </Link>
       </article>
