@@ -1,0 +1,221 @@
+/* =================================
+ * 	リタワーク 転職のヒント
+ * ------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable keyframes-name-pattern */
+/* stylelint-disable custom-property-pattern */
+// このファイル全体のルールを無効にする
+
+.btnLink {
+    position: relative;
+    background-color: $main-orange;
+    color: $base-white;
+    align-self: center;
+    width: 17.5em;
+    height: 5.6rem;
+    font-size: inherit;
+    @include flex-center;
+    border-radius: $radius14;
+    border-top-left-radius: unset;
+    @include box-shadow;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 100%;
+        width: 5px;
+        @include svg-object-radius("f29400");
+    }
+    span {
+        font-size: FZ(18);
+        font-weight: 700;
+    }
+}
+/* =================================
+ * HEAD
+ * ------------------------------ */
+.containerHead {
+    position: relative;
+    font-size: inherit;
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-top: 5em;
+    background-color: $base-white;
+    padding-bottom: 4rem;
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        font-size: inherit;
+        background-color: $main-orange;
+        z-index: -1;
+    }
+    h2 {
+        position: relative;
+        margin-top: 17px;
+        font-size: FZ(28);
+        color: #fff;
+        font-weight: 500;
+        padding-bottom: 2.8rem;
+        &::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            translate: -50%;
+            bottom: 0;
+            height: 1px;
+            width: 3.2rem;
+            background-color: #fff;
+        }
+    }
+}
+/* =================================
+ * 記事詳細
+ * ------------------------------ */
+.containerDetails {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 4vw;
+    padding-bottom: 10rem;
+    align-items: center;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 16rem;
+        font-size: inherit;
+        background-color: $main-orange;
+        border-bottom-left-radius: $radius80;
+        border-bottom-right-radius: $radius80;
+        z-index: -1;
+    }
+    h3 {
+        color: #fff;
+        align-self: center;
+        font-size: FZ(24);
+        font-weight: 500;
+    }
+    article {
+        display: flex;
+        flex-direction: column;
+        max-width: 64rem;
+        margin-top: 3.2rem;
+        .itemImage {
+            width: 100%;
+            img {
+                border-radius: 1.4rem;
+            }
+        }
+        .itemDate {
+            font-size: FZ(14);
+            color: $main-orange;
+            margin-top: 3.2rem;
+        }
+    }
+}
+.tipsBody {
+    position: relative;
+    font-size: inherit;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5rem;
+    margin-top: 1.6rem;
+    gap: 1rem 0;
+    h1 {
+        font-size: FZ(48);
+    }
+    h2 {
+        font-size: FZ(32);
+    }
+    h3 {
+        font-size: FZ(28);
+    }
+    h4 {
+        font-size: FZ(24);
+    }
+    h5 {
+        font-size: FZ(20);
+    }
+    h6 {
+        font-size: FZ(18);
+    }
+    p {
+        font-size: FZ(14);
+        line-height: 1.4em;
+        letter-spacing: 0.1em;
+        min-height: 1lh;
+        span {
+            font-size: inherit;
+        }
+        s {
+            text-decoration: line-through;
+            font-size: inherit;
+        }
+    }
+    strong {
+        font-weight: 600;
+    }
+    & > ul {
+        font-size: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3em 0;
+        li {
+            font-size: FZ(14);
+            display: flex;
+            &::before {
+                content: "・";
+                margin-right: 0.3em;
+            }
+        }
+    }
+    & > ol {
+        font-size: inherit;
+        counter-reset: number 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3em 0;
+        li {
+            display: flex;
+            &::before {
+                counter-increment: number 1;
+                content: counter(number) ".";
+                margin-right: 0.3em;
+            }
+            font-size: FZ(14);
+        }
+    }
+    .tipsGallery {
+        position: relative;
+        font-size: inherit;
+        ul {
+            position: relative;
+            display: grid;
+            &:has(> li:nth-child(2)):not(:has(> li:nth-child(3))) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            &:has(> li:nth-child(3)):not(:has(> li:nth-child(4))) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            &:has(> li:nth-child(4)) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            li {
+                position: relative;
+                display: flex;
+                div {
+                    position: relative;
+                    display: flex;
+                    img {
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+    }
+}

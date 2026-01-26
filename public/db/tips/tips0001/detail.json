@@ -1,0 +1,460 @@
+{
+  "id": "tips0001",
+  "title": "転職でよくありがちな落とし穴",
+  "publishedAt": "2026-01-30",
+  "heroImage": "/db/tips/tips0001/hero.jpg",
+  "body": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 4
+        },
+        "content": [
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "#f36012"
+                }
+              }
+            ],
+            "text": "吾輩は猫である"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)"
+                }
+              }
+            ],
+            "text": "吾輩は"
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "#18db0a"
+                }
+              }
+            ],
+            "text": "猫"
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)"
+                }
+              }
+            ],
+            "text": "である。名前はまだ無い。"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)"
+                }
+              }
+            ],
+            "text": "どこで生れたか頓と見當がつかぬ。何でも薄暗いじめじめした所で"
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "#1915f9"
+                }
+              }
+            ],
+            "text": "ニヤーニヤー"
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)"
+                }
+              }
+            ],
+            "text": "泣いて居た事丈は記憶して居る。"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 5
+        },
+        "content": [
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)"
+                }
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "吾輩はこゝで始めて人間といふものを見た。"
+          }
+        ]
+      },
+      {
+        "type": "imageGallery",
+        "content": [
+          {
+            "type": "image",
+            "attrs": {
+              "src": "/db/images/facilities/fac_0001/hero01.jpg",
+              "alt": "猫.jpg",
+              "title": null,
+              "width": null,
+              "height": null
+            }
+          },
+          {
+            "type": "image",
+            "attrs": {
+              "src": "/db/images/facilities/fac_0002/hero01.jpg",
+              "alt": "image.jpg",
+              "title": null,
+              "width": null,
+              "height": null
+            }
+          },
+          {
+            "type": "image",
+            "attrs": {
+              "src": "/db/images/facilities/fac_0002/hero02.jpg",
+              "alt": "65981-1.jpg",
+              "title": null,
+              "width": null,
+              "height": null
+            }
+          },
+          {
+            "type": "image",
+            "attrs": {
+              "src": "/db/tips/tips0001/hero.jpg",
+              "alt": "converted_v1-9f574637-2ade-41e0-9e75-1f970c45f958.jpg",
+              "title": null,
+              "width": null,
+              "height": null
+            }
+          }
+        ]
+      },
+      {
+        "type": "paragraph"
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)"
+                }
+              }
+            ],
+            "text": "然もあとで聞くとそれは書生といふ人間中で"
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)"
+                }
+              },
+              {
+                "type": "strike"
+              }
+            ],
+            "text": "一番獰悪な種族であつたさうだ"
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)"
+                }
+              }
+            ],
+            "text": "。"
+          }
+        ]
+      },
+      {
+        "type": "paragraph"
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 6
+        },
+        "content": [
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "textStyle",
+                "attrs": {
+                  "color": "#e31cb8"
+                }
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "徒然草"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "start": 1,
+          "type": null
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "textStyle",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "つれづれなるままに、"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "textStyle",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "ひくらし、"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "textStyle",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "すずりにむかいて、"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "textStyle",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "こころにうつりゆくよしなしごとを、"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "textStyle",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "そこはかとなくかきつくれば、"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "textStyle",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "あやしうこそものぐるほしけれ"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph"
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "textStyle",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "いでや、このよにうまれては、ねがわしかるべきことこそおおかんめれ。"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "textStyle",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "みかどの おほんくらいは、いともかしこし。"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "attrs": {
+          "src": "/db/images/facilities/fac_0002/hero01.jpg",
+          "alt": "犬.jpg",
+          "title": null,
+          "width": null,
+          "height": null
+        }
+      },
+      {
+        "type": "paragraph"
+      }
+    ]
+  }
+}

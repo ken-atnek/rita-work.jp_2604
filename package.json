@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build && rm -f out/404.html && rm -rf out/404 && rm -rf out/db",
+    "dev": "cross-env NODE_OPTIONS=\"--no-warnings --no-deprecation\" next dev",
+    "build:demo": "cross-env NEXT_PUBLIC_IS_REAL_PROD=false NEXT_PUBLIC_METADATA_BASE=https://rita5258.xbiz.jp/ next build && rimraf out/404.html out/404 out/db",
+    "build:prod": "cross-env NEXT_PUBLIC_IS_REAL_PROD=true NEXT_PUBLIC_METADATA_BASE=https://rita-work.jp/ next build && rimraf out/404.html out/404 out/db",
     "start": "next start",
     "lint": "next lint",
     "lint:style": "stylelint \"src/**/*.scss\" --fix"
@@ -22,9 +23,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
     "prettier": "^3.6.2",
+    "rimraf": "^6.1.2",
     "sass": "^1.91.0",
     "stylelint": "^16.23.1",
     "stylelint-config-standard-scss": "^15.0.1",
