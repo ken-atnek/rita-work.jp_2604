@@ -4,7 +4,6 @@
 @use "variable" as *;
 @use "svg" as *;
 @use "mixin" as *;
-
 .containerHead {
     position: relative;
     font-size: inherit;
@@ -60,7 +59,7 @@
                 grid-row: span 3;
                 display: grid;
                 grid-template-rows: subgrid;
-                gap: 0 0;
+                gap: 0;
                 .itemImage {
                     position: relative;
                     img {

@@ -5,7 +5,8 @@
  * Last updated: 2026-01-24
  * ======================================= */
 import Image from 'next/image';
-import styles from '../../styles/PageTips.module.scss';
+import styles from '@/styles/PageTips.module.scss';
+import type { ReactNode } from 'react';
 import type {
   ProseMirrorDoc,
   ProseMirrorNode,
@@ -127,7 +128,7 @@ function InlineText({ node }: { node: ProseMirrorNode }) {
   const text = node.text ?? '';
   const marks = node.marks ?? [];
 
-  let el: React.ReactNode = text;
+  let el: ReactNode = text;
 
   // color（textStyle）
   const color = getTextColor(marks);

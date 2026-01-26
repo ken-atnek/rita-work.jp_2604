@@ -8,7 +8,6 @@
 /* stylelint-disable keyframes-name-pattern */
 /* stylelint-disable custom-property-pattern */
 // このファイル全体のルールを無効にする
-
 .btnLink {
     position: relative;
     background-color: $main-orange;
@@ -34,6 +33,7 @@
         font-weight: 700;
     }
 }
+
 /* =================================
  * HEAD
  * ------------------------------ */
@@ -72,6 +72,7 @@
         }
     }
 }
+
 /* =================================
  * 記事詳細
  * ------------------------------ */
