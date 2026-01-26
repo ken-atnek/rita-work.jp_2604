@@ -1,0 +1,143 @@
+/* =================================
+ * 	リタワーク 利用規約・プライバシーポリシー・運営会社
+ * ------------------------------ */
+@use "variable" as *;
+@use "svg" as *;
+@use "mixin" as *;
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable keyframes-name-pattern */
+/* stylelint-disable custom-property-pattern */
+// このファイル全体のルールを無効にする
+
+/* =================================
+ * HEAD
+ * ------------------------------ */
+.containerHead {
+    position: relative;
+    font-size: inherit;
+    @include flex-center;
+    padding-inline: 4vw;
+    padding-top: 5em;
+    background-color: $base-white;
+    padding-bottom: 4rem;
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        font-size: inherit;
+        background-color: $main-orange;
+        z-index: -1;
+        border-bottom-left-radius: $radius80;
+        border-bottom-right-radius: $radius80;
+    }
+    h2 {
+        position: relative;
+        margin-top: 17px;
+        font-size: FZ(28);
+        color: #fff;
+        font-weight: 500;
+    }
+}
+
+/* =================================
+ * 記事詳細
+ * ------------------------------ */
+.containerDetails {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 4vw;
+    padding-bottom: 10rem;
+    align-items: center;
+    article {
+        display: flex;
+        flex-direction: column;
+        max-width: 96rem;
+        padding-top: 5.6rem;
+        h3 {
+            font-size: FZ(22);
+            font-weight: 700;
+            align-self: flex-start;
+        }
+        .headAnnounce {
+            margin-top: 2.4rem;
+            font-size: FZ(16);
+            text-align: justify;
+            line-height: 1.8em;
+        }
+        .blockList {
+            position: relative;
+            font-size: inherit;
+            display: flex;
+            flex-direction: column;
+            margin-top: 3rem;
+            gap: 3rem 0;
+            .blockItem {
+                font-size: inherit;
+                display: flex;
+                flex-direction: column;
+                h4 {
+                    font-size: FZ(16);
+                    text-align: justify;
+                    line-height: 1.8em;
+                }
+                p {
+                    font-size: FZ(16);
+                    text-align: justify;
+                    line-height: 1.8em;
+                }
+                ul {
+                    position: relative;
+                    font-size: inherit;
+                    display: flex;
+                    flex-direction: column;
+                    counter-reset: number 0;
+                    li {
+                        position: relative;
+                        font-size: FZ(16);
+                        text-align: justify;
+                        line-height: 1.8em;
+                        padding-left: 1.2em;
+                        &::before {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            content: counter(number) ".";
+                            counter-increment: number 1;
+                        }
+                    }
+                }
+            }
+        }
+        .boxCompany {
+            position: relative;
+            font-size: inherit;
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            span {
+                font-size: FZ(16);
+                text-align: justify;
+                line-height: 1.8em;
+            }
+        }
+
+        // 運営会社
+        .blockCompany {
+            position: relative;
+            font-size: inherit;
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            h4,
+            h5,
+            address,
+            span {
+                font-size: FZ(14);
+                line-height: 2em;
+            }
+            a {
+                font-size: inherit;
+            }
+        }
+    }
+}

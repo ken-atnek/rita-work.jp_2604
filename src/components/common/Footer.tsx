@@ -63,10 +63,10 @@ const Footer = () => {
           <Link href="/jobs/">求人検索</Link>
           <Link href="/library/">お気に入り・閲覧履歴</Link>
           <Link href="#">人気の求人一覧</Link>
-          <Link href="#">転職のヒント一覧</Link>
-          <Link href="#">プライバシーポリシー</Link>
-          <Link href="#">利用規約</Link>
-          <Link href="#">運営会社</Link>
+          <Link href="/tips/">転職のヒント一覧</Link>
+          <Link href="/privacy/">プライバシーポリシー</Link>
+          <Link href="/terms/">利用規約</Link>
+          <Link href="/company/">運営会社</Link>
         </nav>
         <Link
           href="mailto:r.igara@ritagroup.net"
