@@ -7,7 +7,7 @@
 .containerHead {
     position: relative;
     font-size: inherit;
-    @include flex-center;
+    @include flex-center(column);
     padding-inline: 4vw;
     padding-top: 5em;
     background-color: $base-white;
@@ -27,6 +27,73 @@
         font-size: FZ(28);
         color: #fff;
         font-weight: 500;
+    }
+    .boxSearch {
+        width: 100%;
+        max-width: $articleMaxWidth;
+        margin-top: 3.2rem;
+        font-size: inherit;
+    }
+    .innerSearch {
+        position: relative;
+        font-size: inherit;
+        width: 100%;
+        max-width: $articleMaxWidth;
+        display: flex;
+        justify-content: space-between;
+        background-color: $main-orange;
+        align-items: center;
+        gap: 0 1.4em;
+        padding: 0.8em var(--padding-inline);
+        @include bottom-radius($radius24);
+        .itemInput {
+            position: relative;
+            flex: 1;
+            background-color: #fff;
+            border-radius: $radius14;
+            height: 2.75em;
+            display: flex;
+            align-items: center;
+            font-size: inherit;
+            @include box-shadow;
+            padding-left: 3em;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                translate: 0 -50%;
+                left: 1.6em;
+                width: 1em;
+                @include svg-icon-building($color-orange);
+                z-index: 1;
+            }
+            input {
+                font-size: FZ(14);
+                padding: 0.5em 1em;
+                width: 100%;
+                &::placeholder {
+                    color: rgba(#726b6299, 0.6);
+                }
+            }
+        }
+        button {
+            position: relative;
+            font-size: inherit;
+            width: 3.8rem;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background-color: #fff;
+            @include box-shadow;
+            margin-right: 0.6em;
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                margin: auto;
+                width: 45%;
+                @include svg-icon-loupe($color-orange);
+            }
+        }
     }
 }
 .containerTipsDetails {
