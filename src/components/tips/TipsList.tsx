@@ -13,13 +13,15 @@ import type { TipIndexItem } from '@/types/tips';
 
 type Props = {
   items: TipIndexItem[];
+  searchSlot?: React.ReactNode;
 };
 
-export function TipsList({ items }: Props) {
+export function TipsList({ items, searchSlot }: Props) {
   return (
     <>
       <section className={styles.containerHead}>
         <h2>転職のヒント</h2>
+        <div className={styles.boxSearch}>{searchSlot ?? null}</div>
       </section>
       <section className={styles.containerTipsDetails}>
         <p className={styles.headAnnounce}>
