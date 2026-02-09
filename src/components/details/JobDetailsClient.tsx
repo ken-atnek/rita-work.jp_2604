@@ -502,6 +502,8 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
     if (!isPreview) return;
 
     const applyNoindex = () => {
+      const targetContent = 'noindex,nofollow,noarchive';
+
       // 既存の meta[name="robots"] を上書き（無ければ作る）
       let meta = document.querySelector(
         'meta[name="robots"]'
@@ -513,8 +515,14 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
         document.head.appendChild(meta);
       }
 
-      meta.setAttribute('content', 'noindex,nofollow,noarchive');
-      meta.setAttribute('data-rita-preview', '1');
+      // setAttribute は値が同じでも MutationObserver を発火させることがあるため
+      // 変更が必要な場合のみ更新する（無限ループ/高負荷対策）
+      if (meta.getAttribute('content') !== targetContent) {
+        meta.setAttribute('content', targetContent);
+      }
+      if (meta.getAttribute('data-rita-preview') !== '1') {
+        meta.setAttribute('data-rita-preview', '1');
+      }
     };
 
     // まず1回適用
