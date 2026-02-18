@@ -440,6 +440,8 @@
             :global(.splide__slide) {
                 font-size: inherit;
                 padding-bottom: 1rem;
+                display: flex;
+                align-items: stretch;
             }
 
             // 矢印まわり（機能クラス splide__arrows は TSX 側で付与）
