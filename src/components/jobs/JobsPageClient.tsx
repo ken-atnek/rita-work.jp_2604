@@ -26,6 +26,7 @@ import { toIdLabelMap } from '@/utils/toIdLabelMap';
 
 import type { JobIndexItem } from '@/types/jobIndex';
 import type { AreasMaster } from '@/types/area';
+import type { SalaryUnitMaster, ContractPlanMaster, JobCommonConfig } from '@/types/master';
 
 import {
   buildJobsSearchQuery,
@@ -46,25 +47,6 @@ const shuffle = <T,>(arr: T[]): T[] => {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
-};
-
-/* ---------------------------------------
- * マスター型（このページ固有）
- * -------------------------------------- */
-type SalaryUnitMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
-
-type ContractPlanMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
-
-type JobCommonConfig = {
-  newIconPeriodDays?: number;
 };
 
 const toMapFromOptions = (options: IdLabelOption[]) =>

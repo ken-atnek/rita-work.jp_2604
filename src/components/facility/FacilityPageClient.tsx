@@ -16,16 +16,17 @@ import type { Facility } from '@/types/facility';
 import type { Corporation } from '@/types/corporation';
 import type { JobCategory } from '@/types/jobCategory';
 import type { JobIndexItem } from '@/types/jobIndex';
+import type {
+  EmploymentTypeMaster as EmploymentType,
+  FacilityTypeMaster as FacilityType,
+  SalaryUnitMaster as SalaryUnit,
+} from '@/types/master';
 import { withBasePath } from '@/utils/withBasePath';
 import { fetchJson } from '@/utils/fetchJson';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
 type Props = {
   facilityId: string;
 };
-
-type EmploymentType = { id: string; name: string };
-type FacilityType = { id: string; label: string };
-type SalaryUnit = { id: string; label?: string; name?: string };
 
 export function FacilityPageClient({ facilityId }: Props) {
   /* ===============================

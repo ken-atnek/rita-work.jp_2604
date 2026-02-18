@@ -21,6 +21,7 @@ import { withBasePath } from '@/utils/withBasePath';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
 import { isNewByPublishedStart } from '@/utils/isNewByPublishedStart';
 import type { JobIndexItem } from '@/types/jobIndex';
+import type { SalaryUnitMaster, JobCommonConfig } from '@/types/master';
 
 import {
   loadJobsFilterMasters,
@@ -60,16 +61,6 @@ const shuffle = <T,>(arr: T[]): T[] => {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
-};
-
-type SalaryUnitMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
-
-type JobCommonConfig = {
-  newIconPeriodDays?: number;
 };
 
 const toMapFromOptions = (options: IdLabelOption[]) =>

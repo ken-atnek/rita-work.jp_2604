@@ -627,12 +627,13 @@
                 @include box-shadow;
                 .label {
                     width: 100%;
-                    @include flex-center;
+                    @include flex-center(column);
                     background-color: #4c6be8;
                     font-size: 1.6rem;
                     color: $base-white;
-                    height: 2.4em;
                     border-radius: $radius8;
+                    padding-block: 0.3em;
+                    min-height: 2.4em;
                 }
             }
         }

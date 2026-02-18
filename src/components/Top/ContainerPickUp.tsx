@@ -5,12 +5,14 @@
  * Last updated: 2026-02-18
  * ======================================= */
 
-import { promises as fs } from 'fs';
-import path from 'path';
+'use client';
 
-import styles from '@/styles/PageTop.module.scss';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import styles from '@/styles/PageTop.module.scss';
+import { fetchJson } from '@/utils/fetchJson';
 import { withBasePath } from '@/utils/withBasePath';
 
 const typeMap: Record<number, string> = {
@@ -29,15 +31,16 @@ export type PickUpItem = {
   iconNew?: boolean;
 };
 
-const ContainerTopPickUp = async () => {
-  let pickUpList: PickUpItem[] = [];
-  try {
-    const filePath = path.join(process.cwd(), 'public', 'db', 'pickUp.json');
-    const raw = await fs.readFile(filePath, 'utf-8');
-    pickUpList = JSON.parse(raw);
-  } catch {
-    pickUpList = [];
-  }
+const ContainerTopPickUp = () => {
+  const [pickUpList, setPickUpList] = useState<PickUpItem[]>([]);
+
+  useEffect(() => {
+    fetchJson<PickUpItem[]>(withBasePath('/db/pickUp.json'), []).then(
+      setPickUpList
+    );
+  }, []);
+
+  if (pickUpList.length === 0) return null;
 
   return (
     <section className={styles.containerPickUp}>
@@ -52,7 +55,11 @@ const ContainerTopPickUp = async () => {
           {pickUpList.map((item) => (
             <li key={item.id} className={styles.boxShop}>
               {item.iconNew && <span className={styles.iconNew}>NEW</span>}
-              <Link href={withBasePath(`/facility/?id=fac_${item.id.padStart(4, '0')}`)}>
+              <Link
+                href={withBasePath(
+                  `/facility/?id=fac_${item.id.padStart(4, '0')}`
+                )}
+              >
                 <Image
                   src={item.image}
                   alt={item.shopName}
