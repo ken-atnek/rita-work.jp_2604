@@ -1,9 +1,9 @@
 /* =================================
  * 	リタワーク FOOTER
  * ------------------------------ */
-@use "../../variable" as *;
-@use "../../svg" as *;
-@use "../../mixin" as *;
+@use "../../styles/variable" as *;
+@use "../../styles/svg" as *;
+@use "../../styles/mixin" as *;
 /* stylelint-disable no-descending-specificity */
 /* stylelint-disable keyframes-name-pattern */
 /* stylelint-disable custom-property-pattern */
@@ -12,6 +12,9 @@
     @include flex-center(column);
     padding: 6em 4vw 1em;
     gap: 3em 0;
+    @include sp {
+        padding: 20vw 4vw 6vw;
+    }
     &::before,
     &::after {
         content: "";
@@ -36,6 +39,11 @@
         cursor: pointer;
         @include box-shadow;
         border-radius: 50%;
+        @include sp {
+            bottom: 6vw;
+            top: unset;
+            right: 4vw;
+        }
         svg {
             aspect-ratio: 1;
             fill: #fff;
@@ -67,6 +75,12 @@
         @include flex-center;
         @include box-shadow;
         transition: 0.3s ease-out;
+        @include sp {
+            max-width: unset;
+            width: 92vw;
+            translate: -50% -4vw;
+            height: 16vw;
+        }
         &::after {
             content: "";
             position: absolute;
@@ -107,6 +121,11 @@
         color: #fff;
         align-items: flex-start;
         gap: 0 3em;
+        @include sp {
+            justify-content: unset;
+            flex-direction: column;
+            gap: 6vw 0;
+        }
         .boxShopInfo {
             font-size: inherit;
             display: flex;
@@ -216,6 +235,9 @@
             grid-auto-flow: column;
             gap: 0.5em 2em;
             margin-left: auto;
+            @include sp {
+                width: 100%;
+            }
             a {
                 font-size: FZ(14);
                 transition: 0.3s ease-out;

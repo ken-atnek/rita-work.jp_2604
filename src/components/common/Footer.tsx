@@ -4,7 +4,7 @@
  * Created: 2025-07-28
  * Last updated: 2026-01-09
  * ======================================= */
-import styles from '@/styles/components/common/Footer.module.scss';
+import styles from './Footer.module.scss';
 import Link from 'next/link';
 import ExternalLink from '@/components/common/ExternalLink';
 import Image from 'next/image';

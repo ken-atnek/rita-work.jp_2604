@@ -68,12 +68,19 @@
     aspect-ratio: 1900/1113;
     max-height: 798px;
     background-color: $bg-white;
+    @include sp {
+        max-height: unset;
+        aspect-ratio: 388/623;
+    }
     .boxImage {
         position: absolute;
         left: 0;
         top: 0;
         font-size: inherit;
         width: 100%;
+        @include sp {
+            height: 100%;
+        }
         &::before {
             content: "";
             position: absolute;
@@ -103,6 +110,9 @@
             @include bottom-radius($radius80);
             max-height: 798px;
             object-fit: cover;
+            @include sp {
+                max-height: unset;
+            }
         }
     }
     .boxLogo {
@@ -114,11 +124,19 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        @include sp {
+            width: 80vw;
+            left: 50%;
+            top: 54vw;
+        }
         svg {
             font-size: inherit;
             width: 18.56em;
             fill: #fff;
             aspect-ratio: 297/72;
+            @include sp {
+                display: none;
+            }
         }
         p {
             font-size: FZ(14);
@@ -138,6 +156,9 @@
     padding-inline: 4vw;
     background-color: $bg-white;
     z-index: 3;
+    @include sp {
+        padding-block: 8vw;
+    }
     .searchInner {
         display: flex;
         width: 100%;
@@ -147,6 +168,10 @@
         --padding-inline: 2em;
         margin-bottom: -7.5em;
         translate: 0 -7.5em;
+        @include sp {
+            translate: unset;
+            margin-bottom: unset;
+        }
         &::before {
             content: "";
             position: absolute;
@@ -156,6 +181,12 @@
             background: url("/images/mascot01.webp") no-repeat center center /
                 contain;
             aspect-ratio: 589/1000;
+            @include sp {
+                width: 18vw;
+                right: 4vw;
+                bottom: calc(100% + 42vw);
+                clip-path: inset(0 0 40% 0);
+            }
         }
         .boxTop {
             background-color: $bg-white;
@@ -167,6 +198,13 @@
             gap: 0 3.2rem;
             padding: 0.8em var(--padding-inline);
             @include top-radius($radius24);
+            @include sp {
+                flex-direction: column;
+                justify-content: unset;
+                gap: 2vw 0;
+                padding: 0;
+                border-radius: unset;
+            }
             .wrapTitle {
                 position: relative;
                 font-size: inherit;
@@ -175,6 +213,11 @@
                 align-items: flex-end;
                 padding-top: 1em;
                 gap: 0.5em 0;
+                @include sp {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding-top: unset;
+                }
                 h2 {
                     font-size: FZ(20);
                     color: $font-black;
@@ -226,6 +269,14 @@
             gap: 0 1.4em;
             padding: 0.8em var(--padding-inline);
             @include bottom-radius($radius24);
+            @include sp {
+                margin-top: 4vw;
+                gap: 0 2vw;
+                background-color: #fff;
+                padding: 2vw 0;
+                border-radius: $radius14;
+                @include box-shadow;
+            }
             .itemInput {
                 position: relative;
                 flex: 1;
@@ -237,6 +288,9 @@
                 font-size: inherit;
                 @include box-shadow;
                 padding-left: 3em;
+                @include sp {
+                    box-shadow: unset;
+                }
                 &::before {
                     content: "";
                     position: absolute;
@@ -265,6 +319,9 @@
                 background-color: #fff;
                 @include box-shadow;
                 margin-right: 0.6em;
+                @include sp {
+                    background-color: $main-orange;
+                }
                 &::before {
                     content: "";
                     position: absolute;
@@ -272,6 +329,9 @@
                     margin: auto;
                     width: 45%;
                     @include svg-icon-loupe($color-orange);
+                    @include sp {
+                        @include svg-icon-loupe("fff");
+                    }
                 }
             }
         }
@@ -732,6 +792,9 @@
     padding: 10em 4vw 0;
     z-index: 0;
     @include flex-center;
+    @include sp {
+        padding-bottom: 14vw;
+    }
     &::before,
     &::after {
         content: "";
@@ -758,11 +821,28 @@
         justify-content: space-between;
         gap: 0 4em;
         align-items: flex-start;
+        @include sp {
+            justify-content: unset;
+            flex-direction: column;
+        }
         .itemImage {
             flex: 1;
             font-size: inherit;
             overflow: hidden;
             height: 37em;
+            @include sp {
+                display: none;
+            }
+        }
+        .titleSp {
+            display: none;
+            @include sp {
+                display: inline;
+                font-size: FZ(26);
+                color: #fff;
+                align-self: center;
+                text-transform: capitalize;
+            }
         }
         .wrapMessage {
             position: relative;
@@ -777,8 +857,13 @@
             padding: 3em;
             border-radius: 0 3.75em 3.75em;
             margin-top: 2em;
-            @include box-shadow;
             gap: 1em;
+            @include box-shadow;
+            @include sp {
+                width: 100%;
+                border-radius: $radius40;
+                padding: 8vw 6vw;
+            }
             &::before {
                 content: "";
                 position: absolute;
@@ -786,12 +871,51 @@
                 right: 100%;
                 width: 1.625em;
                 @include svg-object-radius("fff");
+                @include sp {
+                    display: none;
+                }
+            }
+            .headSp {
+                display: none;
+                @include sp {
+                    display: inline-block;
+                    align-self: center;
+                    font-size: FZ(20);
+                    font-weight: 500;
+                }
             }
             h2 {
                 font-size: FZ(24);
                 color: $main-orange;
                 font-weight: 500;
                 text-transform: capitalize;
+                &.statusPc {
+                    @include sp {
+                        display: none;
+                    }
+                }
+                &.statusSp {
+                    display: none;
+                    @include sp {
+                        display: inline-block;
+                        align-self: center;
+                        i {
+                            display: inline-block;
+                            position: relative;
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                left: 50%;
+                                translate: -50%;
+                                bottom: calc(100% + 0.2em);
+                                width: 5px;
+                                aspect-ratio: 1;
+                                border-radius: 50%;
+                                background-color: $main-orange;
+                            }
+                        }
+                    }
+                }
             }
             p {
                 font-size: FZ(16);
@@ -799,6 +923,9 @@
                 font-feature-settings: "palt";
                 line-height: 1.8em;
                 letter-spacing: 0.04em;
+                @include sp {
+                    line-height: 2em;
+                }
             }
         }
         .itemMascot {
@@ -809,6 +936,9 @@
             aspect-ratio: 509/996;
             background: url("/images/mascot03.webp") no-repeat center
                 center/contain;
+            @include sp {
+                display: none;
+            }
         }
     }
 }
