@@ -114,7 +114,11 @@ const Header = () => {
                 ホーム<i></i>
               </Link>
 
-              <Link href="/jobs/" onClick={closeMenu}>
+              <Link
+                href="/jobs/"
+                className={styles.itemJobs}
+                onClick={closeMenu}
+              >
                 求人検索<i></i>
               </Link>
 
@@ -125,7 +129,11 @@ const Header = () => {
                 placeholder="事業所名で探す"
               />
 
-              <Link href="/library/" onClick={closeMenu}>
+              <Link
+                href="/library/"
+                className={styles.itemLibrary}
+                onClick={closeMenu}
+              >
                 お気に入り・閲覧検索<i></i>
               </Link>
             </nav>
@@ -154,10 +162,8 @@ const Header = () => {
             <use href="#svg_logoMark" />
           </svg>
         </div>
-        <span></span>
-        <span></span>
-        <i>閉じる</i>
-        <span></span>
+        <span className={styles.itemOpen}>menu</span>
+        <span className={styles.itemClose}>close</span>
       </button>
     </>
   );

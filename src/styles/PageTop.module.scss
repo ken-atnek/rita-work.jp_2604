@@ -89,6 +89,10 @@
             background: url("/images/bg.webp") repeat center center/contain;
             mix-blend-mode: color-dodge;
             z-index: 1;
+            @include sp {
+                border-bottom-left-radius: 8vw;
+                border-bottom-right-radius: 8vw;
+            }
         }
         &::after {
             content: "";
@@ -97,10 +101,12 @@
             border-left: 1px solid rgba(#fff, 0.7);
             border-right: 1px solid rgba(#fff, 0.7);
             inset: 0 1rem 1rem;
-
-            // border-bottom-left-radius: calc($radius80 - 1rem);
-            // border-bottom-right-radius: calc($radius80 - 1rem);
             @include bottom-radius($radius80);
+            @include sp {
+                inset: 0 2vw 2vw;
+                border-bottom-left-radius: 10vw;
+                border-bottom-right-radius: 10vw;
+            }
         }
         img {
             font-size: inherit;
@@ -346,6 +352,9 @@
     background-color: $bg-white;
     padding: 3em 4vw 0;
     z-index: 2;
+    @include sp {
+        padding: 8vw 4vw 0;
+    }
     &::after {
         content: "";
         position: absolute;
@@ -356,6 +365,9 @@
         @include bottom-radius($radius80);
         background-color: $bg-white;
         font-size: inherit;
+        @include sp {
+            height: 10vw;
+        }
     }
     article {
         display: flex;
@@ -368,6 +380,11 @@
                 @include svg-object-fire($color-orange);
             }
         }
+        p {
+            @include sp {
+                display: none;
+            }
+        }
         .listPickUp {
             position: relative;
             font-size: inherit;
@@ -375,6 +392,11 @@
             grid-template-columns: repeat(5, 1fr);
             margin-top: 2em;
             gap: 1em;
+            @include sp {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2vw;
+                margin-top: 4vw;
+            }
             .boxShop {
                 position: relative;
                 font-size: inherit;
@@ -446,6 +468,9 @@
     @include flex-center;
     background-color: $base-white;
     padding: 9em 4vw 0;
+    @include sp {
+        padding: 20vw 4vw 0;
+    }
     article {
         display: flex;
         flex-direction: column;
@@ -460,11 +485,24 @@
                     @include svg-icon-speaker($color-orange);
                 }
             }
+            p {
+                @include sp {
+                    display: none;
+                }
+            }
         }
         .boxSlideList {
             position: relative;
             --half-size: 12%;
             font-size: inherit;
+            touch-action: pan-y; /* 縦スクロール優先、横はライブラリに */
+            overscroll-behavior-x: contain; /* 横のオーバースクロール抑制 */
+            user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            @include sp {
+                --half-size: 0;
+            }
             &::before,
             &::after {
                 content: "";
@@ -476,6 +514,9 @@
                 z-index: 1;
                 pointer-events: none;
                 opacity: 0.5;
+                @include sp {
+                    display: none;
+                }
             }
             &::before {
                 left: 0;
@@ -492,6 +533,7 @@
             }
             :global(.splide__track) {
                 font-size: inherit;
+                min-height: 1px;
             }
             :global(.splide__list) {
                 font-size: inherit;
@@ -502,6 +544,15 @@
                 padding-bottom: 1rem;
                 display: flex;
                 align-items: stretch;
+            }
+            :global(.splide__track),
+            :global(.splide__list),
+            :global(.splide__slide) {
+                backface-visibility: hidden;
+                backface-visibility: hidden;
+                transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+                will-change: transform;
             }
 
             // 矢印まわり（機能クラス splide__arrows は TSX 側で付与）
@@ -517,6 +568,9 @@
                 pointer-events: none;
                 font-size: inherit;
                 z-index: 2;
+                @include sp {
+                    display: none;
+                }
 
                 // ★ ここで Splide デフォルトを打ち消す
                 :global(.splide__arrow--prev),
@@ -584,6 +638,9 @@
     @include flex-center;
     background-color: $base-white;
     padding: 5em 4vw 0;
+    @include sp {
+        padding: 8vw 4vw 0;
+    }
     article {
         display: flex;
         flex-direction: column;
@@ -597,9 +654,17 @@
                 @include svg-object-star($color-orange);
             }
         }
+        p {
+            @include sp {
+                display: none;
+            }
+        }
         .boxSlideList {
             position: relative;
             --half-size: 9.5%;
+            @include sp {
+                --half-size: 0;
+            }
             &::before,
             &::after {
                 content: "";
@@ -611,6 +676,9 @@
                 z-index: 1;
                 pointer-events: none;
                 opacity: 0.5;
+                @include sp {
+                    display: none;
+                }
             }
             &::before {
                 left: 0;
@@ -639,6 +707,9 @@
                 pointer-events: none;
                 font-size: inherit;
                 z-index: 2;
+                @include sp {
+                    display: none;
+                }
 
                 // ★ ここで Splide デフォルトを打ち消す
                 :global(.splide__arrow--prev),
@@ -723,6 +794,9 @@
         flex-direction: column;
         max-width: $articleMaxWidth;
         gap: 2em 0;
+        @include sp {
+            gap: 4vw 0;
+        }
         h2 {
             padding-left: 2.2em;
             &::before {
@@ -731,7 +805,12 @@
                 @include svg-object-book($color-orange);
             }
         }
-        ul {
+        .sidebarH2 {
+            @include sp {
+                display: none;
+            }
+        }
+        .listPc {
             position: relative;
             display: grid;
             font-size: inherit;
@@ -739,6 +818,9 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 2.8rem 2.4rem;
             margin-bottom: 2rem;
+            @include sp {
+                display: none;
+            }
             li {
                 font-size: inherit;
                 grid-row: span 3;
@@ -778,6 +860,97 @@
                         -webkit-line-clamp: 2;
                         line-clamp: 2; /* 行数を制限 */
                         overflow: hidden;
+                    }
+                }
+            }
+        }
+        .listSp {
+            display: none;
+            @include sp {
+                display: block;
+                :global(.splide__slide) {
+                    display: flex;
+                    flex-direction: column;
+                    .itemImage {
+                        @include box-shadow;
+                        border-radius: 14px;
+                        img {
+                            border-radius: 14px;
+                            aspect-ratio: 370/280;
+                            object-fit: cover;
+                        }
+                    }
+                    h3 {
+                        padding-inline: 1.3rem;
+                        font-size: 5vw;
+                        margin-top: 1.6rem;
+                        line-height: 1.4em;
+                        letter-spacing: 0.1em;
+                        font-weight: 500;
+                    }
+                    .summary {
+                        padding-inline: 1.3rem;
+                        margin-top: 0.8rem;
+                        font-size: 3.4vw;
+                        letter-spacing: 0.1em;
+                        text-align: justify;
+                        line-height: 1.4em;
+                        display: -webkit-box; /* 必須 */
+                        -webkit-box-orient: vertical; /* 必須 */
+                        -webkit-line-clamp: 2;
+                        line-clamp: 2; /* 行数を制限 */
+                        overflow: hidden;
+                    }
+                }
+
+                // ▼ 追加：下のナビ（棒）
+                :global(.splide__pagination) {
+                    position: static; // 下に自然配置
+                    margin-top: 8vw;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    gap: 2vw;
+                }
+                :global(.splide__pagination__page) {
+                    width: 8vw; // 棒の長さ（好みで）
+                    height: 1vw; // 棒の太さ（好みで）
+                    border-radius: 100vmax;
+                    background-color: #9b9b9b; // 非アクティブ
+                    opacity: 1; // Splide標準の薄さを無効化
+                    margin: 0; // Splide標準を打ち消し
+                    transform: none; // Splide標準を打ち消し
+                }
+                :global(.splide__pagination__page.is-active) {
+                    background-color: #f39a00; // アクティブ（オレンジ）
+                }
+            }
+        }
+        .btnLink {
+            @include sp {
+                position: absolute;
+                right: 4vw;
+                top: 0;
+                background-color: transparent;
+                color: $sub-black;
+                width: unset;
+                height: unset;
+                box-shadow: unset;
+                &::before {
+                    display: none;
+                }
+                span {
+                    position: relative;
+                    font-weight: 400;
+                    padding-right: 1em;
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        right: 0;
+                        top: 50%;
+                        translate: 0 -50%;
+                        width: 1.4vw;
+                        @include svg-arrow-right("5f4e37");
                     }
                 }
             }

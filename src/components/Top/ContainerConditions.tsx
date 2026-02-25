@@ -20,9 +20,9 @@ export default function ContainerTopConditions() {
         </div>
 
         <ContainerConditionsSlide />
-        <a href="#" className={styles.btnLink}>
+        {/* <a href="#" className={styles.btnLink}>
           <span>一覧を見る</span>
-        </a>
+        </a> */}
       </article>
     </section>
   );

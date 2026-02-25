@@ -40,16 +40,22 @@ const splideOptions: Options = {
   perPage: 4,
   perMove: 1,
   gap: '18px',
-  autoplay: true,
+  autoplay: false,
   interval: 5000,
   pauseOnHover: true,
   speed: 400,
   arrows: true,
   pagination: false,
   drag: true,
+  // autoHeight: true,
   breakpoints: {
     1024: { perPage: 3 },
-    768: { perPage: 2 },
+    768: {
+      perPage: 1,
+      padding: { left: '0', right: '18%' },
+      trimSpace: false,
+      // focus: 'center', // 中央寄せにしたいなら
+    },
   },
 };
 
@@ -152,8 +158,9 @@ export default function ContainerSpotlightCard() {
       <article>
         <div className={styles.boxH2}>
           <h2>注目の求人</h2>
-          多くの求職者が注目する“いま人気”の求人をピックアップ。気になる職場は早めのチェックがおすすめです。
-          <p></p>
+          <p>
+            多くの求職者が注目する“いま人気”の求人をピックアップ。気になる職場は早めのチェックがおすすめです。
+          </p>
         </div>
 
         <div className={styles.boxSlideList}>
@@ -172,6 +179,7 @@ export default function ContainerSpotlightCard() {
                     jobCategoryMap={jobCategoryMap}
                     isFavorite={favoriteIdsArray.includes(job.jobId)}
                     onToggleFavorite={toggleFavorite}
+                    variant="spotlight"
                     isNew={isNewByPublishedStart({
                       start: job.publishedPeriod.start,
                       newIconPeriodDays,

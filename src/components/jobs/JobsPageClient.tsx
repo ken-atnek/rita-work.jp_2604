@@ -26,7 +26,11 @@ import { toIdLabelMap } from '@/utils/toIdLabelMap';
 
 import type { JobIndexItem } from '@/types/jobIndex';
 import type { AreasMaster } from '@/types/area';
-import type { SalaryUnitMaster, ContractPlanMaster, JobCommonConfig } from '@/types/master';
+import type {
+  SalaryUnitMaster,
+  ContractPlanMaster,
+  JobCommonConfig,
+} from '@/types/master';
 
 import {
   buildJobsSearchQuery,
@@ -154,6 +158,8 @@ export default function JobsPageClient() {
   const [appliedSalaryHourlyIds, setAppliedSalaryHourlyIds] = useState<
     string[]
   >(initialSalaryHourlyIds);
+
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   // URL変更時に applied を同期
   useEffect(() => {
@@ -412,21 +418,34 @@ export default function JobsPageClient() {
         </h2>
 
         <div className={styles.blockFilters}>
-          <JobsFilter
-            initialJobCategoryIds={initialJobCategoryIds}
-            initialAreaIds={initialAreaIds}
-            initialEmploymentTypeIds={initialEmploymentTypeIds}
-            initialSalaryTab={initialSalaryTab}
-            initialSalaryYearlyIds={initialSalaryYearlyIds}
-            initialSalaryHourlyIds={initialSalaryHourlyIds}
-            jobCategoryOptions={jobCategoryOptions}
-            employmentTypeOptions={employmentTypeOptions}
-            areas={areasMaster}
-            salaryYearlyOptions={salaryYearlyOptions}
-            salaryHourlyOptions={salaryHourlyOptions}
-            onSearch={handleSearch}
-            onReset={handleReset}
-          />
+          <button
+            type="button"
+            className={styles.itemMobileButton}
+            onClick={() => setIsMobileOpen((prev) => !prev)}
+          >
+            <span>条件で探す</span>
+          </button>
+          <div
+            className={clsx(styles.boxMobile, isMobileOpen && styles.isOpen)}
+          >
+            <div className={styles.innerBoxMobile}>
+              <JobsFilter
+                initialJobCategoryIds={initialJobCategoryIds}
+                initialAreaIds={initialAreaIds}
+                initialEmploymentTypeIds={initialEmploymentTypeIds}
+                initialSalaryTab={initialSalaryTab}
+                initialSalaryYearlyIds={initialSalaryYearlyIds}
+                initialSalaryHourlyIds={initialSalaryHourlyIds}
+                jobCategoryOptions={jobCategoryOptions}
+                employmentTypeOptions={employmentTypeOptions}
+                areas={areasMaster}
+                salaryYearlyOptions={salaryYearlyOptions}
+                salaryHourlyOptions={salaryHourlyOptions}
+                onSearch={handleSearch}
+                onReset={handleReset}
+              />
+            </div>
+          </div>
         </div>
       </section>
 

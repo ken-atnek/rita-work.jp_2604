@@ -99,14 +99,14 @@
             display: contents;
             @include sp {
                 position: fixed;
-                bottom: 0;
+                top: 0;
                 left: 0;
                 display: flex;
                 width: 100vw;
                 background-color: $sub-black;
-                padding: 10vw 4vw 34vw;
-                @include top-radius($radius24);
-                translate: 0 160vw;
+                padding: 26vw 4vw 10vw;
+                @include bottom-radius(6vw);
+                translate: 0 -160vw;
                 transition: 0.3s ease-out;
             }
             nav {
@@ -123,7 +123,6 @@
                     width: 100%;
                     height: unset;
                     gap: 0;
-                    border-bottom: 1px solid #fff;
                 }
                 a {
                     font-size: FZ(16);
@@ -140,16 +139,21 @@
                         width: 100%;
                         display: flex;
                         justify-content: space-between;
-                        border-top: 1px solid #fff;
                         padding-block: 4vw;
                         font-size: FZ(18);
                         align-items: center;
                         padding-left: 2vw;
                         padding-right: 2vw;
+                        &:not(.itemJobs) {
+                            border-bottom: 1px solid #735b5b;
+                        }
+                        &.itemLibrary {
+                            border-top: 1px solid #735b5b;
+                        }
                         i {
                             position: relative;
                             display: block;
-                            width: 7vw;
+                            width: 5vw;
                             aspect-ratio: 1;
                             background-color: $main-orange;
                             border-radius: 50%;
@@ -158,7 +162,7 @@
                                 position: absolute;
                                 inset: 0;
                                 margin: auto;
-                                width: 2vw;
+                                width: 1vw;
                                 @include svg-icon-arrow("fff");
                                 translate: 0.3svw 0;
                             }
@@ -180,6 +184,7 @@
                     background-color: #fff;
                     border-radius: $radius14;
                     margin-bottom: 4vw;
+                    border-bottom: 1px solid #735b5b;
                     @include sp {
                         display: flex;
                     }
@@ -215,7 +220,7 @@
                     .itemSearchBtn {
                         position: relative;
                         font-size: inherit;
-                        width: 7vw;
+                        width: 5vw;
                         aspect-ratio: 1;
                         border-radius: 50%;
                         @include box-shadow;
@@ -240,7 +245,7 @@
                 translate: 0;
             }
             &.closing {
-                translate: 0 160vw;
+                translate: 0 -160vw;
             }
         }
 
@@ -272,91 +277,65 @@
     &.isSub {
         background-color: $main-orange;
         position: fixed;
+        .itemLogo {
+            display: none;
+        }
     }
 }
 .hamburgerButton {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 25vw;
+    top: 2vw;
+    right: 2vw;
+    width: 17vw;
     aspect-ratio: 1;
     z-index: 100;
     display: none;
-    background-color: $sub-black;
-    border-top-right-radius: 100%;
-    @include sp {
-        display: block;
-    }
-    .itemLogo {
+    background-color: rgba(#fff, 0.05);
+    border-radius: 50%;
+    border: 1px solid rgba(#fff, 0.3);
+    &::after {
+        content: "";
+        width: 85%;
+        background-color: $sub-black;
+        aspect-ratio: 1;
         position: absolute;
         inset: 0;
         margin: auto;
-        width: 40%;
-        aspect-ratio: 59/56;
-        translate: -30% 30%;
-        transition: 0.3s ease-out;
-        opacity: 1;
+        border-radius: 50%;
+        z-index: -1;
+    }
+    @include sp {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5vw 0;
+        padding-top: 1vw;
+    }
+    .itemLogo {
+        position: relative;
+        width: 38%;
         svg {
             font-size: inherit;
             width: 100%;
-            fill: #fff;
+            fill: #f29400;
             aspect-ratio: 59/56;
             transition: 0.3s ease-out;
         }
     }
-    i {
-        color: #fff;
-        font-size: FZ(14);
-        font-weight: 600;
-        position: absolute;
-        top: 55%;
-        translate: 0 -50%;
-        left: calc(100% - 8vw);
-        width: max-content;
-        opacity: 0;
-        transition: 0.3s ease-out;
-    }
     span {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 20%;
-        height: 3px;
-        background-color: #d8d7c9;
-        transition: 0.3s ease-out;
-        opacity: 0;
-        &:nth-of-type(1) {
-            translate: -50% calc(-50% - 6px);
-        }
-        &:nth-of-type(2) {
-            translate: -50% -50%;
-        }
-        &:nth-of-type(3) {
-            translate: -50% calc(-50% + 6px);
+        font-size: 2.3vw;
+        color: #fff;
+        text-transform: uppercase;
+        &.itemClose {
+            display: none;
         }
     }
     &.is-open {
-        .itemLogo {
-            opacity: 0;
+        .itemClose {
+            display: inline;
         }
-        i {
-            opacity: 1;
-        }
-        span {
-            transition: 0.3s ease-out;
-            opacity: 1;
-            &:nth-of-type(1) {
-                translate: -50% -50%;
-                rotate: 45deg;
-            }
-            &:nth-of-type(2) {
-                translate: 150% -50%;
-                opacity: 0;
-            }
-            &:nth-of-type(3) {
-                translate: -50% -50%;
-                rotate: -45deg;
-            }
+        .itemOpen {
+            display: none;
         }
     }
 }

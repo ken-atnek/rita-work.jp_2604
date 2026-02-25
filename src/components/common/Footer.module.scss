@@ -21,6 +21,9 @@
         position: absolute;
         inset: 0;
         @include top-radius($radius80);
+        @include sp {
+            @include top-radius(8vw);
+        }
     }
     &::before {
         background-color: $main-orange;

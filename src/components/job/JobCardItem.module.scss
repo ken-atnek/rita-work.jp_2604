@@ -19,10 +19,30 @@
     font-size: inherit;
     border-radius: $radius14;
     @include box-shadow;
-    .itemLink {
+    .itemLinkHead {
         position: absolute;
         inset: 0;
         z-index: 1;
+    }
+    .itemLinkBottom {
+        display: none;
+    }
+
+    // TOPページ表示用
+    &.itemCardSpotlight {
+        .itemLinkHead {
+            display: none;
+        }
+        .itemLinkBottom {
+            display: flex;
+            justify-content: center;
+            border: 1px solid $main-orange;
+            margin-top: 2rem;
+            border-radius: $radius8;
+            padding-block: 1rem;
+            font-size: FZ(14);
+            color: $main-orange;
+        }
     }
     .itemFavorite {
         position: absolute;

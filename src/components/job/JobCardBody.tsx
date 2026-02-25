@@ -18,6 +18,7 @@ type Props = {
   jobCategoryMap?: Record<string, string>;
   isNew: boolean;
   isFavorite: boolean;
+  variant?: 'default' | 'spotlight';
   onToggleFavorite: (jobId: string) => void;
 };
 
@@ -29,6 +30,7 @@ export function JobCardBody({
   isFavorite,
   onToggleFavorite,
   isNew,
+  variant = 'default',
 }: Props) {
   const heroSrc = job.heroImages?.[0] ?? '';
 
@@ -39,10 +41,15 @@ export function JobCardBody({
     employmentTypeMap[job.employmentTypeId] ?? job.employmentTypeId;
 
   return (
-    <div className={styles.itemCard}>
+    <div
+      className={clsx(
+        styles.itemCard,
+        variant === 'spotlight' && styles.itemCardSpotlight
+      )}
+    >
       <Link
         href={buildJobDetailUrl(job.jobId)}
-        className={styles.itemLink}
+        className={styles.itemLinkHead}
         aria-label={`${job.title}の求人詳細へ`}
       ></Link>
 
@@ -96,6 +103,13 @@ export function JobCardBody({
             <dd className={styles.metaDesc}>{job.workLocationText}</dd>
           </dl>
         </div>
+        <Link
+          href={buildJobDetailUrl(job.jobId)}
+          className={styles.itemLinkBottom}
+          aria-label={`${job.title}の求人詳細へ`}
+        >
+          詳細を見る
+        </Link>
       </div>
     </div>
   );
