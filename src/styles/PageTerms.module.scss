@@ -20,6 +20,9 @@
     padding-top: 5em;
     background-color: $base-white;
     padding-bottom: 4rem;
+    @include sp {
+        padding: 8vw 4vw 6vw;
+    }
     &::before {
         content: "";
         position: absolute;
@@ -29,6 +32,9 @@
         z-index: -1;
         border-bottom-left-radius: $radius80;
         border-bottom-right-radius: $radius80;
+        @include sp {
+            @include bottom-radius(10vw);
+        }
     }
     h2 {
         position: relative;
@@ -36,6 +42,10 @@
         font-size: FZ(28);
         color: #fff;
         font-weight: 500;
+        @include sp {
+            font-size: FZ(20);
+            margin-top: unset;
+        }
     }
 }
 
@@ -48,21 +58,35 @@
     padding-inline: 4vw;
     padding-bottom: 10rem;
     align-items: center;
+    @include sp {
+        padding: 0 4vw 20vw;
+    }
     article {
         display: flex;
         flex-direction: column;
         max-width: 96rem;
         padding-top: 5.6rem;
+        @include sp {
+            max-width: unset;
+            padding-top: 12vw;
+        }
         h3 {
             font-size: FZ(22);
             font-weight: 700;
             align-self: flex-start;
+            @include sp {
+                font-size: FZ(18);
+            }
         }
         .headAnnounce {
             margin-top: 2.4rem;
             font-size: FZ(16);
             text-align: justify;
             line-height: 1.8em;
+            @include sp {
+                font-size: FZ(14);
+                margin-top: 4vw;
+            }
         }
         .blockList {
             position: relative;
@@ -71,6 +95,10 @@
             flex-direction: column;
             margin-top: 3rem;
             gap: 3rem 0;
+            @include sp {
+                margin-top: 4vw;
+                gap: 4vw 0;
+            }
             .blockItem {
                 font-size: inherit;
                 display: flex;
@@ -79,11 +107,17 @@
                     font-size: FZ(16);
                     text-align: justify;
                     line-height: 1.8em;
+                    @include sp {
+                        font-size: FZ(14);
+                    }
                 }
                 p {
                     font-size: FZ(16);
                     text-align: justify;
                     line-height: 1.8em;
+                    @include sp {
+                        font-size: FZ(14);
+                    }
                 }
                 ul {
                     position: relative;
@@ -97,6 +131,9 @@
                         text-align: justify;
                         line-height: 1.8em;
                         padding-left: 1.2em;
+                        @include sp {
+                            font-size: FZ(14);
+                        }
                         &::before {
                             position: absolute;
                             left: 0;
@@ -114,10 +151,16 @@
             margin-top: 3rem;
             display: flex;
             flex-direction: column;
+            @include sp {
+                margin-top: 6vw;
+            }
             span {
                 font-size: FZ(16);
                 text-align: justify;
                 line-height: 1.8em;
+                @include sp {
+                    font-size: FZ(14);
+                }
             }
         }
 

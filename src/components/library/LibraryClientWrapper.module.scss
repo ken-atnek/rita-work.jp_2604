@@ -12,6 +12,9 @@
     padding-top: 5em;
     background-color: $base-white;
     padding-bottom: 4rem;
+    @include sp {
+        padding: 8vw 4vw 6vw;
+    }
     &::before {
         content: "";
         position: absolute;
@@ -21,12 +24,19 @@
         border-bottom-left-radius: $radius80;
         border-bottom-right-radius: $radius80;
         z-index: -1;
+        @include sp {
+            @include bottom-radius(10vw);
+        }
     }
     h2 {
         margin-top: 17px;
         font-size: FZ(28);
         color: #fff;
         font-weight: 500;
+        @include sp {
+            font-size: FZ(20);
+            margin-top: unset;
+        }
     }
 }
 .containerMyPage {
@@ -51,6 +61,12 @@
         @include box-shadow;
         border-radius: $radius8;
         background-color: #fff;
+        @include sp {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0 2vw;
+        }
         button {
             position: relative;
             width: 24.5rem;
@@ -59,6 +75,9 @@
             font-size: FZ(18);
             font-weight: 500;
             border-radius: 7px;
+            @include sp {
+                width: unset;
+            }
             &.isActive {
                 background-color: $main-orange;
                 color: #fff;
@@ -74,6 +93,9 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 0 2.4rem;
         margin-top: 5rem;
+        @include sp {
+            grid-template-columns: unset;
+        }
     }
     .historyList {
         position: relative;
