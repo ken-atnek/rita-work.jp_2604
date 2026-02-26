@@ -5,43 +5,11 @@
 @use "svg" as *;
 @use "mixin" as *;
 .containerHead {
-    position: relative;
-    font-size: inherit;
-    @include flex-center(column);
-    padding-inline: 4vw;
-    padding-top: 5em;
-    background-color: $base-white;
-    padding-bottom: 4rem;
-    z-index: 2;
-    @include sp {
-        padding: 8vw 4vw 6vw;
-    }
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        font-size: inherit;
-        background-color: $main-orange;
-        border-bottom-left-radius: $radius80;
-        border-bottom-right-radius: $radius80;
-        z-index: -1;
-        @include sp {
-            @include bottom-radius(10vw);
-        }
-    }
+    @include subpage-head;
     h2 {
-        margin-top: 17px;
-        font-size: FZ(28);
-        color: #fff;
-        font-weight: 500;
-        position: relative;
         padding-left: 1.5em;
         display: flex;
         align-items: center;
-        @include sp {
-            font-size: FZ(20);
-            margin-top: unset;
-        }
         &::before {
             content: "";
             position: absolute;

@@ -19,6 +19,9 @@
     font-size: inherit;
     border-radius: $radius14;
     @include box-shadow;
+    @include sp {
+        box-shadow: unset;
+    }
     .itemLinkHead {
         position: absolute;
         inset: 0;

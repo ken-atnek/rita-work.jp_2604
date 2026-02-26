@@ -13,40 +13,7 @@
  * HEAD
  * ------------------------------ */
 .containerHead {
-    position: relative;
-    font-size: inherit;
-    @include flex-center;
-    padding-inline: 4vw;
-    padding-top: 5em;
-    background-color: $base-white;
-    padding-bottom: 4rem;
-    @include sp {
-        padding: 8vw 4vw 6vw;
-    }
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        font-size: inherit;
-        background-color: $main-orange;
-        z-index: -1;
-        border-bottom-left-radius: $radius80;
-        border-bottom-right-radius: $radius80;
-        @include sp {
-            @include bottom-radius(10vw);
-        }
-    }
-    h2 {
-        position: relative;
-        margin-top: 17px;
-        font-size: FZ(28);
-        color: #fff;
-        font-weight: 500;
-        @include sp {
-            font-size: FZ(20);
-            margin-top: unset;
-        }
-    }
+    @include subpage-head;
 }
 
 /* =================================

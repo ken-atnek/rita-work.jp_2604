@@ -18,16 +18,28 @@
         gap: 4em 0;
         font-size: inherit;
         width: 100%;
+        @include sp {
+            gap: 8vw 0;
+        }
         li {
             font-size: inherit;
             display: flex;
             flex-direction: column;
             width: 100%;
             gap: 1em 0;
+            @include sp {
+                gap: 2vw 0;
+            }
             h2 {
                 position: relative;
                 font-size: FZ(24);
                 padding-left: 1.6em;
+                @include sp {
+                    font-size: FZ(20);
+
+                    // translate: 4vw;
+                    padding-left: 10vw;
+                }
                 &::before {
                     content: "";
                     position: absolute;
@@ -36,6 +48,9 @@
                     left: 0;
                     width: 2.8rem;
                     @include svg-icon-camera("f29400");
+                    @include sp {
+                        width: 7vw;
+                    }
                 }
             }
             & > div {

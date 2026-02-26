@@ -10,12 +10,18 @@
     padding-bottom: 4em;
     padding-top: 2em;
     background-color: $bg-white;
+    @include sp {
+        padding: 6vw 4vw;
+    }
     &::after {
         content: "";
         position: absolute;
         inset: 0;
         background-color: $base-white;
         @include bottom-radius($radius80);
+        @include sp {
+            @include bottom-radius(10vw);
+        }
     }
     .environmentStatList {
         width: 100%;
@@ -25,6 +31,9 @@
         font-size: inherit;
         gap: 0 1em;
         z-index: 1;
+        @include sp {
+            gap: 0 2vw;
+        }
         li {
             position: relative;
             display: grid;
@@ -36,29 +45,52 @@
             border-radius: $radius24;
             padding: 0.8em 1.4em;
             gap: 0.8em 0;
+            @include sp {
+                padding: 14vw 0 2vw;
+                gap: 1vw 0;
+            }
             h3 {
                 font-size: FZ(16);
+                @include sp {
+                    text-align: center;
+                    font-size: FZ(14);
+                }
             }
             .boxContents {
                 position: relative;
                 font-size: inherit;
                 justify-self: end;
+                @include sp {
+                    position: static;
+                    justify-self: center;
+                }
                 &::before {
                     content: "";
                     position: absolute;
                     top: 50%;
                     translate: 0 -50%;
                     right: calc(100% + 0.8em);
+                    @include sp {
+                        top: 2vw;
+                        left: 50%;
+                        translate: -50%;
+                    }
                 }
                 .value {
                     @include Archivo-Black;
                     font-size: FZ(50);
+                    @include sp {
+                        font-size: FZ(32);
+                    }
                 }
                 .unit {
                     font-family: "Noto Sans JP", sans-serif;
                     font-size: FZ(28);
                     font-weight: 500;
                     margin-left: 0.2em;
+                    @include sp {
+                        font-size: FZ(18);
+                    }
                 }
 
                 // 月平均残業時間

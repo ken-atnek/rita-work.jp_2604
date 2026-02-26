@@ -9,6 +9,9 @@
     @include flex-center;
     background-color: $base-white;
     padding: 3em 4vw 5em;
+    @include sp {
+        padding: 6vw 4vw 10vw;
+    }
     article {
         max-width: $articleMaxWidth;
         display: flex;
@@ -28,13 +31,22 @@
                 gap: 0 5em;
                 padding-block: 1em;
                 border-top: 1px solid #d6d6d6;
+                @include sp {
+                    gap: 1vw 0;
+                }
                 dt {
                     font-size: FZ(16);
                     font-weight: 500;
+                    @include sp {
+                        grid-column: span 2;
+                    }
                 }
                 dd {
                     font-size: FZ(14);
                     line-height: 1.6em;
+                    @include sp {
+                        grid-column: span 2;
+                    }
                     p {
                         font-size: inherit;
                         & > span {
@@ -50,11 +62,18 @@
                         font-size: inherit;
                         width: 100%;
                         margin-top: 1em;
+                        @include sp {
+                            position: static;
+                        }
                         iframe {
                             width: 100%;
                             aspect-ratio: 3.8;
                             font-size: inherit;
                             border-radius: 24px;
+                            @include sp {
+                                aspect-ratio: 37/24;
+                                border-radius: 4vw;
+                            }
                         }
                         .mapUrlLink {
                             position: absolute;
@@ -65,6 +84,10 @@
                             padding: 0.8em 2em;
                             border-radius: 8px;
                             @include box-shadow;
+                            @include sp {
+                                bottom: unset;
+                                top: 4vw;
+                            }
                             span {
                                 font-size: 1.2rem;
                                 color: $main-orange;
@@ -80,12 +103,18 @@
 // 募集要項
 .containerJobRequirements {
     @include bottom-radius($radius80);
+    @include sp {
+        @include bottom-radius(10vw);
+    }
     h2 {
         @include detail-h2;
         &::before {
             top: 45%;
             width: 3.3rem;
-            @include svg-icon-memo(f29400);
+            @include svg-icon-memo("f29400");
+            @include sp {
+                width: 6.8vw;
+            }
         }
     }
     .boxDl {
@@ -157,12 +186,18 @@
 .containerFacilityInfo {
     margin-top: 1.2rem;
     @include top-radius($radius80);
+    @include sp {
+        @include top-radius(10vw);
+    }
     h2 {
         @include detail-h2;
         &::before {
             top: 45%;
             width: 2.7rem;
-            @include svg-icon-building(f29400);
+            @include svg-icon-building("f29400");
+            @include sp {
+                width: 5vw;
+            }
         }
     }
     article {

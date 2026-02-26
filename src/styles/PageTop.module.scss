@@ -498,7 +498,6 @@
             touch-action: pan-y; /* 縦スクロール優先、横はライブラリに */
             overscroll-behavior-x: contain; /* 横のオーバースクロール抑制 */
             user-select: none;
-            user-select: none;
             -webkit-tap-highlight-color: transparent;
             @include sp {
                 --half-size: 0;
@@ -549,8 +548,6 @@
             :global(.splide__list),
             :global(.splide__slide) {
                 backface-visibility: hidden;
-                backface-visibility: hidden;
-                transform: translate3d(0, 0, 0);
                 transform: translate3d(0, 0, 0);
                 will-change: transform;
             }

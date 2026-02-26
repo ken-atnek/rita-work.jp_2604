@@ -9,6 +9,10 @@
     padding-inline: 4vw;
     padding-top: 5em;
     background-color: $base-white;
+    @include sp {
+        padding: 0;
+        z-index: 2;
+    }
     &::before {
         content: "";
         position: absolute;
@@ -18,6 +22,9 @@
         font-size: inherit;
         height: 20em;
         background-color: $main-orange;
+        @include sp {
+            display: none;
+        }
     }
     article {
         max-width: $articleMaxWidth;
@@ -25,11 +32,18 @@
         flex-direction: column;
         padding-top: 1em;
         gap: 0.8em 0;
+        @include sp {
+            padding: 0;
+        }
         .boxHeadIcons {
             position: relative;
             font-size: inherit;
             display: flex;
             gap: 0 0.5em;
+            @include sp {
+                margin-top: 4vw;
+                padding-inline: 4vw;
+            }
             .iconNew {
                 font-size: FZ(16);
                 background-color: $complementary-red;
@@ -37,6 +51,9 @@
                 border-radius: 4px;
                 padding-block: 0.3em;
                 padding-inline: 0.3em;
+                @include sp {
+                    padding-inline: 2vw;
+                }
             }
             .employmentType {
                 font-size: FZ(16);
@@ -50,11 +67,22 @@
             color: #fff;
             font-size: FZ(28);
             margin-top: 0.3em;
+            @include sp {
+                color: $sub-black;
+                padding-inline: 4vw;
+                font-size: FZ(24);
+                line-height: 1.4em;
+                text-align: justify;
+            }
         }
         .facilityName {
             font-size: FZ(20);
             font-weight: 500;
             color: #fff;
+            @include sp {
+                color: $sub-black;
+                padding-inline: 4vw;
+            }
         }
         .boxSlideImage {
             position: relative;
@@ -62,16 +90,28 @@
             font-size: inherit;
             @include box-shadow;
             border-radius: 24px;
+            @include sp {
+                order: -1;
+                box-shadow: unset;
+                border-radius: unset;
+            }
             .innerSlide {
                 position: relative;
                 width: 100%;
                 .splideTrack {
                     border-radius: 24px;
+                    @include sp {
+                        border-radius: unset;
+                    }
                     .heroImage {
                         width: 100%;
                         aspect-ratio: 1158/600;
                         object-fit: cover;
                         border-radius: 24px;
+                        @include sp {
+                            aspect-ratio: 402/320;
+                            border-radius: 0 0 10vw 10vw;
+                        }
                     }
                 }
                 :global(.splide__arrows) {
@@ -86,6 +126,9 @@
                     pointer-events: none;
                     font-size: inherit;
                     z-index: 2;
+                    @include sp {
+                        display: none;
+                    }
                 }
                 :global(.splide__arrow) {
                     pointer-events: auto;
@@ -111,7 +154,16 @@
                     }
                 }
                 :global(.splide__pagination) {
+                    display: flex;
                     gap: 0 5px;
+                    position: absolute;
+                    bottom: 2rem;
+                    left: 0;
+                    z-index: 10;
+                    width: 100%;
+                    @include sp {
+                        bottom: 4vw;
+                    }
                 }
                 :global(.splide__pagination__page) {
                     border-radius: 100vmax;
@@ -120,6 +172,10 @@
                     background-color: #f5f5f5;
                     margin: unset;
                     opacity: 0.7;
+                    @include sp {
+                        width: 6vw;
+                        height: 3px;
+                    }
                 }
                 :global(.splide__pagination__page.is-active) {
                     transform: scale(1);
@@ -138,6 +194,15 @@
                 border-radius: $radius14;
                 display: flex;
                 gap: 0 0.8em;
+                @include sp {
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    box-shadow: 0 -4px 14px 0 rgb(0 0 0 / 10%);
+                    border-radius: unset;
+                    padding: 2vw 4vw;
+                }
                 .iconFavorite {
                     position: relative;
                     width: 7.2rem;
@@ -168,6 +233,10 @@
                     border-radius: 0 $radius14 $radius14;
                     @include box-shadow;
                     @include flex-center;
+                    @include sp {
+                        flex: 1;
+                        width: unset;
+                    }
                     &::before {
                         content: "";
                         position: absolute;
@@ -190,16 +259,26 @@
             flex-direction: column;
             gap: 0.8em 0;
             margin-top: 1em;
+            @include sp {
+                padding-inline: 4vw;
+            }
             li {
                 font-size: FZ(18);
                 position: relative;
                 padding-left: 2em;
+                @include sp {
+                    padding-left: 8vw;
+                }
                 &::before {
                     content: "";
                     position: absolute;
                     top: 50%;
                     translate: 0 -50%;
                     left: 0;
+                    @include sp {
+                        translate: unset;
+                        top: 0;
+                    }
                 }
                 &.itemJobCategory {
                     &::before {
@@ -215,6 +294,10 @@
                     }
                 }
                 &.itemSalary {
+                    @include sp {
+                        display: flex;
+                        flex-wrap: wrap;
+                    }
                     &::before {
                         width: 2.4rem;
                         @include svg-icon-search04(F29400);
@@ -226,6 +309,11 @@
                         padding: 0.2em 0.8em;
                         border-radius: 4px;
                         margin-left: 1em;
+                        @include sp {
+                            margin-left: unset;
+                            font-size: 3.4vw;
+                            margin-top: 1vw;
+                        }
                     }
                 }
             }

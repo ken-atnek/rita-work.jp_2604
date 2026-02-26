@@ -10,6 +10,9 @@
     padding-bottom: 4em;
     padding-top: 3em;
     background-color: $base-white;
+    @include sp {
+        padding: 10vw 4vw 6vw;
+    }
     &::before {
         content: "";
         position: absolute;
@@ -27,6 +30,10 @@
             position: relative;
             font-size: FZ(24);
             padding-left: 1.4em;
+            @include sp {
+                font-size: FZ(22);
+                translate: 4vw;
+            }
             &::before {
                 content: "";
                 position: absolute;
@@ -35,14 +42,24 @@
                 left: 0;
                 width: 2.2rem;
                 @include svg-icon-microphone("f29400");
+                @include sp {
+                    width: 5vw;
+                }
             }
         }
         .interviewee {
             font-size: inherit;
             display: flex;
+            @include sp {
+                flex-direction: column;
+                padding-left: 4vw;
+            }
             .intervieweeRole {
                 font-size: FZ(16);
                 padding-left: 2em;
+                @include sp {
+                    padding-left: unset;
+                }
                 &::before {
                     content: "→";
                     margin-right: 0.5em;
@@ -58,6 +75,9 @@
             flex-direction: column;
             font-size: inherit;
             gap: 0.8em 0;
+            @include sp {
+                gap: 0;
+            }
             .articleItem {
                 position: relative;
                 background-color: #fff;
@@ -66,6 +86,21 @@
                 padding: 2em 3em;
                 font-size: inherit;
                 @include box-shadow;
+                @include sp {
+                    padding: 6vw;
+                    border-radius: unset;
+                    background-color: transparent;
+                    box-shadow: unset;
+                    &:not(:first-of-type) {
+                        border-top: unset;
+                    }
+                    &:first-of-type {
+                        @include top-radius(8vw);
+                    }
+                    &:last-of-type {
+                        @include bottom-radius(8vw);
+                    }
+                }
                 button {
                     font-size: inherit;
                     display: flex;
@@ -77,6 +112,10 @@
                         position: relative;
                         font-size: FZ(24);
                         margin-right: 2em;
+                        @include sp {
+                            font-size: FZ(18);
+                            margin-right: 6vw;
+                        }
                         &::after {
                             content: "";
                             position: absolute;
@@ -86,12 +125,21 @@
                             height: 1px;
                             width: 2.4rem;
                             background-color: $main-orange;
+                            @include sp {
+                                width: 2vw;
+                                left: calc(100% + 1vw);
+                            }
                         }
                     }
                     h3 {
                         font-size: FZ(28);
                         display: inline-block;
                         margin-right: auto;
+                        @include sp {
+                            font-size: FZ(18);
+                            text-align: left;
+                            flex: 1;
+                        }
                         &::before {
                             content: "“";
                         }
@@ -106,6 +154,9 @@
                         background-color: $main-orange;
                         display: flex;
                         border-radius: 50%;
+                        @include sp {
+                            width: 7vw;
+                        }
                         &::before {
                             content: "";
                             position: absolute;
@@ -118,6 +169,19 @@
                     }
                 }
                 &.articleItemOpen {
+                    @include sp {
+                        background-color: #fff;
+                        h3 {
+                            font-size: FZ(22);
+                        }
+                        .articleNumber {
+                            font-size: FZ(24);
+                            margin-right: 3vw;
+                            &::after {
+                                display: none;
+                            }
+                        }
+                    }
                     .articleToggleIcon {
                         &::before {
                             scale: -1 1;
@@ -132,9 +196,16 @@
                         width: 100%;
                         font-size: inherit;
                         padding-top: 2em;
+                        @include sp {
+                            padding-top: 4vw;
+                        }
                         img {
                             width: 100%;
                             border-radius: 1.2rem;
+                            @include sp {
+                                aspect-ratio: 318/210;
+                                object-fit: cover;
+                            }
                         }
                     }
                     .articleBody {
@@ -143,20 +214,33 @@
                         display: grid;
                         grid-template-columns: 40% 1fr;
                         gap: 0 5em;
+                        @include sp {
+                            gap: 0;
+                        }
                         .sectionBlock {
                             font-size: inherit;
                             grid-column: span 2;
                             display: grid;
                             grid-template-columns: subgrid;
                             padding-block: 2em;
+                            @include sp {
+                                gap: 2vw 0;
+                                padding-block: 4vw;
+                            }
                             &:not(:last-of-type) {
                                 border-bottom: 1px solid $main-orange;
                             }
                             h3 {
                                 font-size: FZ(18);
+                                @include sp {
+                                    grid-column: span 2;
+                                }
                             }
                             .sectionBody {
                                 font-size: inherit;
+                                @include sp {
+                                    grid-column: span 2;
+                                }
                                 p {
                                     font-size: FZ(16);
                                     text-align: justify;
