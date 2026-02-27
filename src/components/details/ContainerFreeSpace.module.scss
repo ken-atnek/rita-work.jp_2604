@@ -84,5 +84,8 @@
     }
     &.plan-premium {
         padding-top: 5em;
+        @include sp {
+            padding-top: 6vw;
+        }
     }
 }

@@ -17,7 +17,8 @@
     padding-left: 1.6em;
     @include sp {
         font-size: FZ(22);
-        translate: 4vw;
+
+        // translate: 4vw;
     }
     &::before {
         content: "";
