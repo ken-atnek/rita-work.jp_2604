@@ -536,7 +536,8 @@
             }
             :global(.splide__list) {
                 font-size: inherit;
-                translate: calc(var(--half-size) * -1);
+
+                // translate: calc(var(--half-size) * -1);
             }
             :global(.splide__slide) {
                 font-size: inherit;
