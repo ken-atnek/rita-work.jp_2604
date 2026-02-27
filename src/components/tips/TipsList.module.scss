@@ -5,34 +5,18 @@
 @use "svg" as *;
 @use "mixin" as *;
 .containerHead {
-    position: relative;
-    font-size: inherit;
-    @include flex-center(column);
-    padding-inline: 4vw;
-    padding-top: 5em;
-    background-color: $base-white;
-    padding-bottom: 4rem;
+    @include subpage-head;
     &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        font-size: inherit;
-        background-color: $main-orange;
-        border-bottom-left-radius: $radius80;
-        border-bottom-right-radius: $radius80;
         z-index: -1;
-    }
-    h2 {
-        margin-top: 17px;
-        font-size: FZ(28);
-        color: #fff;
-        font-weight: 500;
     }
     .boxSearch {
         width: 100%;
         max-width: $articleMaxWidth;
         margin-top: 3.2rem;
         font-size: inherit;
+        @include sp {
+            margin-top: unset;
+        }
     }
     .innerSearch {
         position: relative;
@@ -46,6 +30,14 @@
         gap: 0 1.4em;
         padding: 0.8em var(--padding-inline);
         @include bottom-radius($radius24);
+        @include sp {
+            margin-top: 4vw;
+            gap: 0 2vw;
+            background-color: #fff;
+            padding: 1vw 0;
+            border-radius: $radius14;
+            @include box-shadow;
+        }
         .itemInput {
             position: relative;
             flex: 1;
@@ -57,6 +49,9 @@
             font-size: inherit;
             @include box-shadow;
             padding-left: 3em;
+            @include sp {
+                box-shadow: unset;
+            }
             &::before {
                 content: "";
                 position: absolute;
@@ -85,6 +80,9 @@
             background-color: #fff;
             @include box-shadow;
             margin-right: 0.6em;
+            @include sp {
+                background-color: $main-orange;
+            }
             &::before {
                 content: "";
                 position: absolute;
@@ -92,6 +90,9 @@
                 margin: auto;
                 width: 45%;
                 @include svg-icon-loupe($color-orange);
+                @include sp {
+                    @include svg-icon-loupe("fff");
+                }
             }
         }
     }
@@ -104,9 +105,15 @@
     padding-inline: 4vw;
     padding-bottom: 10rem;
     flex: 1;
+    @include sp {
+        padding: 8vw 4vw 12vw;
+    }
     .headAnnounce {
         font-size: FZ(18);
         font-weight: 300;
+        @include sp {
+            display: none;
+        }
     }
     .listTips {
         position: relative;
@@ -116,6 +123,11 @@
         grid-template-columns: repeat(3, 1fr);
         margin-top: 4.8rem;
         gap: 2.8rem 2.4rem;
+        @include sp {
+            grid-template-columns: repeat(2, 1fr);
+            margin-top: unset;
+            gap: 6vw 4vw;
+        }
         .boxDetails {
             font-size: inherit;
             grid-row: span 3;
@@ -133,6 +145,9 @@
                         aspect-ratio: 304/230;
                         border-radius: 1.4rem;
                         object-fit: cover;
+                        @include sp {
+                            border-radius: 4vw;
+                        }
                     }
                 }
                 h3 {
@@ -142,6 +157,12 @@
                     line-height: 1.4em;
                     letter-spacing: 0.1em;
                     font-weight: 500;
+                    @include sp {
+                        margin-top: 2vw;
+                        padding-inline: unset;
+                        font-size: FZ(16);
+                        line-height: 1.2em;
+                    }
                 }
                 .summary {
                     padding-inline: 1.3rem;
@@ -155,6 +176,13 @@
                     -webkit-line-clamp: 2;
                     line-clamp: 2; /* 行数を制限 */
                     overflow: hidden;
+                    @include sp {
+                        padding-inline: unset;
+                        margin-top: 2vw;
+                        line-height: 1.2em;
+                        -webkit-line-clamp: 4;
+                        line-clamp: 4; /* 行数を制限 */
+                    }
                 }
             }
         }
