@@ -154,7 +154,8 @@
     @include flex-center(column);
     padding-inline: 4vw;
     padding-top: 5em;
-    background-color: $base-white;
+
+    // background-color: $bg-white;
     padding-bottom: 4rem;
     @include sp {
         padding: 8vw 4vw 6vw;

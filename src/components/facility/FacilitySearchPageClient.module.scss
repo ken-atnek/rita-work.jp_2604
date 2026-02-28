@@ -99,6 +99,7 @@
     padding-bottom: 10rem;
     padding-inline: 4vw;
     z-index: 1;
+    background-color: $bg-white;
     @include sp {
         padding: 4vw 4vw 14vw;
     }

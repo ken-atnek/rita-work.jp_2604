@@ -278,7 +278,9 @@
         background-color: $main-orange;
         position: fixed;
         .itemLogo {
-            display: none;
+            @include sp {
+                display: none;
+            }
         }
     }
 }
