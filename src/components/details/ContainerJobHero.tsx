@@ -163,19 +163,11 @@ export default function ContainerJobHero({
                 <button
                   type="button"
                   className="splide__arrow splide__arrow--prev"
-                >
-                  <svg>
-                    <use href="#svg_pageTop" />
-                  </svg>
-                </button>
+                ></button>
                 <button
                   type="button"
                   className="splide__arrow splide__arrow--next"
-                >
-                  <svg>
-                    <use href="#svg_pageTop" />
-                  </svg>
-                </button>
+                ></button>
               </div>
             </Splide>
 

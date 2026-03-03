@@ -131,26 +131,24 @@
                     }
                 }
                 :global(.splide__arrow) {
+                    position: relative;
                     pointer-events: auto;
                     opacity: 1;
                     width: 4.5rem;
                     height: 4.5rem;
-                    @include flex-center;
-                    background-color: transparent;
-                    svg {
-                        width: 4.5rem;
-                        height: 4.5rem;
-                        fill: $main-black;
+                    background-color: $main-black;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        margin: auto;
+                        width: 16px;
+                        @include svg-icon-slide-arrow("fff");
                     }
                 }
                 :global(.splide__arrow--prev) {
-                    svg {
-                        rotate: -90deg;
-                    }
-                }
-                :global(.splide__arrow--next) {
-                    svg {
-                        rotate: 90deg;
+                    &::before {
+                        scale: -1 1;
                     }
                 }
                 :global(.splide__pagination) {

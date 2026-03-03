@@ -5,6 +5,7 @@
 @use "svg" as *;
 @use "mixin" as *;
 .containerHead {
+    z-index: 2;
     @include subpage-head;
     h2 {
         padding-left: 1.5em;
