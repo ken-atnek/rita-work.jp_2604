@@ -25,7 +25,7 @@ export type ConditionItem = {
 
 const splideOptions: Options = {
   type: 'loop',
-  perPage: 5,
+  perPage: 4,
   perMove: 1,
   gap: '20px',
   autoplay: true,
@@ -35,10 +35,11 @@ const splideOptions: Options = {
   arrows: true,
   pagination: false,
   drag: false,
+  padding: { left: '9.5%', right: '9.5%' },
   // focus: 'center',
   breakpoints: {
     1024: { perPage: 3 },
-    768: { perPage: 2.3, gap: '4vw' },
+    768: { perPage: 2, gap: '2vw', padding: { left: '0', right: '9.5%' } },
   },
 };
 
@@ -82,16 +83,14 @@ export default function ContainerConditionsSlide() {
 
         {/* ▼ カスタム矢印（公式サンプル通りのクラス構成） */}
         <div className={`splide__arrows ${styles.splideArrows}`}>
-          <button type="button" className="splide__arrow splide__arrow--prev">
-            <svg>
-              <use href="#svg_pageTop" />
-            </svg>
-          </button>
-          <button type="button" className="splide__arrow splide__arrow--next">
-            <svg>
-              <use href="#svg_pageTop" />
-            </svg>
-          </button>
+          <button
+            type="button"
+            className="splide__arrow splide__arrow--prev"
+          ></button>
+          <button
+            type="button"
+            className="splide__arrow splide__arrow--next"
+          ></button>
         </div>
       </Splide>
     </div>

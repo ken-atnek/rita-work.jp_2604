@@ -581,26 +581,25 @@
 
                 // ★ 矢印ボタン本体と svg をまとめて上書き
                 :global(.splide__arrow) {
+                    position: relative;
                     pointer-events: auto;
                     opacity: 1;
                     width: 4.5rem;
                     height: 4.5rem;
                     @include flex-center;
-                    background-color: transparent;
-                    svg {
-                        width: 4.5rem;
-                        height: 4.5rem;
-                        fill: $main-black;
+                    background-color: $main-black;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        margin: auto;
+                        width: 17px;
+                        @include svg-icon-slide-arrow("fff");
                     }
                 }
                 :global(.splide__arrow--prev) {
-                    svg {
-                        rotate: -90deg;
-                    }
-                }
-                :global(.splide__arrow--next) {
-                    svg {
-                        rotate: 90deg;
+                    &::before {
+                        scale: -1 1;
                     }
                 }
             }
@@ -688,9 +687,9 @@
             // :global(.splide__track) {
             //     overflow: visible;
             // }
-            :global(.splide__list) {
-                translate: calc(var(--half-size) * -1);
-            }
+            // :global(.splide__list) {
+            //     translate: calc(var(--half-size) * -1);
+            // }
 
             // 矢印まわり（機能クラス splide__arrows は TSX 側で付与）
             .splideArrows {
@@ -720,26 +719,24 @@
 
                 // ★ 矢印ボタン本体と svg をまとめて上書き
                 :global(.splide__arrow) {
+                    position: relative;
                     pointer-events: auto;
                     opacity: 1;
                     width: 4.5rem;
                     height: 4.5rem;
-                    @include flex-center;
-                    background-color: transparent;
-                    svg {
-                        width: 4.5rem;
-                        height: 4.5rem;
-                        fill: $main-black;
+                    background-color: $main-black;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        margin: auto;
+                        width: 17px;
+                        @include svg-icon-slide-arrow("fff");
                     }
                 }
                 :global(.splide__arrow--prev) {
-                    svg {
-                        rotate: -90deg;
-                    }
-                }
-                :global(.splide__arrow--next) {
-                    svg {
-                        rotate: 90deg;
+                    &::before {
+                        scale: -1 1;
                     }
                 }
             }
@@ -758,11 +755,15 @@
                     width: 100%;
                     @include flex-center(column);
                     background-color: #4c6be8;
-                    font-size: 1.6rem;
+                    font-size: 1.4rem;
                     color: $base-white;
                     border-radius: $radius8;
                     padding-block: 0.3em;
                     min-height: 2.4em;
+                    text-align: center;
+                    @include sp {
+                        font-size: 3.4vw;
+                    }
                 }
             }
         }
