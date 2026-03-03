@@ -2,11 +2,9 @@ import { fetchJson } from '@/utils/fetchJson';
 import { withBasePath } from '@/utils/withBasePath';
 
 import type { AreasMaster, AreaGroup } from '@/types/area';
+import type { EmploymentTypeMaster, JobCategoryMaster } from '@/types/master';
 
 export type IdLabelOption = { id: string; label: string };
-
-type EmploymentTypeMaster = { id: string; name: string };
-type JobCategoryMaster = { id: string; name?: string; label?: string };
 
 export type JobsFilterMasters = {
   jobCategoryOptions: IdLabelOption[];

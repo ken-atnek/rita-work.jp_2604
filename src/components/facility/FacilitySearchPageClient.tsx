@@ -16,6 +16,7 @@ import { withBasePath } from '@/utils/withBasePath';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
 
 import type { JobIndexItem } from '@/types/jobIndex';
+import type { SalaryUnitMaster, JobCommonConfig } from '@/types/master';
 
 import FacilitySearchBox from '@/components/facility/search/FacilitySearchBox';
 import { JobCardList } from '@/components/job/JobCardList';
@@ -33,16 +34,6 @@ type FacilityItem = {
   facilityId: string;
   facilityName: string;
   jobsCount: number;
-};
-
-type SalaryUnitMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
-
-type JobCommonConfig = {
-  newIconPeriodDays?: number;
 };
 
 const toMapFromOptions = (options: IdLabelOption[]) =>

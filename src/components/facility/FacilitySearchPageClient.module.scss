@@ -5,33 +5,10 @@
 @use "svg" as *;
 @use "mixin" as *;
 .containerHead {
-    position: relative;
-    font-size: inherit;
-    @include flex-center(column);
-    padding-inline: 4vw;
-    padding-top: 5em;
-    background-color: $base-white;
-    padding-bottom: 4rem;
-    z-index: 2;
     gap: 3.2rem;
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        font-size: inherit;
-        background-color: $main-orange;
-        border-bottom-left-radius: $radius80;
-        border-bottom-right-radius: $radius80;
-        z-index: -1;
-    }
-    h2 {
-        margin-top: 17px;
-        font-size: FZ(28);
-        color: #fff;
-        font-weight: 500;
-        position: relative;
-        display: flex;
-        align-items: center;
+    @include subpage-head;
+    @include sp {
+        gap: 4vw 0;
     }
     .boxForm {
         position: relative;
@@ -45,6 +22,14 @@
         gap: 0 1.4em;
         padding: 0.8em var(--padding-inline);
         @include bottom-radius($radius24);
+        @include sp {
+            margin-top: 0;
+            gap: 0 2vw;
+            background-color: #fff;
+            padding: 1vw 0;
+            border-radius: $radius14;
+            @include box-shadow;
+        }
         .itemInput {
             position: relative;
             flex: 1;
@@ -56,6 +41,9 @@
             font-size: inherit;
             @include box-shadow;
             padding-left: 3em;
+            @include sp {
+                box-shadow: unset;
+            }
             &::before {
                 content: "";
                 position: absolute;
@@ -84,6 +72,10 @@
             background-color: #fff;
             @include box-shadow;
             margin-right: 0.6em;
+            @include sp {
+                width: 8vw;
+                background-color: $main-orange;
+            }
             &::before {
                 content: "";
                 position: absolute;
@@ -91,6 +83,9 @@
                 margin: auto;
                 width: 45%;
                 @include svg-icon-loupe($color-orange);
+                @include sp {
+                    @include svg-icon-loupe("fff");
+                }
             }
         }
     }
@@ -104,6 +99,10 @@
     padding-bottom: 10rem;
     padding-inline: 4vw;
     z-index: 1;
+    background-color: $bg-white;
+    @include sp {
+        padding: 4vw 4vw 14vw;
+    }
     .noSearch {
         @include flex-center;
         font-size: FZ(18);
@@ -118,5 +117,10 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 0 2.4rem;
         margin-top: 5rem;
+        @include sp {
+            margin-top: 0;
+            grid-template-columns: unset;
+            gap: 6vw 0;
+        }
     }
 }

@@ -21,6 +21,12 @@ import type {
 import type { Facility } from '@/types/facility';
 import type { Corporation } from '@/types/corporation';
 import type { JobCategory } from '@/types/jobCategory';
+import type {
+  SalaryUnitMaster,
+  SalaryBandHourlyMaster,
+  EmploymentTypeMaster,
+  FacilityTypeMaster as FacilityType,
+} from '@/types/master';
 import { withBasePath } from '@/utils/withBasePath';
 import { fetchJson } from '@/utils/fetchJson';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
@@ -38,11 +44,6 @@ type BenefitOption = {
   id: string;
   name: string;
   sortOrder: number;
-};
-
-type FacilityType = {
-  id: string;
-  label: string;
 };
 
 type TrainingSupportOption = {
@@ -94,29 +95,6 @@ type ServiceTypeOption = {
   id: string;
   name: string;
   sortOrder: number;
-};
-
-/* ---------------------------------------
- * 給与系マスタ
- * - salaryUnits.json: { id, label or name }
- * - salaryBandsHourly.json: { id, label or name }
- * -------------------------------------- */
-type SalaryUnitMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
-
-type SalaryBandHourlyMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
-
-// 雇用形態マスター（MyPageと揃える）
-type EmploymentTypeMaster = {
-  id: string;
-  name: string;
 };
 
 export function JobDetailsClient({ jobId }: JobDetailsClientProps) {

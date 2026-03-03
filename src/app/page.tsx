@@ -24,7 +24,7 @@ export const generateMetadata = (): Metadata => {
       : undefined,
   };
 };
-export default function Home() {
+export default function PageTop() {
   return (
     <>
       <ContainerTopHero />

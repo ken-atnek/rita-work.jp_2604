@@ -5,30 +5,9 @@
 @use "svg" as *;
 @use "mixin" as *;
 .containerHead {
-    position: relative;
-    font-size: inherit;
-    @include flex-center(column);
-    padding-inline: 4vw;
-    padding-top: 5em;
-    background-color: $base-white;
-    padding-bottom: 4rem;
     z-index: 2;
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        font-size: inherit;
-        background-color: $main-orange;
-        border-bottom-left-radius: $radius80;
-        border-bottom-right-radius: $radius80;
-        z-index: -1;
-    }
+    @include subpage-head;
     h2 {
-        margin-top: 17px;
-        font-size: FZ(28);
-        color: #fff;
-        font-weight: 500;
-        position: relative;
         padding-left: 1.5em;
         display: flex;
         align-items: center;
@@ -40,6 +19,9 @@
             left: 0;
             width: 3.1rem;
             @include svg-icon-loupe("fff");
+            @include sp {
+                width: 4.6vw;
+            }
         }
         span {
             font-size: 0.64em;
@@ -66,6 +48,67 @@
         border-radius: $radius24;
         @include box-shadow;
         padding: 1.1rem 2rem 1.1rem 3rem;
+        @include sp {
+            background-color: transparent;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            border-radius: 6vw;
+            margin-top: 4vw;
+            box-shadow: unset;
+        }
+        .itemMobileButton {
+            display: none;
+            @include sp {
+                display: flex;
+                font-size: inherit;
+                background-color: $base-white;
+                border-radius: 100vmax;
+                height: 10vw;
+                padding-left: 4vw;
+                span {
+                    position: relative;
+                    font-size: FZ(16);
+                    color: $main-orange;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        translate: 0 -50%;
+                        right: calc(100% + 3vw);
+                        width: 4vw;
+                        @include svg-icon-loupe($color-orange);
+                    }
+                }
+            }
+        }
+        .boxMobile {
+            font-size: inherit;
+            display: contents;
+            @include sp {
+                // margin-top: 4vw;
+                display: grid;
+                width: 100%;
+                grid-template-rows: 0fr;
+                overflow: hidden;
+                transition: 0.3s ease-out;
+                &.isOpen {
+                    grid-template-rows: 1fr;
+                }
+            }
+            .innerBoxMobile {
+                font-size: inherit;
+                display: contents;
+                @include sp {
+                    width: 100%;
+                    display: flex;
+
+                    // background-color: $bg-white;
+                    border-radius: 6vw;
+                    overflow: hidden;
+                }
+            }
+        }
     }
 }
 .containerJobs {
@@ -77,6 +120,9 @@
     padding-bottom: 10rem;
     padding-inline: 4vw;
     z-index: 1;
+    @include sp {
+        padding: 4vw 4vw 8vw;
+    }
     .noFavorite {
         @include flex-center;
         font-size: FZ(18);
@@ -92,6 +138,12 @@
         @include box-shadow;
         border-radius: $radius8;
         background-color: #fff;
+        @include sp {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0 2vw;
+        }
         button {
             position: relative;
             width: 24.5rem;
@@ -100,6 +152,9 @@
             font-size: FZ(18);
             font-weight: 500;
             border-radius: 7px;
+            @include sp {
+                width: unset;
+            }
             &.isActive {
                 background-color: $main-orange;
                 color: #fff;
@@ -113,7 +168,11 @@
         width: 100%;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 0 2.4rem;
+        gap: 3rem 2.4rem;
         margin-top: 5rem;
+        @include sp {
+            grid-template-columns: unset;
+            gap: 6vw 0;
+        }
     }
 }

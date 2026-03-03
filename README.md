@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# リタワーク（2604）
 
-## Getting Started
+熊本の医療・介護・福祉向け求人サイトのフロントエンドです。  
+Next.js App Router で構成し、静的エクスポート（`output: 'export'`）で配信します。
 
-First, run the development server:
+## 技術スタック
+
+- Next.js 15.5（App Router）
+- React 19 / TypeScript（strict）
+- SCSS Modules
+- `@splidejs/react-splide`（スライダー）
+
+## 開発コマンド
 
 ```bash
+# 開発サーバー
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# ESLint
+npm run lint
+
+# Stylelint（自動修正あり）
+npm run lint:style
+
+# デモ用ビルド（検証環境向け）
+npm run build:demo
+
+# 本番用ビルド
+npm run build:prod
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 環境変数
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+ビルド時に以下を使用します。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `NEXT_PUBLIC_IS_REAL_PROD`
+  - `true`: 本番向け metadata / robots を有効
+  - `false`: 非本番設定
+- `NEXT_PUBLIC_METADATA_BASE`
+  - canonical のベースURL
 
-## Learn More
+`build:demo` / `build:prod` ではスクリプト側で自動設定されます。
 
-To learn more about Next.js, take a look at the following resources:
+## 出力と公開
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 静的出力先: `out/`
+- `next.config.ts` で `output: 'export'`, `images.unoptimized: true`, `trailingSlash: true`
+- ビルド後に不要な `404` と一部ディレクトリを削除する運用です
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## データ配置
 
-## Deploy on Vercel
+API サーバーは使わず、`public/` 配下の JSON を `fetch` して表示します。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 求人詳細マップ: `public/db/details_list.json`
+- 施設別求人: `public/db/facilities/<fac_id>/jobs/*.json`
+- 施設情報: `public/db/facilities/<fac_id>/facility.json`
+- 各種マスタ: `public/db/master/*.json`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ディレクトリ概要
+
+- `src/app`: App Router ページ
+- `src/components`: 画面コンポーネント
+- `src/styles`: SCSS（グローバル / モジュール）
+- `src/types`: 型定義
+- `src/utils`: ユーティリティ
+- `public/db`: 表示用データ
+
+## 補足
+
+- ページの `generateMetadata` / `generateStaticParams` は同期関数で実装してください。
+- 画像・JSON など公開アセットは `public/` 配下に配置してください。

@@ -6,19 +6,24 @@
  * ======================================= */
 
 import styles from '@/styles/PageTop.module.scss';
-import Image from 'next/image';
 
 const ContainerTopHero = () => {
   return (
     <section className={styles.containerHero}>
       <div className={styles.boxImage}>
-        <Image
-          src="/images/hero-pc.webp"
-          alt="HERO画像"
-          width={1366}
-          height={500}
-        />
+        <picture>
+          <source media="(max-width: 480px)" srcSet="/images/hero-sp.webp" />
+          <img
+            src="/images/hero-pc.webp"
+            alt="HERO画像"
+            width={1366}
+            height={500}
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
       </div>
+
       <div className={styles.boxLogo}>
         <svg aria-label="リタワーク ロゴ">
           <use href="#svg_logoHero" />

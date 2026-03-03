@@ -1,0 +1,343 @@
+/* =================================
+ * 	リタワーク HEADER
+ * ------------------------------ */
+@use "../../styles/variable" as *;
+@use "../../styles/svg" as *;
+@use "../../styles/mixin" as *;
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable keyframes-name-pattern */
+/* stylelint-disable custom-property-pattern */
+// このファイル全体のルールを無効にする
+.containerHeader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5em;
+    @include flex-center;
+    z-index: 5;
+    transition: 0.3s ease-out;
+    padding-inline: 3vw;
+    @include sp {
+        height: unset;
+        padding: 0;
+    }
+    article {
+        display: flex;
+        justify-content: space-between;
+        gap: 0 2em;
+        align-items: center;
+        @include sp {
+            justify-content: center;
+        }
+        .itemLogo {
+            position: relative;
+            font-size: inherit;
+            @include sp {
+                display: contents;
+            }
+            h1 {
+                display: flex;
+                align-items: center;
+                font-size: FZ(16);
+                color: #fff;
+                gap: 0 2em;
+                @include sp {
+                    position: absolute;
+                    left: 50%;
+                    translate: -50%;
+                    top: 12vw;
+                    flex-direction: column-reverse;
+                }
+                svg {
+                    font-size: inherit;
+                    fill: #fff;
+                    transition: 0.3s ease-out;
+                    &.statusPc {
+                        width: 5.6rem;
+                        aspect-ratio: 59/56;
+                        @include sp {
+                            display: none;
+                        }
+                    }
+                    &.statusSp {
+                        display: none;
+                        @include sp {
+                            display: block;
+                            width: 40vw;
+                            aspect-ratio: 136/110;
+                        }
+                    }
+                }
+                span {
+                    font-size: inherit;
+                    letter-spacing: 0.2em;
+                    padding-bottom: 1em;
+                    @include sp {
+                        width: max-content;
+                        font-size: 3.4vw;
+                    }
+                }
+            }
+            @include hover {
+                h1 {
+                    svg {
+                        fill: #574232;
+                    }
+                }
+            }
+            &:active {
+                h1 {
+                    svg {
+                        fill: #fff;
+                    }
+                }
+            }
+        }
+        .boxMobileMenu {
+            font-size: inherit;
+            display: contents;
+            @include sp {
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: flex;
+                width: 100vw;
+                background-color: $sub-black;
+                padding: 26vw 4vw 10vw;
+                @include bottom-radius(6vw);
+                translate: 0 -160vw;
+                transition: 0.3s ease-out;
+            }
+            nav {
+                position: relative;
+                font-size: inherit;
+                height: 2em;
+                display: flex;
+                align-items: center;
+                margin-left: auto;
+                gap: 0 2em;
+                @include sp {
+                    flex-direction: column;
+                    margin-left: unset;
+                    width: 100%;
+                    height: unset;
+                    gap: 0;
+                }
+                a {
+                    font-size: FZ(16);
+                    color: #fff;
+                    letter-spacing: 0.04em;
+                    transition: 0.3s ease-out;
+                    @include hover {
+                        color: #574232;
+                    }
+                    &:active {
+                        color: #fff;
+                    }
+                    @include sp {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        padding-block: 4vw;
+                        font-size: FZ(18);
+                        align-items: center;
+                        padding-left: 2vw;
+                        padding-right: 2vw;
+                        &:not(.itemJobs) {
+                            border-bottom: 1px solid #735b5b;
+                        }
+                        &.itemLibrary {
+                            border-top: 1px solid #735b5b;
+                        }
+                        i {
+                            position: relative;
+                            display: block;
+                            width: 5vw;
+                            aspect-ratio: 1;
+                            background-color: $main-orange;
+                            border-radius: 50%;
+                            &::after {
+                                content: "";
+                                position: absolute;
+                                inset: 0;
+                                margin: auto;
+                                width: 1vw;
+                                @include svg-icon-arrow("fff");
+                                translate: 0.3svw 0;
+                            }
+                        }
+                    }
+                    &.itemSp {
+                        display: none;
+                        @include sp {
+                            display: flex;
+                        }
+                    }
+                }
+                .itemSearch {
+                    position: relative;
+                    font-size: inherit;
+                    width: 100%;
+                    display: none;
+                    justify-content: space-between;
+                    background-color: #fff;
+                    border-radius: $radius14;
+                    margin-bottom: 4vw;
+                    border-bottom: 1px solid #735b5b;
+                    @include sp {
+                        display: flex;
+                    }
+                    .itemSearchInput {
+                        position: relative;
+                        flex: 1;
+                        background-color: #fff;
+                        border-radius: $radius14;
+                        height: 12vw;
+                        display: flex;
+                        align-items: center;
+                        font-size: inherit;
+                        padding-left: 4vw;
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            translate: 0 -50%;
+                            left: 2vw;
+                            width: 4vw;
+                            @include svg-icon-building($color-orange);
+                            z-index: 1;
+                        }
+                        input {
+                            font-size: FZ(18);
+                            padding: 0.5em 1em;
+                            width: 100%;
+                            &::placeholder {
+                                color: rgba(#726b6299, 0.6);
+                            }
+                        }
+                    }
+                    .itemSearchBtn {
+                        position: relative;
+                        font-size: inherit;
+                        width: 5vw;
+                        aspect-ratio: 1;
+                        border-radius: 50%;
+                        @include box-shadow;
+                        margin-right: 0.6em;
+                        background-color: $main-orange;
+                        align-self: center;
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            inset: 0;
+                            margin: auto;
+                            width: 45%;
+                            @include svg-icon-loupe($color-orange);
+                            @include sp {
+                                @include svg-icon-loupe("fff");
+                            }
+                        }
+                    }
+                }
+            }
+            &.isOpen {
+                translate: 0;
+            }
+            &.closing {
+                translate: 0 -160vw;
+            }
+        }
+
+        // .linkMyPage {
+        //     border: 1px solid #fff;
+        //     font-size: inherit;
+        //     width: 116px;
+        //     border-radius: $radius10;
+        //     height: 2em;
+        //     @include flex-center;
+        //     span {
+        //         font-size: FZ(14);
+        //         color: #fff;
+        //         font-weight: 500;
+        //         line-height: 1em;
+        //     }
+        // }
+    }
+    &.is-fixed {
+        position: fixed;
+        background-color: $main-orange;
+        @include sp {
+            position: absolute;
+        }
+    }
+    &.isTop {
+        @include bottom-radius($radius40);
+    }
+    &.isSub {
+        background-color: $main-orange;
+        position: fixed;
+        .itemLogo {
+            @include sp {
+                display: none;
+            }
+        }
+    }
+}
+.hamburgerButton {
+    position: fixed;
+    top: 2vw;
+    right: 2vw;
+    width: 17vw;
+    aspect-ratio: 1;
+    z-index: 100;
+    display: none;
+    background-color: rgba(#fff, 0.05);
+    border-radius: 50%;
+    border: 1px solid rgba(#fff, 0.3);
+    &::after {
+        content: "";
+        width: 85%;
+        background-color: $sub-black;
+        aspect-ratio: 1;
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        border-radius: 50%;
+        z-index: -1;
+    }
+    @include sp {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5vw 0;
+        padding-top: 1vw;
+    }
+    .itemLogo {
+        position: relative;
+        width: 38%;
+        svg {
+            font-size: inherit;
+            width: 100%;
+            fill: #f29400;
+            aspect-ratio: 59/56;
+            transition: 0.3s ease-out;
+        }
+    }
+    span {
+        font-size: 2.3vw;
+        color: #fff;
+        text-transform: uppercase;
+        &.itemClose {
+            display: none;
+        }
+    }
+    &.is-open {
+        .itemClose {
+            display: inline;
+        }
+        .itemOpen {
+            display: none;
+        }
+    }
+}

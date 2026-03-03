@@ -12,15 +12,28 @@
     background-color: $base-white;
     border-radius: $radius80;
     margin-top: 1.2rem;
+    @include sp {
+        margin-top: 4vw;
+        border-radius: 10vw;
+        padding: 6vw 4vw 8vw;
+    }
     article {
         display: flex;
         flex-direction: column;
         max-width: $articleMaxWidth;
         gap: 3.2rem 0;
+        @include sp {
+            gap: 4vw 0;
+        }
         h2 {
             position: relative;
             font-size: FZ(24);
             padding-left: 1.6em;
+            @include sp {
+                font-size: FZ(22);
+
+                // translate: 4vw;
+            }
             &::before {
                 content: "";
                 position: absolute;
@@ -29,10 +42,14 @@
                 left: 0;
                 width: 2.8rem;
                 @include svg-icon-camera("f29400");
+                @include sp {
+                    width: 6vw;
+                }
             }
         }
         .itemCVideo {
             iframe {
+                width: 100%;
                 aspect-ratio: 16/9;
             }
         }

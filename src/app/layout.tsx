@@ -6,6 +6,7 @@
  * ======================================= */
 
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 import '@/styles/globals.scss';
 import { Noto_Sans_JP, Roboto, Archivo_Black } from 'next/font/google';
 import SvgDefs from '@/components/SvgDefs';
@@ -30,15 +31,26 @@ const archivoBlack = Archivo_Black({
   variable: '--font-archivo-black',
 });
 
+const siteName = 'リタワーク';
+const siteDescription =
+  '熊本の医療・介護・福祉業界の求人を掲載する求人ポータルサイト。エリア・職種・雇用形態など条件から、自分に合った仕事を簡単に探せます。';
+
 // 本番のみ metadataBase を設定
 const metadataBase = isRealProduction
   ? new URL(process.env.NEXT_PUBLIC_METADATA_BASE || 'https://rita-work.jp/')
   : undefined;
 
 export const metadata: Metadata = {
+  title: {
+    default: siteName,
+    template: `%s｜${siteName}`,
+  },
+  description: siteDescription,
   ...(isRealProduction && {
     metadataBase,
     openGraph: {
+      title: siteName,
+      description: siteDescription,
       url: metadataBase?.toString(),
       type: 'website',
       images: [
@@ -73,20 +85,17 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html
+      lang="ja"
       className={`${notoSans.className} ${roboto.className} ${archivoBlack.variable}`}
     >
       <head>
         <meta
           name="format-detection"
           content="telephone=no, address=no, email=no"
-        />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         />
       </head>
       <body>

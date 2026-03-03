@@ -2,13 +2,18 @@
  *リタワーク TOP 積極採用企業
  * URL: src/components/Top/ContainerPickUp.tsx
  * Created: 2025-09-04
- * Last updated: 2025-09-04
+ * Last updated: 2026-02-18
  * ======================================= */
 
-import styles from '@/styles/PageTop.module.scss';
+'use client';
+
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import pickUpList from '@/data/Top/pickUp.json';
+
+import styles from '@/styles/PageTop.module.scss';
+import { fetchJson } from '@/utils/fetchJson';
+import { withBasePath } from '@/utils/withBasePath';
 
 const typeMap: Record<number, string> = {
   1: '看',
@@ -23,12 +28,19 @@ export type PickUpItem = {
   shopName: string;
   type: number[];
   image: string;
-  url: string;
   iconNew?: boolean;
 };
 
 const ContainerTopPickUp = () => {
-  const typedPickUpList: PickUpItem[] = pickUpList;
+  const [pickUpList, setPickUpList] = useState<PickUpItem[]>([]);
+
+  useEffect(() => {
+    fetchJson<PickUpItem[]>(withBasePath('/db/pickUp.json'), []).then(
+      setPickUpList
+    );
+  }, []);
+
+  if (pickUpList.length === 0) return null;
 
   return (
     <section className={styles.containerPickUp}>
@@ -40,10 +52,14 @@ const ContainerTopPickUp = () => {
           </p>
         </div>
         <ul className={styles.listPickUp}>
-          {typedPickUpList.map((item) => (
+          {pickUpList.map((item) => (
             <li key={item.id} className={styles.boxShop}>
               {item.iconNew && <span className={styles.iconNew}>NEW</span>}
-              <Link href={item.url}>
+              <Link
+                href={withBasePath(
+                  `/facility/?id=fac_${item.id.padStart(4, '0')}`
+                )}
+              >
                 <Image
                   src={item.image}
                   alt={item.shopName}

@@ -26,6 +26,11 @@ import { toIdLabelMap } from '@/utils/toIdLabelMap';
 
 import type { JobIndexItem } from '@/types/jobIndex';
 import type { AreasMaster } from '@/types/area';
+import type {
+  SalaryUnitMaster,
+  ContractPlanMaster,
+  JobCommonConfig,
+} from '@/types/master';
 
 import {
   buildJobsSearchQuery,
@@ -48,25 +53,6 @@ const shuffle = <T,>(arr: T[]): T[] => {
   return a;
 };
 
-/* ---------------------------------------
- * マスター型（このページ固有）
- * -------------------------------------- */
-type SalaryUnitMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
-
-type ContractPlanMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
-
-type JobCommonConfig = {
-  newIconPeriodDays?: number;
-};
-
 const toMapFromOptions = (options: IdLabelOption[]) =>
   options.reduce<Record<string, string>>((acc, o) => {
     acc[o.id] = o.label;
@@ -76,7 +62,7 @@ const toMapFromOptions = (options: IdLabelOption[]) =>
 export default function JobsPageClient() {
   const router = useRouter();
   const sp = useSearchParams();
-
+  const cond = sp.get('cond'); // 例: "conditions01"
   /* ---------------------------------------
    * URL復元（jc / ar / et / st / sy / sh）
    * -------------------------------------- */
@@ -173,6 +159,8 @@ export default function JobsPageClient() {
     string[]
   >(initialSalaryHourlyIds);
 
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
   // URL変更時に applied を同期
   useEffect(() => {
     setAppliedJobCategoryIds(initialJobCategoryIds);
@@ -200,11 +188,17 @@ export default function JobsPageClient() {
         setLoading(true);
         setError(null);
 
+        recommendedBuiltRef.current = false;
+        setRecommendedJobs([]);
+
         // jobs
         const timestamp = Date.now();
+        const jobsPath = cond
+          ? `/db/jobs/conditions/${cond}.json?t=${timestamp}`
+          : `/db/jobs/jobsIndexAll.json?t=${timestamp}`;
 
         const jobsJson = await fetchJson<{ items: JobIndexItem[] }>(
-          withBasePath(`/db/jobs/jobsIndexAll.json?t=${timestamp}`),
+          withBasePath(jobsPath),
           { items: [] }
         );
 
@@ -260,7 +254,7 @@ export default function JobsPageClient() {
     };
 
     load();
-  }, []);
+  }, [cond]);
 
   /* ---------------------------------------
    * おすすめ順（初回のみ固定生成）
@@ -430,21 +424,34 @@ export default function JobsPageClient() {
         </h2>
 
         <div className={styles.blockFilters}>
-          <JobsFilter
-            initialJobCategoryIds={initialJobCategoryIds}
-            initialAreaIds={initialAreaIds}
-            initialEmploymentTypeIds={initialEmploymentTypeIds}
-            initialSalaryTab={initialSalaryTab}
-            initialSalaryYearlyIds={initialSalaryYearlyIds}
-            initialSalaryHourlyIds={initialSalaryHourlyIds}
-            jobCategoryOptions={jobCategoryOptions}
-            employmentTypeOptions={employmentTypeOptions}
-            areas={areasMaster}
-            salaryYearlyOptions={salaryYearlyOptions}
-            salaryHourlyOptions={salaryHourlyOptions}
-            onSearch={handleSearch}
-            onReset={handleReset}
-          />
+          <button
+            type="button"
+            className={styles.itemMobileButton}
+            onClick={() => setIsMobileOpen((prev) => !prev)}
+          >
+            <span>条件で探す</span>
+          </button>
+          <div
+            className={clsx(styles.boxMobile, isMobileOpen && styles.isOpen)}
+          >
+            <div className={styles.innerBoxMobile}>
+              <JobsFilter
+                initialJobCategoryIds={initialJobCategoryIds}
+                initialAreaIds={initialAreaIds}
+                initialEmploymentTypeIds={initialEmploymentTypeIds}
+                initialSalaryTab={initialSalaryTab}
+                initialSalaryYearlyIds={initialSalaryYearlyIds}
+                initialSalaryHourlyIds={initialSalaryHourlyIds}
+                jobCategoryOptions={jobCategoryOptions}
+                employmentTypeOptions={employmentTypeOptions}
+                areas={areasMaster}
+                salaryYearlyOptions={salaryYearlyOptions}
+                salaryHourlyOptions={salaryHourlyOptions}
+                onSearch={handleSearch}
+                onReset={handleReset}
+              />
+            </div>
+          </div>
         </div>
       </section>
 

@@ -233,7 +233,8 @@ export function JobsFilter({
           onClick={handleSearch}
           className={styles.btnSearch}
         >
-          検索
+          <span className={styles.statusPc}>検索</span>
+          <span className={styles.statusSp}>条件で調べる</span>
         </button>
         <button type="button" onClick={handleReset} className={styles.btnReset}>
           リセット

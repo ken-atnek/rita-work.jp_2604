@@ -13,16 +13,39 @@
 }
 .itemCard {
     position: relative;
-    grid-row: span 3;
-    display: grid;
-    grid-template-rows: subgrid;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     font-size: inherit;
     border-radius: $radius14;
     @include box-shadow;
-    .itemLink {
+    @include sp {
+        box-shadow: unset;
+    }
+    .itemLinkHead {
         position: absolute;
         inset: 0;
         z-index: 1;
+    }
+    .itemLinkBottom {
+        display: none;
+    }
+
+    // TOPページ表示用
+    &.itemCardSpotlight {
+        .itemLinkHead {
+            display: none;
+        }
+        .itemLinkBottom {
+            display: flex;
+            justify-content: center;
+            border: 1px solid $main-orange;
+            margin-top: 2rem;
+            border-radius: $radius8;
+            padding-block: 1rem;
+            font-size: FZ(14);
+            color: $main-orange;
+        }
     }
     .itemFavorite {
         position: absolute;
@@ -60,9 +83,10 @@
     }
     .itemDetails {
         position: relative;
-        grid-row: span 2;
-        display: grid;
-        grid-template-rows: subgrid;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         font-size: inherit;
         background-color: #fff;
         border-radius: 0 0 $radius14 $radius14;

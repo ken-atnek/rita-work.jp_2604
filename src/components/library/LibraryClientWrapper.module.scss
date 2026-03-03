@@ -5,29 +5,7 @@
 @use "svg" as *;
 @use "mixin" as *;
 .containerHead {
-    position: relative;
-    font-size: inherit;
-    @include flex-center;
-    padding-inline: 4vw;
-    padding-top: 5em;
-    background-color: $base-white;
-    padding-bottom: 4rem;
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        font-size: inherit;
-        background-color: $main-orange;
-        border-bottom-left-radius: $radius80;
-        border-bottom-right-radius: $radius80;
-        z-index: -1;
-    }
-    h2 {
-        margin-top: 17px;
-        font-size: FZ(28);
-        color: #fff;
-        font-weight: 500;
-    }
+    @include subpage-head;
 }
 .containerMyPage {
     display: flex;
@@ -36,6 +14,11 @@
     flex: 1;
     padding-top: 4rem;
     padding-inline: 4vw;
+    padding-bottom: 10rem;
+    @include sp {
+        padding-top: 6vw;
+        padding-bottom: 18vw;
+    }
     .noFavorite {
         @include flex-center;
         font-size: FZ(18);
@@ -51,6 +34,12 @@
         @include box-shadow;
         border-radius: $radius8;
         background-color: #fff;
+        @include sp {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0 2vw;
+        }
         button {
             position: relative;
             width: 24.5rem;
@@ -59,6 +48,9 @@
             font-size: FZ(18);
             font-weight: 500;
             border-radius: 7px;
+            @include sp {
+                width: unset;
+            }
             &.isActive {
                 background-color: $main-orange;
                 color: #fff;
@@ -74,6 +66,10 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 0 2.4rem;
         margin-top: 5rem;
+        @include sp {
+            grid-template-columns: unset;
+            margin-top: 8vw;
+        }
     }
     .historyList {
         position: relative;
@@ -83,5 +79,8 @@
         grid-template-columns: auto 1fr;
         margin-top: 5rem;
         gap: 1.6rem 0;
+        @include sp {
+            margin-top: 8vw;
+        }
     }
 }

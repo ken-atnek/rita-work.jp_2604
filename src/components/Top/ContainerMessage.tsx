@@ -43,14 +43,22 @@ const ContainerTopMessage = () => {
               alt="iPhone画像"
             />
           </div>
+          <div className={styles.titleSp}>message</div>
           <div className={styles.wrapMessage}>
-            <h2>message</h2>
+            <p className={styles.headSp}>これからはつなぐだけじゃない、</p>
+            <h2 className={styles.statusPc}>message</h2>
+            <h2 className={styles.statusSp}>
+              <i>支</i>
+              <i>え</i>
+              <i>る</i>転職支援。
+            </h2>
             <p>
               リタワークは、求人者と企業の橋渡しを超えた存在を目指しています。
               <br />
               一人ひとりの悩みや不安、業界の課題に正面から向き合い、理想の職場環境を一緒につくること。
               <br />
               「本当に納得できる職場」を見つけるために、私たちがいます。
+              <br className="sp" />
               就職先のことに限らず、転職活動全般のお悩みやご不安も、お気軽にご相談ください。
             </p>
             <button

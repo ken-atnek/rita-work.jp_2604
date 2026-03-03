@@ -137,6 +137,12 @@ export default function ContainerJobHero({
                 speed: 1000,
                 arrows: true,
                 pagination: true,
+                breakpoint: {
+                  768: {
+                    arrows: false,
+                    pagination: true,
+                  },
+                },
               }}
             >
               <SplideTrack className={styles.splideTrack}>
@@ -157,19 +163,11 @@ export default function ContainerJobHero({
                 <button
                   type="button"
                   className="splide__arrow splide__arrow--prev"
-                >
-                  <svg>
-                    <use href="#svg_pageTop" />
-                  </svg>
-                </button>
+                ></button>
                 <button
                   type="button"
                   className="splide__arrow splide__arrow--next"
-                >
-                  <svg>
-                    <use href="#svg_pageTop" />
-                  </svg>
-                </button>
+                ></button>
               </div>
             </Splide>
 

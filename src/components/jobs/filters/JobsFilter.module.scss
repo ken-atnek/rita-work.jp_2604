@@ -7,6 +7,11 @@
 .innerFilters {
     display: flex;
     gap: 0 1rem;
+    @include sp {
+        flex-direction: column;
+        @include box-shadow;
+        @include bottom-radius($radius24);
+    }
     .boxFilters {
         position: relative;
         display: grid;
@@ -14,6 +19,13 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 7px;
         font-size: inherit;
+        @include sp {
+            grid-template-columns: unset;
+            grid-auto-flow: row;
+            padding: 4vw;
+            background-color: $main-orange;
+            @include top-radius($radius24);
+        }
         .itemFilter {
             position: relative;
             background-color: #fff;
@@ -164,6 +176,9 @@
             // 職種
             &.jobCategory {
                 z-index: 2;
+                @include sp {
+                    z-index: 4;
+                }
                 button {
                     &::before {
                         width: 2.2rem;
@@ -188,6 +203,9 @@
             // エリア
             &.areaField {
                 z-index: 2;
+                @include sp {
+                    z-index: 3;
+                }
                 button {
                     &::before {
                         width: 1.7rem;
@@ -230,6 +248,9 @@
 
             // 雇用形態
             &.employmentType {
+                @include sp {
+                    z-index: 2;
+                }
                 button {
                     &::before {
                         width: 2.3rem;
@@ -252,6 +273,9 @@
 
             // 給与
             &.salaryField {
+                @include sp {
+                    z-index: 1;
+                }
                 & > button {
                     &::before {
                         width: 2rem;
@@ -300,6 +324,14 @@
         display: flex;
         align-items: flex-end;
         gap: 0 1rem;
+        @include sp {
+            flex-direction: row-reverse;
+            align-items: stretch;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 4vw;
+            @include bottom-radius($radius24);
+        }
         .btnSearch {
             position: relative;
             width: 9.4rem;
@@ -310,6 +342,10 @@
             color: #fff;
             border-radius: 0 $radius14 $radius14;
             @include box-shadow;
+            @include sp {
+                aspect-ratio: unset;
+                flex: 1;
+            }
             &::before {
                 content: "";
                 position: absolute;
@@ -317,6 +353,19 @@
                 right: 100%;
                 width: 5px;
                 @include svg-object-radius("f29400");
+            }
+            .statusPc {
+                font-size: inherit;
+                @include sp {
+                    display: none;
+                }
+            }
+            .statusSp {
+                display: none;
+                @include sp {
+                    font-size: inherit;
+                    display: inline;
+                }
             }
         }
         .btnReset {
@@ -328,6 +377,12 @@
             font-weight: 500;
             @include box-shadow;
             border-radius: $radius14;
+            @include sp {
+                height: unset;
+                padding: 1.2em 1.4em;
+                width: max-content;
+                background-color: #f3f3f3;
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ import { withBasePath } from '@/utils/withBasePath';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
 import { isNewByPublishedStart } from '@/utils/isNewByPublishedStart';
 import type { JobIndexItem } from '@/types/jobIndex';
+import type { SalaryUnitMaster, JobCommonConfig } from '@/types/master';
 
 import {
   loadJobsFilterMasters,
@@ -36,19 +37,26 @@ import {
  * -------------------------------------- */
 const splideOptions: Options = {
   type: 'loop',
-  perPage: 4,
+  perPage: 3,
   perMove: 1,
   gap: '18px',
-  autoplay: true,
+  autoplay: false,
   interval: 5000,
   pauseOnHover: true,
   speed: 400,
   arrows: true,
   pagination: false,
+  padding: { left: '12%', right: '12%' },
   drag: true,
+  // autoHeight: true,
   breakpoints: {
     1024: { perPage: 3 },
-    768: { perPage: 2 },
+    768: {
+      perPage: 1,
+      padding: { left: '0', right: '18%' },
+      trimSpace: false,
+      // focus: 'center', // 中央寄せにしたいなら
+    },
   },
 };
 
@@ -60,16 +68,6 @@ const shuffle = <T,>(arr: T[]): T[] => {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
-};
-
-type SalaryUnitMaster = {
-  id: string;
-  label?: string;
-  name?: string;
-};
-
-type JobCommonConfig = {
-  newIconPeriodDays?: number;
 };
 
 const toMapFromOptions = (options: IdLabelOption[]) =>
@@ -161,8 +159,9 @@ export default function ContainerSpotlightCard() {
       <article>
         <div className={styles.boxH2}>
           <h2>注目の求人</h2>
-          多くの求職者が注目する“いま人気”の求人をピックアップ。気になる職場は早めのチェックがおすすめです。
-          <p></p>
+          <p>
+            多くの求職者が注目する“いま人気”の求人をピックアップ。気になる職場は早めのチェックがおすすめです。
+          </p>
         </div>
 
         <div className={styles.boxSlideList}>
@@ -181,6 +180,7 @@ export default function ContainerSpotlightCard() {
                     jobCategoryMap={jobCategoryMap}
                     isFavorite={favoriteIdsArray.includes(job.jobId)}
                     onToggleFavorite={toggleFavorite}
+                    variant="spotlight"
                     isNew={isNewByPublishedStart({
                       start: job.publishedPeriod.start,
                       newIconPeriodDays,
@@ -194,19 +194,11 @@ export default function ContainerSpotlightCard() {
               <button
                 type="button"
                 className="splide__arrow splide__arrow--prev"
-              >
-                <svg>
-                  <use href="#svg_pageTop" />
-                </svg>
-              </button>
+              ></button>
               <button
                 type="button"
                 className="splide__arrow splide__arrow--next"
-              >
-                <svg>
-                  <use href="#svg_pageTop" />
-                </svg>
-              </button>
+              ></button>
             </div>
           </Splide>
         </div>
