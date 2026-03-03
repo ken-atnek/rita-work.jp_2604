@@ -11,10 +11,10 @@ import { useEffect, useState } from 'react';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import type { Options } from '@splidejs/splide';
 import '@splidejs/react-splide/css';
-
 import styles from '@/styles/PageTop.module.scss';
 import { fetchJson } from '@/utils/fetchJson';
 import { withBasePath } from '@/utils/withBasePath';
+import Link from 'next/link';
 
 export type ConditionItem = {
   id: string;
@@ -60,8 +60,8 @@ export default function ContainerConditionsSlide() {
         <SplideTrack>
           {conditions.map((tag) => (
             <SplideSlide key={tag.id}>
-              <button
-                type="button"
+              <Link
+                href={`/jobs?cond=${tag.id}`}
                 className={styles.tagButton}
                 style={{
                   backgroundImage: `url(${tag.image})`,
@@ -75,7 +75,7 @@ export default function ContainerConditionsSlide() {
                     <small className={styles.subLabel}>{tag.subLabel}</small>
                   )}
                 </span>
-              </button>
+              </Link>
             </SplideSlide>
           ))}
         </SplideTrack>

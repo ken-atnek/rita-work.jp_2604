@@ -62,7 +62,7 @@ const toMapFromOptions = (options: IdLabelOption[]) =>
 export default function JobsPageClient() {
   const router = useRouter();
   const sp = useSearchParams();
-
+  const cond = sp.get('cond'); // 例: "conditions01"
   /* ---------------------------------------
    * URL復元（jc / ar / et / st / sy / sh）
    * -------------------------------------- */
@@ -188,11 +188,17 @@ export default function JobsPageClient() {
         setLoading(true);
         setError(null);
 
+        recommendedBuiltRef.current = false;
+        setRecommendedJobs([]);
+
         // jobs
         const timestamp = Date.now();
+        const jobsPath = cond
+          ? `/db/jobs/conditions/${cond}.json?t=${timestamp}`
+          : `/db/jobs/jobsIndexAll.json?t=${timestamp}`;
 
         const jobsJson = await fetchJson<{ items: JobIndexItem[] }>(
-          withBasePath(`/db/jobs/jobsIndexAll.json?t=${timestamp}`),
+          withBasePath(jobsPath),
           { items: [] }
         );
 
@@ -248,7 +254,7 @@ export default function JobsPageClient() {
     };
 
     load();
-  }, []);
+  }, [cond]);
 
   /* ---------------------------------------
    * おすすめ順（初回のみ固定生成）
