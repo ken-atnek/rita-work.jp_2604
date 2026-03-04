@@ -6,8 +6,41 @@
 @use "mixin" as *;
 .containerHead {
     z-index: 2;
-    @include subpage-head;
+    position: relative;
+    font-size: inherit;
+    @include flex-center(column);
+    padding-inline: 4vw;
+    padding-top: 5em;
+
+    // background-color: $bg-white;
+    padding-bottom: 4rem;
+    @include sp {
+        padding: 8vw 0 0;
+    }
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        font-size: inherit;
+        background-color: $main-orange;
+        z-index: -1;
+        border-bottom-left-radius: $radius80;
+        border-bottom-right-radius: $radius80;
+        @include sp {
+            @include bottom-radius(10vw);
+        }
+    }
+
     h2 {
+        position: relative;
+        margin-top: 17px;
+        font-size: FZ(28);
+        color: #fff;
+        font-weight: 500;
+        @include sp {
+            font-size: FZ(20);
+            margin-top: unset;
+        }
         padding-left: 1.5em;
         display: flex;
         align-items: center;
@@ -55,6 +88,7 @@
             flex-direction: column;
             border-radius: 6vw;
             margin-top: 4vw;
+            margin-top: 0;
             box-shadow: unset;
         }
         .itemMobileButton {
@@ -66,6 +100,7 @@
                 border-radius: 100vmax;
                 height: 10vw;
                 padding-left: 4vw;
+                display: none;
                 span {
                     position: relative;
                     font-size: FZ(16);
@@ -85,27 +120,29 @@
         .boxMobile {
             font-size: inherit;
             display: contents;
+            .innerBoxMobile {
+                font-size: inherit;
+                display: block;
+                @include sp {
+                    width: 100%;
+                    display: flex;
+                    border-radius: 6vw;
+                    // overflow: hidden;
+                }
+            }
             @include sp {
                 // margin-top: 4vw;
                 display: grid;
                 width: 100%;
                 grid-template-rows: 0fr;
-                overflow: hidden;
+                grid-template-rows: 1fr;
+
                 transition: 0.3s ease-out;
                 &.isOpen {
                     grid-template-rows: 1fr;
-                }
-            }
-            .innerBoxMobile {
-                font-size: inherit;
-                display: contents;
-                @include sp {
-                    width: 100%;
-                    display: flex;
-
-                    // background-color: $bg-white;
-                    border-radius: 6vw;
-                    overflow: hidden;
+                    .innerBoxMobile {
+                        overflow: visible;
+                    }
                 }
             }
         }
@@ -119,14 +156,14 @@
     padding-top: 4rem;
     padding-bottom: 10rem;
     padding-inline: 4vw;
-    z-index: 1;
     @include sp {
-        padding: 4vw 4vw 8vw;
+        padding: 8vw 4vw 8vw;
     }
     .noFavorite {
         @include flex-center;
         font-size: FZ(18);
         flex: 1;
+        min-height: 20rem;
     }
     .wrapBtn {
         position: relative;
@@ -154,9 +191,12 @@
             border-radius: 7px;
             @include sp {
                 width: unset;
+                height: 8vw;
+                border-radius: 4px;
+                font-size: FZ(16);
             }
             &.isActive {
-                background-color: $main-orange;
+                background-color: #f04c4c;
                 color: #fff;
             }
         }
@@ -173,6 +213,7 @@
         @include sp {
             grid-template-columns: unset;
             gap: 6vw 0;
+            margin-top: 8vw;
         }
     }
 }

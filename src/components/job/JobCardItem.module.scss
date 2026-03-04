@@ -19,9 +19,7 @@
     font-size: inherit;
     border-radius: $radius14;
     @include box-shadow;
-    @include sp {
-        box-shadow: unset;
-    }
+
     .itemLinkHead {
         position: absolute;
         inset: 0;
@@ -42,11 +40,18 @@
             border: 1px solid $main-orange;
             margin-top: 2rem;
             border-radius: $radius8;
-            padding-block: 1rem;
+            padding-block: 1.2rem;
             font-size: FZ(14);
-            color: $main-orange;
+            color: $base-white;
+            background-color: $main-orange;
+            transition: 0.3s ease-out;
+            @include hover {
+                color: $main-orange;
+                background-color: #fff;
+            }
         }
     }
+
     .itemFavorite {
         position: absolute;
         top: 1rem;
@@ -64,6 +69,7 @@
             margin: auto;
             width: 2rem;
             @include svg-icon-heart("A5A5A8");
+            translate: 0 1px;
         }
         &.is-active {
             &::before {
@@ -75,10 +81,23 @@
         position: relative;
         aspect-ratio: 37/18;
         font-size: inherit;
+        transition: 0.3s ease-out;
+        border-radius: $radius14 $radius14 0 0;
+        overflow: hidden;
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            background-color: rgba(#fff, 0.3);
+            z-index: +1;
+            transition: 0.3s ease-out;
+        }
         img {
             border-radius: $radius14 $radius14 0 0;
             object-fit: cover;
             font-size: inherit;
+            transition: 0.3s ease-out;
         }
     }
     .itemDetails {
@@ -91,12 +110,14 @@
         background-color: #fff;
         border-radius: 0 0 $radius14 $radius14;
         padding: 1.6rem 1.6rem 2.7rem;
+        width: 100%;
         .innerHead {
             font-size: inherit;
             display: flex;
             flex-direction: column;
             gap: 1.4rem 0;
             padding-bottom: 1.3rem;
+
             .wrapHead {
                 position: relative;
                 font-size: inherit;
@@ -120,10 +141,25 @@
                 }
             }
             h2 {
-                font-size: FZ(20);
+                font-weight: 500;
+                line-height: 1.3em;
+                letter-spacing: 0.04em;
+                @include pc {
+                    border: solid 1px #ff0000;
+                    font-size: FZ(18);
+                }
+                @include sp {
+                    font-size: 1.8rem;
+                }
             }
             h3 {
-                font-size: FZ(18);
+                @include pc {
+                    font-size: FZ(18);
+                }
+                @include sp {
+                    font-size: 3vw !important;
+                    border: solid 1px #0000ff;
+                }
             }
         }
         .detailsList {
@@ -150,6 +186,18 @@
                 }
                 dd {
                     font-size: FZ(16);
+                }
+            }
+        }
+    }
+    &:not(.itemCardSpotlight) {
+        &:hover {
+            .itemImage {
+                img {
+                    scale: 1.05;
+                }
+                &::before {
+                    opacity: 1;
                 }
             }
         }

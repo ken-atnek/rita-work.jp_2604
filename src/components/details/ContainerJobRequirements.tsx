@@ -356,7 +356,7 @@ export default function ContainerJobRequirements({
           <dl>
             <dt>募集職種</dt>
             <dd>
-              <p>{jobName}</p>
+              <p className={styles.itemLarge}>{jobName}</p>
             </dd>
           </dl>
 
@@ -364,7 +364,7 @@ export default function ContainerJobRequirements({
           <dl>
             <dt>雇用形態</dt>
             <dd>
-              <p>{typeName}</p>
+              <p className={styles.itemLarge}>{typeName}</p>
             </dd>
           </dl>
           {/* 仕事内容 */}
@@ -426,7 +426,7 @@ export default function ContainerJobRequirements({
           <dl>
             <dt>給与</dt>
             <dd>
-              <p>
+              <p className={styles.salaryText}>
                 {salaryText} {bonusText && <span>{bonusText}</span>}
               </p>
             </dd>
@@ -437,7 +437,9 @@ export default function ContainerJobRequirements({
               <dt>給与の備考</dt>
               <dd>
                 {salaryNotes.map((line, index) => (
-                  <p key={index}>{line}</p>
+                  <p className={styles.salaryNotes} key={index}>
+                    {line}
+                  </p>
                 ))}
               </dd>
             </dl>
