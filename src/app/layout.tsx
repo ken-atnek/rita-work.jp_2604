@@ -90,7 +90,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${notoSans.className} ${roboto.className} ${archivoBlack.variable}`}
+      className={`${roboto.className} ${notoSans.className} ${archivoBlack.variable}`}
     >
       <head>
         <meta
