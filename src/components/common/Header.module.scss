@@ -54,7 +54,7 @@
                     fill: #fff;
                     transition: 0.3s ease-out;
                     &.statusPc {
-                        width: 5.6rem;
+                        width: 5rem;
                         aspect-ratio: 59/56;
                         @include sp {
                             display: none;
@@ -82,7 +82,7 @@
             @include hover {
                 h1 {
                     svg {
-                        fill: #574232;
+                        fill: #ffcd39;
                     }
                 }
             }
@@ -277,6 +277,8 @@
     &.isSub {
         background-color: $main-orange;
         position: fixed;
+        @include bottom-radius($radius40);
+
         .itemLogo {
             @include sp {
                 display: none;
@@ -286,8 +288,8 @@
 }
 .hamburgerButton {
     position: fixed;
-    top: 2vw;
-    right: 2vw;
+    top: 4vw;
+    right: 4vw;
     width: 17vw;
     aspect-ratio: 1;
     z-index: 100;

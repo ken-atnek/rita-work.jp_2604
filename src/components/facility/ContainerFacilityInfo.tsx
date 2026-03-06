@@ -94,20 +94,20 @@ export function ContainerFacilityInfo({
             <dl>
               <dt>法人名</dt>
               <dd>
-                <p>{corporation.name}</p>
+                <p className={styles.corporation}>{corporation.name}</p>
               </dd>
             </dl>
           )}
           <dl>
             <dt>事業所名</dt>
             <dd>
-              <p>{facility.facilityName}</p>
+              <p className={styles.facilityName}>{facility.facilityName}</p>
             </dd>
           </dl>
 
           <dl>
             <dt>アクセス</dt>
-            <dd>
+            <dd className={styles.boxAddress}>
               〒{facility.postalCode}
               <br />
               {facility.prefecture}
@@ -140,7 +140,9 @@ export function ContainerFacilityInfo({
             <dl>
               <dt>設立年月</dt>
               <dd>
-                <p>{formatEstablishedDate(facility.establishedDate)}</p>
+                <p className={styles.establishedDate}>
+                  {formatEstablishedDate(facility.establishedDate)}
+                </p>
               </dd>
             </dl>
           )}

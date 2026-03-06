@@ -37,7 +37,7 @@ import {
  * -------------------------------------- */
 const splideOptions: Options = {
   type: 'loop',
-  perPage: 3,
+  perPage: 2,
   perMove: 1,
   gap: '18px',
   autoplay: false,
@@ -46,7 +46,7 @@ const splideOptions: Options = {
   speed: 400,
   arrows: true,
   pagination: false,
-  padding: { left: '12%', right: '12%' },
+  padding: { left: '18%', right: '18%' },
   drag: true,
   // autoHeight: true,
   breakpoints: {

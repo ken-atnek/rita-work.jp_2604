@@ -20,8 +20,9 @@
         left: 0;
         width: 100%;
         font-size: inherit;
-        height: 20em;
+        height: 22em;
         background-color: $main-orange;
+        @include bottom-radius($radius80);
         @include sp {
             display: none;
         }
@@ -34,15 +35,29 @@
         gap: 0.8em 0;
         @include sp {
             padding: 0;
+            gap: 0 0;
         }
         .boxHeadIcons {
             position: relative;
             font-size: inherit;
             display: flex;
+            align-items: center;
             gap: 0 0.5em;
             @include sp {
-                margin-top: 4vw;
+                margin-top: 6vw;
                 padding-inline: 4vw;
+                flex-wrap: wrap;
+                gap: 2vw 2vw;
+            }
+            .facilityName {
+                font-size: FZ(20);
+                // font-weight: 500;
+                color: #fff;
+                margin-right: 1rem;
+                @include sp {
+                    color: $sub-black;
+                    width: 100%;
+                }
             }
             .iconNew {
                 font-size: FZ(16);
@@ -65,25 +80,25 @@
         }
         h2 {
             color: #fff;
-            font-size: FZ(28);
+            font-size: FZ(32);
+            font-weight: 400;
             margin-top: 0.3em;
+            letter-spacing: 0.04em;
+            line-height: 1.3em;
+            margin-bottom: 1.6rem;
             @include sp {
                 color: $sub-black;
                 padding-inline: 4vw;
-                font-size: FZ(24);
-                line-height: 1.4em;
+                font-size: FZ(20);
+                font-weight: 500;
+                line-height: 1.3em;
                 text-align: justify;
+                letter-spacing: 0.04em;
+                margin-bottom: unset;
+                margin-top: 4vw;
             }
         }
-        .facilityName {
-            font-size: FZ(20);
-            font-weight: 500;
-            color: #fff;
-            @include sp {
-                color: $sub-black;
-                padding-inline: 4vw;
-            }
-        }
+
         .boxSlideImage {
             position: relative;
             width: 100%;

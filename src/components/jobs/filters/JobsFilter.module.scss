@@ -10,7 +10,8 @@
     @include sp {
         flex-direction: column;
         @include box-shadow;
-        @include bottom-radius($radius24);
+        border-radius: ($radius24);
+        z-index: 2;
     }
     .boxFilters {
         position: relative;
@@ -19,9 +20,10 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 7px;
         font-size: inherit;
+
         @include sp {
-            grid-template-columns: unset;
-            grid-auto-flow: row;
+            // grid-template-columns: unset;
+            // grid-auto-flow: row;
             padding: 4vw;
             background-color: $main-orange;
             @include top-radius($radius24);
@@ -34,6 +36,13 @@
             @include box-shadow;
             height: 44px;
             display: flex;
+            transition: 0.3s ease-out;
+            border: 1px solid transparent;
+
+            &:hover {
+                background-color: #fffbf4;
+                border: 1px solid $main-orange;
+            }
             & > button {
                 position: relative;
                 display: flex;
@@ -41,6 +50,10 @@
                 justify-content: flex-start;
                 font-size: FZ(14);
                 padding-left: 4em;
+                @include sp {
+                    padding-left: 14vw;
+                    font-size: FZ(18);
+                }
                 &::before {
                     content: "";
                     position: absolute;
@@ -49,6 +62,7 @@
                     left: 2rem;
                 }
             }
+
             .wrapFilterList {
                 font-size: inherit;
                 position: absolute;
@@ -59,6 +73,7 @@
                 transition: 0.1s ease-out;
                 width: 80%;
                 min-width: 28rem;
+
                 .innerFilterList {
                     overflow: hidden;
                     font-size: inherit;
@@ -106,13 +121,14 @@
                                     rotate: 45deg;
                                 }
                                 &:hover {
-                                    background-color: #f9e1cc;
+                                    background-color: #ffd28a;
                                 }
                             }
                             h3 {
                                 position: relative;
                                 font-size: FZ(18);
                                 padding-left: 4rem;
+
                                 &::before {
                                     content: "";
                                     position: absolute;
@@ -120,12 +136,16 @@
                                 }
                             }
                         }
+
                         ul {
                             font-size: inherit;
                             display: flex;
                             flex-direction: column;
-                            gap: 1.5rem 0;
+                            gap: 1rem 0;
                             margin-top: 1.4rem;
+                            @include sp {
+                                gap: 4vw;
+                            }
                             li {
                                 font-size: inherit;
                                 display: flex;
@@ -134,20 +154,26 @@
                                 label {
                                     font-size: inherit;
                                     position: relative;
-                                    padding-left: 3rem;
+                                    padding-left: 2.8rem;
+                                    @include sp {
+                                        padding-left: 4vw;
+                                    }
                                     &::before {
                                         content: "";
                                         position: absolute;
                                         left: 0;
                                         top: 50%;
                                         translate: 0 -50%;
-                                        width: 2.1rem;
+                                        width: 2rem;
                                         aspect-ratio: 1;
                                         border-radius: 4px;
                                         border: 1px solid $main-orange;
                                     }
                                     span {
-                                        font-size: FZ(18);
+                                        font-size: FZ(15);
+                                        @include sp {
+                                            font-size: FZ(18);
+                                        }
                                     }
                                     &:has(input:checked) {
                                         &::before {
@@ -178,6 +204,10 @@
                 z-index: 2;
                 @include sp {
                     z-index: 4;
+                    .wrapFilterList {
+                        right: unset;
+                        left: 0;
+                    }
                 }
                 button {
                     &::before {
@@ -227,8 +257,8 @@
                                 display: flex;
                                 flex-direction: column;
                                 .areaLabel {
-                                    font-size: FZ(18);
-                                    padding-block: 1rem;
+                                    font-size: FZ(16);
+                                    padding-block: 0.8rem;
                                     display: flex;
                                     align-items: center;
                                     &.areaLabel--kumamoto {
@@ -250,6 +280,10 @@
             &.employmentType {
                 @include sp {
                     z-index: 2;
+                    .wrapFilterList {
+                        right: unset;
+                        left: 0;
+                    }
                 }
                 button {
                     &::before {
@@ -302,7 +336,7 @@
                                 border-radius: 7px;
                                 padding: 2px 1px;
                                 & > button {
-                                    height: 4rem;
+                                    height: 3.6rem;
                                     &.isActive {
                                         background-color: $main-orange;
                                         color: #fff;
@@ -329,7 +363,7 @@
             align-items: stretch;
             justify-content: space-between;
             background-color: #fff;
-            padding: 4vw;
+            padding: 2vw;
             @include bottom-radius($radius24);
         }
         .btnSearch {
@@ -341,6 +375,7 @@
             font-weight: 700;
             color: #fff;
             border-radius: 0 $radius14 $radius14;
+            transition: 0.3s ease-out;
             @include box-shadow;
             @include sp {
                 aspect-ratio: unset;
@@ -353,6 +388,7 @@
                 right: 100%;
                 width: 5px;
                 @include svg-object-radius("f29400");
+                transition: 0.3s ease-out;
             }
             .statusPc {
                 font-size: inherit;
@@ -367,6 +403,12 @@
                     display: inline;
                 }
             }
+            @include hover {
+                background-color: #f8861b;
+                &::before {
+                    @include svg-object-radius("f8861b");
+                }
+            }
         }
         .btnReset {
             width: 64px;
@@ -377,6 +419,10 @@
             font-weight: 500;
             @include box-shadow;
             border-radius: $radius14;
+            transition: 0.3s ease-out;
+            @include hover {
+                background-color: #f3f3f3;
+            }
             @include sp {
                 height: unset;
                 padding: 1.2em 1.4em;

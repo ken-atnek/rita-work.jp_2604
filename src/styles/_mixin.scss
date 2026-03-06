@@ -185,3 +185,23 @@
         }
     }
 }
+/* =================================
+ * スライド矢印
+ * ------------------------------ */
+@mixin slide-arrow-button {
+    position: relative;
+    pointer-events: auto;
+    opacity: 1;
+    width: 4.2rem;
+    height: 4.2rem;
+    @include flex-center;
+    background-color: $main-black;
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 17px;
+        @include svg-icon-slide-arrow("fff");
+    }
+}

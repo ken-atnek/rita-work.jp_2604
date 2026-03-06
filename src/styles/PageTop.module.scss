@@ -45,6 +45,7 @@
         font-size: FZ(24);
         padding-left: 1.8em;
         width: max-content;
+        color: $main-black;
         &::before {
             content: "";
             position: absolute;
@@ -58,6 +59,7 @@
         font-size: FZ(16);
         font-weight: 300;
         line-height: 1.6em;
+        color: $main-black;
     }
 }
 
@@ -65,7 +67,7 @@
  * HERO
  * ------------------------------ */
 .containerHero {
-    aspect-ratio: 1900/1113;
+    aspect-ratio: 1366/770;
     max-height: 798px;
     background-color: $bg-white;
     @include sp {
@@ -78,20 +80,26 @@
         top: 0;
         font-size: inherit;
         width: 100%;
+        aspect-ratio: 1366/770;
+        max-height: 798px;
         @include sp {
             height: 100%;
+            background-color: #fef4e5;
         }
         &::before {
             content: "";
             position: absolute;
-            inset: 0;
-            @include bottom-radius($radius80);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            @include bottom-radius(8rem);
             background: url("/images/bg.webp") repeat center center/contain;
             mix-blend-mode: color-dodge;
             z-index: 1;
             @include sp {
-                border-bottom-left-radius: 8vw;
-                border-bottom-right-radius: 8vw;
+                border-bottom-left-radius: 10vw;
+                border-bottom-right-radius: 10vw;
             }
         }
         &::after {
@@ -100,12 +108,12 @@
             border-bottom: 1px solid rgba(#fff, 0.7);
             border-left: 1px solid rgba(#fff, 0.7);
             border-right: 1px solid rgba(#fff, 0.7);
-            inset: 0 1rem 1rem;
-            @include bottom-radius($radius80);
+            inset: 0 1.5rem 1.5rem;
+            @include bottom-radius(7rem);
             @include sp {
                 inset: 0 2vw 2vw;
-                border-bottom-left-radius: 10vw;
-                border-bottom-right-radius: 10vw;
+                border-bottom-left-radius: 8vw;
+                border-bottom-right-radius: 8vw;
             }
         }
         img {
@@ -113,11 +121,14 @@
             position: relative;
             width: 100%;
             height: 100%;
-            @include bottom-radius($radius80);
+            aspect-ratio: 1366/770;
+            @include bottom-radius(8.5rem);
             max-height: 798px;
             object-fit: cover;
             @include sp {
                 max-height: unset;
+                border-bottom-left-radius: 10vw;
+                border-bottom-right-radius: 10vw;
             }
         }
     }
@@ -189,7 +200,7 @@
             aspect-ratio: 589/1000;
             @include sp {
                 width: 18vw;
-                right: 4vw;
+                right: 8vw;
                 bottom: calc(100% + 42vw);
                 clip-path: inset(0 0 40% 0);
             }
@@ -226,7 +237,7 @@
                 }
                 h2 {
                     font-size: FZ(20);
-                    color: $font-black;
+                    color: $main-black;
                     position: relative;
                     padding-left: 1.8em;
                     font-weight: 500;
@@ -241,7 +252,7 @@
                     }
                 }
                 .itemCount {
-                    color: $font-black;
+                    color: $main-black;
                     font-size: FZ(20);
                     display: flex;
                     align-items: flex-end;
@@ -256,6 +267,9 @@
                     &::after {
                         content: "件";
                         margin-left: 0.3em;
+                    }
+                    @include sp {
+                        font-size: 5vw;
                     }
                 }
             }
@@ -296,6 +310,7 @@
                 padding-left: 3em;
                 @include sp {
                     box-shadow: unset;
+                    font-size: FZ(18);
                 }
                 &::before {
                     content: "";
@@ -306,11 +321,17 @@
                     width: 1em;
                     @include svg-icon-building($color-orange);
                     z-index: 1;
+                    @include sp {
+                        width: 4vw;
+                    }
                 }
                 input {
                     font-size: FZ(14);
                     padding: 0.5em 1em;
                     width: 100%;
+                    @include sp {
+                        font-size: FZ(16);
+                    }
                     &::placeholder {
                         color: rgba(#726b6299, 0.6);
                     }
@@ -325,6 +346,7 @@
                 background-color: #fff;
                 @include box-shadow;
                 margin-right: 0.6em;
+                transition: 0.3s ease-out;
                 @include sp {
                     background-color: $main-orange;
                 }
@@ -334,10 +356,15 @@
                     inset: 0;
                     margin: auto;
                     width: 45%;
+                    transition: 0.3s ease-out;
+
                     @include svg-icon-loupe($color-orange);
                     @include sp {
                         @include svg-icon-loupe("fff");
                     }
+                }
+                @include hover {
+                    background-color: #fff9e3;
                 }
             }
         }
@@ -353,7 +380,7 @@
     padding: 3em 4vw 0;
     z-index: 2;
     @include sp {
-        padding: 8vw 4vw 0;
+        padding: 2vw 4vw 0;
     }
     &::after {
         content: "";
@@ -375,7 +402,7 @@
         max-width: $articleMaxWidth;
         h2 {
             &::before {
-                width: 1.25em;
+                width: 1.2em;
                 top: 40%;
                 @include svg-object-fire($color-orange);
             }
@@ -416,17 +443,28 @@
                     color: #fff;
                     font-size: FZ(12);
                     border-radius: 54px;
+                    z-index: 2;
                 }
                 a {
                     display: block;
                     font-size: inherit;
                     width: 100%;
+                    opacity: 1;
+                    transition: 0.3s ease-out;
+                    overflow: hidden;
+                    @include hover {
+                        opacity: 0.8;
+                        img {
+                            scale: 1.05;
+                        }
+                    }
                     img {
                         width: 100%;
                         aspect-ratio: 218/130;
                         object-fit: cover;
                         font-size: inherit;
                         @include top-radius;
+                        transition: 0.3s ease-out;
                     }
                 }
                 .typeList {
@@ -478,9 +516,9 @@
         gap: 2em 0;
         .boxH2 {
             h2 {
-                padding-left: 2em;
+                padding-left: 1.8em;
                 &::before {
-                    width: 1.5em;
+                    width: 1.3em;
                     top: 40%;
                     @include svg-icon-speaker($color-orange);
                 }
@@ -493,7 +531,7 @@
         }
         .boxSlideList {
             position: relative;
-            --half-size: 12%;
+            --half-size: 18%;
             font-size: inherit;
             touch-action: pan-y; /* 縦スクロール優先、横はライブラリに */
             overscroll-behavior-x: contain; /* 横のオーバースクロール抑制 */
@@ -581,21 +619,7 @@
 
                 // ★ 矢印ボタン本体と svg をまとめて上書き
                 :global(.splide__arrow) {
-                    position: relative;
-                    pointer-events: auto;
-                    opacity: 1;
-                    width: 4.5rem;
-                    height: 4.5rem;
-                    @include flex-center;
-                    background-color: $main-black;
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        inset: 0;
-                        margin: auto;
-                        width: 17px;
-                        @include svg-icon-slide-arrow("fff");
-                    }
+                    @include slide-arrow-button;
                 }
                 :global(.splide__arrow--prev) {
                     &::before {
@@ -643,10 +667,13 @@
         flex-direction: column;
         max-width: $articleMaxWidth;
         gap: 2em 0;
+        @include sp {
+            gap: 4vw 0;
+        }
         h2 {
             padding-left: 2em;
             &::before {
-                width: 1.7em;
+                width: 1.5em;
                 top: 40%;
                 @include svg-object-star($color-orange);
             }
@@ -751,6 +778,8 @@
                 justify-content: center;
                 border-radius: 14px;
                 @include box-shadow;
+                opacity: 1;
+                transition: 0.3s ease-out;
                 .label {
                     width: 100%;
                     @include flex-center(column);
@@ -765,6 +794,9 @@
                         font-size: 3.4vw;
                     }
                 }
+                @include hover {
+                    opacity: 0.8;
+                }
             }
         }
     }
@@ -777,6 +809,9 @@
     @include flex-center;
     background-color: $base-white;
     padding: 4em 4vw 0;
+    @include sp {
+        padding: 10vw 4vw 0;
+    }
     &::after {
         content: "";
         position: absolute;
@@ -787,6 +822,10 @@
         @include bottom-radius($radius80);
         background-color: $base-white;
         font-size: inherit;
+        @include sp {
+            height: 10vw;
+            @include bottom-radius($radius40);
+        }
     }
     article {
         display: flex;
@@ -797,10 +836,10 @@
             gap: 4vw 0;
         }
         h2 {
-            padding-left: 2.2em;
+            padding-left: 2em;
             &::before {
-                width: 1.7em;
-                top: 40%;
+                width: 1.5em;
+                top: 45%;
                 @include svg-object-book($color-orange);
             }
         }
@@ -831,6 +870,7 @@
                     display: grid;
                     grid-template-rows: subgrid;
                     gap: 0;
+                    transition: 0.3s ease-out;
                     .itemImage {
                         position: relative;
                         img {
@@ -860,6 +900,9 @@
                         line-clamp: 2; /* 行数を制限 */
                         overflow: hidden;
                     }
+                    &:hover {
+                        opacity: 0.8;
+                    }
                 }
             }
         }
@@ -881,11 +924,12 @@
                     }
                     h3 {
                         padding-inline: 1.3rem;
-                        font-size: 5vw;
+                        font-size: 4vw;
                         margin-top: 1.6rem;
                         line-height: 1.4em;
                         letter-spacing: 0.1em;
                         font-weight: 500;
+                        border: solid 1px #0000ff;
                     }
                     .summary {
                         padding-inline: 1.3rem;

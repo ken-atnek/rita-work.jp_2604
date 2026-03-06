@@ -116,13 +116,14 @@ export default function ContainerJobHero({
       >
         <article>
           <div className={styles.boxHeadIcons}>
+            <div className={styles.facilityName}>{facility.facilityName}</div>
             {isNew && <span className={styles.iconNew}>新着</span>}
             {typeName && (
               <span className={styles.employmentType}>{typeName}</span>
             )}
           </div>
           <h2>{job.title}</h2>
-          <div className={styles.facilityName}>{facility.facilityName}</div>
+
           <div className={styles.boxSlideImage}>
             <Splide
               className={styles.innerSlide}
