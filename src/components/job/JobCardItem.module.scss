@@ -115,9 +115,10 @@
             font-size: inherit;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             gap: 1.4rem 0;
             padding-bottom: 1.3rem;
-
+            flex: 1;
             .wrapHead {
                 position: relative;
                 font-size: inherit;
@@ -140,25 +141,25 @@
                     padding-inline: 0.8em;
                 }
             }
-            h2 {
+            .itemTitle {
                 font-weight: 500;
                 line-height: 1.3em;
                 letter-spacing: 0.04em;
+                flex: 1;
                 @include pc {
-                    border: solid 1px #ff0000;
+                    // border: solid 1px #ff0000;
                     font-size: FZ(18);
                 }
                 @include sp {
                     font-size: 1.8rem;
                 }
             }
-            h3 {
+            .itemFacilityName {
                 @include pc {
                     font-size: FZ(18);
                 }
                 @include sp {
-                    font-size: 3vw !important;
-                    border: solid 1px #0000ff;
+                    font-size: 16px;
                 }
             }
         }

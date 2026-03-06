@@ -1,8 +1,10 @@
 @use "reset_v2.5" as *;
 @use "variable" as *;
 
-// @import "swiper/css";
-// @import "swiper/css/navigation";
+html {
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
 body {
     @include SunSerif;
 

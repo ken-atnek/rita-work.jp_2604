@@ -81,8 +81,8 @@ export function JobCardBody({
             <span className={styles.employmentType}>{employmentTypeLabel}</span>
           </div>
 
-          <h2>{job.title}</h2>
-          <h3>{job.facilityName}</h3>
+          <div className={styles.itemTitle}>{job.title}</div>
+          <div className={styles.itemFacilityName}>{job.facilityName}</div>
         </div>
 
         <div className={styles.detailsList}>
