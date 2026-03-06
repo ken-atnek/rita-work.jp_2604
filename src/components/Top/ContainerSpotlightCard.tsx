@@ -50,7 +50,6 @@ const splideOptions: Options = {
   drag: true,
   // autoHeight: true,
   breakpoints: {
-    1024: { perPage: 3 },
     768: {
       perPage: 1,
       padding: { left: '0', right: '18%' },

@@ -59,6 +59,13 @@ const toMapFromOptions = (options: IdLabelOption[]) =>
     return acc;
   }, {});
 
+type ConditionItem = {
+  id: string;
+  label: string;
+  subLabel?: string;
+  image: string;
+};
+
 export default function JobsPageClient() {
   const router = useRouter();
   const sp = useSearchParams();
@@ -103,7 +110,9 @@ export default function JobsPageClient() {
   const [salaryUnitMap, setSalaryUnitMap] = useState<Record<string, string>>(
     {}
   );
-
+  const [conditionsMap, setConditionsMap] = useState<
+    Record<string, ConditionItem>
+  >({});
   /* ---------------------------------------
    * UI state
    * -------------------------------------- */
@@ -237,6 +246,18 @@ export default function JobsPageClient() {
           toIdLabelMap(salaryUnits, (u) => u.label ?? u.name ?? u.id)
         );
 
+        const conditions = await fetchJson<ConditionItem[]>(
+          withBasePath('/db/conditions.json'),
+          []
+        );
+
+        setConditionsMap(
+          conditions.reduce<Record<string, ConditionItem>>((acc, item) => {
+            acc[item.id] = item;
+            return acc;
+          }, {})
+        );
+
         // config
         const config = await fetchJson<JobCommonConfig>(
           withBasePath('/db/config/job_common.json'),
@@ -335,6 +356,11 @@ export default function JobsPageClient() {
     router.push('/jobs');
   };
 
+  const handleConditionCategoryClick = (jobCategoryId: string) => {
+    setAppliedJobCategoryIds((prev) =>
+      prev.length === 1 && prev[0] === jobCategoryId ? [] : [jobCategoryId]
+    );
+  };
   /* ---------------------------------------
    * 表示用一覧（タブ + 絞り込み適用）
    * -------------------------------------- */
@@ -407,6 +433,16 @@ export default function JobsPageClient() {
 
   const jobsCountText = jobsForView.length.toLocaleString();
 
+  const conditionItem = cond ? conditionsMap[cond] : undefined;
+  const conditionLabel = conditionItem
+    ? `${conditionItem.label}${conditionItem.subLabel ?? ''}`
+    : '';
+  const headingText = conditionLabel ? `${conditionLabel}` : '求人を検索';
+  const conditionJobCategoryOptions = useMemo(() => {
+    const usedIds = new Set(jobsAll.map((job) => job.jobCategoryId));
+
+    return jobCategoryOptions.filter((option) => usedIds.has(option.id));
+  }, [jobsAll, jobCategoryOptions]);
   /* ---------------------------------------
    * UI
    * -------------------------------------- */
@@ -416,43 +452,61 @@ export default function JobsPageClient() {
   return (
     <>
       <section className={styles.containerHead}>
-        <h2>
-          求人を検索
+        <h2 className={clsx(cond && styles.isConditionHeading)}>
+          {headingText}
           <span>
             掲載：<i>{jobsCountText}</i>件
           </span>
         </h2>
-
-        <div className={styles.blockFilters}>
-          <button
-            type="button"
-            className={styles.itemMobileButton}
-            onClick={() => setIsMobileOpen((prev) => !prev)}
-          >
-            <span>条件で探す</span>
-          </button>
-          <div
-            className={clsx(styles.boxMobile, isMobileOpen && styles.isOpen)}
-          >
-            <div className={styles.innerBoxMobile}>
-              <JobsFilter
-                initialJobCategoryIds={initialJobCategoryIds}
-                initialAreaIds={initialAreaIds}
-                initialEmploymentTypeIds={initialEmploymentTypeIds}
-                initialSalaryTab={initialSalaryTab}
-                initialSalaryYearlyIds={initialSalaryYearlyIds}
-                initialSalaryHourlyIds={initialSalaryHourlyIds}
-                jobCategoryOptions={jobCategoryOptions}
-                employmentTypeOptions={employmentTypeOptions}
-                areas={areasMaster}
-                salaryYearlyOptions={salaryYearlyOptions}
-                salaryHourlyOptions={salaryHourlyOptions}
-                onSearch={handleSearch}
-                onReset={handleReset}
-              />
+        {!cond && (
+          <div className={styles.blockFilters}>
+            <button
+              type="button"
+              className={styles.itemMobileButton}
+              onClick={() => setIsMobileOpen((prev) => !prev)}
+            >
+              <span>条件で探す</span>
+            </button>
+            <div
+              className={clsx(styles.boxMobile, isMobileOpen && styles.isOpen)}
+            >
+              <div className={styles.innerBoxMobile}>
+                <JobsFilter
+                  initialJobCategoryIds={initialJobCategoryIds}
+                  initialAreaIds={initialAreaIds}
+                  initialEmploymentTypeIds={initialEmploymentTypeIds}
+                  initialSalaryTab={initialSalaryTab}
+                  initialSalaryYearlyIds={initialSalaryYearlyIds}
+                  initialSalaryHourlyIds={initialSalaryHourlyIds}
+                  jobCategoryOptions={jobCategoryOptions}
+                  employmentTypeOptions={employmentTypeOptions}
+                  areas={areasMaster}
+                  salaryYearlyOptions={salaryYearlyOptions}
+                  salaryHourlyOptions={salaryHourlyOptions}
+                  onSearch={handleSearch}
+                  onReset={handleReset}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        )}
+        {cond && conditionJobCategoryOptions.length > 0 && (
+          <nav className={styles.blockConditionCategories}>
+            {conditionJobCategoryOptions.map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                className={clsx(
+                  styles.itemConditionCategory,
+                  appliedJobCategoryIds.includes(option.id) && styles.isActive
+                )}
+                onClick={() => handleConditionCategoryClick(option.id)}
+              >
+                {option.label}
+              </button>
+            ))}
+          </nav>
+        )}
       </section>
 
       <section className={styles.containerJobs}>

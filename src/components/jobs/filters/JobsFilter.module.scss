@@ -20,7 +20,6 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 7px;
         font-size: inherit;
-
         @include sp {
             // grid-template-columns: unset;
             // grid-auto-flow: row;
@@ -38,7 +37,6 @@
             display: flex;
             transition: 0.3s ease-out;
             border: 1px solid transparent;
-
             &:hover {
                 background-color: #fffbf4;
                 border: 1px solid $main-orange;
@@ -62,7 +60,6 @@
                     left: 2rem;
                 }
             }
-
             .wrapFilterList {
                 font-size: inherit;
                 position: absolute;
@@ -73,7 +70,6 @@
                 transition: 0.1s ease-out;
                 width: 80%;
                 min-width: 28rem;
-
                 .innerFilterList {
                     overflow: hidden;
                     font-size: inherit;
@@ -128,7 +124,6 @@
                                 position: relative;
                                 font-size: FZ(18);
                                 padding-left: 4rem;
-
                                 &::before {
                                     content: "";
                                     position: absolute;
@@ -136,7 +131,6 @@
                                 }
                             }
                         }
-
                         ul {
                             font-size: inherit;
                             display: flex;

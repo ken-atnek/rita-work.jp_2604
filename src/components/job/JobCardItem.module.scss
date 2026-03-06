@@ -19,7 +19,6 @@
     font-size: inherit;
     border-radius: $radius14;
     @include box-shadow;
-
     .itemLinkHead {
         position: absolute;
         inset: 0;
@@ -51,7 +50,6 @@
             }
         }
     }
-
     .itemFavorite {
         position: absolute;
         top: 1rem;
@@ -61,7 +59,7 @@
         border-radius: 50%;
         background-color: rgba(#fff, 0.8);
         @include box-shadow;
-        z-index: 1;
+        z-index: 3;
         &::before {
             content: "";
             position: absolute;
@@ -73,7 +71,7 @@
         }
         &.is-active {
             &::before {
-                @include svg-icon-heart("f29400");
+                @include svg-icon-heart("D0442E");
             }
         }
     }

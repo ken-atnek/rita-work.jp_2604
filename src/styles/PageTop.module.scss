@@ -357,7 +357,6 @@
                     margin: auto;
                     width: 45%;
                     transition: 0.3s ease-out;
-
                     @include svg-icon-loupe($color-orange);
                     @include sp {
                         @include svg-icon-loupe("fff");
@@ -1022,8 +1021,8 @@
         height: 100dvh;
     }
     &::before {
-        background: url("/images/bg-top-message.webp") no-repeat center center /
-            cover;
+        background: url("/images/bg-top-message.webp") no-repeat center
+            calc(78% + var(--parallax-offset, 0px)) / cover;
         filter: blur(4px);
         scale: 1.01;
     }

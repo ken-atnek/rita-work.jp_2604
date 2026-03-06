@@ -169,7 +169,6 @@
                     flex-wrap: wrap;
                     gap: 0.5em 2em;
                     li {
-                        font-size: inherit;
                         width: max-content;
                         font-size: 1.6rem;
                         &::before {
@@ -229,7 +228,6 @@
                         display: flex;
                         flex-direction: column;
                         li {
-                            font-size: inherit;
                             line-height: 1.6em;
                             font-size: 1.6rem;
 
