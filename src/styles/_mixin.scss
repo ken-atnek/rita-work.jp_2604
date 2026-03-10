@@ -206,3 +206,44 @@
         @include svg-icon-slide-arrow("fff");
     }
 }
+
+/* =================================
+ *おすすめ・新着セレクトボタン
+ * ------------------------------ */
+@mixin head-wrap-button {
+    position: relative;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    font-size: inherit;
+    padding: 2px;
+    @include box-shadow;
+    border-radius: $radius8;
+    background-color: #f3f3f3;
+    @include sp {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0 2vw;
+    }
+    button {
+        position: relative;
+        width: 24.5rem;
+        height: 44px;
+        @include flex-center;
+        font-size: FZ(18);
+        font-weight: 500;
+        border-radius: 7px;
+        color: #aba6a1;
+        @include sp {
+            width: unset;
+            height: 8vw;
+            border-radius: 4px;
+            font-size: FZ(16);
+        }
+        &.isActive {
+            background-color: $sub-orange;
+            color: $main-black;
+        }
+    }
+}

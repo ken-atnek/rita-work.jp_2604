@@ -357,8 +357,9 @@
             align-items: stretch;
             justify-content: space-between;
             background-color: #fff;
-            padding: 2vw;
-            @include bottom-radius($radius24);
+            padding: 3vw 4vw 4vw;
+            @include bottom-radius($radius40);
+            gap: 0 6vw;
         }
         .btnSearch {
             position: relative;
@@ -422,6 +423,7 @@
                 padding: 1.2em 1.4em;
                 width: max-content;
                 background-color: #f3f3f3;
+                font-size: FZ(14);
             }
         }
     }
