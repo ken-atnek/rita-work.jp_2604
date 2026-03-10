@@ -76,7 +76,8 @@ export function FacilityDetailContent({
             ? facility.specialBanner.logoImagePath
             : undefined
         }
-        tags={tags}
+        allTags={jobCategories.map((c) => c.name)}
+        activeTags={tags}
       />
       <ContainerCardList
         jobs={jobs}

@@ -278,7 +278,6 @@
         background-color: $main-orange;
         position: fixed;
         @include bottom-radius($radius40);
-
         .itemLogo {
             @include sp {
                 display: none;

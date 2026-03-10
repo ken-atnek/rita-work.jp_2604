@@ -9,10 +9,21 @@ import Image from 'next/image';
 type Props = {
   name: string;
   logoSrc?: string;
-  tags?: string[]; // 例: ["看護師", "介護士", "理学療法士"]
+  allTags: string[];
+  activeTags?: string[];
 };
+export function ContainerFacilityHero({
+  name,
+  logoSrc,
+  allTags = [],
+  activeTags = [],
+}: Props) {
+  const activeTagSet = new Set(activeTags);
 
-export function ContainerFacilityHero({ name, logoSrc, tags = [] }: Props) {
+  const sortedTags = [
+    ...allTags.filter((tag) => activeTagSet.has(tag)),
+    ...allTags.filter((tag) => !activeTagSet.has(tag)),
+  ];
   return (
     <section className={styles.containerFacilityHero}>
       <article>
@@ -28,13 +39,16 @@ export function ContainerFacilityHero({ name, logoSrc, tags = [] }: Props) {
         </div>
         <h2>{name}</h2>
 
-        {tags.length > 0 ? (
-          <ul className={styles.listJobCategory}>
-            {tags.map((tag) => (
-              <li key={tag}>{tag}</li>
-            ))}
-          </ul>
-        ) : null}
+        <ul className={styles.listJobCategory}>
+          {sortedTags.map((tag) => (
+            <li
+              key={tag}
+              className={activeTagSet.has(tag) ? styles.isActive : undefined}
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>
       </article>
     </section>
   );

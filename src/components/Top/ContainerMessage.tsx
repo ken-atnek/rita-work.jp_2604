@@ -5,7 +5,7 @@
  * Last updated: 2025-09-04
  * ======================================= */
 'use client';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import styles from '@/styles/PageTop.module.scss';
 import ExternalLink from '@/components/common/ExternalLink';
 import Image from 'next/image';
@@ -14,6 +14,8 @@ import { QRCodeCanvas } from 'qrcode.react';
 const ContainerTopMessage = () => {
   // LINE応募用モーダル：PC判定（シンプルにUAと画面幅で判定）
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   // LINEログイン開始URL（Xサーバー側）
   const backendStartUrl = useMemo(() => {
@@ -31,9 +33,27 @@ const ContainerTopMessage = () => {
       setIsModalOpen(true);
     }
   }, [backendStartUrl]);
+
+  useEffect(() => {
+    const element = sectionRef.current;
+    if (!element) return;
+
+    const handleScroll = () => {
+      const rect = element.getBoundingClientRect();
+      const offset = rect.top * 0.15;
+
+      element.style.setProperty('--parallax-offset', `${offset}px`);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
-      <section className={styles.containerMessage}>
+      <section ref={sectionRef} className={styles.containerMessage}>
         <article>
           <div className={styles.itemImage}>
             <Image

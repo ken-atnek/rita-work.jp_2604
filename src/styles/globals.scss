@@ -1,9 +1,7 @@
 @use "reset_v2.5" as *;
 @use "variable" as *;
-
 html {
     text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
 }
 body {
     @include SunSerif;

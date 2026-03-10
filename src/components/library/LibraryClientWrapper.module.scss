@@ -25,37 +25,7 @@
         flex: 1;
     }
     nav {
-        position: relative;
-        align-self: center;
-        display: flex;
-        align-items: center;
-        font-size: inherit;
-        padding: 2px;
-        @include box-shadow;
-        border-radius: $radius8;
-        background-color: #fff;
-        @include sp {
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0 2vw;
-        }
-        button {
-            position: relative;
-            width: 24.5rem;
-            height: 44px;
-            @include flex-center;
-            font-size: FZ(18);
-            font-weight: 500;
-            border-radius: 7px;
-            @include sp {
-                width: unset;
-            }
-            &.isActive {
-                background-color: $main-orange;
-                color: #fff;
-            }
-        }
+        @include head-wrap-button;
     }
     .listCard {
         max-width: $articleMaxWidth;

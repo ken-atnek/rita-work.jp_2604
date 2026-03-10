@@ -10,7 +10,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import { isNewByPublishedStart } from '@/utils/isNewByPublishedStart';
 import styles from '@/styles/PageTop.module.scss';
 import { fetchJson } from '@/utils/fetchJson';
 import { withBasePath } from '@/utils/withBasePath';
@@ -28,7 +28,7 @@ export type PickUpItem = {
   shopName: string;
   type: number[];
   image: string;
-  iconNew?: boolean;
+  updatedAt: string;
 };
 
 const ContainerTopPickUp = () => {
@@ -51,10 +51,18 @@ const ContainerTopPickUp = () => {
             業界内でも信頼され、採用意欲も高く多くの人材を迎え入れている企業が集まっています。
           </p>
         </div>
-        <ul className={styles.listPickUp}>
+        <ul
+          className={styles.listPickUp}
+          style={{
+            gridTemplateColumns: `repeat(${Math.min(Math.max(pickUpList.length, 3), 5)}, 1fr)`,
+          }}
+        >
           {pickUpList.map((item) => (
             <li key={item.id} className={styles.boxShop}>
-              {item.iconNew && <span className={styles.iconNew}>NEW</span>}
+              {isNewByPublishedStart({
+                start: item.updatedAt,
+                newIconPeriodDays: 30,
+              }) && <span className={styles.iconNew}>NEW</span>}
               <Link
                 href={withBasePath(
                   `/facility/?id=fac_${item.id.padStart(4, '0')}`
