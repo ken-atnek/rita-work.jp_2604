@@ -156,26 +156,26 @@
     .blockConditionCategories {
         position: relative;
         font-size: inherit;
-        display: flex;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
         margin-top: 2em;
         gap: 0 1rem;
         width: 100%;
+        padding-inline: 2em;
         @include sp {
-            flex-wrap: wrap;
-            margin-top: 2vw;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2vw;
+            margin-top: 4vw;
             margin-bottom: 4vw;
         }
         .itemConditionCategory {
-            width: 20%;
-            background-color: $sub-orange;
-            border-radius: 100vmax;
             height: 4.8rem;
             font-size: FZ(18);
             color: $main-black;
+            background-color: #fff;
             transition: 0.3s ease-out;
+            border-radius: $radius8;
             @include sp {
-                width: 25vw;
                 height: 8vw;
                 font-size: FZ(14);
             }
@@ -186,7 +186,11 @@
                 background-color: $sub-orange;
             }
             &.isActive {
-                border: solid 1px #00f;
+                background-color: $sub-orange;
+            }
+            &.isInactive {
+                background-color: #d6d6d6;
+                color: #aba6a1;
             }
         }
     }
