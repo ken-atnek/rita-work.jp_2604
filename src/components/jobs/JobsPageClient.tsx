@@ -490,21 +490,39 @@ export default function JobsPageClient() {
             </div>
           </div>
         )}
-        {cond && conditionJobCategoryOptions.length > 0 && (
+        {cond && jobCategoryOptions.length > 0 && (
           <nav className={styles.blockConditionCategories}>
-            {conditionJobCategoryOptions.map((option) => (
-              <button
-                key={option.id}
-                type="button"
-                className={clsx(
-                  styles.itemConditionCategory,
-                  appliedJobCategoryIds.includes(option.id) && styles.isActive
-                )}
-                onClick={() => handleConditionCategoryClick(option.id)}
-              >
-                {option.label}
-              </button>
-            ))}
+            <button
+              type="button"
+              className={clsx(
+                styles.itemConditionCategory,
+                appliedJobCategoryIds.length === 0 && styles.isActive
+              )}
+              onClick={() => setAppliedJobCategoryIds([])}
+            >
+              ALL
+            </button>
+            {jobCategoryOptions.map((option) => {
+              const isUsed = jobsAll.some(
+                (job) => job.jobCategoryId === option.id
+              );
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  disabled={!isUsed}
+                  className={clsx(
+                    styles.itemConditionCategory,
+                    appliedJobCategoryIds.includes(option.id) &&
+                      styles.isActive,
+                    !isUsed && styles.isInactive
+                  )}
+                  onClick={() => handleConditionCategoryClick(option.id)}
+                >
+                  {option.label}
+                </button>
+              );
+            })}
           </nav>
         )}
       </section>
