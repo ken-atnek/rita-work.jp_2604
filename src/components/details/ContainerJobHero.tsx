@@ -51,10 +51,9 @@ export default function ContainerJobHero({
     jobCategories.find((c) => c.id === job.jobCategoryId)?.name ?? '';
   const fullAddress = `${facility.prefecture}${facility.city}${facility.addressLine}`;
 
-  // LINEログイン開始URL（Xサーバー側）
-  const backendStartUrl = useMemo(() => {
-    return `https://rita5258.xbiz.jp/backend/line-login/start/?job_id=${encodeURIComponent(job.id)}`;
-  }, [job.id]);
+  const lineEntryUrl = useMemo(() => {
+    return (job.lStepUrl ?? '').trim();
+  }, [job.lStepUrl]);
 
   // 給与表示テキスト生成
   const salary = job.salary;
@@ -84,16 +83,20 @@ export default function ContainerJobHero({
   // LINE応募用モーダル：PC判定（シンプルにUAと画面幅で判定）
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleLineApplyClick = useCallback(() => {
-    if (!backendStartUrl) return;
+    if (!lineEntryUrl) return;
     const ua = typeof navigator !== 'undefined' ? navigator.userAgent : '';
-    const isMobile =
+    const isMobileUa =
       /iPhone|iPod|Android.*Mobile|Windows Phone|Opera Mini/i.test(ua);
+    const isNarrowScreen =
+      typeof window !== 'undefined' ? window.innerWidth <= 767 : false;
+    const isMobile = isMobileUa || isNarrowScreen;
+
     if (isMobile) {
-      window.location.href = backendStartUrl;
+      window.location.href = lineEntryUrl;
     } else {
       setIsModalOpen(true);
     }
-  }, [backendStartUrl]);
+  }, [lineEntryUrl]);
   // お気に入り（求人ID単位）
   const { favoriteJobIds, toggleFavorite } = useFavoriteJobIds();
   const isFavorite = favoriteJobIds.has(job.id);
@@ -188,6 +191,7 @@ export default function ContainerJobHero({
                 type="button"
                 className={styles.contact}
                 onClick={handleLineApplyClick}
+                disabled={!lineEntryUrl}
               >
                 <span>LINEで相談する</span>
               </button>
@@ -210,7 +214,7 @@ export default function ContainerJobHero({
         </article>
       </section>
 
-      {isModalOpen && backendStartUrl && (
+      {isModalOpen && lineEntryUrl && (
         <div className={styles.boxLineModal}>
           <div className={styles.modalDetails}>
             <div className={styles.boxHead}>
@@ -229,7 +233,7 @@ export default function ContainerJobHero({
                 LINEアプリで応募手続きが始まります。
               </p>
               <div className={styles.itemQR}>
-                <QRCodeCanvas value={backendStartUrl} size={170} />
+                <QRCodeCanvas value={lineEntryUrl} size={170} />
               </div>
               <div className={styles.wrapBottom}>
                 <h5>このPCから応募する</h5>
@@ -238,7 +242,7 @@ export default function ContainerJobHero({
                   <br />
                   以下のリンクから直接ログインできます。
                 </p>
-                <ExternalLink href={backendStartUrl}>
+                <ExternalLink href={lineEntryUrl}>
                   このPCからログインして応募する
                 </ExternalLink>
               </div>
