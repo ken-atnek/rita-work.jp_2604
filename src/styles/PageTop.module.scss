@@ -420,7 +420,7 @@
             gap: 1em;
             @include sp {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 2vw;
+                gap: 3vw;
                 margin-top: 4vw;
             }
             .boxShop {
@@ -431,6 +431,7 @@
                 width: 100%;
                 @include box-shadow;
                 border-radius: $radius14;
+                container-type: inline-size;
                 .iconNew {
                     position: absolute;
                     top: -0.5em;
@@ -449,48 +450,75 @@
                     font-size: inherit;
                     width: 100%;
                     opacity: 1;
-                    transition: 0.3s ease-out;
                     overflow: hidden;
+                    border-top-left-radius: $radius14;
+                    border-top-right-radius: $radius14;
+                    transition: 0.3s ease-out;
+                    border-top: 1px solid transparent;
+                    border-left: 1px solid transparent;
+                    border-right: 1px solid transparent;
                     @include hover {
-                        opacity: 0.8;
                         img {
+                            opacity: 0.8;
                             scale: 1.05;
+                            transition: 0.3s ease-out;
                         }
                     }
                     img {
                         width: 100%;
-                        aspect-ratio: 218/130;
+                        aspect-ratio: 300/187;
                         object-fit: cover;
                         font-size: inherit;
                         @include top-radius;
-                        transition: 0.3s ease-out;
                     }
                 }
                 .typeList {
-                    background-color: $sub-orange;
                     font-size: inherit;
                     display: flex;
                     justify-content: center;
                     @include bottom-radius;
+                    background-color: #fff;
+                    flex-wrap: wrap;
+                    border-top: 1px solid #f3f3f3;
+                    padding-block: 1rem;
+                    gap: 3cqw;
+                    padding-inline: 5cqw;
+                    transition: 0.3s ease-out;
+                    border-bottom: 1px solid transparent;
+                    border-left: 1px solid transparent;
+                    border-right: 1px solid transparent;
+                    @include sp {
+                        padding: 2vw 1vw;
+                    }
                     li {
-                        padding-block: 0.9em;
-                        font-size: FZ(12);
-                        color: $font-black;
+                        padding-block: 0.5em;
+                        font-size: 5.6cqw;
+                        color: #aba6a1;
                         position: relative;
                         padding-inline: 0.6em;
-                        &:not(:first-of-type) {
-                            &::before {
-                                content: "";
-                                position: absolute;
-                                left: 0;
-                                top: 50%;
-                                translate: 0 -50%;
-                                width: 1px;
-                                height: 1em;
-                                background-color: #d6d6d6;
-                                mix-blend-mode: multiply;
-                            }
+                        border-radius: 100vmax;
+                        background-color: #f3f3f3;
+                        @include sp {
+                            font-size: 2.8vw;
+                            padding-inline: 1vw;
+                            padding-block: 0.5vw;
                         }
+                        &.isActive {
+                            background-color: $sub-orange;
+                            color: $main-black;
+                        }
+                    }
+                }
+                &:has(a:hover) {
+                    a {
+                        border-top: 1px solid $main-orange;
+                        border-left: 1px solid $main-orange;
+                        border-right: 1px solid $main-orange;
+                    }
+                    .typeList {
+                        border-bottom: 1px solid $main-orange;
+                        border-left: 1px solid $main-orange;
+                        border-right: 1px solid $main-orange;
                     }
                 }
             }

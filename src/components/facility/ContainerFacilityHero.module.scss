@@ -48,6 +48,8 @@
             }
             img {
                 border-radius: $radius14;
+                aspect-ratio: 300/187;
+                object-fit: cover;
                 @include sp {
                     border-radius: 3vw;
                 }
@@ -87,8 +89,7 @@
                     width: unset;
                     font-size: 3vw;
                     height: unset;
-                    padding: 0.3em 0;
-                    flex: 1;
+                    padding: 0.3em 1.8vw;
                 }
                 &.isActive {
                     background-color: $sub-orange;

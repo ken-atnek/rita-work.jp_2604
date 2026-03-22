@@ -1,6 +1,9 @@
 /* =======================================
  * FacilityHero - 事業所詳細ページのヒーロー
  * URL:src/components/facility/ContainerFacilityHero.tsx
+ * Referenced in: src/components/facility/FacilityPageClient.tsx
+ * Created: 2025-12-25
+ * Last updated: 2026-3-22
  * ======================================= */
 
 import styles from './ContainerFacilityHero.module.scss';

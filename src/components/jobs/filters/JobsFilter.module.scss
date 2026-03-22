@@ -384,6 +384,10 @@
                 width: 5px;
                 @include svg-object-radius("f29400");
                 transition: 0.3s ease-out;
+                @include sp {
+                    right: calc(100% - 1px);
+                    width: 2vw;
+                }
             }
             .statusPc {
                 font-size: inherit;

@@ -16,11 +16,11 @@ import { fetchJson } from '@/utils/fetchJson';
 import { withBasePath } from '@/utils/withBasePath';
 
 const typeMap: Record<number, string> = {
-  1: '看',
-  2: '介',
-  3: 'PT',
-  4: 'OT',
-  5: 'ST',
+  1: '看護師',
+  2: '介護士',
+  3: '理学療法士',
+  4: '作業療法士',
+  5: '言語聴覚士',
 };
 
 export type PickUpItem = {
@@ -53,9 +53,9 @@ const ContainerTopPickUp = () => {
         </div>
         <ul
           className={styles.listPickUp}
-          style={{
-            gridTemplateColumns: `repeat(${Math.min(Math.max(pickUpList.length, 3), 5)}, 1fr)`,
-          }}
+          // style={{
+          //   gridTemplateColumns: `repeat(${Math.min(Math.max(pickUpList.length, 3), 5)}, 1fr)`,
+          // }}
         >
           {pickUpList.map((item) => (
             <li key={item.id} className={styles.boxShop}>
@@ -75,11 +75,25 @@ const ContainerTopPickUp = () => {
                   height={169}
                 />
               </Link>
-              <ul className={styles.typeList}>
-                {item.type.map((t) => (
-                  <li key={t}>{typeMap[t]}</li>
-                ))}
-              </ul>
+              {(() => {
+                const allTypes = [1, 2, 3, 4, 5];
+                const activeSet = new Set(item.type);
+
+                return (
+                  <ul className={styles.typeList}>
+                    {allTypes.map((t) => (
+                      <li
+                        key={t}
+                        className={
+                          activeSet.has(t) ? styles.isActive : undefined
+                        }
+                      >
+                        {typeMap[t]}
+                      </li>
+                    ))}
+                  </ul>
+                );
+              })()}
             </li>
           ))}
         </ul>
