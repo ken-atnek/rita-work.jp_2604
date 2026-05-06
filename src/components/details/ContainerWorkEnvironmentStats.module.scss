@@ -28,6 +28,7 @@
             border-radius: unset;
         }
     }
+
     // &.plan-standard {
     // }
     // &.plan-premium {
@@ -150,11 +151,6 @@
                     }
                 }
             }
-        }
-    }
-    &.plan-light {
-        &::after {
-            border-radius: unset;
         }
     }
 }
