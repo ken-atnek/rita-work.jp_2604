@@ -29,7 +29,7 @@
         @include svg-object-radius("f29400");
     }
     span {
-        font-size: FZ(16);
+        font-size: fz(16);
         font-weight: 700;
     }
 }
@@ -42,7 +42,7 @@
     align-items: flex-end;
     h2 {
         position: relative;
-        font-size: FZ(24);
+        font-size: fz(24);
         padding-left: 1.8em;
         width: max-content;
         color: $main-black;
@@ -56,7 +56,7 @@
     }
     p {
         flex: 1;
-        font-size: FZ(16);
+        font-size: fz(16);
         font-weight: 300;
         line-height: 1.6em;
         color: $main-black;
@@ -156,7 +156,7 @@
             }
         }
         p {
-            font-size: FZ(14);
+            font-size: fz(14);
             color: #fff;
             letter-spacing: 0.06em;
             text-align: center;
@@ -236,7 +236,7 @@
                     padding-top: unset;
                 }
                 h2 {
-                    font-size: FZ(20);
+                    font-size: fz(20);
                     color: $main-black;
                     position: relative;
                     padding-left: 1.8em;
@@ -253,7 +253,7 @@
                 }
                 .itemCount {
                     color: $main-black;
-                    font-size: FZ(20);
+                    font-size: fz(20);
                     display: flex;
                     align-items: flex-end;
                     &::before,
@@ -310,7 +310,7 @@
                 padding-left: 3em;
                 @include sp {
                     box-shadow: unset;
-                    font-size: FZ(18);
+                    font-size: fz(18);
                 }
                 &::before {
                     content: "";
@@ -326,11 +326,11 @@
                     }
                 }
                 input {
-                    font-size: FZ(14);
+                    font-size: fz(14);
                     padding: 0.5em 1em;
                     width: 100%;
                     @include sp {
-                        font-size: FZ(16);
+                        font-size: fz(16);
                     }
                     &::placeholder {
                         color: rgba(#726b6299, 0.6);
@@ -441,7 +441,7 @@
                     @include flex-center;
                     background-color: #d0442e;
                     color: #fff;
-                    font-size: FZ(12);
+                    font-size: fz(12);
                     border-radius: 54px;
                     z-index: 2;
                 }
@@ -908,7 +908,7 @@
                     }
                     h3 {
                         padding-inline: 1.3rem;
-                        font-size: FZ(20);
+                        font-size: fz(20);
                         margin-top: 1.6rem;
                         line-height: 1.4em;
                         letter-spacing: 0.1em;
@@ -917,7 +917,7 @@
                     .summary {
                         padding-inline: 1.3rem;
                         margin-top: 0.8rem;
-                        font-size: FZ(14);
+                        font-size: fz(14);
                         letter-spacing: 0.1em;
                         text-align: justify;
                         line-height: 1.4em;
@@ -1080,7 +1080,7 @@
             display: none;
             @include sp {
                 display: inline;
-                font-size: FZ(26);
+                font-size: fz(26);
                 color: #fff;
                 align-self: center;
                 text-transform: capitalize;
@@ -1122,12 +1122,12 @@
                 @include sp {
                     display: inline-block;
                     align-self: center;
-                    font-size: FZ(20);
+                    font-size: fz(20);
                     font-weight: 500;
                 }
             }
             h2 {
-                font-size: FZ(24);
+                font-size: fz(24);
                 color: $main-orange;
                 font-weight: 500;
                 text-transform: capitalize;
@@ -1160,7 +1160,7 @@
                 }
             }
             p {
-                font-size: FZ(16);
+                font-size: fz(16);
                 text-align: justify;
                 font-feature-settings: "palt";
                 line-height: 1.8em;

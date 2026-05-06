@@ -48,7 +48,7 @@
         }
         span {
             height: 22px;
-            font-size: FZ(14);
+            font-size: fz(14);
             @include flex-center;
             border-radius: 4px;
         }
@@ -72,10 +72,10 @@
             gap: 2vw 0;
         }
         .title {
-            font-size: FZ(20);
+            font-size: fz(20);
         }
         .facility {
-            font-size: FZ(18);
+            font-size: fz(18);
         }
     }
 }

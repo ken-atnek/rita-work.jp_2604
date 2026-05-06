@@ -57,12 +57,12 @@
         }
         h2 {
             color: #fff;
-            font-size: FZ(24);
+            font-size: fz(24);
             font-weight: 500;
             padding-top: 6px;
             @include sp {
                 padding-top: 2vw;
-                font-size: FZ(20);
+                font-size: fz(20);
             }
         }
         .listJobCategory {
@@ -83,7 +83,7 @@
                 background-color: #f3f3f3;
                 color: #aba6a1;
                 @include flex-center;
-                font-size: FZ(18);
+                font-size: fz(18);
                 border-radius: 100vmax;
                 @include sp {
                     width: unset;

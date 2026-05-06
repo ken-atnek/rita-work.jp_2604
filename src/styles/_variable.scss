@@ -16,7 +16,7 @@ $slice: calc($min-font - ($tilt * $sp-width));
 $base-vw: calc($tilt * 100);
 
 // 指定フォント関数
-@function FZ($size) {
+@function fz($size) {
     @if $size <= $min-font {
         @return $min-font * 1px;
     } @else {

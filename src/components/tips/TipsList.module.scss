@@ -63,7 +63,7 @@
                 z-index: 1;
             }
             input {
-                font-size: FZ(14);
+                font-size: fz(14);
                 padding: 0.5em 1em;
                 width: 100%;
                 &::placeholder {
@@ -109,7 +109,7 @@
         padding: 8vw 4vw 12vw;
     }
     .headAnnounce {
-        font-size: FZ(18);
+        font-size: fz(18);
         font-weight: 300;
         @include sp {
             display: none;
@@ -152,7 +152,7 @@
                 }
                 h3 {
                     padding-inline: 1.3rem;
-                    font-size: FZ(20);
+                    font-size: fz(20);
                     margin-top: 1.6rem;
                     line-height: 1.4em;
                     letter-spacing: 0.1em;
@@ -160,14 +160,14 @@
                     @include sp {
                         margin-top: 2vw;
                         padding-inline: unset;
-                        font-size: FZ(16);
+                        font-size: fz(16);
                         line-height: 1.2em;
                     }
                 }
                 .summary {
                     padding-inline: 1.3rem;
                     margin-top: 0.8rem;
-                    font-size: FZ(14);
+                    font-size: fz(14);
                     letter-spacing: 0.1em;
                     text-align: justify;
                     line-height: 1.4em;

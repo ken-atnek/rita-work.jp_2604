@@ -21,7 +21,7 @@
     }
     .noFavorite {
         @include flex-center;
-        font-size: FZ(18);
+        font-size: fz(18);
         flex: 1;
     }
     nav {

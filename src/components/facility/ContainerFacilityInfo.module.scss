@@ -35,14 +35,14 @@
                     gap: 1vw 0;
                 }
                 dt {
-                    font-size: FZ(16);
+                    font-size: fz(16);
                     font-weight: 500;
                     @include sp {
                         grid-column: span 2;
                     }
                 }
                 dd {
-                    font-size: FZ(14);
+                    font-size: fz(14);
                     line-height: 1.6em;
                     @include sp {
                         grid-column: span 2;
