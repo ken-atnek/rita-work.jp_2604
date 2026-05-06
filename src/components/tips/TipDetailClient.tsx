@@ -8,6 +8,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styles from '@/styles/PageTips.module.scss';
 import type { TipDetail } from '@/types/tips';
@@ -40,7 +41,7 @@ export function TipDetailClient({ id }: Props) {
       <div className={styles.errorBox}>
         <p>記事の読み込みに失敗しました。</p>
         <p>
-          <a href={withBasePath('/tips/')}>一覧に戻る</a>
+          <Link href="/tips/">一覧に戻る</Link>
         </p>
       </div>
     );

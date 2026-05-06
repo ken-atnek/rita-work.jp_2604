@@ -23,6 +23,7 @@ import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
 import { fetchJson } from '@/utils/fetchJson';
 import { withBasePath } from '@/utils/withBasePath';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
+import { shuffle } from '@/utils/shuffle';
 
 import type { JobIndexItem } from '@/types/jobIndex';
 import type { AreasMaster } from '@/types/area';
@@ -43,21 +44,6 @@ import {
   type IdLabelOption,
 } from '@/utils/loadJobsFilterMasters';
 
-// Fisher–Yates shuffle（元配列は壊さない）
-const shuffle = <T,>(arr: T[]): T[] => {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-};
-
-const toMapFromOptions = (options: IdLabelOption[]) =>
-  options.reduce<Record<string, string>>((acc, o) => {
-    acc[o.id] = o.label;
-    return acc;
-  }, {});
 
 type ConditionItem = {
   id: string;
@@ -222,8 +208,8 @@ export default function JobsPageClient() {
         setSalaryHourlyOptions(masters.salaryHourlyOptions);
 
         // ✅ /jobs で必要な map は options から生成（ページ責務）
-        setEmploymentTypeMap(toMapFromOptions(masters.employmentTypeOptions));
-        setJobCategoryMap(toMapFromOptions(masters.jobCategoryOptions));
+        setEmploymentTypeMap(toIdLabelMap(masters.employmentTypeOptions, o => o.label));
+        setJobCategoryMap(toIdLabelMap(masters.jobCategoryOptions, o => o.label));
 
         // contractPlans（おすすめ順の優先度）
         const contractPlans = await fetchJson<ContractPlanMaster[]>(
@@ -288,7 +274,7 @@ export default function JobsPageClient() {
     if (Object.keys(contractPlanPriority).length === 0) return;
 
     const getPriority = (job: JobIndexItem) => {
-      const id = (job as unknown as { contractPlanId?: string }).contractPlanId;
+      const id = job.contractPlanId;
       if (!id) return Number.MAX_SAFE_INTEGER;
       return contractPlanPriority[id] ?? Number.MAX_SAFE_INTEGER;
     };
@@ -438,11 +424,6 @@ export default function JobsPageClient() {
     ? `${conditionItem.label}${conditionItem.subLabel ?? ''}`
     : '';
   const headingText = conditionLabel ? `${conditionLabel}` : '求人を検索';
-  const conditionJobCategoryOptions = useMemo(() => {
-    const usedIds = new Set(jobsAll.map((job) => job.jobCategoryId));
-
-    return jobCategoryOptions.filter((option) => usedIds.has(option.id));
-  }, [jobsAll, jobCategoryOptions]);
   /* ---------------------------------------
    * UI
    * -------------------------------------- */

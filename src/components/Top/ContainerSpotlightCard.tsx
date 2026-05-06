@@ -19,14 +19,12 @@ import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
 import { fetchJson } from '@/utils/fetchJson';
 import { withBasePath } from '@/utils/withBasePath';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
+import { shuffle } from '@/utils/shuffle';
 import { isNewByPublishedStart } from '@/utils/isNewByPublishedStart';
 import type { JobIndexItem } from '@/types/jobIndex';
 import type { SalaryUnitMaster, JobCommonConfig } from '@/types/master';
 
-import {
-  loadJobsFilterMasters,
-  type IdLabelOption,
-} from '@/utils/loadJobsFilterMasters';
+import { loadJobsFilterMasters } from '@/utils/loadJobsFilterMasters';
 
 // ▼ ここはあなたのプロジェクトの JobCard の実体に合わせて調整してOK
 // 例1: import { JobCard } from '@/components/job/JobCard';
@@ -59,21 +57,6 @@ const splideOptions: Options = {
   },
 };
 
-// Fisher–Yates shuffle（元配列は壊さない）
-const shuffle = <T,>(arr: T[]): T[] => {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-};
-
-const toMapFromOptions = (options: IdLabelOption[]) =>
-  options.reduce<Record<string, string>>((acc, o) => {
-    acc[o.id] = o.label;
-    return acc;
-  }, {});
 
 export default function ContainerSpotlightCard() {
   const { favoriteIdsArray, toggleFavorite } = useFavoriteJobIds();
@@ -109,8 +92,8 @@ export default function ContainerSpotlightCard() {
 
         // masters（options）
         const masters = await loadJobsFilterMasters();
-        setEmploymentTypeMap(toMapFromOptions(masters.employmentTypeOptions));
-        setJobCategoryMap(toMapFromOptions(masters.jobCategoryOptions));
+        setEmploymentTypeMap(toIdLabelMap(masters.employmentTypeOptions, o => o.label));
+        setJobCategoryMap(toIdLabelMap(masters.jobCategoryOptions, o => o.label));
 
         // salaryUnits（一覧の給与表記用）
         const salaryUnits = await fetchJson<SalaryUnitMaster[]>(

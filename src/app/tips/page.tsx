@@ -2,51 +2,27 @@
  * リタワーク 転職のヒント
  * URL: src/app/tips/page.tsx
  * Created: 2026-01-24
- * Last updated: 2026-01-24
+ * Last updated: 2026-05-06
  * ======================================= */
-'use client';
-import { useEffect, useMemo, useState } from 'react';
-import { TipsSearchBox } from '@/components/tips/TipsSearchBox';
-import { TipsList } from '@/components/tips/TipsList';
-import type { TipsIndexJson } from '@/types/tips';
-import { withBasePath } from '@/utils/withBasePath';
+
+import type { Metadata } from 'next';
+import { Suspense } from 'react';
+import { isRealProduction } from '@/lib/env';
+import TipsPageClient from '@/components/tips/TipsPageClient';
+
+export const generateMetadata = (): Metadata => {
+  return {
+    title: '転職のヒント｜リタワーク',
+    description: isRealProduction
+      ? '医療・介護・福祉業界への転職に役立つ情報をまとめています。求人の探し方や職場選びのポイントなど、転職活動をサポートするヒントを掲載。'
+      : undefined,
+  };
+};
 
 export default function TipsPage() {
-  const [tipsIndex, setTipsIndex] = useState<TipsIndexJson>({ items: [] });
-  const [isError, setIsError] = useState(false);
-  const [keyword, setKeyword] = useState('');
-
-  useEffect(() => {
-    const path = withBasePath('/db/tips/tipsIndex.json');
-    const ts = Date.now();
-
-    fetch(`${path}?t=${ts}`, { cache: 'no-store' })
-      .then((res) => {
-        if (!res.ok) throw new Error('fetch failed');
-        return res.json();
-      })
-      .then((json) => setTipsIndex(json as TipsIndexJson))
-      .catch(() => setIsError(true));
-  }, []);
-
-  const filteredItems = useMemo(() => {
-    const term = keyword.trim().toLowerCase();
-    if (!term) return tipsIndex.items;
-
-    return tipsIndex.items.filter((item) => {
-      const haystack = `${item.title}\n${item.summary}`.toLowerCase();
-      return haystack.includes(term);
-    });
-  }, [tipsIndex.items, keyword]);
-
   return (
-    <main>
-      {isError ? <p>一覧の読み込みに失敗しました。</p> : null}
-
-      <TipsList
-        items={filteredItems}
-        searchSlot={<TipsSearchBox value={keyword} onChange={setKeyword} />}
-      />
-    </main>
+    <Suspense fallback={<p>読み込み中...</p>}>
+      <TipsPageClient />
+    </Suspense>
   );
 }

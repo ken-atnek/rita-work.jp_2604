@@ -22,10 +22,7 @@ import FacilitySearchBox from '@/components/facility/search/FacilitySearchBox';
 import { JobCardList } from '@/components/job/JobCardList';
 import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
 
-import {
-  loadJobsFilterMasters,
-  type IdLabelOption,
-} from '@/utils/loadJobsFilterMasters';
+import { loadJobsFilterMasters } from '@/utils/loadJobsFilterMasters';
 
 /* ---------------------------------------
  * このページ固有の型
@@ -36,11 +33,6 @@ type FacilityItem = {
   jobsCount: number;
 };
 
-const toMapFromOptions = (options: IdLabelOption[]) =>
-  options.reduce<Record<string, string>>((acc, o) => {
-    acc[o.id] = o.label;
-    return acc;
-  }, {});
 
 export function FacilitySearchPageClient() {
   const searchParams = useSearchParams();
@@ -114,8 +106,8 @@ export function FacilitySearchPageClient() {
 
         // ✅ masters（options）→ map化（/jobs と同じ）
         const masters = await loadJobsFilterMasters();
-        setEmploymentTypeMap(toMapFromOptions(masters.employmentTypeOptions));
-        setJobCategoryMap(toMapFromOptions(masters.jobCategoryOptions));
+        setEmploymentTypeMap(toIdLabelMap(masters.employmentTypeOptions, o => o.label));
+        setJobCategoryMap(toIdLabelMap(masters.jobCategoryOptions, o => o.label));
 
         // salaryUnits（一覧の給与表記用）
         const salaryUnits = await fetchJson<SalaryUnitMaster[]>(

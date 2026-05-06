@@ -23,6 +23,15 @@
             @include bottom-radius(10vw);
         }
     }
+    &.plan-light {
+        &::after {
+            border-radius: unset;
+        }
+    }
+    // &.plan-standard {
+    // }
+    // &.plan-premium {
+    // }
     .environmentStatList {
         width: 100%;
         max-width: $articleMaxWidth;

@@ -4,13 +4,13 @@
 @use "variable" as *;
 @use "svg" as *;
 @use "mixin" as *;
-.itemCardBody {
-    position: relative;
-    grid-row: span 3;
-    display: grid;
-    grid-template-rows: subgrid;
-    font-size: inherit;
-}
+// .itemCardBody {
+//     position: relative;
+//     grid-row: span 3;
+//     display: grid;
+//     grid-template-rows: subgrid;
+//     font-size: inherit;
+// }
 .itemCard {
     position: relative;
     flex: 1;
@@ -22,7 +22,7 @@
     .itemLinkHead {
         position: absolute;
         inset: 0;
-        z-index: 1;
+        z-index: 4;
     }
     .itemLinkBottom {
         display: none;
@@ -59,7 +59,7 @@
         border-radius: 50%;
         background-color: rgba(#fff, 0.8);
         @include box-shadow;
-        z-index: 3;
+        z-index: 5;
         &::before {
             content: "";
             position: absolute;
@@ -145,7 +145,6 @@
                 letter-spacing: 0.04em;
                 flex: 1;
                 @include pc {
-                    // border: solid 1px #ff0000;
                     font-size: FZ(18);
                 }
                 @include sp {
