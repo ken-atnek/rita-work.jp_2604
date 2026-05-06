@@ -26,11 +26,11 @@
             gap: 4vw 0;
         }
         h2 {
-            font-size: FZ(24);
+            font-size: fz(24);
             color: $main-orange;
             font-weight: 500;
             @include sp {
-                font-size: FZ(20);
+                font-size: fz(20);
             }
         }
         ul {
@@ -53,7 +53,7 @@
                 }
                 h3 {
                     position: relative;
-                    font-size: FZ(18);
+                    font-size: fz(18);
                     font-weight: 500;
                     padding-left: 1.4em;
                     &::before {
@@ -71,7 +71,7 @@
                     flex-direction: column;
                     font-size: inherit;
                     p {
-                        font-size: FZ(16);
+                        font-size: fz(16);
                         letter-spacing: 0.04em;
                         line-height: 1.6em;
                     }

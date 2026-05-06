@@ -4,13 +4,14 @@
 @use "variable" as *;
 @use "svg" as *;
 @use "mixin" as *;
-.itemCardBody {
-    position: relative;
-    grid-row: span 3;
-    display: grid;
-    grid-template-rows: subgrid;
-    font-size: inherit;
-}
+
+// .itemCardBody {
+//     position: relative;
+//     grid-row: span 3;
+//     display: grid;
+//     grid-template-rows: subgrid;
+//     font-size: inherit;
+// }
 .itemCard {
     position: relative;
     flex: 1;
@@ -22,7 +23,7 @@
     .itemLinkHead {
         position: absolute;
         inset: 0;
-        z-index: 1;
+        z-index: 4;
     }
     .itemLinkBottom {
         display: none;
@@ -40,7 +41,7 @@
             margin-top: 2rem;
             border-radius: $radius8;
             padding-block: 1.2rem;
-            font-size: FZ(14);
+            font-size: fz(14);
             color: $base-white;
             background-color: $main-orange;
             transition: 0.3s ease-out;
@@ -59,7 +60,7 @@
         border-radius: 50%;
         background-color: rgba(#fff, 0.8);
         @include box-shadow;
-        z-index: 3;
+        z-index: 5;
         &::before {
             content: "";
             position: absolute;
@@ -125,7 +126,7 @@
                 gap: 0 6px;
                 span {
                     height: 22px;
-                    font-size: FZ(14);
+                    font-size: fz(14);
                     @include flex-center;
                     border-radius: 4px;
                 }
@@ -145,8 +146,7 @@
                 letter-spacing: 0.04em;
                 flex: 1;
                 @include pc {
-                    // border: solid 1px #ff0000;
-                    font-size: FZ(18);
+                    font-size: fz(18);
                 }
                 @include sp {
                     font-size: 1.8rem;
@@ -154,7 +154,7 @@
             }
             .itemFacilityName {
                 @include pc {
-                    font-size: FZ(18);
+                    font-size: fz(18);
                 }
                 @include sp {
                     font-size: 16px;
@@ -175,7 +175,7 @@
                 display: grid;
                 grid-template-columns: subgrid;
                 dt {
-                    font-size: FZ(16);
+                    font-size: fz(16);
                     display: flex;
                     justify-content: space-between;
                     &::after {
@@ -184,7 +184,7 @@
                     }
                 }
                 dd {
-                    font-size: FZ(16);
+                    font-size: fz(16);
                 }
             }
         }

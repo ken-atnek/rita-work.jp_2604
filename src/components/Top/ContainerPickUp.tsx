@@ -10,7 +10,6 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { isNewByPublishedStart } from '@/utils/isNewByPublishedStart';
 import styles from '@/styles/PageTop.module.scss';
 import { fetchJson } from '@/utils/fetchJson';
 import { withBasePath } from '@/utils/withBasePath';
@@ -59,10 +58,6 @@ const ContainerTopPickUp = () => {
         >
           {pickUpList.map((item) => (
             <li key={item.id} className={styles.boxShop}>
-              {isNewByPublishedStart({
-                start: item.updatedAt,
-                newIconPeriodDays: 30,
-              }) && <span className={styles.iconNew}>NEW</span>}
               <Link
                 href={withBasePath(
                   `/facility/?id=fac_${item.id.padStart(4, '0')}`

@@ -49,7 +49,6 @@ const getYoutubeEmbedUrl = (url: string): string => {
 const ContainerJobVideos: FC<ContainerJobVideosProps> = ({ jobVideos }) => {
   // 動画が1件もなければ何も表示しない
   if (!jobVideos.length) return null;
-  console.log('jobVideos in ContainerJobVideos:', jobVideos);
   return (
     <section className={styles.containerJobVideos}>
       <ul className={styles.videoList}>

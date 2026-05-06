@@ -95,7 +95,7 @@
             transition: 0.3s ease-out;
         }
         span {
-            font-size: FZ(20);
+            font-size: fz(20);
             line-height: 1em;
             transition: 0.3s ease-out;
         }
@@ -213,7 +213,7 @@
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
-                    font-size: FZ(20);
+                    font-size: fz(20);
                     font-weight: 600;
                     flex: 1;
                     border-left: 1px solid;
@@ -242,7 +242,7 @@
                 width: 100%;
             }
             a {
-                font-size: FZ(14);
+                font-size: fz(14);
                 transition: 0.3s ease-out;
                 &:hover {
                     color: #574232;
@@ -260,7 +260,7 @@
             transition: 0.3s ease-out;
             span {
                 position: relative;
-                font-size: FZ(16);
+                font-size: fz(16);
                 font-weight: 700;
                 padding-left: 2em;
                 transition: 0.3s ease-out;
@@ -301,6 +301,6 @@
         max-width: $articleMaxWidth;
         justify-content: flex-end;
         color: #fff;
-        font-size: FZ(12);
+        font-size: fz(12);
     }
 }

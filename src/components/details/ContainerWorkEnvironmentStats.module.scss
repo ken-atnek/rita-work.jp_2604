@@ -23,6 +23,16 @@
             @include bottom-radius(10vw);
         }
     }
+    &.plan-light {
+        &::after {
+            border-radius: unset;
+        }
+    }
+
+    // &.plan-standard {
+    // }
+    // &.plan-premium {
+    // }
     .environmentStatList {
         width: 100%;
         max-width: $articleMaxWidth;
@@ -50,10 +60,10 @@
                 gap: 1vw 0;
             }
             h3 {
-                font-size: FZ(16);
+                font-size: fz(16);
                 @include sp {
                     text-align: center;
-                    font-size: FZ(14);
+                    font-size: fz(14);
                 }
             }
             .boxContents {
@@ -78,18 +88,18 @@
                 }
                 .value {
                     @include Archivo-Black;
-                    font-size: FZ(50);
+                    font-size: fz(50);
                     @include sp {
-                        font-size: FZ(32);
+                        font-size: fz(32);
                     }
                 }
                 .unit {
                     font-family: "Noto Sans JP", sans-serif;
-                    font-size: FZ(28);
+                    font-size: fz(28);
                     font-weight: 500;
                     margin-left: 0.2em;
                     @include sp {
-                        font-size: FZ(18);
+                        font-size: fz(18);
                     }
                 }
 
@@ -141,11 +151,6 @@
                     }
                 }
             }
-        }
-    }
-    &.plan-light {
-        &::after {
-            border-radius: unset;
         }
     }
 }

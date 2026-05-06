@@ -28,10 +28,10 @@
         gap: 1em 0;
         h2 {
             position: relative;
-            font-size: FZ(24);
+            font-size: fz(24);
             padding-left: 1.4em;
             @include sp {
-                font-size: FZ(22);
+                font-size: fz(22);
                 translate: 4vw;
             }
             &::before {
@@ -55,7 +55,7 @@
                 padding-left: 4vw;
             }
             .intervieweeRole {
-                font-size: FZ(16);
+                font-size: fz(16);
                 padding-left: 2em;
                 @include sp {
                     padding-left: unset;
@@ -110,10 +110,10 @@
                     color: $main-orange;
                     .articleNumber {
                         position: relative;
-                        font-size: FZ(24);
+                        font-size: fz(24);
                         margin-right: 2em;
                         @include sp {
-                            font-size: FZ(18);
+                            font-size: fz(18);
                             margin-right: 6vw;
                         }
                         &::after {
@@ -132,11 +132,11 @@
                         }
                     }
                     h3 {
-                        font-size: FZ(28);
+                        font-size: fz(28);
                         display: inline-block;
                         margin-right: auto;
                         @include sp {
-                            font-size: FZ(18);
+                            font-size: fz(18);
                             text-align: left;
                             flex: 1;
                         }
@@ -172,10 +172,10 @@
                     @include sp {
                         background-color: #fff;
                         h3 {
-                            font-size: FZ(22);
+                            font-size: fz(22);
                         }
                         .articleNumber {
-                            font-size: FZ(24);
+                            font-size: fz(24);
                             margin-right: 3vw;
                             &::after {
                                 display: none;
@@ -231,7 +231,7 @@
                                 border-bottom: 1px solid $main-orange;
                             }
                             h3 {
-                                font-size: FZ(18);
+                                font-size: fz(18);
                                 @include sp {
                                     grid-column: span 2;
                                 }
@@ -242,7 +242,7 @@
                                     grid-column: span 2;
                                 }
                                 p {
-                                    font-size: FZ(16);
+                                    font-size: fz(16);
                                     text-align: justify;
                                     line-height: 1.6em;
                                 }

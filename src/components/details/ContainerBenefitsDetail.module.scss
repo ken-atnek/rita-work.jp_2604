@@ -31,10 +31,10 @@
         gap: 1em 0;
         h2 {
             position: relative;
-            font-size: FZ(24);
+            font-size: fz(24);
             padding-left: 1.6em;
             @include sp {
-                font-size: FZ(22);
+                font-size: fz(22);
 
                 // translate: 4vw;
                 padding-left: 9vw;
@@ -100,19 +100,19 @@
                         border-top: 1px solid #000;
                         border-bottom: 1px solid #000;
                         color: $sub-black;
-                        font-size: FZ(18);
+                        font-size: fz(18);
                         text-align: center;
                         padding-block: 1.4em;
                         font-weight: 500;
                         @include sp {
                             padding-block: 4vw;
-                            font-size: FZ(20);
+                            font-size: fz(20);
                         }
                     }
                     .body {
                         font-size: inherit;
                         p {
-                            font-size: FZ(16);
+                            font-size: fz(16);
                             line-height: 1.8em;
                             text-align: justify;
                             letter-spacing: 0.04em;

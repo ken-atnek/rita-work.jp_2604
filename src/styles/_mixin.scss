@@ -11,12 +11,12 @@
 }
 @mixin detail-h2 {
     position: relative;
-    font-size: FZ(24);
+    font-size: fz(24);
     color: $sub-black;
     font-weight: 500;
     padding-left: 1.6em;
     @include sp {
-        font-size: FZ(22);
+        font-size: fz(22);
 
         // translate: 4vw;
     }
@@ -63,7 +63,7 @@
             border-bottom: 1px solid #e2e0db;
             padding-block: 2.4rem;
             h3 {
-                font-size: FZ(20);
+                font-size: fz(20);
                 font-weight: 600;
             }
             button {
@@ -98,12 +98,12 @@
             flex-direction: column;
             width: 100%;
             h4 {
-                font-size: FZ(16);
+                font-size: fz(16);
                 font-weight: 600;
                 align-self: center;
             }
             .headAnnounce {
-                font-size: FZ(16);
+                font-size: fz(16);
                 font-weight: 300;
                 text-align: center;
                 line-height: 1.6em;
@@ -124,17 +124,17 @@
                 gap: 0 1em;
                 h5 {
                     grid-column: span 2;
-                    font-size: FZ(16);
+                    font-size: fz(16);
                     font-weight: 600;
                 }
                 p {
-                    font-size: FZ(14);
+                    font-size: fz(14);
                     padding-top: 0.3em;
                 }
                 a {
                     background-color: #06c755;
                     color: #fff;
-                    font-size: FZ(12);
+                    font-size: fz(12);
                     font-weight: 600;
                     @include flex-center;
                     border-radius: 100vmax;
@@ -176,11 +176,11 @@
     h2 {
         position: relative;
         margin-top: 17px;
-        font-size: FZ(28);
+        font-size: fz(28);
         color: #fff;
         font-weight: 500;
         @include sp {
-            font-size: FZ(20);
+            font-size: fz(20);
             margin-top: unset;
         }
     }
@@ -231,7 +231,7 @@
         width: 24.5rem;
         height: 44px;
         @include flex-center;
-        font-size: FZ(18);
+        font-size: fz(18);
         font-weight: 500;
         border-radius: 7px;
         color: #aba6a1;
@@ -239,7 +239,7 @@
             width: unset;
             height: 8vw;
             border-radius: 4px;
-            font-size: FZ(16);
+            font-size: fz(16);
         }
         &.isActive {
             background-color: $sub-orange;

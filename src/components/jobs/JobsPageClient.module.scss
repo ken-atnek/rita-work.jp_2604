@@ -33,14 +33,14 @@
     h2 {
         position: relative;
         margin-top: 17px;
-        font-size: FZ(28);
+        font-size: fz(28);
         color: #fff;
         font-weight: 500;
         padding-left: 1.5em;
         display: flex;
         align-items: center;
         @include sp {
-            font-size: FZ(20);
+            font-size: fz(20);
             margin-top: unset;
         }
         &::before {
@@ -110,7 +110,7 @@
                 display: none;
                 span {
                     position: relative;
-                    font-size: FZ(16);
+                    font-size: fz(16);
                     color: $main-orange;
                     &::before {
                         content: "";
@@ -171,14 +171,14 @@
         }
         .itemConditionCategory {
             height: 4.8rem;
-            font-size: FZ(18);
+            font-size: fz(18);
             color: $main-black;
             background-color: #fff;
             transition: 0.3s ease-out;
             border-radius: $radius8;
             @include sp {
                 height: 8vw;
-                font-size: FZ(14);
+                font-size: fz(14);
             }
             @include hover {
                 background-color: #ffbd39;
@@ -209,7 +209,7 @@
     }
     .noFavorite {
         @include flex-center;
-        font-size: FZ(18);
+        font-size: fz(18);
         flex: 1;
         min-height: 20rem;
     }

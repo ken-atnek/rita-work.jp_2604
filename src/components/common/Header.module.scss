@@ -39,7 +39,7 @@
             h1 {
                 display: flex;
                 align-items: center;
-                font-size: FZ(16);
+                font-size: fz(16);
                 color: #fff;
                 gap: 0 2em;
                 @include sp {
@@ -125,7 +125,7 @@
                     gap: 0;
                 }
                 a {
-                    font-size: FZ(16);
+                    font-size: fz(16);
                     color: #fff;
                     letter-spacing: 0.04em;
                     transition: 0.3s ease-out;
@@ -140,7 +140,7 @@
                         display: flex;
                         justify-content: space-between;
                         padding-block: 4vw;
-                        font-size: FZ(18);
+                        font-size: fz(18);
                         align-items: center;
                         padding-left: 2vw;
                         padding-right: 2vw;
@@ -209,7 +209,7 @@
                             z-index: 1;
                         }
                         input {
-                            font-size: FZ(18);
+                            font-size: fz(18);
                             padding: 0.5em 1em;
                             width: 100%;
                             &::placeholder {
@@ -257,7 +257,7 @@
         //     height: 2em;
         //     @include flex-center;
         //     span {
-        //         font-size: FZ(14);
+        //         font-size: fz(14);
         //         color: #fff;
         //         font-weight: 500;
         //         line-height: 1em;

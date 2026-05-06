@@ -29,7 +29,7 @@
         @include svg-object-radius("f29400");
     }
     span {
-        font-size: FZ(18);
+        font-size: fz(18);
         font-weight: 700;
     }
 }
@@ -59,12 +59,12 @@
     h2 {
         position: relative;
         margin-top: 17px;
-        font-size: FZ(28);
+        font-size: fz(28);
         color: #fff;
         font-weight: 500;
         padding-bottom: 2.8rem;
         @include sp {
-            font-size: FZ(20);
+            font-size: fz(20);
             margin-top: unset;
             padding-bottom: 4vw;
         }
@@ -113,10 +113,10 @@
     h3 {
         color: #fff;
         align-self: center;
-        font-size: FZ(24);
+        font-size: fz(24);
         font-weight: 500;
         @include sp {
-            font-size: FZ(20);
+            font-size: fz(20);
         }
     }
     article {
@@ -131,7 +131,7 @@
             }
         }
         .itemDate {
-            font-size: FZ(14);
+            font-size: fz(14);
             color: $main-orange;
             margin-top: 3.2rem;
         }
@@ -146,25 +146,25 @@
     margin-top: 1.6rem;
     gap: 1rem 0;
     h1 {
-        font-size: FZ(48);
+        font-size: fz(48);
     }
     h2 {
-        font-size: FZ(32);
+        font-size: fz(32);
     }
     h3 {
-        font-size: FZ(28);
+        font-size: fz(28);
     }
     h4 {
-        font-size: FZ(24);
+        font-size: fz(24);
     }
     h5 {
-        font-size: FZ(20);
+        font-size: fz(20);
     }
     h6 {
-        font-size: FZ(18);
+        font-size: fz(18);
     }
     p {
-        font-size: FZ(14);
+        font-size: fz(14);
         line-height: 1.4em;
         letter-spacing: 0.1em;
         min-height: 1lh;
@@ -185,7 +185,7 @@
         flex-direction: column;
         gap: 0.3em 0;
         li {
-            font-size: FZ(14);
+            font-size: fz(14);
             display: flex;
             &::before {
                 content: "・";
@@ -206,7 +206,7 @@
                 content: counter(number) ".";
                 margin-right: 0.3em;
             }
-            font-size: FZ(14);
+            font-size: fz(14);
         }
     }
     .tipsGallery {
