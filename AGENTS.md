@@ -12,7 +12,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 1. `docs/ROOTS_SPEC.md`
 2. `docs/PAGE_STRUCTURE.md`
-3. `docs/TSX_COMMENT_RULES.md`（`tsx` 編集時）
+3. `docs/rules/tsx-comment-rules.md`（`tsx` 編集時）
 4. `docs/rules/project-setup.md`
 5. `docs/rules/coding-style.md`
 6. `docs/rules/nextjs-export.md`
@@ -29,6 +29,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - 生の `a` タグは使わず、内部遷移は `Link`、外部遷移は `ExternalLink` を使う
 - `src/components/roots` 配下の親ラッパークラスは `root` を避け、`rootsHero` のようにコンポーネント名ベースで命名する
 - `next.config.ts` の `output: 'export'` を維持する
+- 修正後の確認では、AIは `build` を実行しない（buildチェックはユーザー側で実施）
 - `docs` に重要な `.md` を追加したら、この参照順に追記して同期する
 - `docs` に運用上重要な `.md` を追加・更新した場合は、`CLAUDE.md` の参照順にも必ず同期する
 

@@ -76,8 +76,16 @@ export default function ContainerJobHero({
   }
 
   if (salary.unitId === 'hourly') {
-    const bandLabel = hourlyBandMap[salary.bandId] ?? salary.bandId;
-    amountText = bandLabel; // 例：1,500円〜2,000円
+    const bandId = 'bandId' in salary ? salary.bandId : '';
+    const bandLabel = bandId ? (hourlyBandMap[bandId] ?? bandId) : '';
+    const min = 'min' in salary ? salary.min : undefined;
+    const max = 'max' in salary ? salary.max : undefined;
+    const rangeText =
+      typeof min === 'number' && typeof max === 'number'
+        ? `${min.toLocaleString()}円〜${max.toLocaleString()}円`
+        : '';
+
+    amountText = bandLabel || rangeText;
   }
 
   // LINE応募用モーダル：PC判定（シンプルにUAと画面幅で判定）

@@ -159,10 +159,16 @@ export default function ContainerJobRequirements({
   }
 
   if (salary.unitId === 'hourly') {
-    // hourly 型に自動で絞られる
-    const bandLabel = hourlyBandMap[salary.bandId] ?? salary.bandId;
+    const bandId = 'bandId' in salary ? salary.bandId : '';
+    const bandLabel = bandId ? (hourlyBandMap[bandId] ?? bandId) : '';
+    const min = 'min' in salary ? salary.min : undefined;
+    const max = 'max' in salary ? salary.max : undefined;
+    const rangeText =
+      typeof min === 'number' && typeof max === 'number'
+        ? `${min.toLocaleString()}円〜${max.toLocaleString()}円`
+        : '';
 
-    salaryText = `${unitLabel}：${bandLabel}`;
+    salaryText = `${unitLabel}：${bandLabel || rangeText}`;
     bonusText = '';
   }
   // ----------------------------------------
