@@ -18,3 +18,4 @@
 - `next.config.ts` の `output: 'export'` を維持する
 - Tailwind CSS は使用しない（SCSSで実装）
 - 仕様と異なる実装はしない（仮実装時は明示）
+- 修正後の確認でAIは `build` を実行しない（buildチェックはユーザー側で実施）
