@@ -19,7 +19,7 @@ const ContainerTopMessage = () => {
 
   // LINEログイン開始URL（Xサーバー側）
   const backendStartUrl = useMemo(() => {
-    return `https://rita5258.xbiz.jp/backend/line-login/start/`;
+    return `https://rita-work.jp/backend/line-login/start/`;
   }, []);
 
   const handleLineApplyClick = useCallback(() => {
