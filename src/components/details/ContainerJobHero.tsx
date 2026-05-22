@@ -236,23 +236,12 @@ export default function ContainerJobHero({
             <div className={styles.boxDetails}>
               <h4>スマートフォンでQRコードを読み取る</h4>
               <p className={styles.headAnnounce}>
-                下記のQRコードをスマートフォンで読み取ると、
+                LINEアプリを起動して、
                 <br />
-                LINEアプリで応募手続きが始まります。
+                QRコードを読み取ってください。
               </p>
               <div className={styles.itemQR}>
                 <QRCodeCanvas value={lineEntryUrl} size={170} />
-              </div>
-              <div className={styles.wrapBottom}>
-                <h5>このPCから応募する</h5>
-                <p>
-                  LINEアプリをPCにインストール済みの場合は、
-                  <br />
-                  以下のリンクから直接ログインできます。
-                </p>
-                <ExternalLink href={lineEntryUrl}>
-                  このPCからログインして応募する
-                </ExternalLink>
               </div>
             </div>
           </div>
