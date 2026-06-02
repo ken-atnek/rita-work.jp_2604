@@ -189,6 +189,25 @@
             }
         }
     }
+    &.itemPremiumPlan {
+        border: 1px solid #e56b07;
+        &::before {
+            content: "広告求人";
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 6;
+            padding: 0.5em 1em;
+            font-size: fz(18);
+            color: #fff;
+            background-color: #e56b07;
+            border-radius: $radius14 0 $radius14 0;
+            letter-spacing: 0.08em;
+        }
+        .itemDetails {
+            background-color: #fef4e5;
+        }
+    }
     &:not(.itemCardSpotlight) {
         &:hover {
             .itemImage {

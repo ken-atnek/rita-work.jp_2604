@@ -5,7 +5,7 @@
  * - 「新着」: updatedAt 降順
  * URL: src/components/jobs/JobsPageClient.tsx
  * Created: 2025-12-27
- * Last updated: 2026-01-09
+ * Last updated: 2026-06-02
  * ======================================= */
 
 'use client';
@@ -43,7 +43,6 @@ import {
   loadJobsFilterMasters,
   type IdLabelOption,
 } from '@/utils/loadJobsFilterMasters';
-
 
 type ConditionItem = {
   id: string;
@@ -208,8 +207,12 @@ export default function JobsPageClient() {
         setSalaryHourlyOptions(masters.salaryHourlyOptions);
 
         // ✅ /jobs で必要な map は options から生成（ページ責務）
-        setEmploymentTypeMap(toIdLabelMap(masters.employmentTypeOptions, o => o.label));
-        setJobCategoryMap(toIdLabelMap(masters.jobCategoryOptions, o => o.label));
+        setEmploymentTypeMap(
+          toIdLabelMap(masters.employmentTypeOptions, (o) => o.label)
+        );
+        setJobCategoryMap(
+          toIdLabelMap(masters.jobCategoryOptions, (o) => o.label)
+        );
 
         // contractPlans（おすすめ順の優先度）
         const contractPlans = await fetchJson<ContractPlanMaster[]>(
@@ -419,6 +422,30 @@ export default function JobsPageClient() {
 
   const jobsCountText = jobsForView.length.toLocaleString();
 
+  const premiumLeadJobs = useMemo(() => {
+    const premiumJobs = jobsForView.filter(
+      (job) => job.contractPlanId === 'premium'
+    );
+
+    if (premiumJobs.length === 0) {
+      return {
+        jobs: jobsForView,
+        premiumLeadJobId: null,
+      };
+    }
+
+    const premiumLeadJob =
+      premiumJobs[Math.floor(Math.random() * premiumJobs.length)];
+
+    return {
+      jobs: [
+        premiumLeadJob,
+        ...jobsForView.filter((job) => job.jobId !== premiumLeadJob.jobId),
+      ],
+      premiumLeadJobId: premiumLeadJob.jobId,
+    };
+  }, [jobsForView]);
+
   const conditionItem = cond ? conditionsMap[cond] : undefined;
   const conditionLabel = conditionItem
     ? `${conditionItem.label}${conditionItem.subLabel ?? ''}`
@@ -530,7 +557,7 @@ export default function JobsPageClient() {
           <p className={styles.noFavorite}>該当の求人情報はありません</p>
         ) : (
           <JobCardList
-            jobs={jobsForView}
+            jobs={premiumLeadJobs.jobs}
             salaryUnitMap={salaryUnitMap}
             employmentTypeMap={employmentTypeMap}
             jobCategoryMap={jobCategoryMap}
@@ -538,6 +565,7 @@ export default function JobsPageClient() {
             onToggleFavorite={toggleFavorite}
             ulClassName={styles.jobsList}
             newIconPeriodDays={newIconPeriodDays}
+            premiumLeadJobId={premiumLeadJobs.premiumLeadJobId}
           />
         )}
       </section>
