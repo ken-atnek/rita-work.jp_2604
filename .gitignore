@@ -41,3 +41,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.htaccess
+
+# logs
+public/backend/line-login/callback/2025/
+public/backend/line-login/callback/2026/
+public/backend/line-entry/complete/2026/
