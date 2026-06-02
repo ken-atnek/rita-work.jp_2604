@@ -2,7 +2,7 @@
  * JobCardList - 求人カードULコンポーネント（表示専用）
  * URL: src/components/job/JobCardList.tsx
  * Created: 2025-12-26
- * Last updated: 2025-12-26
+ * Last updated: 2026-06-02
  * ======================================= */
 
 import { JobCardItem } from '@/components/job/JobCardItem';
@@ -19,6 +19,7 @@ type Props = {
 
   ulClassName: string;
   newIconPeriodDays: number;
+  premiumLeadJobId?: string | null;
 };
 
 export function JobCardList({
@@ -30,6 +31,7 @@ export function JobCardList({
   onToggleFavorite,
   ulClassName,
   newIconPeriodDays,
+  premiumLeadJobId,
 }: Props) {
   if (!jobs || jobs.length === 0) return null;
   const favoriteSet = new Set(favoriteJobIds);
@@ -52,6 +54,7 @@ export function JobCardList({
             jobCategoryMap={jobCategoryMap}
             isFavorite={isFav}
             onToggleFavorite={onToggleFavorite}
+            isPremiumLead={job.jobId === premiumLeadJobId}
           />
         );
       })}
