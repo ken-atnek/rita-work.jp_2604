@@ -631,8 +631,8 @@ function render_result_page(string $variant, array $data): never
 		echo '<p class="note">route_code: ' . escape_html($routeCode) . '</p>';
 	}
 	echo '<div class="links">';
-	echo '<a class="primary" href="/jobs/">求人一覧へ戻る</a>';
-	echo '<a class="secondary" href="/">トップへ戻る</a>';
+	echo '<a class="primary" href="https://rita-work.jp/jobs/">求人一覧へ戻る</a>';
+	echo '<a class="secondary" href="https://rita-work.jp/">トップへ戻る</a>';
 	echo '</div>';
 	echo '</section></div>';
 	echo '</body>';
