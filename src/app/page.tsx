@@ -14,14 +14,32 @@ import ContainerTopPickUp from '@/components/Top/ContainerPickUp';
 import ContainerTopConditions from '@/components/Top/ContainerConditions';
 import ContainerTopTips from '@/components/Top/ContainerTips';
 import ContainerSpotlightCard from '@/components/Top/ContainerSpotlightCard';
+import { getCanonicalUrl, getDefaultOpenGraphImage } from '@/lib/seo';
 
 export const generateMetadata = (): Metadata => {
+  const title =
+    '熊本の医療・介護・福祉の求人検索ならリタワーク｜条件から探せる仕事情報';
+  const description = isRealProduction
+    ? '熊本の医療・介護・福祉業界の求人を掲載する求人ポータルサイト。エリア・職種・雇用形態など条件から、自分に合った仕事を簡単に探せます。'
+    : undefined;
+
   return {
-    title:
-      '熊本の医療・介護・福祉の求人検索ならリタワーク｜条件から探せる仕事情報',
-    description: isRealProduction
-      ? '熊本の医療・介護・福祉業界の求人を掲載する求人ポータルサイト。エリア・職種・雇用形態など条件から、自分に合った仕事を簡単に探せます。'
-      : undefined,
+    title: {
+      absolute: title,
+    },
+    description,
+    alternates: {
+      canonical: getCanonicalUrl('/'),
+    },
+    ...(isRealProduction && {
+      openGraph: {
+        title,
+        description,
+        url: getCanonicalUrl('/'),
+        type: 'website',
+        images: [getDefaultOpenGraphImage()],
+      },
+    }),
   };
 };
 export default function PageTop() {

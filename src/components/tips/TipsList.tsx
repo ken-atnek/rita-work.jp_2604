@@ -20,7 +20,7 @@ export function TipsList({ items, searchSlot }: Props) {
   return (
     <>
       <section className={styles.containerHead}>
-        <h2>転職のヒント</h2>
+        <h1>転職のヒント</h1>
         <div className={styles.boxSearch}>{searchSlot ?? null}</div>
       </section>
       <section className={styles.containerTipsDetails}>

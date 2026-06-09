@@ -30,6 +30,7 @@ import type {
 import { withBasePath } from '@/utils/withBasePath';
 import { fetchJson } from '@/utils/fetchJson';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
+import { getCanonicalUrl, upsertCanonicalLink } from '@/lib/seo';
 type DetailsListItem = {
   jobId: string;
   facilityId: string;
@@ -542,7 +543,9 @@ export function JobDetailsClient({ jobId }: JobDetailsClientProps) {
     document.title = [jobTitle, facilityName, 'リタワーク']
       .filter(Boolean)
       .join('｜');
-  }, [job, facility]);
+
+    upsertCanonicalLink(getCanonicalUrl(`/details/?id=${jobId}`));
+  }, [job, facility, jobId]);
   /* -------------------------------
    * UI: 読み込み・エラー処理
    * ------------------------------- */

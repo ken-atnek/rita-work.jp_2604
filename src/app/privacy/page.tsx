@@ -6,14 +6,30 @@
  * ======================================= */
 import type { Metadata } from 'next';
 import { isRealProduction } from '@/lib/env';
+import { getCanonicalUrl, getDefaultOpenGraphImage } from '@/lib/seo';
 
 import styles from '../../styles/PageTerms.module.scss';
 export const generateMetadata = (): Metadata => {
+  const title = 'プライバシーポリシー';
+  const description = isRealProduction
+    ? 'リタワークのプライバシーポリシーです。個人情報の収集方法、利用目的、第三者提供について掲載しています。'
+    : undefined;
+
   return {
-    title: 'プライバシーポリシー｜リタワーク',
-    description: isRealProduction
-      ? 'リタワークのプライバシーポリシーです。個人情報の収集方法、利用目的、第三者提供について掲載しています。'
-      : undefined,
+    title,
+    description,
+    alternates: {
+      canonical: getCanonicalUrl('/privacy/'),
+    },
+    ...(isRealProduction && {
+      openGraph: {
+        title: `${title}｜リタワーク`,
+        description,
+        url: getCanonicalUrl('/privacy/'),
+        type: 'website',
+        images: [getDefaultOpenGraphImage()],
+      },
+    }),
   };
 };
 
@@ -21,7 +37,7 @@ export default async function PrivacyPage() {
   return (
     <main>
       <section className={styles.containerHead}>
-        <h2>プライバシーポリシー</h2>
+        <h1>プライバシーポリシー</h1>
       </section>
       <section className={styles.containerDetails}>
         <article>

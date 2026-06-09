@@ -19,6 +19,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 7. `docs/rules/fetch-pattern.md`
 8. `docs/rules/ui-interactions.md`
 9. `docs/rules/checklist.md`
+10. `docs/seo/RITA_WORK_SEO_SPEC.md`（SEO 実装時）
+11. `docs/seo/ROOTS_QUERY_SEO_SPEC.md`（ROOTS SEO 実装時）
 
 ---
 

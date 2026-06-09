@@ -460,12 +460,12 @@ export default function JobsPageClient() {
   return (
     <>
       <section className={styles.containerHead}>
-        <h2 className={clsx(cond && styles.isConditionHeading)}>
+        <h1 className={clsx(cond && styles.isConditionHeading)}>
           {headingText}
           <span>
             掲載：<i>{jobsCountText}</i>件
           </span>
-        </h2>
+        </h1>
         {!cond && (
           <div className={styles.blockFilters}>
             <button

@@ -15,7 +15,7 @@
 ## 管理テーブル
 | ID | 優先度 | 指摘内容 | 対象ページ/URL | 対象ファイル | 対応方針 | ステータス | 担当 | 期限 | 備考 |
 |---|---|---|---|---|---|---|---|---|---|
-| SEO-001 | 高 | 例: `/roots` の `title` が個別化できていない | `/roots` | `src/app/roots/page.tsx` | 共通メタ運用を維持し、将来はパス型URLに切替検討 | 対応中 |  |  | `output: 'export'` 制約あり |
+| SEO-001 | 高 | 例: `/facility/` の metadata が未定義 | `/facility/` | `src/app/facility/page.tsx` | ページ固有の `title` / `description` を追加 | 対応中 |  |  | `output: 'export'` 制約あり |
 
 ## 実装ログ
 ### YYYY-MM-DD
@@ -35,3 +35,4 @@
 - 主要ページの `h1` と見出し階層
 - 画像 `alt` の不足
 - 構造化データ導入対象の再判定
+- 求人詳細・事業所詳細の canonical 方針

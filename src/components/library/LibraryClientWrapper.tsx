@@ -156,7 +156,7 @@ export function LibraryClientWrapper() {
     <>
       {/* ===== ページ見出し ===== */}
       <section className={styles.containerHead}>
-        <h2>お気に入り・閲覧履歴</h2>
+        <h1>お気に入り・閲覧履歴</h1>
       </section>
 
       {/* ===== タブ ===== */}

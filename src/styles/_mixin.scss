@@ -173,7 +173,7 @@
             @include bottom-radius(10vw);
         }
     }
-    h2 {
+    :is(h1, h2) {
         position: relative;
         margin-top: 17px;
         font-size: fz(28);

@@ -7,7 +7,6 @@
 'use client';
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import styles from '@/styles/PageTop.module.scss';
-import ExternalLink from '@/components/common/ExternalLink';
 import Image from 'next/image';
 import { QRCodeCanvas } from 'qrcode.react';
 
