@@ -72,6 +72,7 @@ const Header = () => {
   // -----------------------------
   const pathname = usePathname();
   const isTop = pathname === '/';
+  const LogoTag = isTop ? 'h1' : 'span';
 
   useEffect(() => {
     setIsOpen(false);
@@ -90,7 +91,7 @@ const Header = () => {
       >
         <article>
           <Link href="/" className={styles.itemLogo}>
-            <h1>
+            <LogoTag className={styles.logoHeading}>
               <svg aria-label="リタワーク" className={styles.statusPc}>
                 <use href="#svg_logoMark" />
               </svg>
@@ -98,7 +99,7 @@ const Header = () => {
                 <use href="#svg_logoMax" />
               </svg>
               <span>熊本医療＆介護の転職サイト</span>
-            </h1>
+            </LogoTag>
           </Link>
 
           <div

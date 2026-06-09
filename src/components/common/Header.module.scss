@@ -36,7 +36,7 @@
             @include sp {
                 display: contents;
             }
-            h1 {
+            .logoHeading {
                 display: flex;
                 align-items: center;
                 font-size: fz(16);
@@ -80,14 +80,14 @@
                 }
             }
             @include hover {
-                h1 {
+                .logoHeading {
                     svg {
                         fill: #ffcd39;
                     }
                 }
             }
             &:active {
-                h1 {
+                .logoHeading {
                     svg {
                         fill: #fff;
                     }

@@ -24,6 +24,7 @@ import type {
 import { withBasePath } from '@/utils/withBasePath';
 import { fetchJson } from '@/utils/fetchJson';
 import { toIdLabelMap } from '@/utils/toIdLabelMap';
+import { getCanonicalUrl, upsertCanonicalLink } from '@/lib/seo';
 type Props = {
   facilityId: string;
 };
@@ -163,6 +164,16 @@ export function FacilityPageClient({ facilityId }: Props) {
 
     loadFacility();
   }, [facilityId]);
+
+  useEffect(() => {
+    if (!facility) return;
+
+    document.title = [facility.facilityName, '事業所詳細', 'リタワーク']
+      .filter(Boolean)
+      .join('｜');
+
+    upsertCanonicalLink(getCanonicalUrl(`/facility/?id=${facilityId}`));
+  }, [facility, facilityId]);
 
   /* ===============================
    * render guard

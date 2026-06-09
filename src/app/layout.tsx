@@ -13,6 +13,7 @@ import SvgDefs from '@/components/SvgDefs';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { isRealProduction } from '@/lib/env';
+import { getDefaultOpenGraphImage, siteUrl } from '@/lib/seo';
 
 const notoSans = Noto_Sans_JP({
   subsets: ['latin'],
@@ -36,9 +37,7 @@ const siteDescription =
   '熊本の医療・介護・福祉業界の求人を掲載する求人ポータルサイト。エリア・職種・雇用形態など条件から、自分に合った仕事を簡単に探せます。';
 
 // 本番のみ metadataBase を設定
-const metadataBase = isRealProduction
-  ? new URL(process.env.NEXT_PUBLIC_METADATA_BASE || 'https://rita-work.jp/')
-  : undefined;
+const metadataBase = isRealProduction ? new URL(siteUrl) : undefined;
 
 export const metadata: Metadata = {
   title: {
@@ -54,12 +53,7 @@ export const metadata: Metadata = {
       url: metadataBase?.toString(),
       type: 'website',
       images: [
-        {
-          url: '/ogp.jpg',
-          width: 1200,
-          height: 630,
-          alt: 'リタワークのOGP画像',
-        },
+        getDefaultOpenGraphImage(),
       ],
     },
   }),

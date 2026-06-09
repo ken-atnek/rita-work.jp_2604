@@ -6,14 +6,30 @@
  * ======================================= */
 import type { Metadata } from 'next';
 import { isRealProduction } from '@/lib/env';
+import { getCanonicalUrl, getDefaultOpenGraphImage } from '@/lib/seo';
 
 import styles from '../../styles/PageTerms.module.scss';
 export const generateMetadata = (): Metadata => {
+  const title = '利用規約';
+  const description = isRealProduction
+    ? '求人・転職支援サービス「リタワーク」の利用規約ページです。サービス利用条件、禁止事項、免責事項についてご確認いただけます。'
+    : undefined;
+
   return {
-    title: '利用規約｜リタワーク',
-    description: isRealProduction
-      ? '求人・転職支援サービス「リタワーク」の利用規約ページです。サービス利用条件、禁止事項、免責事項についてご確認いただけます。'
-      : undefined,
+    title,
+    description,
+    alternates: {
+      canonical: getCanonicalUrl('/terms/'),
+    },
+    ...(isRealProduction && {
+      openGraph: {
+        title: `${title}｜リタワーク`,
+        description,
+        url: getCanonicalUrl('/terms/'),
+        type: 'website',
+        images: [getDefaultOpenGraphImage()],
+      },
+    }),
   };
 };
 
@@ -21,7 +37,7 @@ export default async function TermsPage() {
   return (
     <main>
       <section className={styles.containerHead}>
-        <h2>利用規約</h2>
+        <h1>利用規約</h1>
       </section>
       <section className={styles.containerDetails}>
         <article>

@@ -12,6 +12,8 @@
 8. `docs/rules/fetch-pattern.md`
 9. `docs/rules/ui-interactions.md`
 10. `docs/rules/checklist.md`
+11. `docs/seo/RITA_WORK_SEO_SPEC.md`（SEO 実装時）
+12. `docs/seo/ROOTS_QUERY_SEO_SPEC.md`（ROOTS SEO 実装時）
 
 必須ルール（最優先）:
 

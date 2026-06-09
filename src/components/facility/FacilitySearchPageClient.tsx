@@ -21,6 +21,11 @@ import type { SalaryUnitMaster, JobCommonConfig } from '@/types/master';
 import FacilitySearchBox from '@/components/facility/search/FacilitySearchBox';
 import { JobCardList } from '@/components/job/JobCardList';
 import { useFavoriteJobIds } from '@/hooks/useFavoriteJobIds';
+import {
+  getCanonicalUrl,
+  upsertCanonicalLink,
+  upsertRobotsMeta,
+} from '@/lib/seo';
 
 import { loadJobsFilterMasters } from '@/utils/loadJobsFilterMasters';
 
@@ -65,6 +70,12 @@ export function FacilitySearchPageClient() {
    * -------------------------------------- */
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    document.title = '事業所検索｜リタワーク';
+    upsertCanonicalLink(getCanonicalUrl('/facility/'));
+    upsertRobotsMeta('noindex,follow');
+  }, []);
 
   /* ---------------------------------------
    * 初期ロード
@@ -185,7 +196,7 @@ export function FacilitySearchPageClient() {
   return (
     <>
       <section className={styles.containerHead}>
-        <h2>事業所検索</h2>
+        <h1>事業所検索</h1>
 
         {/* 検索ボックス（kw復元） */}
         <FacilitySearchBox

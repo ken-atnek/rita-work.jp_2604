@@ -37,7 +37,7 @@
             max-width: unset;
             padding-top: 12vw;
         }
-        h3 {
+        h2 {
             font-size: fz(22);
             font-weight: 700;
             align-self: flex-start;
@@ -138,8 +138,8 @@
             margin-top: 3rem;
             display: flex;
             flex-direction: column;
+            h3,
             h4,
-            h5,
             address,
             span {
                 font-size: fz(14);

@@ -37,7 +37,7 @@ export default async function TipDetailPage({ params }: PageProps) {
   return (
     <main>
       <section className={styles.containerHead}>
-        <h2>転職のヒント</h2>
+        <h1>転職のヒント</h1>
       </section>
 
       <section className={styles.containerDetails}>

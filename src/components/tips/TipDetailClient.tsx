@@ -14,6 +14,7 @@ import styles from '@/styles/PageTips.module.scss';
 import type { TipDetail } from '@/types/tips';
 import { withBasePath } from '@/utils/withBasePath';
 import { TipsBodyRenderer } from '@/components/tips/TipsBodyRenderer';
+import { getCanonicalUrl, upsertCanonicalLink } from '@/lib/seo';
 
 type Props = {
   id: string;
@@ -35,6 +36,16 @@ export function TipDetailClient({ id }: Props) {
       .then((json) => setDetail(json as TipDetail))
       .catch(() => setIsError(true));
   }, [id]);
+
+  useEffect(() => {
+    if (!detail) return;
+
+    document.title = [detail.title, '転職のヒント', 'リタワーク']
+      .filter(Boolean)
+      .join('｜');
+
+    upsertCanonicalLink(getCanonicalUrl(`/tips/${id}/`));
+  }, [detail, id]);
 
   if (isError) {
     return (

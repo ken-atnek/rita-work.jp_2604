@@ -40,7 +40,7 @@ export function ContainerFacilityHero({
             />
           ) : null}
         </div>
-        <h2>{name}</h2>
+        <h1>{name}</h1>
 
         <ul className={styles.listJobCategory}>
           {sortedTags.map((tag) => (

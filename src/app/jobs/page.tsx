@@ -10,17 +10,33 @@ import { isRealProduction } from '@/lib/env';
 
 import { Suspense } from 'react';
 import JobsPageClient from '@/components/jobs/JobsPageClient';
+import { getCanonicalUrl, getDefaultOpenGraphImage } from '@/lib/seo';
 
 function JobsPageFallback() {
   return <p>読み込み中...</p>;
 }
 
 export const generateMetadata = (): Metadata => {
+  const title = '求人検索';
+  const description = isRealProduction
+    ? '医療・介護・福祉業界の求人を掲載。エリアや職種、雇用形態など条件から自分に合った仕事を簡単検索。あなたの新しい一歩をサポートします。'
+    : undefined;
+
   return {
-    title: '求人検索｜リタワーク',
-    description: isRealProduction
-      ? '医療・介護・福祉業界の求人を掲載。エリアや職種、雇用形態など条件から自分に合った仕事を簡単検索。あなたの新しい一歩をサポートします。'
-      : undefined,
+    title,
+    description,
+    alternates: {
+      canonical: getCanonicalUrl('/jobs/'),
+    },
+    ...(isRealProduction && {
+      openGraph: {
+        title: `${title}｜リタワーク`,
+        description,
+        url: getCanonicalUrl('/jobs/'),
+        type: 'website',
+        images: [getDefaultOpenGraphImage()],
+      },
+    }),
   };
 };
 

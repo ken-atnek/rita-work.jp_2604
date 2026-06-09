@@ -19,7 +19,6 @@ import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import Image from 'next/image';
 import { QRCodeCanvas } from 'qrcode.react';
-import ExternalLink from '@/components/common/ExternalLink';
 type ContainerJobHeroProps = {
   job: Job;
   facility: Facility;
@@ -133,7 +132,7 @@ export default function ContainerJobHero({
               <span className={styles.employmentType}>{typeName}</span>
             )}
           </div>
-          <h2>{job.title}</h2>
+          <h1>{job.title}</h1>
 
           <div className={styles.boxSlideImage}>
             <Splide
